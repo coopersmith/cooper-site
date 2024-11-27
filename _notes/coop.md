@@ -1,6 +1,6 @@
 ---
 title: Cooper Smith
 ---
-# Nwhat is this
+# Header
 
 Here's the next step in my digital garden journey.
