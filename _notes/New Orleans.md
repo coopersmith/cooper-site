@@ -7,24 +7,21 @@ title: New Orleans
 
 Willa Jean - Might be a little long in the tooth these days, but a great place to soak up the booze 
 
-  
 ### Lunch
 
 **Turkey and the Wolf** - one of the best lunches you’ll ever have. Fried Bologna sandwich is a top 5 sandwich of my life. Find someone to go splitty/Split on the burger (Closed Mon/Tues)
   
 **Mothers Po Boys -** outside your hotel. I think you can order ahead
 
-  
 
 **Parker’s** and **Domicils -** Widely regarded as the two best po boys in the city. We had both and our verdict is: Yes. They’re both incredible. 
 
+
+**Kiler Po Boys** - Mo Po Boys. Not as good
+
   
 
-Kiler Po Boys - Mo Po Boys. Not as good
-
-  
-
-**Cochon Butcher** - Good spot for lunch if you’re over Po Boys (Don’t confuse with Cochon, non butcher)
+**Cochon Butcher** - Good spot for lunch if you need a break from Po Boys 
 
   
 
@@ -32,7 +29,7 @@ Kiler Po Boys - Mo Po Boys. Not as good
 
 **Dinner**
 
-  
+
 
 **Hungry Eyes** - Turkey and the Wolf folks are trying dinner. Amazing martinis. Dinner was really good too. 80s vibe wasn’t for me, but the food and drink made up for it
 
