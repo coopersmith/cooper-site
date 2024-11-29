@@ -3,6 +3,11 @@ title: New Orleans
 ---
 
 ## The List
+
+### Stay
+
+**Hotel St. Vincent** - A fantastic way to get out of the 
+
 ### Breakfast
 
 Willa Jean - Might be a little long in the tooth these days, but a great place to soak up the booze 
