@@ -1,6 +1,8 @@
-Current as of November 28th. Still a lot left to listen to
+
 
 ## 💿 Music
+
+Current as of November 28th. Still a lot left to listen to
 
 ### Albums
 
@@ -36,6 +38,21 @@ Current as of November 28th. Still a lot left to listen to
 
 
 ## 📺 Television
+
+1. The Bear, Volume 3
+2. Industry Seasons 1-3
+3. Euphoria, complete series
+4. Fallout, S1
+5. The New Look
+6. Shrinking, S2
+7. Mr and Mrs Smith
+8. Hacks S01-S03
+9. Nobody Wants This
+10. Presumed Innocent
+
+## 🎬 Movies
+
+
 
 
 ## 📚 Books
