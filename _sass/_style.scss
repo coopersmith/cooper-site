@@ -160,9 +160,27 @@ a {
   color: black !important;
 }
 
-nav {
-  margin: 1em 0 3em;
+.nav {
+  display: flex; /* Arrange links in a row */
+  gap: 1em; /* Add space between links */
+  align-items: center; /* Align items vertically */
+  font-size: 16px;
 }
+
+.nav a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8); /* Adjust color for links */
+  transition: color 0.3s;
+}
+
+.nav a:hover {
+  color: #007acc; /* Change color on hover */
+}
+
+.nav a b {
+  font-size: 18px; /* Slightly larger for the site title */
+}
+
 
 #notes-entry-container {
   display: grid;
