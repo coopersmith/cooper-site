@@ -1,12 +1,21 @@
 ---
 title: New Orleans
 ---
+> “America has only three cities: New York, San Francisco, and New Orleans. Everywhere else is Cleveland”
+Tennessee Williams
+
+With no disrespect to Cleveland, I feel this. There's truly no city in America, or anywhere else in the world, like New Orleans. It's where we go when we need a trip that feels like escaping to a 
+
+Below, please find a list of all my favorite places, as well as a suggested itinerary. 
+
+Number of visits: 4
+Most recent visit: September, 2024
 
 ## The List
 
 ### Stay
 
-**Hotel St. Vincent** - A fantastic way to get out of the 
+**Hotel St. Vincent** - A fantastic way to get out of the French Quarter
 
 ### Breakfast
 
