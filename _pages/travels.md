@@ -170,9 +170,15 @@ My first time traveling solo, I went full Lost in Translation.
 
 ---
 
+<<<<<<< HEAD
 ### 2016 
 ## Sydney 🇦🇺
 A few weeks working out of the Twitter Sydney office to launch Moments.
+=======
+### 2016 🇦🇺
+## Sydney 
+A few weeks working out of the Twitter Sydney office to launch Twitter Moments.
+>>>>>>> 46774b879d26e894a3f9f632d5a61b91f534743b
 
 ---
 
