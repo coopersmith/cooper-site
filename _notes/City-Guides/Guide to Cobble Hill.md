@@ -19,11 +19,12 @@ I don’t spend nearly enough time here, but they’re a sneaky Wisconsin bar (c
 It’s always amazing to me that one of New York’s best restaurants 
 
 **🍸 Elsa**  
-Whenever we're out in Manhttan contemplating one more drink before calling it a night, we usually end up putting Elsa into our Lyft app and ending with a nightcap in the neighborhood. Very good cocktails and a great cozy vibe in the winter. In the summer, they have a back patio thats open until 10pm that is incredibly chill.
+Whenever we're out in Manhattan contemplating one more drink before calling it a night, we usually end up putting Elsa into our Lyft app and ending with a nightcap in the neighborhood.
 
 
  **🍺 Talea**
- Whatever your mental model of a brewery / taproom is, Taleas is not it. Bright, airy
+ Whatever your mental image is of a brewery/tap room, it's not this. Warm, bright
+ 
 
 **📚 Books are Magic**
 
@@ -42,6 +43,7 @@ Really great brunch, but also a great dinner spot.
 
 **🥃 Pips**
 
+
 **Sahadis**
 
 ## If you live here
@@ -50,15 +52,11 @@ Really great brunch, but also a great dinner spot.
 “Fresh fish is not cheap. Cheap fish is not fresh” is the sign that greets you
 
 **🥖 Bien Cuit**  
-Saturday morning errands usually include a stop for a few fresh loaves of whatever looks great.
+Saturday mornign errands usually include a stop for a few fresh loaves of whatever looks great.
 
 
 **🥩 Paisanos Butcher Shop** + **🥩Dellapietras**  
 I’m not sure what we did to deserve two outstanding butchers in the neighborhood, but it makes me upset I don’t have a good grill. 
-
-**🥙 Damascus**  
-The best shawarma in the city.
-
 
 
 
