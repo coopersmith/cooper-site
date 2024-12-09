@@ -8,26 +8,29 @@ With no disrespect to Cleveland, I feel this. There's truly no city in America, 
 
 Below, please find a list of all my favorite places, as well as a suggested itinerary. 
 
-Number of visits: 4
-Most recent visit: September, 2024
+**Number of visits:** 4  
+**Most recent visit:** September, 2024
 
 ## Stay
 
-**Hotel St. Vincent** - A fantastic way to get out of the French Quarter. This feels like the spiritual successor the Ace, but one that grew with me into adulthood. Absolutely fantastic pool, though the lounge chairs are a bit limited and therefore competitive (some folks get there at 8am to start reserving). 
+**Hotel St. Vincent**  
+A fantastic way to get out of the French Quarter. This feels like the spiritual successor the Ace, but one that matured a bit with me and values a slightly more upscale and chill vibe. Absolutely fantastic pool, though the lounge chairs are a bit limited and therefore competitive (some folks get there at 8am to start reserving). 
 
 ## Breakfast
+I'm past the age of making breakfast/brunch a destination. I'm usually looking for something quick, but substantial, to fuel me for whatever morning breakfast I have in store.
 
-**Hotel St. Vincent** - I'm 
+**San Lorenzo at Hotel St. Vincent**  
+To that end, on our last trip, this is where we ate 4/4 of our breakfasts.
 
-**Willa Jean** - Might be a little long in the tooth these days, but a great place to soak up the booze 
+**Willa Jean**  
+Might be a little long in the tooth these days, but a great place to soak up the booze 
 
-**Cafe du Monde** - A New Orleans institution for their beignets. Not exactly what I would call breakfast, but widely popular. Avoid the one in the French Quarter and head to the one in City Park, combined with a visit to the New Orleans Museum of Art.
+**Cafe du Monde**  
+A New Orleans institution for their beignets. Not exactly what I would call breakfast, but widely popular. Avoid the one in the French Quarter and head to the one in City Park, combined with a visit to the New Orleans Museum of Art.
 
 ## Lunch
 
 **Turkey and the Wolf** - one of the best lunches you’ll ever have. Fried Bologna sandwich is a top 5 sandwich of my life. Find someone to go splitty/split on the burger (Closed Mon/Tues)
-
-**Cochon Butcher** - Good spot for lunch if you need a break from Po Boys 
 
 ### Po Boys 
 
@@ -37,6 +40,7 @@ Most recent visit: September, 2024
 
 **Kiler Po Boys** - Po Boys with a bit of a bann mi twist
 
+**Cochon Butcher** - Good spot for lunch if you need a break from Po Boys 
 
   
 
@@ -54,12 +58,21 @@ Most recent visit: September, 2024
 
 ## Drinks
 
-- **Jewel of the South** - I advise avoiding Bourbon street, and the French Quarter in general, but Jewel of the South is a great exception to the rule. Just rated one of the best cocktail bars in America
-- **Bar Tonique -** Near Jewel of the South. Located on the fringe of the French Quarter, what appears to be a dive bar from the outside is one of the more impressive cocktail bars I’ve ever stepped foot into.
-- **Bacchanal Fine Wine & Spirits** - Get here early on a Friday evening and stake out a table outside, then spend the evening drinking wine and listening to music until its time to head to dinner.
-- **Parleux Beer** - Near Bacchanal. Huge backyard (not really a yard). Decent beers. Good to combine with Bacchanal if you’re over there
-- **Urban South** - Favorite brewery in New Orleans. Combine with a Turkey and the Wolf trip
-- **Compere Lapin + Peacock Room** - Both good cocktail options if you find yourself in the CBD
+**Jewel of the South**  
+I advise avoiding Bourbon street, and the French Quarter in general, but Jewel of the South is a great exception to the rule (and its 20 feet from the edge of the Quarter.) Just rated one of the best cocktail bars in America
+
+**Bar Tonique**   
+Near Jewel of the South. Located on the fringe of the French Quarter, what appears to be a dive bar from the outside is one of the more impressive cocktail bars I’ve ever stepped foot into.
+
+**Bacchanal Fine Wine & Spirits**  
+Get here early on a Friday evening and stake out a table outside, then spend the evening drinking wine and listening to music until its time to head to dinner.
+
+**Parleux Beer** 
+Near Bacchanal. Huge backyard (not really a yard). Decent beers. Good to combine with Bacchanal if you’re over there
+
+**Urban South** - Favorite brewery in New Orleans. Combine with a Turkey and the Wolf trip
+
+**Compere Lapin + Peacock Room** - Both good cocktail options if you find yourself in the CBD
   
 
 ## Nightlife
