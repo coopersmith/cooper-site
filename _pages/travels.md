@@ -25,8 +25,8 @@ We spent Christmas with my parents in Northern Wisconsin and then continued our 
 
 ---
 
-### 2023 🇿🇦
-## South Africa
+### 2023  
+## South Africa 🇿🇦
 Our honeymoon. Capetown, wine country, and safari.
 [📷 Photos](https://glass.photo/coop/series/kD4iV0Sva7gJOwMrahrI1-south-africa)
 
@@ -39,33 +39,33 @@ A west coast tour. Started in Inverness to spend time with family, I shot down t
 ---
 
 ### 2023
-## Monza + Lake Como 
+## Monza + Lake Como 🇮🇹
 A family trip to Monza for F1 and a stay at Lake Como.
 [📷 Photos](https://glass.photo/coop/series/66HFI7f2xQnlhzPamAacAP-northern-italy)
 
 ---
 
-### 2022 🏴󠁧󠁢󠁥󠁮󠁧󠁿
-## Christmas in London  
+### 2022  
+## London 🏴󠁧󠁢󠁥󠁮󠁧󠁿
 A few days of working remotely and eating amazing meals before spending the holiday with family in Epsom.
 
 ---
 
-### 2022 🇮🇹
-## Thanksgiving in Piedmont  
-Mini-moon to Piedmont Italy for truffle season and barolo wine.
+### 2022  
+## Piedmont 🇮🇹
+Mini-moon to Piedmont Italy for Thanksgiving to trade turkey for truffle season and barolo wine.
 [📷 Photos](https://glass.photo/coop/series/66HFI7f2xQnlhzPamAacAP-northern-italy)
 
 ---
 
-### 2022 🇫🇷 
-## Paris 
+### 2022 
+## Paris 🇫🇷
 Quick work trip to Paris in August, when absolutely nobody was around.
 
 ---
 
-### 2022 🇮🇹 🇫🇷 
-## Milan + Lake Como + Venice + Paris 
+### 2022 
+## Milan + Lake Como + Venice + Paris 🇮🇹 + 🇫🇷
 2 years in the making, Lake Como and the Venice Biennele. Then tacked on a trip to Paris at the end to onboard at my new job.
 [📷 Photos](https://glass.photo/coop/series/66HFI7f2xQnlhzPamAacAP-northern-italy)
 
@@ -78,21 +78,21 @@ Taking advantage of being able to travel again to visit friends in New Orleans a
 
 ---
 
-### 2022 🇲🇽
-## Cuixmala  
+### 2022 
+## Cuixmala 🇲🇽
 On the second day of Covid, we bookmarked this place and promised we'd return if the world ever reopened. Two years later, we made good on that promise to ourselves.
 
 ---
 
 ### 2021
-## Northern Wisconsin 🎣 
+## Northern Wisconsin  
 Description
 
 ---
 
 ### 2021
 ## Inverness 
-Description
+A week working remote from Inverness, California, ending the days with amazing hikes and exploration of the beautiful area.
 
 ---
 
@@ -122,21 +122,21 @@ Description
 
 ---
 
-### 2020 🇨🇴
-## Cartagena  
+### 2020 
+## Cartagena 🇨🇴
 Description
 
 ---
 
-### 2019 🇵🇹
-## Lisbon  
+### 2019 
+## Lisbon 🇵🇹
 Description
 
 ---
 
 ### 2019
 ## Nashville  
-Description
+Lyft work trip to Nashville with the Rider Experience team.
 
 ---
 
@@ -148,79 +148,78 @@ Description
 
 ### 2018/19
 ## Palm Springs + Joshua Tree 
-Description
-
+New Years Eve in Palm Springs, followed by a few days in Joshua Tree.
 ---
 
 ### 2018
 ## Maui
-Description
+
 
 ---
 
-### 2017 🇲🇽 
-## Mexico City 
+### 2017 
+## Mexico City 🇲🇽
 Spontaneously decided to spend my birthday exploring Mexico City, booked a trip with 4 days notice and had an absolutely incredible time.
 
 ---
 
-### 2016 🇯🇵
-## Japan 
+### 2016 
+## Japan 🇯🇵
 My first time traveling solo, I went full Lost in Translation. 
 [📷 Photos](https://glass.photo/coop/series/3dPQRvbBNThTCWYvrEvMWr-japan)
 
 ---
 
-### 2016 🇦🇺
-## Sydney 
+### 2016 
+## Sydney 🇦🇺
 A few weeks working out of the Twitter Sydney office to launch Moments.
 
 ---
 
-### 2015/16 🇳🇴
-## Trondheim 
+### 2015/16 
+## Trondheim 🇳🇴
 Christmas in Norway
 [📷 Photos](https://glass.photo/coop/series/LmgqwWL8YzJ4LU0JlQDPu-norway)
 
 ---
 
-### 2015 🇨🇦
-## Newfoundland 
+### 2015 
+## Newfoundland 🇨🇦
 A long labor day weekend spent roadtripping around Newfoundland, including a stay at the incredible Fogo Island Inn.
 [📷 Photos](https://glass.photo/coop/series/78w9M2xWpUNVzUipRgzw2u-newfoundland)
 
 ---
 
-### 2014/15 🇳🇴
-## Røros 
+### 2014/15 
+## Røros 🇳🇴
 New Years in Trondheim and then catching a train to the magical mountain town of Røros.
 [📷 Photos](https://glass.photo/coop/series/LmgqwWL8YzJ4LU0JlQDPu-norway)
 
 
 ---
 
-### 2014 🇨🇦
-## Montreal 
+### 2014 
+## Montreal 🇨🇦
 Memorial Day weekend exploring Montreal
 
 ---
 
-### 2014 🇳🇴
-## Fjordruta 
-A four day backpacking trip through Norway, along with stays in Trondheim, ____, and Oslo.
+### 2014 
+## Fjordruta 🇳🇴
+A four day backpacking trip along Fjordruta in Kristiansund, along with stays in Trondheim, Snøhetta, and Oslo.
 [📷 Photos](https://glass.photo/coop/series/LmgqwWL8YzJ4LU0JlQDPu-norway)
 
 ---
 
-### 2013 🇳🇴
-## Lofoten 
+### 2013 
+## Lofoten 🇳🇴
 A week exploring above the Arctic Circle with the midnight sun.
 [📷 Photos](https://glass.photo/coop/series/LmgqwWL8YzJ4LU0JlQDPu-norway)
 
 ---
 
-### 2012 🇳🇴 🇩🇰
-## Norway + Denmark 
+### 2012 
+## Norway 🇳🇴 + Denmark 🇩🇰 
 My first trip to Norway. Started in Trondheim, went to Geirangerfjord, down to Oslo, then on to Copenhagen.
 [📷 Photos](https://glass.photo/coop/series/LmgqwWL8YzJ4LU0JlQDPu-norway)
 

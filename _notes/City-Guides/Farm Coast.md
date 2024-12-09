@@ -1,4 +1,5 @@
 ---
+title: Farm Coast
 created: 2024-08-04
 tags:
   - note
@@ -45,7 +46,7 @@ https://sweetandsaltyfarm.com/online-store/
 This has become our go to weekend bread. Perfect with eggs, avocado toast, 
 
 Sweet and Salty Farms 
-Though you can stop at the farm on Saturday and Sunday throughout the weekend, you can also find their incredible yogurt through the Farm Coast area. W
+Though you can stop at the farm on Saturday and Sunday throughout the weekend, you can also find their incredible cream topped yogurt throughout the Farm Coast area. Add some 
 
 Field Stone Kombucha -
 

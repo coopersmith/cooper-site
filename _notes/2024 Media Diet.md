@@ -23,7 +23,7 @@ Current as of November 28th. Still a lot left to listen to.
 3. places to be - Fred Again
 4. Freedom - Jordan Rakei
 5. Dafodil - Jamie XX
-6. Bon Iver - 
+6. Bon Iver - S P E Y S I D E
 
 
 #### Top 10 Most Listened to Songs
@@ -50,9 +50,10 @@ Note: Several of these shows didn't come out in 2024.
 5. The New Look
 6. Shrinking, S2
 7. Mr and Mrs Smith
-8. Hacks Seasons 1-3
-9. Nobody Wants This
-10. Presumed Innocent
+8. Slow Horses S01-S04
+9. Hacks Seasons 1-3
+10. Nobody Wants This
+11. Presumed Innocent
 
 ## 🎬 Movies
 I'm pretty active on Letterboxd, where they have a much better [2024 Year in Review](https://letterboxd.com/coopersmith/year/2024/)
