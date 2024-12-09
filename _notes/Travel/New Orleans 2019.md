@@ -2,6 +2,9 @@
 title: New Orleans 2019
 layout: default
 ---
+<img src="{{ site.baseurl }}/assets/47989916343_d39581b119_o.jpeg"/>
+
+
 In early April, we went down to New Orleans for a long weekend to celebrate my 34th birthday. Though my dad is from New Orleans, I had only ever visited once, a few years back, for a Saints game and bachelor party, so my experience this time around was much different.
 
 We spent five days eating and drinking our way through the city. We visited the two best po’ boy spots in the city on the same day, stopped off at Cafe Dumont for beignets in between rounds of cocktails, tried our first fried alligator, and took full advantage of crawfish being in season.
