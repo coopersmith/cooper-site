@@ -21,3 +21,6 @@ It was a rainy Sunday and we were fairly certain this weeks parade would be canc
 We stayed with the parade for a few hours and then split off to continue exploring. It was one of the coolest things I’ve ever been a part of, and I feel so fortunate to have been able to participate.
 
 <img src="{{ site.baseurl }}/assets/©CooperLiskaSmith_20190331_150850_3stars_.jpeg"/>
+
+
+Since writing this, I've returned to New Orleans several times. I keep a comprehensive guide to all my favorite spots at [[Guide to New Orleans]]
