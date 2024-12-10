@@ -16,6 +16,8 @@ I split my time between Brooklyn, NY and our 1754 farmhouse on the [Rhode Island
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop).
 
+I will forever be in a struggle of levaraging the amazing tools available to us throughout the web, or rolling my own version of them. To that end, this site is a bit of experiment of bringing a bit more of those "in house". Below please find my:
+
 <strong>Recently updated notes</strong>
 
 <ul>
