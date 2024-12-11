@@ -1,7 +1,9 @@
 ---
 title: New Orleans
+subtitle: A food and drink lover's guide to the Big Easy
 ---
-> “America has only three cities: New York, San Francisco, and New Orleans. Everywhere else is Cleveland”
+
+> "America has only three cities: New York, San Francisco, and New Orleans. Everywhere else is Cleveland"
 Tennessee Williams
 
 With no disrespect to Cleveland, I feel this. There's truly no city in America, or anywhere else in the world, like New Orleans. It's where we go when we need a trip that feels like escaping to a 
@@ -16,17 +18,20 @@ Below, please find a list of all my favorite places, as well as a suggested itin
 **Hotel St. Vincent**  
 A fantastic way to get out of the French Quarter. This feels like the spiritual successor the Ace, but one that matured a bit with me and values a slightly more upscale and chill vibe. Absolutely fantastic pool, though the lounge chairs are a bit limited and therefore competitive (some folks get there at 8am to start reserving). 
 
-## Breakfast
-I'm past the age of making breakfast/brunch a destination. I'm usually looking for something quick, but substantial, to fuel me for whatever morning breakfast I have in store.
+## Coffee and Breakfast
+
+I'm past the age of making breakfast/brunch a destination. I'm usually looking for something quick, but substantial, to fuel me for whatever morning adventures we have planned.
 
 **San Lorenzo at Hotel St. Vincent**  
-To that end, on our last trip, this is where we ate 4/4 of our breakfasts.
+To that end, on our last trip, this is where we ate 4/4 of our breakfasts. 
+
+
 
 **Willa Jean**  
 Might be a little long in the tooth these days, but a great place to soak up the booze 
 
 **Cafe du Monde**  
-A New Orleans institution for their beignets. Not exactly what I would call breakfast, but widely popular. Avoid the one in the French Quarter and head to the one in City Park, combined with a visit to the New Orleans Museum of Art.
+A New Orleans institution for their beignets. Not exactly what I would call breakfast, but widely popular. Avoid the one in the French Quarter and head to the one in City Park, combined with a visit to the New Orleans Museum of Art. Hits just as well as a mid afternoon snack.
 
 ## Lunch
 

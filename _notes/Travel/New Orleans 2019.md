@@ -1,12 +1,9 @@
 ---
-title: New Orleans 2019
-layout: default
+title: New Orleans
+subtitle: 2019
 ---
-# New Orleans
-
 
 <img src="{{ site.baseurl }}/assets/47989916343_d39581b119_o.jpeg"/>
-#### 2019
 
 In early April, we went down to New Orleans for a long weekend to celebrate my 34th birthday. Though my dad is from New Orleans, I had only ever visited once, a few years back, for a Saints game and bachelor party, so my experience this time around was much different.
 
@@ -29,4 +26,4 @@ We stayed with the parade for a few hours and then split off to continue explori
 <img src="{{ site.baseurl }}/assets/©CooperLiskaSmith_20190331_150850_3stars_.jpeg"/>
 
 
-Since writing this, I've returned to New Orleans several times. I keep a comprehensive guide to all my favorite spots at [[Guide to New Orleans]]
+Since writing this, I've returned to New Orleans several times. I keep a comprehensive guide to all my favorite spots at [[New Orleans.md]]
