@@ -150,6 +150,7 @@ Description
 ### 2018/19
 ## Palm Springs + Joshua Tree 
 New Years Eve in Palm Springs, followed by a few days in Joshua Tree.
+
 ---
 
 ### 2018
