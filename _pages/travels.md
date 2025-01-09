@@ -8,7 +8,7 @@ permalink: /travels/
 
 ### 2024 
 ## New Orleans
-In a year of no travel, a quick escape to our favorite city
+In a year of no travel, a quick escape to our favorite city  
 <small>[📷 Photos](https://glass.photo/coop/series/4PFEWjaQhHWtcPfnYiTeM0-new-orleans) | [[New Orleans|Recommendations]]</small>
 
 ---
