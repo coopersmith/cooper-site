@@ -46,7 +46,7 @@ A family trip to Monza for F1 and a stay at Lake Como.
 ---
 
 ### 2022  
-## London 🏴󠁧󠁢󠁥󠁮󠁧󠁿
+## London 🇬🇧
 A few days of working remotely and eating amazing meals before spending the holiday with family in Epsom.
 
 ---
