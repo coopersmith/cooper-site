@@ -40,38 +40,35 @@ Sweet & Salty Farm
 https://sweetandsaltyfarm.com/online-store/
 
 
-## Farm Stand Purchases
+### Farm Stand Purchases
 
-### [[Renegade Rising Bread ]]
-This has become our go to weekend bread. Perfect with eggs, avocado toast, 
-
+ ### 🍞 [[Renegade Rising Bread ]] This has become our go to weekend bread. Perfect with eggs, avocado toast, or however you choose to start your day.
 Sweet and Salty Farms 
 Though you can stop at the farm on Saturday and Sunday throughout the weekend, you can also find their incredible cream topped yogurt throughout the Farm Coast area. Add some 
 
 Field Stone Kombucha -
 
-Sweet Corn
-
-Heirloom Tomatoes
-
-## Coffee
-
-[[Coastal Roasters]]
-There's faster ways in and out of the area, but those routes don't stop by Coastal Roasters. 
-
-[[Gray's Daily Grind]]
-We rarely pass through Adamsville without a stop at Gray's Daily Grind. 
-
-[[Art Cafe]]
-
-[[Groundswell]]
-A truly beautiful cafe, along with pastries that are out of this world, Groundswell has turned into a tourist destination and the heartbeat of the Tiverton Four Corners. Grab a coffee and browse their amazing home store and garden store.
+🌽 Sweet Corn
+🍅 Heirloom Tomatoes
 
 ## Fresh Seafood
 
 [[Westport Lobster]]
 
 [[Sakonnet Lobster]]
+
+
+
+## Coffee
+
+[[Coastal Roasters]]: There's faster ways in and out of the area, but those routes don't stop by Coastal Roasters. 
+
+[[Gray's Daily Grind]]: We rarely pass through Adamsville without a stop at Gray's Daily Grind. Serving coffee from Coastal Roasters, they do a fantastic cold brew that makes an excellent afternoon pick-me-up.
+
+[[Art Cafe]]
+
+[[Groundswell]]: A truly beautiful cafe, along with pastries that are out of this world, Groundswell has turned into a tourist destination and the heartbeat of the Tiverton Four Corners. Grab a coffee and browse their amazing home store and garden store.
+
 
 
 
