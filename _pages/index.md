@@ -28,7 +28,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
   {% endfor %}
 </ul>
 
-<h3>Recently Created</h3>
+<!-- <h3>Recently Created</h3>
 <ul>
   {% assign new_notes = site.notes | sort: "created_at_timestamp" | reverse %}
   {% for note in new_notes limit: 5 %}
@@ -37,7 +37,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     </li>
   {% endfor %}
 </ul>
-
+-->
 <style>
   .wrapper {
     max-width: 46em;
