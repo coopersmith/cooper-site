@@ -1,6 +1,6 @@
 ---
-title: New Orleans
-subtitle: A food and drink lover's guide to the Big Easy
+title: Coop's Guide to New Orleans
+subtitle:
 ---
 
 > "America has only three cities: New York, San Francisco, and New Orleans. Everywhere else is Cleveland"
@@ -10,8 +10,9 @@ With no disrespect to Cleveland, I feel this. There's truly no city in America, 
 
 Below, please find a list of all my favorite places, as well as a suggested itinerary. 
 
-**Number of visits:** 4  
-**Most recent visit:** September, 2024
+> [!Quick Stats]
+> ==**Number of visits:** 4==  
+> ==**Most recent visit:** September, 2024==
 
 ## Stay
 

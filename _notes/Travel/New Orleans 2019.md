@@ -1,5 +1,5 @@
 ---
-title: New Orleans 2019
+title: New Orleans
 subtitle: 2019
 ---
 
