@@ -54,13 +54,14 @@ A few days of working remotely and eating amazing meals before spending the holi
 ### 2022  
 ## Piedmont 🇮🇹
 Mini-moon to Piedmont Italy for Thanksgiving to trade turkey for truffle season and barolo wine  
-[📷 Photos](https://glass.photo/coop/series/66HFI7f2xQnlhzPamAacAP-northern-italy)
+<small>[📷 Photos](https://glass.photo/coop/series/66HFI7f2xQnlhzPamAacAP-northern-italy)</small>
 
 ---
 
 ### 2022 
 ## Paris 🇫🇷
-Quick work trip to Paris in August, when absolutely nobody was around.
+Quick work trip to Paris in August, when absolutely nobody was around  
+<small>[📷 Photos](https://glass.photo/coop/series/66HFI7f2xQnlhzPamAacAP-northern-italy)</small>
 
 ---
 
