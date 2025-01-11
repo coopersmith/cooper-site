@@ -8,7 +8,7 @@ layout: default
     {% if page.subtitle %}
     <p class="subtitle">{{ page.subtitle }}</p>
     {% endif %}
-    <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{% if page.type != 'pages' %}
+    <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" class="metadata">{% if page.type != 'pages' %}
       Last updated on {{ page.last_modified_at | date: "%B %-d, %Y" }}
       {% endif %}
     </time>
