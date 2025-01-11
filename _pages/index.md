@@ -18,7 +18,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
 
 <strong>My recently updated notes</strong>
 
-<h3>Recently Updated</h3>
+<!-- <h3>Recently Updated</h3> -->
 <ul>
   {% assign recent_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
   {% for note in recent_notes limit: 5 %}
