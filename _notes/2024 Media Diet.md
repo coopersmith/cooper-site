@@ -44,16 +44,30 @@ New Albums 66% <small> ⬇️ 3% vs. 2023 </small>
 
 **Top 10 Most Listened to Songs**
 
-1. One Last Dance - Baby Rose, 31 plays
-2. King of Sweden - Future Islands, 28 plays
-3. The Loop - Jordan Rakei, 23 plays
-4. My Way - Charlotte Day Wilson, 22 plays
-5. Peach - Future Islands, 22 plays
-6. Canopy - Charlotte Day Wilson, 21 plays
-7. I Don't Love You - Charlotte Day Wilson, 20 plays
-8. Say Goodbye - Future Islands, 19 plays
-9. Sonido Cósmico - Hermanos Gutiérrez, 18 plays
-10. 
+1. One Last Dance - Baby Rose, 32 plays
+2. King of Sweden - Future Islands, 30 plays
+3. Friend or Foe - Jordan Rakei, 26 plays
+4. My Way - Charlotte Day Wilson, 25 plays
+5. Peach - Future Islands, 24 plays
+6. Canopy - Charlotte Day Wilson, 24 plays
+7. I Don't Love You - Charlotte Day Wilson, 23 plays
+8. Low Sun - Hermanos Gutiérrez, 21 plays
+9. Say Goodbye - Future Islands, 20 plays
+10. Places to Be - Fred Again, 19 plays
+
+
+**Top 10 Most Listened to Albums
+
+1. People Who Aren't There Anymore - Future Islands, 141 plays
+2. GNX - Kendrick Lamar, 107 plays
+3. Cyan Blue- Charlotte Day Wilson, 106 plays
+4. no name - Jack White, 69 plays
+5. A La Sala, Kruganbin, 61 plays
+6. Timeless - Kaytranada, 58 plays
+7. Slow Burn - Baby Rose, 55 plays
+8. Blue Lips - ScHoolboy Q, 55 plays
+9. ten days - Fred again.., 53 plays
+10. The Loop - Jordan Rakei, 47 plays
 
 ## 📺 Television
 I watched way too much tv this year. Need to move a lot of this time over to books in 2025.
