@@ -35,12 +35,12 @@ https://www.last.fm/user/coopersmith/listening-report/year
 
 
 **Overall Stats**
-Songs (total): 7,058   <small> ⬇️ 18% vs. 2023 </small>
-Songs (unique): 4,282 <small> ⬇️ 24% vs. 2023 </small> 
-Artists: 1,988   <small> ⬇️ 17% vs. 2023 </small>
-Albums: 3,053  <small> ⬇️ 22% vs. 2023 </small>
-New Artists: 46% <small> ⬇️ 7% vs. 2023 </small>
-New Albums 66% <small> ⬇️ 3% vs. 2023 </small>
+Songs (total): 7,058   <small> ⬇️ 18% vs. 2023 </small>  
+Songs (unique): 4,282 <small> ⬇️ 24% vs. 2023 </small>   
+Artists: 1,988   <small> ⬇️ 17% vs. 2023 </small>  
+Albums: 3,053  <small> ⬇️ 22% vs. 2023 </small>  
+New Artists: 46% <small> ⬇️ 7% vs. 2023 </small>  
+New Albums 66% <small> ⬇️ 3% vs. 2023 </small> 
 
 **Top 10 Most Listened to Songs**
 
