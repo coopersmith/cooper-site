@@ -34,7 +34,7 @@ Nobody captured my 2024 listening data better than last.fm. I remain surprised a
 https://www.last.fm/user/coopersmith/listening-report/year
 
 
-**Overall Stats**
+**Overall Stats**  
 Songs (total): 7,058   <small> ⬇️ 18% vs. 2023 </small>  
 Songs (unique): 4,282 <small> ⬇️ 24% vs. 2023 </small>   
 Artists: 1,988   <small> ⬇️ 17% vs. 2023 </small>  
