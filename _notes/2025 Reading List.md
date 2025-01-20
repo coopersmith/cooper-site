@@ -7,7 +7,7 @@ tags:
 In 2024, I watched too much TV, and didn't read enough books. Hoping to shift that in 2025 and that starts with putting it down on paper. 
 
 
-|                                                                   | Status    | Author         |
+| **Book**                                                          | Status    | Author         |
 | ----------------------------------------------------------------- | --------- | -------------- |
 | James                                                             | Listening |                |
 | Character Limit: How Elon Musk Destroyed Twitter                  | Reading   |                |
@@ -17,3 +17,5 @@ In 2024, I watched too much TV, and didn't read enough books. Hoping to shift th
 | Power Broker                                                      | To-Read   | Robert A. Caro |
 |                                                                   |           |                |
 
+- [ ] James 
+- [/] Character Limit 🛫 2025-01-20
