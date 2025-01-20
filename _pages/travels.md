@@ -9,7 +9,7 @@ permalink: /travels/
 ### 2024 
 ## New Orleans
 In a year of no travel, a quick escape to our favorite city  
-[📷 Photos](https://glass.photo/coop/series/4PFEWjaQhHWtcPfnYiTeM0-new-orleans) | [[GitPublish/_notes/City-Guides/New Orleans| New Orleans]]
+[📷 Photos](https://glass.photo/coop/series/4PFEWjaQhHWtcPfnYiTeM0-new-orleans) | [[Guide to New Orleans]]
 
 ---
 
@@ -75,7 +75,7 @@ Quick work trip to Paris in August, when absolutely nobody was around
 ### 2022
 ## New Orleans  
 Taking advantage of being able to travel again to visit friends in New Orleans and celebrate my birthday  
-<small>[📷 Photos](https://glass.photo/coop/series/4PFEWjaQhHWtcPfnYiTeM0-new-orleans) | [[GitPublish/_notes/City-Guides/New Orleans|New Orleans]]</small>
+<small>[📷 Photos](https://glass.photo/coop/series/4PFEWjaQhHWtcPfnYiTeM0-new-orleans) | [[Guide to New Orleans|Guide to New Orleans]]</small>
 
 ---
 
