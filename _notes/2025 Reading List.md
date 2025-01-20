@@ -4,7 +4,7 @@ tags:
   - 0🌲
   - mediadiet/2025
 ---
-In 2024 I watched too much TV, and didn't read enough books ([[GitPublish/_notes/2024 Media Diet|2024 Media Diet]]). Hoping to shift that in 2025 and that starts with putting it down on paper. 
+In 2024 I watched too much TV, and didn't read enough books, as you can see in [[2024 Media Diet]]. I'm hoping to shift that in 2025, starting with putting the goal down on paper, including listing out the books in my queue.
 
 
 | **Book**                                                          | Status    | Author         |

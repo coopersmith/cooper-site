@@ -2,8 +2,7 @@
 title: "South Africa"
 ---
 
-For our one year anniversary, we t
-
+We differed our honeymoon by a year, opting to celebrate our one year anniversary
 
 ## Capetown
 <img src="{{ site.baseurl }}/assets/southafrica2024/IMG_1849.jpeg"/>
