@@ -1,9 +1,13 @@
 <!-- That file is not particularly elegant. This will need a refactor at some point. -->
 <style>
+  /* 
+  ** DISABLED: Purple highlight styling for internal links
+  ** Re-enable by removing comment block if you want internal links to stand out
   content a.internal-link {
     border-color: #8b88e6;
     background-color: #efefff;
   }
+  */
 
   #tooltip-wrapper {
     background: white;
@@ -41,6 +45,13 @@
 <iframe style="display: none; height: 0; width: 0;" id='link-preview-iframe' src="">
 </iframe>
 
+<!--
+** DISABLED: Link preview functionality
+** This script creates tooltip previews when hovering over internal links
+** To re-enable:
+** 1. Remove this comment block
+** 2. Make sure the tooltip styles above are active
+** 3. Verify the tooltip-wrapper div and iframe elements above are present
 <script>
   var opacityTimeout;
   var contentTimeout;
@@ -138,3 +149,4 @@
 
   document.querySelectorAll('{{ include.wrapperQuerySelector }} a').forEach(setupListeners);
 </script>
+-->
