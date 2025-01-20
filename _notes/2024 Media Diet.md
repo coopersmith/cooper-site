@@ -29,10 +29,7 @@ tags:
 
 ### Data
 
-Nobody captured my 2024 listening data better than last.fm. I remain surprised and delighted that this service continues to exist, and seemingly has amazing investment in things like a year end roundup that I found far more insightful and interesting than those produced by Spotify, Apple Music, etc.
-
-https://www.last.fm/user/coopersmith/listening-report/year
-
+Nobody captured my 2024 listening data better than last.fm. I remain surprised and delighted that this service continues to exist, let alone invest in things like a [2024 year end roundup](https://www.last.fm/user/coopersmith/listening-report/year) that I found far more insightful and interesting than those produced by Spotify, Apple Music, etc.
 
 **Overall Stats**  
 Songs (total): 7,058   <small> ⬇️ 18% vs. 2023 </small>  
@@ -43,7 +40,6 @@ New Artists: 46% <small> ⬇️ 7% vs. 2023 </small>
 New Albums 66% <small> ⬇️ 3% vs. 2023 </small> 
 
 **Top 10 Most Listened to Songs**
-
 1. One Last Dance - Baby Rose, 32 plays
 2. King of Sweden - Future Islands, 30 plays
 3. Friend or Foe - Jordan Rakei, 26 plays
@@ -56,7 +52,7 @@ New Albums 66% <small> ⬇️ 3% vs. 2023 </small>
 10. Places to Be - Fred Again, 19 plays
 
 
-**Top 10 Most Listened to Albums
+**Top 10 Most Listened to Albums**
 
 1. People Who Aren't There Anymore - Future Islands, 141 plays
 2. GNX - Kendrick Lamar, 107 plays
@@ -86,7 +82,7 @@ I watched way too much tv this year. Need to move a lot of this time over to boo
 
 Honorable mention: Nobody Wants This, Presumed Innocent
 
-*Note: Several of these shows didn't come out in 2024.* 
+*Note: Several of these shows (`*`) didn't come out in 2024.* 
 
 ## 🎬 Movies
 I'm pretty active on Letterboxd, where they have a much better [2024 Year in Review](https://letterboxd.com/coopersmith/year/2024/)
@@ -105,7 +101,11 @@ I'm pretty active on Letterboxd, where they have a much better [2024 Year in Rev
 Honorable mention: Iron Claw, Maestro, Killers of the Flower Moon, Conclave, The Order
 
 ## 📚 Books
-I'm embarrassed how few books I read in 2024, especially considering I didn't have a 9-5 for six months. 
+I'm embarrassed how few books I read in 2024, especially considering I didn't have a 9-5 for six months. But I enjoyed:
+
+- The Boys in the Boat
+- Murder Your Employer
+- Beautyland
 
 
 
