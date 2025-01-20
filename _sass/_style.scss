@@ -393,8 +393,25 @@ code {
 }
 
 table {
+  width: 100%;
+  
   td, th {
-    vertical-align: top;  // This ensures content aligns to top of cells
+    vertical-align: top;
     padding: 8px;
+    line-height: 1.2;
+    text-align: left;  // This ensures both headers and cells are left-aligned
+  }
+
+  // Column width specifications
+  th:nth-child(1), td:nth-child(1) {
+    width: 50%;
+  }
+  
+  th:nth-child(2), td:nth-child(2) {
+    width: 35%;
+  }
+  
+  th:nth-child(3), td:nth-child(3) {
+    width: 15%;
   }
 }
