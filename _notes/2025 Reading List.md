@@ -7,12 +7,13 @@ tags:
 In 2024, I watched too much TV, and didn't read enough books. Hoping to shift that in 2025 and that starts with putting it down on paper. 
 
 
-|                                                                  | Status    | Pages | Genre       | Format    | Notes     | Author         |
-| ---------------------------------------------------------------- | --------- | ----- | ----------- | --------- | --------- | -------------- |
-| Character Limit - How Elon Musk Destroyed Twitter                | Reading   |       | Non-fiction | Kindle    |           |                |
-| James                                                            | Listening |       | Fiction     | Audiobook |           |                |
-| Burn                                                             | Reading   |       | Fiction     | Hardcover |           |                |
-| The Cause The American Revolution and its Discontents, 1773-1783 | To-Read   |       | Non-fiction |           | The Cause |                |
-| The Creative Act                                                 | Reading   |       |             |           |           | Rick Rubin     |
-| Power Broker                                                     | To-Read   |       |             |           |           | Robert A. Caro |
+|                                                                   | Status    | Author         |
+| ----------------------------------------------------------------- | --------- | -------------- |
+| James                                                             | Listening |                |
+| Character Limit: How Elon Musk Destroyed Twitter                  | Reading   |                |
+| Burn                                                              | Reading   |                |
+| The Creative Act                                                  | Reading   | Rick Rubin     |
+| The Cause: The American Revolution and its Discontents, 1773-1783 | To-Read   |                |
+| Power Broker                                                      | To-Read   | Robert A. Caro |
+|                                                                   |           |                |
 
