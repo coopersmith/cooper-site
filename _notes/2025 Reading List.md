@@ -16,4 +16,3 @@ In 2024, I watched too much TV, and didn't read enough books. Hoping to shift th
 | The Creative Act                                                     |         |       |             |           |               | [[Rick Rubin]]     |
 | Power Broker                                                         |         |       |             |           |               | [[Robert A. Caro]] |
 
-![[James]]
