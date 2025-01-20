@@ -4,7 +4,7 @@ tags:
   - 0🌲
   - mediadiet/2025
 ---
-📖 I watched too much TV, and didn't read enough books, as you can see in [[2024 Media Diet]]. I'm hoping to shift that in 2025, starting with putting the goal down on paper, including listing out the books in my queue.
+In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books. I'm hoping to shift that in 2025, starting with putting the goal down on paper and identifying which books I want to read.
 
 
 | **Title**                                                         | Author                  | Status |
