@@ -4,7 +4,7 @@ tags:
   - 0🌲
   - mediadiet/2025
 ---
-In 2024, I watched too much TV, and didn't read enough books. Hoping to shift that in 2025 and that starts with putting it down on paper. 
+In [[GitPublish/_notes/2024 Media Diet|2024]], I watched too much TV, and didn't read enough books. Hoping to shift that in 2025 and that starts with putting it down on paper. 
 
 
 | **Book**                                                          | Status    | Author         |
@@ -16,6 +16,3 @@ In 2024, I watched too much TV, and didn't read enough books. Hoping to shift th
 | The Cause: The American Revolution and its Discontents, 1773-1783 | To-Read   |                |
 | Power Broker                                                      | To-Read   | Robert A. Caro |
 |                                                                   |           |                |
-
-- [ ] James 
-- [/] Character Limit 🛫 2025-01-20
