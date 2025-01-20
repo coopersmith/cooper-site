@@ -91,8 +91,6 @@ img {
   }
 }
 
-
-
 blockquote {
   padding: 1.5em;
   margin: 0;
@@ -131,7 +129,6 @@ hr {
     background: var(--color-border);
   }
 }
-
 
 h1 {
   font-family: $font-family;
@@ -190,7 +187,6 @@ h3 {
   }
 }
 
-
 h4 {
   font-family: 'Inter', sans-serif;
   font-style: normal;
@@ -222,28 +218,13 @@ h6 {
   }
 }
 
-
 a {
-  color: inherit; /* Use text color */
-  text-decoration: underline; /* Simple underline */
-  text-decoration-color: rgba(0, 0, 0, 0.3); /* Subtle underline */
-  text-underline-offset: 2px; /* Spacing between text and underline */
-  transition: text-decoration-color 0.2s ease;
-  
-  @media (prefers-color-scheme: dark) {
-    text-decoration-color: rgba(255, 255, 255, 0.3);
-  }
+  text-decoration: underline;
+  color: inherit;  // This will keep the text color the same as surrounding text
+  background: none;  // Remove any background highlight
   
   &:hover {
-    text-decoration-color: var(--color-text-secondary);
-
-    @media (prefers-color-scheme: dark) {
-      text-decoration-color: var(--color-text-secondary);
-    }
-  }
-  
-  &:after {
-    content: none; /* Remove the arrow */
+    text-decoration: none;  // Optionally remove underline on hover
   }
 }
 
@@ -281,7 +262,6 @@ a {
 .nav a b {
   font-size: 18px; /* Slightly larger for the site title */
 }
-
 
 #notes-entry-container {
   display: grid;
@@ -366,7 +346,6 @@ a {
 .two-column-grid a:hover {
   text-decoration: underline;
 }
-
 
 .backlink-box {
   background: var(--color-bg-secondary);
