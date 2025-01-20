@@ -91,8 +91,6 @@ img {
   }
 }
 
-
-
 blockquote {
   padding: 1.5em;
   margin: 0;
@@ -131,7 +129,6 @@ hr {
     background: var(--color-border);
   }
 }
-
 
 h1 {
   font-family: $font-family;
@@ -190,7 +187,6 @@ h3 {
   }
 }
 
-
 h4 {
   font-family: 'Inter', sans-serif;
   font-style: normal;
@@ -221,7 +217,6 @@ h6 {
     color: var(--color-text-tertiary);
   }
 }
-
 
 a {
   color: inherit; /* Use text color */
@@ -281,7 +276,6 @@ a {
 .nav a b {
   font-size: 18px; /* Slightly larger for the site title */
 }
-
 
 #notes-entry-container {
   display: grid;
@@ -367,7 +361,6 @@ a {
   text-decoration: underline;
 }
 
-
 .backlink-box {
   background: var(--color-bg-secondary);
   padding: 1em;
@@ -397,4 +390,11 @@ code {
     color: #666;
     display: block;
     margin-top: -0.5em;
+}
+
+table {
+  td, th {
+    vertical-align: top;  // This ensures content aligns to top of cells
+    padding: 8px;
+  }
 }
