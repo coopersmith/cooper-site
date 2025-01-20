@@ -1,32 +1,31 @@
 
 ## A-Z Cocktails
-[[Alpine Negroni]]
-[[Amen Corner]]
-[[Anvil’s Banana Boulevardier]]
-[[Bitter Giuseppe]]
-[[Bitters & Smoke Cocktail]]
-
-[[Black Manhattan]]
-[[Brooklyn]]
-[[Brooklyn Ferry]]
-[[Cardinale]]
-[[Coyote Negroni]]
-[[Dead Poet]]
-[[Division Bell]]
-[[False Start]]
-[[Fogerty]]
-[[Gage & Tollner’s Dirty Gin Martini]]
-[[Hanky Panky]]
-[[Last Word]]
-[[Manhattan]]
-[[Martinez]]
-[[Negroni]]
-[[Oaxaca Old-Fashioned]]
-[[Red Hook]]
+[[Alpine Negroni]]  
+[[Amen Corner]]  
+[[Anvil’s Banana Boulevardier]]  
+[[Bitter Giuseppe]]  
+[[Bitters & Smoke Cocktail]]  
+[[Black Manhattan]]  
+[[Brooklyn]]  
+[[Brooklyn Ferry]]  
+[[Cardinale]]  
+[[Coyote Negroni]]  
+[[Dead Poet]]  
+[[Division Bell]]  
+[[False Start]]  
+[[Fogerty]]  
+[[Gage & Tollner’s Dirty Gin Martini]]  
+[[Hanky Panky]]  
+[[Last Word]]  
+[[Manhattan]]  
+[[Martinez]]  
+[[Negroni]]  
+[[Oaxaca Old-Fashioned]]  
+[[Red Hook]]  
 
 ## Cabinet
 
-### Amaro Braulio
+### Amaro Braulio  
 [[Alpine Negroni]]
 
 ### Amaro Nonino
