@@ -23,5 +23,5 @@ layout: two-column
 </div>
 
 <div class="right-column">
-  {{ content }}
+  Add your right column content here
 </div>
