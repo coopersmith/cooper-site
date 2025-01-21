@@ -1,5 +1,9 @@
 ---
 title: San Diego
+tags: 
+  - "#travel"
+  - "#2024"
+year: 2024
 ---
 In the spring of 2024, I attended a team offsite in San Diego. While the first few days were spent locked in a hotel conference room, Thursday was a free day for team activities. For my team, I arranged a private tour of the Salk Institute just north of San Diego.
 

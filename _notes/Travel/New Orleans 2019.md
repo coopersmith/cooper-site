@@ -1,6 +1,10 @@
 ---
 title: New Orleans
 subtitle: 2019
+tags: 
+  - "#travel"
+  - "#2024"
+year: 2019
 ---
 
 <img src="{{ site.baseurl }}/assets/NewOrleans/47989916343_d39581b119_o.jpeg"/>

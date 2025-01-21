@@ -2,7 +2,8 @@
 title: "South Africa"
 tags: 
   - "#travel"
-  - "#2024"
+  - "#2023"
+year: 2023
 ---
 
 We differed our honeymoon by a year, opting to celebrate our one year anniversary
