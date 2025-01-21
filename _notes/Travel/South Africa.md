@@ -1,5 +1,8 @@
 ---
 title: "South Africa"
+tags: 
+  - "#travel"
+  - "#2024"
 ---
 
 We differed our honeymoon by a year, opting to celebrate our one year anniversary
