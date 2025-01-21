@@ -3,6 +3,7 @@ created: 2025-01-18
 tags:
   - 0🌲
   - mediadiet/2025
+title: 2025 Reading List
 ---
 In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books. I'm hoping to shift that in 2025, starting with putting the goal down on paper and identifying which books I want to read.
 
