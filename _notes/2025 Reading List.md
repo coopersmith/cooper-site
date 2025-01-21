@@ -11,7 +11,7 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | **Title**                                                         | Author                  | Status |
 | ----------------------------------------------------------------- | ----------------------- | ------ |
 | James                                                             | Percival Everett        | 🎧     |
-| Character Limit: How Elon Musk Destroyed Twitter                  | Kate Conger<br>Ryan Mac | 📖     |
+| [[Character Limit - How Elon Musk Destroyed Twitter]]             | Kate Conger<br>Ryan Mac | 📖     |
 | Burn                                                              | Peter Heller            | 📖     |
 | The Creative Act                                                  | Rick Rubin              | 📖     |
 | Filterworld                                                       | Kyle Chayka             | 📖     |
