@@ -11,10 +11,10 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | **Title**                                                         | Author                  | Status |
 | ----------------------------------------------------------------- | ----------------------- | ------ |
 | James                                                             | Percival Everett        | 🎧     |
-| Character Limit: How Elon Musk Destroyed Twitter                  | Kate Conger<br>Ryan Mac | 📖     |
+| [[Character Limit - How Elon Musk Destroyed Twitter]]             | Kate Conger<br>Ryan Mac | 📖     |
 | Burn                                                              | Peter Heller            | 📖     |
 | The Creative Act                                                  | Rick Rubin              | 📖     |
-| Filterworld                                                       | Kyle Chayka             | 📖     |
+| [[Filterworld - How Algorithms Flattened Culture]]                | Kyle Chayka             | 📖     |
 | The Cause: The American Revolution and its Discontents, 1773-1783 | Joseph J. Ellis         | 📚     |
 | Power Broker                                                      | Robert A. Caro          | 📚     |
 | It Was All a Dream: Biggie and the World That Made Him            | Justin Tinsley          | 📚     |
