@@ -31,6 +31,48 @@
     }
   }
 
+  // Grid layout for entries
+  .entry {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+    .year {
+      font-size: 0.9rem;
+      color: var(--color-text-tertiary);
+      text-align: right;
+    }
+    
+    .content {
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0 0 0.25rem 0;
+        color: var(--color-text-primary);
+      }
+      
+      .meta {
+        color: var(--color-text-tertiary);
+        font-size: 0.9rem;
+      }
+
+      .collaborators {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--color-text-tertiary);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 640px) {
+    .entry {
+      grid-template-columns: 80px 1fr;
+      gap: 1rem;
+    }
+  }
+
   // Role styling
   .role {
     margin-bottom: 1.5rem;
