@@ -17,7 +17,32 @@ work_experience:
     location: "New York City"
     year: "2023 — 2024"
 
-  # ... rest of work experience
+  - company: "Sorare"
+    title: "Senior Product Design Manager"
+    location: "New York City  (+ Paris)"
+    year: "2022 — 2023"
+    url: "https://sorare.com/"
+
+  - company: "Lyft"
+    title: "Senior Product Design Manager"
+    location: "New York City"
+    year: "2018 — 2022"
+
+  - company: "Twitter"
+    title: "Senior Product Designer"
+    location: "New York City"
+    year: "2015 — 2018"
+
+  - company: "Foursquare"
+    title: "UX Designer"
+    location: "New York City"
+    year: "2012 — 2015"
+
+  - company: "Nike"
+    title: "Experience Design Intern"
+    location: "Portland, Oregon"
+    year: "2011 — 2011"
+    url: "http://www.nike.com"
 
 projects:
   - title: "Lyft Mapping"
@@ -25,7 +50,30 @@ projects:
     year: "2022"
     url: "https://www.fastcompany.com/90839884/inside-lyfts-years-long-effort-to-give-its-drivers-better-maps?"
 
-  # ... rest of projects
+  - title: "Fast Match"
+    company: "Lyft"
+    year: "2019"
+    url: "https://techcrunch.com/2019/07/19/lyft-expands-its-pin-feature-for-airport-pickups-to-laguardia/amp/"
+
+  - title: "Election Labels"
+    company: "Twitter"
+    year: "2018"
+    url: "https://blog.twitter.com/official/en_us/topics/company/2018/introducing-us-election-labels-for-midterm-candidates.html"
+    collaborators:
+      - name: "brittany forks"
+        url: "https://read.cv/brittanyforks"
+      - name: "Bryan Haggerty"
+        url: "https://read.cv/bhaggs"
+
+  - title: "Joggers Logged"
+    company: "WIRED"
+    year: "2011"
+    url: "http://cargocollective.com/coopersmith/WIRED-Joggers-Logged-1"
+
+side_projects:
+  - title: "Farm Coast Coffee Roasters"
+    year: "Ongoing"
+    url: "http://www.farmcoastcoffee.com"
 
 education:
   - school: "School of Visual Arts"
@@ -42,4 +90,19 @@ social:
   - platform: "Glass"
     handle: "coop"
     url: "https://glass.photo/coop"
-  # ... rest of social links 
+  
+  - platform: "Instagram"
+    handle: "coopersmith"
+    url: "https://instagram.com/coopersmith"
+  
+  - platform: "Threads"
+    handle: "coopersmith"
+    url: "https://www.threads.net/@coopersmith"
+  
+  - platform: "LinkedIn"
+    handle: "coopersmith"
+    url: "https://linkedin.com/in/coopersmith"
+  
+  - platform: "Letterboxd"
+    handle: "coopersmith"
+    url: "https://letterboxd.com/coopersmith" 
