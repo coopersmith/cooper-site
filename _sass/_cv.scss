@@ -1,13 +1,9 @@
 .cv-container {
-  max-width: 900px;
+  max-width: var(--content-width);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 3rem;
   
-  // Header spans full width
+  // Header styling
   .cv-header {
-    grid-column: 1 / -1;
     margin-bottom: 3rem;
     
     h1 {
@@ -23,19 +19,9 @@
     }
   }
 
-  // Main content area
-  .main-content {
-    grid-column: 1 / 2;
-  }
-
-  // Sidebar content
-  .sidebar {
-    grid-column: 2 / 3;
-  }
-
   // Section styling
   section {
-    margin-bottom: 2.5rem;
+    margin: 2.5rem 0;
     
     h2 {
       font-size: 1.2rem;
@@ -89,7 +75,6 @@
   .social-links {
     list-style: none;
     padding: 0;
-    margin: 0;
     
     li {
       margin-bottom: 0.75rem;
@@ -121,18 +106,6 @@
     
     &:hover {
       text-decoration: underline;
-    }
-  }
-
-  // Responsive layout
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 0 1rem;
-    
-    .main-content,
-    .sidebar {
-      grid-column: 1 / -1;
     }
   }
 } 
