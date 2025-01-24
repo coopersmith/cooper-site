@@ -10,7 +10,7 @@ We differed our honeymoon by a year, opting to celebrate our one year anniversar
 
 ## Capetown
 
-We 
+The highlight of our time in Capetown was undoubtedly our adventure tour out to the Cape of Good Hope.
 
 <img src="{{ site.baseurl }}/assets/southafrica2024/IMG_1849.jpeg"/>
 

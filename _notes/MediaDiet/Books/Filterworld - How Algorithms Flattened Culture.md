@@ -30,13 +30,21 @@ tags:
 
 ## Highlights
 - Over the two centuries since its invention, the device has become a prevalent metaphor for technological manipulation. It represents the human lurking behind the facade of seemingly advanced technology as well as the ability of such devices to deceive us about the way they work. (In 2005, Amazon named its service for accomplishing digital tasks, like tagging photos or cleaning data, using an invisible marketplace of outsourced human labor “Mechanical Turk.”) The Mechanical Turk is like The Wizard of Oz’s man behind the curtain—an all-knowing, uncanny entity that is ultimately revealed as something much more mundane and comprehensible. ([Location 77](https://readwise.io/to_kindle?action=open&asin=B0C2PDRHZ9&location=77))
-    
+
+---
+
 - Algorithmic recommendations shape the vast majority of our experiences in digital spaces by considering our previous actions and selecting the pieces of content that will most suit our patterns of behavior. They are supposed to interpret and then show us what we want to see. ([Location 89](https://readwise.io/to_kindle?action=open&asin=B0C2PDRHZ9&location=89))
-    
+
+---
+
 - Algorithmic recommendations are the latest iteration of the Mechanical Turk: a series of human decisions that have been dressed up and automated as technological ones, at an inhuman scale and speed. Designed and maintained by the engineers of monopolistic tech companies, and running on data that we users continuously provide by logging in each day, the technology is both constructed by us and dominates us, manipulating our perceptions and attention. The algorithm always wins. ([Location 104](https://readwise.io/to_kindle?action=open&asin=B0C2PDRHZ9&location=104))
 
+---
+
 - Each platform develops its own stylistic archetype, which is informed not just by aesthetic preferences but by biases of race, gender, and politics as well as by the fundamental business model of the corporation that owns it. ([Location 122](https://readwise.io/to_kindle?action=open&asin=B0C2PDRHZ9&location=122))
-    
+
+---
+
 - The culture that thrives in Filterworld tends to be accessible, replicable, participatory, and ambient. It can be shared across wide audiences and retain its meaning across different groups, who tweak it slightly to their own ends. ([Location 124](https://readwise.io/to_kindle?action=open&asin=B0C2PDRHZ9&location=124))
     
 - Filterworld culture is ultimately homogenous, marked by a pervasive sense of sameness even when its artifacts aren’t literally the same. It perpetuates itself to the point of boredom. ([Location 130](https://readwise.io/to_kindle?action=open&asin=B0C2PDRHZ9&location=130))

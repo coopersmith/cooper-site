@@ -20,7 +20,7 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | It Was All a Dream: Biggie and the World That Made Him            | Justin Tinsley          | 📚     |
 | Our Country Friends                                               | Gary Shteyngart         | 📚     |
 
-🎧 Listening
-📖 Reading
-📚 Queued
-✅ Completed
+🎧 Listening  
+📖 Reading  
+📚 Queued  
+✅ Completed  
