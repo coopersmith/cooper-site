@@ -1,0 +1,153 @@
+.cv-container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  
+  // Header styling
+  .cv-header {
+    margin-bottom: 3rem;
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .byline {
+      font-size: 1.1rem;
+      color: var(--color-text-tertiary);
+    }
+  }
+
+  // Section styling
+  section {
+    margin: 2.5rem 0;
+    
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--color-text-primary);
+    }
+  }
+
+  // Grid layout for entries
+  .entry {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+    .year {
+      font-size: 0.9rem;
+      color: var(--color-text-tertiary);
+      text-align: right;
+    }
+    
+    .content {
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0 0 0.25rem 0;
+        color: var(--color-text-primary);
+      }
+      
+      .meta {
+        color: var(--color-text-tertiary);
+        font-size: 0.9rem;
+      }
+
+      .collaborators {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--color-text-tertiary);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 640px) {
+    .entry {
+      grid-template-columns: 80px 1fr;
+      gap: 1rem;
+    }
+  }
+
+  // Role styling
+  .role {
+    margin-bottom: 1.5rem;
+    
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem 0;
+      color: var(--color-text-primary);
+    }
+    
+    .meta {
+      color: var(--color-text-tertiary);
+      font-size: 0.9rem;
+    }
+  }
+
+  // Project styling
+  .project {
+    margin-bottom: 1.5rem;
+    
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0 0 0.25rem 0;
+      color: var(--color-text-primary);
+    }
+    
+    .meta {
+      color: var(--color-text-tertiary);
+      font-size: 0.9rem;
+    }
+
+    .collaborators {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-text-tertiary);
+    }
+  }
+
+  // Social links
+  .social-links {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      margin-bottom: 0.75rem;
+    }
+    
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--color-text-primary);
+      
+      .handle {
+        margin-left: 0.5rem;
+        color: var(--color-text-tertiary);
+      }
+      
+      &:hover {
+        .handle {
+          color: var(--color-text-secondary);
+        }
+      }
+    }
+  }
+
+  // External link styling
+  .external-link {
+    text-decoration: none;
+    color: inherit;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+} 
