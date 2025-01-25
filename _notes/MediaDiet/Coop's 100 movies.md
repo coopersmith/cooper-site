@@ -6,11 +6,13 @@ tags:
   - movies
   - 0🌲
 ---
-A list of my 100 favorite movies. Current as of 2024-03-17
+A list of my 100 favorite movies. 
+<small>Current as of 2024-03-17 </small>
 
 
-| **1**   | [Heat](https://letterboxd.com/film/heat-1995/)                        | 1995 |
+|         | Movie                                                                 | Year |
 | ------- | --------------------------------------------------------------------- | ---- |
+| **1**   | [Heat](https://letterboxd.com/film/heat-1995/)                        | 1995 |
 | **2**   | [The Social Network](https://letterboxd.com/film/the-social-network/) | 2010 |
 | **3**   | Wet Hot American Summer                                               | 2001 |
 | **4**   | [Rushmore](https://letterboxd.com/film/the-social-network/)           | 1998 |
@@ -29,10 +31,10 @@ A list of my 100 favorite movies. Current as of 2024-03-17
 | **17**  | The Matrix                                                            | 1999 |
 | **18**  | Pulp Fiction                                                          | 1994 |
 | **19**  | The Game                                                              | 1997 |
-| **20**  | 🎬 Poor Things                                                        | 2023 |
+| **20**  | Poor Things                                                           | 2023 |
 | **21**  | Good Will Hunting                                                     | 1997 |
 | **22**  | Caddyshack                                                            | 1980 |
-| **23**  | 🎬 Oppenheimer (2023)                                                 | 2023 |
+| **23**  | Oppenheimer                                                           | 2023 |
 | **24**  | Vanilla Sky                                                           | 2001 |
 | **25**  | Fight Club                                                            | 1999 |
 | **26**  | Gone Girl                                                             | 2014 |
@@ -55,14 +57,14 @@ A list of my 100 favorite movies. Current as of 2024-03-17
 | **43**  | Die Hard                                                              | 1988 |
 | **44**  | Arrival                                                               | 2016 |
 | **45**  | Tombstone                                                             | 1993 |
-| **46**  | 🎬 Everything Everywhere All at Once (2022)                           | 2022 |
+| **46**  | Everything Everywhere All at Once                                     | 2022 |
 | **47**  | Apocalypse Now                                                        | 1979 |
 | **48**  | The Holdovers                                                         | 2023 |
 | **49**  | Do the Right Thing                                                    | 1989 |
 | **50**  | One Flew Over the Cuckoo's Nest                                       | 1975 |
 | **51**  | The Shining                                                           | 1980 |
 | **52**  | Children of Men                                                       | 2006 |
-| **53**  | 🎬 The Graduate                                                       | 1967 |
+| **53**  | The Graduate                                                          | 1967 |
 | **54**  | Fantastic Mr. Fox                                                     | 2009 |
 | **55**  | Fargo                                                                 | 1996 |
 | **56**  | Boogie Nights                                                         | 1997 |
@@ -88,7 +90,7 @@ A list of my 100 favorite movies. Current as of 2024-03-17
 | **76**  | Ferris Bueller's Day Off                                              | 1986 |
 | **77**  | Skyfall                                                               | 2012 |
 | **78**  | Superbad                                                              | 2007 |
-| **79**  | 🎬 The Talented Mr. Ripley                                            | 1999 |
+| **79**  | The Talented Mr. Ripley                                               | 1999 |
 | **80**  | Big Fish                                                              | 2003 |
 | **81**  | American Psycho                                                       | 2000 |
 | **82**  | Moon                                                                  | 2009 |
