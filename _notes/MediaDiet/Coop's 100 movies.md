@@ -6,7 +6,7 @@ tags:
   - movies
   - 0🌲
 ---
-A list of my 100 favorite movies. 
+A list of my 100 favorite movies.   
 <small>Current as of 2024-03-17 </small>
 
 
