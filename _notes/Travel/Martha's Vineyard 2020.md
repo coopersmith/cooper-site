@@ -1,14 +1,13 @@
 ---
 title: Martha's Vineyard
 subtitle: 2020
-tags: 
+tags:
   - "#travel"
-  - "#2020"
 year: 2020
 ---
 In summer of 2020, after a few months in quarantine in Rhode Island, we began to venture out into the world. While longer travel was out of the question, we did manage to visit friends and family on Martha's VIneyard two times throughout the summer.
 
-Until then, I had never stepped foot on the Vineyard, but had long heard it referenced. I had a blast exploring my photography in this beautiful place, especially as I was getting back into film.
+Until then, I had never stepped foot on the Vineyard, but had long heard it referenced. I had a blast exploring my photography in this beautiful place, especially as I was getting back into shooting film.
 
 ## June 2020
 
