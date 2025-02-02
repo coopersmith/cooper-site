@@ -28,6 +28,7 @@ Whenever we're out in Manhattan contemplating one more drink before calling it a
 
 **📚 Books are Magic**
 
+
 **🗽 Brooklyn Heights Promenade**
 
 
@@ -42,7 +43,6 @@ If it wasn’t for Henry Public, I’d say this is the best burger in the neighb
 Really great brunch, but also a great dinner spot.
 
 **🥃 Pips**
-
 
 
 **Sahadis**

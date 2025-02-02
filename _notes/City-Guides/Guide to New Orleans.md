@@ -16,8 +16,7 @@ Below, please find a list of all my favorite places, as well as a suggested itin
 
 ## Stay
 
-**Hotel St. Vincent**  
-A fantastic way to get out of the French Quarter. This feels like the spiritual successor the Ace, but one that matured a bit with me and values a slightly more upscale and chill vibe. Absolutely fantastic pool, though the lounge chairs are a bit limited and therefore competitive (some folks get there at 8am to start reserving). 
+**Hotel St. Vincent**  - A fantastic way to get out of the French Quarter. This feels like the spiritual successor the Ace, but one that matured a bit with me and values a slightly more upscale and chill vibe. Absolutely fantastic pool, though the lounge chairs are a bit limited and therefore competitive (some folks get there at 8am to start reserving). 
 
 ## Coffee and Breakfast
 
@@ -25,8 +24,6 @@ I'm past the age of making breakfast/brunch a destination. I'm usually looking f
 
 **San Lorenzo at Hotel St. Vincent**  
 To that end, on our last trip, this is where we ate 4/4 of our breakfasts. 
-
-
 
 **Willa Jean**  
 Might be a little long in the tooth these days, but a great place to soak up the booze 
@@ -95,7 +92,7 @@ See who’s playing at **Tipitinas**
 
 ### Friday 
 🛬 Get a Friday morning flight that puts you in around lunch, grab a Lyft (they're very affordable down here) to your hotel.  
-🏨 Get checked in at**Hotel St Vincent** and drop your bags in your room, but don't linger.  
+🏨 Get checked in at **Hotel St Vincent** and drop your bags in your room, but don't linger.  
 🥪 Enjoy a short walk down Magazine Street and then cut over to find yourself at **Turkey and the Wolf**. You absolutely cannot skip the fried bologna sandwich. 
 
 

@@ -1,9 +1,8 @@
 ---
 title: Lisbon
 subtitle: 2019
-tags: 
+tags:
   - "#travel"
-  - "#2019"
 year: 2019
 ---
 In September 2019, Steph and I went on our first trip together to Lisbon. 
