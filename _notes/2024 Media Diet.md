@@ -18,14 +18,19 @@ tags:
 7. Hermanos Gutiérrez - Sonido Cósmico
 8. Killer Mike - Michael & The Mighty Midnight Revival, Songs For Sinners And Saints
 9. Khruangbin - A LA SALA
+10. Matt Champion - Mika's Laundry
 
  Top 10 Songs 
 1. King of Sweden - Future Islands
-2. I Don't Love You - Charlotte Day Wilson
-3. places to be - Fred Again
-4. Freedom - Jordan Rakei
-5. Dafodil - Jamie XX
-6. Bon Iver - S P E Y S I D E
+2. Not Like Us - Kendrick Lamar
+3. I Don't Love You - Charlotte Day Wilson
+4. places to be - Fred Again
+5. Freedom - Jordan Rakei
+6. Dafodil - Jamie XX
+7. S P E Y S I D E  - Bon Iver
+8.  Aphid - Matt Champion
+9. Squabble Up - Kendrick Lamar
+10. Get Lit - Kamasi Washington
 
 ### Data
 
