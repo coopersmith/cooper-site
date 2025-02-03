@@ -17,11 +17,14 @@ _Date Closed: 2020-01-26 · Now: TBD_
 This place needed to close for obvious reasons. But that doesn't mean I don't still have dreams about that burger and shoestring fries. I used to love arriving before my friends and heading upstairs for a hand drawn beer at the bar.
 
 **Donna**
-_Date Closed: 2021-01-15 · Now: TBD_
+_Date Closed: 2020-12 · Now: Deux Chats cocktail bar
 During the golden era of Williamsburg, Donna was one of the spots to be. https://www.instagram.com/p/CKb5QU7lxWe/?
 utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
 
 **Rabbithole**
+_Date Closed: TBD · Now: TBD_
+
+**Dram Cocktail Bar**
 _Date Closed: TBD · Now: TBD_
 
 **Reynard**
@@ -41,6 +44,7 @@ _Date Closed: TBD · Now: TBD_
 
 **Cubana Social**
 _Date Closed: TBD · Now: Patagonia_
+
 
 **Dressler**
 _Date Closed: TBD · Now: TBD_
