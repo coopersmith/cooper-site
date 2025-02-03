@@ -16,11 +16,12 @@ Not sure I could ever capture the magic that was Red Star. My friends lived near
 _Date Closed: 2020-01-26 · Now: TBD_  
 This place needed to close for obvious reasons. But that doesn't mean I don't still have dreams about that burger and shoestring fries. I used to love arriving before my friends and heading upstairs for a hand drawn beer at the bar.
 
-**Donna**  
-_Date Closed: 2021-01-15 · Now: TBD_  
-During the golden era of Williamsburg, Donna was one of the spots to be.
+**Donna**
+_Date Closed: 2021-01-15 · Now: TBD_
+During the golden era of Williamsburg, Donna was one of the spots to be. https://www.instagram.com/p/CKb5QU7lxWe/?
+utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
 
-**Rabbithole**  
+**Rabbithole**
 _Date Closed: TBD · Now: TBD_
 
 **Reynard**  
@@ -185,9 +186,9 @@ _Date Closed: TBD · Now: TBD_
 188 Bedford Ave (N 7th St)  
 Brooklyn, NY 11249
 
-**Glasslands Gallery**  
-_Date Closed: TBD · Now: TBD_  
-For Horse Feathers and Laura & Greg  
+**Glasslands Gallery**
+_Date Closed: TBD · Now: TBD_
+For Horse Feathers and Laura & Greg
 Friday April 18, 2014 · 9:21 PM
 
 **Extra Fancy**  
