@@ -1,12 +1,11 @@
 ---
-title: "South Africa"
-tags: 
+title: South Africa
+tags:
   - "#travel"
-  - "#2023"
 year: 2023
 ---
 
-We differed our honeymoon by a year, opting to celebrate our one year anniversary
+Rather than rush off to a honeymoon immediately after our wedding, and deal with the planning of both simultaneously, we decided to plan our honeymoon around our first wedding anniversary. And so, a year after our wedding
 
 ## Capetown
 
