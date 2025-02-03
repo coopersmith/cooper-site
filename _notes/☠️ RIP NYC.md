@@ -24,6 +24,12 @@ utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
 **Rabbithole**
 _Date Closed: TBD · Now: TBD_
 
+
+**Glasslands Gallery**
+_Date Closed: TBD · Now: TBD_
+For Horse Feathers and Laura & Greg
+Friday April 18, 2014 · 9:21 PM
+
 **Dram Cocktail Bar**
 _Date Closed: TBD · Now: TBD_
 
@@ -44,7 +50,6 @@ _Date Closed: TBD · Now: TBD_
 
 **Cubana Social**
 _Date Closed: TBD · Now: Patagonia_
-
 
 **Dressler**
 _Date Closed: TBD · Now: TBD_
@@ -197,10 +202,7 @@ _Date Closed: TBD · Now: TBD_
 188 Bedford Ave (N 7th St)  
 Brooklyn, NY 11249
 
-**Glasslands Gallery**
-_Date Closed: TBD · Now: TBD_
-For Horse Feathers and Laura & Greg
-Friday April 18, 2014 · 9:21 PM
+
 
 **Extra Fancy**
 _Date Closed: TBD · Now: TBD_
