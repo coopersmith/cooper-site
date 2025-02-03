@@ -6,7 +6,7 @@ tags:
 ---
 "You are a New Yorker when what was there before is more real and solid than what is here now." [[The Colossus of New York]]
 
-This is an ever growing list of my favorite spots in NYC that have closed.
+This is an ever growing list of my favorite spots in NYC that have closed. It will heavily bias towards circa ~2010 Williamsburg
 
 
 ### Red Star 
@@ -86,6 +86,8 @@ Isa
 Brooklyn Star
 
 Juniper 
+
+Arrogant Swine
 
 Modca 
 This was a fantastic coffee shop to 
