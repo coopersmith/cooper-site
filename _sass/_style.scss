@@ -432,3 +432,23 @@ table {
   transform: translateY(0);
 }
 
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+  
+  img {
+    margin: 0; // Override the default margin
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  // Stack vertically on mobile
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+

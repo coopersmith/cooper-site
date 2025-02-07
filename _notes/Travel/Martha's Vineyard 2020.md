@@ -25,6 +25,8 @@ Until then, I had never stepped foot on the Vineyard, but had long heard it refe
 
 <img src="{{ site.baseurl }}/assets/marthasvineyard/348540_0015_Original.jpeg"/>
 
+<div class="image-grid">
 <img src="{{ site.baseurl }}/assets/marthasvineyard/348541_0015_Original.jpeg"/>
-
 <img src="{{ site.baseurl }}/assets/marthasvineyard/348540_0035_Original.jpeg"/>
+</div>
+
