@@ -9,7 +9,7 @@ tags:
 This is an ever growing list of my favorite spots in NYC that have closed.
 
 **Red Star**  
-_Date Closed: TBD · Now: TBD_  
+_Date Closed: ~TBD~ · Now: TBD_  
 Not sure I could ever capture the magic that was Red Star. My friends lived nearby and were in here 3-4 times a week for any big (or medium) sporting event. At my peak, I'd join 1-2x a week. On nights where there was a NYC team playing, there'd be a weird crowd. Other nights, we'd have the bar to ourselves. Wings were incredible. Beer would just keep coming out. And the tab at the end of the night was always 1/5th of what it should have been. I'll never have a place like this again in my life. It was perfect.
 
 **Spotted Pig**  
