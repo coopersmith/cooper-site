@@ -6,7 +6,7 @@ tags:
 ---
 "You are a New Yorker when what was there before is more real and solid than what is here now." [[The Colossus of New York]]
 
-This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021).
+This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021). 
 
 ## Eulogized
 
