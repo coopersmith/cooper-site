@@ -60,16 +60,10 @@ class BidirectionalLinksGenerator < Jekyll::Generator
       end
 
       # At this point, all remaining double-bracket-wrapped words are
-      # pointing to non-existing pages, so let's turn them into disabled
-      # links by greying them out and changing the cursor
+      # pointing to non-existing pages, so let's just output the text
       current_note.content = current_note.content.gsub(
         /\[\[([^\]]+)\]\]/i, # match on the remaining double-bracket links
-        <<~HTML.delete("\n") # replace with this HTML (\\1 is what was inside the brackets)
-          <span title='There is no note that matches this link.' class='invalid-link'>
-            <span class='invalid-link-brackets'>[[</span>
-            \\1
-            <span class='invalid-link-brackets'>]]</span></span>
-        HTML
+        '\\1' # just output what was inside the brackets
       )
     end
 
@@ -107,5 +101,15 @@ class BidirectionalLinksGenerator < Jekyll::Generator
 
   def note_id_from_note(note)
     note.data['title'].bytes.join
+  end
+
+  def build_link(title, content)
+    if content.nil?
+      # If no matching note exists, just return the title without brackets
+      title
+    else
+      # Existing logic for building valid links
+      "<a class='internal-link' href='#{content.url}'>#{title}</a>"
+    end
   end
 end

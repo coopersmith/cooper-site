@@ -9,7 +9,7 @@ Rather than rush off to a honeymoon immediately after our wedding, and deal with
 
 ## Capetown
 
-The highlight of our time in Capetown was undoubtedly our adventure tour out to the Cape of Good Hope.
+We spent the first few days of our trip to adjust to the time change and explore Capetown. The highlight of our time in Capetown was undoubtedly our adventure tour out to the Cape of Good Hope.
 
 <img src="{{ site.baseurl }}/assets/southafrica2024/IMG_1849.jpeg"/>
 
@@ -18,7 +18,7 @@ The highlight of our time in Capetown was undoubtedly our adventure tour out to 
 
 ## Wine Country
 
-After a few days in Capetown
+After a few days in Capetown, we made our way to wine country. On the journey out, we stopped at several wineries, including X, Y, Z. The highlight of the day was undoubtedly the tour of the (FARM).
 
 
 ## Kruger National Park
