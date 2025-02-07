@@ -6,13 +6,13 @@ tags:
 ---
 "You are a New Yorker when what was there before is more real and solid than what is here now." [[The Colossus of New York]]
 
-This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021). 
+This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021).
 
 ## Eulogized
 
 **Red Star**  
 _Date Closed: ~2014 · Now: Nothing_  
-Not sure I could ever capture the magic that was Red Star. My friends lived nearby and were in here 3-4 times a week for any big (or medium) sporting event. At my peak, I'd join 1-2x a week. On nights where there was a NYC team playing, there'd be a weird crowd. Other nights, we'd have the bar to ourselves. Wings were incredible. Beer would just keep coming out. And the tab at the end of the night was always 1/5th of what it should have been. I'll never have a place like this again in my  life. It was perfect.
+Not sure I could ever capture the magic that was Red Star. My friends lived nearby and were in here 3-4 times a week for any big (or medium) sporting event. At my peak, I'd join 1-2x a week. On nights where there was a NYC team playing, there'd be a weird crowd. Other nights, we'd have the bar to ourselves. Wings were incredible. Beer would just keep coming out. And the tab at the end of the night was always 1/5th of what it should have been. I'll never have a place like this again in my life. It was perfect.
 
 **Spotted Pig**  
 _Date Closed: 2020-01-26 · Now: Golden Swan_  
@@ -118,7 +118,7 @@ _Date Closed: Unknown · Now: Unknown_
 _Date Closed: Unknown · Now: Unknown_
 
 **Isa**  
-_Date Closed: Unknown · Now: Unknown_
+_Date Closed: Unknown · Now: Sunday in Brooklyn_
 
 **Juniper**  
 _Date Closed: Unknown · Now: Unknown_
