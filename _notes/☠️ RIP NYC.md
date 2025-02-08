@@ -18,24 +18,27 @@ Not sure I could ever capture the magic that was Red Star. My friends lived near
 _Date Closed: 2020-01-26 · Now: Golden Swan_  
 This place needed to close for obvious reasons. But that doesn't mean I don't still have dreams about that burger and shoestring fries. I used to love arriving before my friends and heading upstairs for a hand drawn beer at the bar.
 
+**Spuyten Duyvil**  
+_Date Closed: Unknown · Now: Unknown_  
+While I never learned how to pronounce the name, I absolutely loved coming here, especially while waiting for a table at St. Anselm's. You could put your name in for a delicious steak, wander two doors down, and sit in the backyard. Best part was that when your table was ready, you could carry your beer through the backyard to your table.
+
 **Donna**  
 _Date Closed: 2021-01-15 · Now: Unknown_  
-During the golden era of Williamsburg, Donna was one of the spots to be. https://www.instagram.com/p/CKb5QU7lxWe/?
-utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
+During the golden era of Williamsburg, Donna was [the spot to be](https://www.instagram.com/p/CKb5QU7lxWe/?
+utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==)
 
 **Rabbithole**  
 _Date Closed: 2020-07 · Now: Unknown_
 
 **Reynard**  
-_Date Closed: 2020-03 · Now: Le Crocodile_
+_Date Closed: 2020-03 · Now: Le Crocodile_  
 Reynard came before the reniassance in high end hotel restauraunts. While I went for both brunch and dinner, the brunch was absolutely fantastic, mostly because of the breakfast sandwich, which was basically a burger, and it was fantastic.
 
 **Brooklyn Star**  
-_Date Closed: Unknown · Now: Unknown_
+_Date Closed: [2018](https://ny.eater.com/2018/5/7/17328678/brooklyn-star-nyc-closing-williamsburg) · Now: Unknown_  
+Sunday night supper of country fried steak or fried chicken was one of my favorite places to gather with friends. Admitedly, when I looked up its closure, I was surprised to see it was open until 2018. I think I last visited in mid 2014. 
 
-**Spuyten Duyvil**  
-_Date Closed: Unknown · Now: Unknown_
-While I never learned how to pronounce the name of this bar, I absolutely loved coming here, especially while waiting for a table at St. Anselm's. You could put your name in for a delicious steak, wander two doors down, and sit in the backyard. Best part was that when your table was ready, you could carry your beer through the backyard to your table.
+
 
 **Dumont**  
 _Date Closed: 2014-01 · Now: Unknown_
