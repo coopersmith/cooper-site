@@ -436,31 +436,15 @@ table {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  margin: 2rem calc(-1 * (100vw - min(720px, 88vw)) / 2);
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  transform: translateX(-50%);
-  padding: 0 6vw;
   
   img {
     margin: 0;
     width: 100%;
     height: auto;
-    object-fit: cover;
   }
   
-  // Stack vertically on mobile
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    margin: 2rem 0;
-    width: 100%;
-    padding: 0;
-    transform: none;
-    left: 0;
-    right: 0;
   }
 }
 
