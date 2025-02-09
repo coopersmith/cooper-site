@@ -17,7 +17,6 @@ Until then, I had never stepped foot on the Vineyard, but had long heard it refe
 
 ## July 2020
 
-<img src="{{ site.baseurl }}/assets/marthasvineyard/20200720-L1001893.jpeg"/>
 
 <img src="{{ site.baseurl }}/assets/marthasvineyard/348540_0004_Original.jpeg"/>
 

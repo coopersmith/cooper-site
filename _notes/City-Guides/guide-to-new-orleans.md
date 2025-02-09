@@ -10,9 +10,6 @@ With no disrespect to Cleveland, I feel this. There's truly no city in America, 
 
 Below, please find a list of all my favorite places, as well as a suggested itinerary. 
 
-> [!Quick Stats]
-> ==**Number of visits:** 4==  
-> ==**Most recent visit:** September, 2024==
 
 ## Stay
 
