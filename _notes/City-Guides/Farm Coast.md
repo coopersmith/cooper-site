@@ -7,7 +7,6 @@ tags:
   - farmcoastcoffee
   - FarmCoastCoffee/website
 ---
-
 Whether you know it as the Farm Coast, the East Bay, or something else, this idyllic stretch of New England is characterized by beautiful stone walls framing picturesque farms nestled up next to the beaches of the Atlantic ocean. 
 
 Compromising the Tiverton Four Corners and Little Compton Rhode Island, along with Westport, 

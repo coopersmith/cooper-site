@@ -1,8 +1,6 @@
 ---
-title: Cobble Hill
+title: Cobble Hill + Brooklyn Heights
 ---
-
-
 Since 2021, Cobble Hill has been my home. After spending more than a decade in Williamsburg, leaving was bittersweet, but felt like Peter Pan must have felt leaving Neverland. 
 
 ## If you're here for an afternoon
@@ -53,8 +51,7 @@ Really great brunch, but also a great dinner spot.
 “Fresh fish is not cheap. Cheap fish is not fresh” is the sign that greets you
 
 **🥖 Bien Cuit**  
-Saturday mornign errands usually include a stop for a few fresh loaves of whatever looks great.
-
+Saturday morning errands usually include a stop for a few fresh loaves of whatever looks great.
 
 **🥩 Paisanos Butcher Shop** + **🥩Dellapietras**  
 I’m not sure what we did to deserve two outstanding butchers in the neighborhood, but it makes me upset I don’t have a good grill. 
