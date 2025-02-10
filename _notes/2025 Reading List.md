@@ -18,5 +18,6 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | 📚     | Power Broker                                                      | Robert A. Caro          |
 | 📚     | It Was All a Dream: Biggie and the World That Made Him            | Justin Tinsley          |
 | 📚     | Our Country Friends                                               | Gary Shteyngart         |
+| 📚     | [[Jurassic Park]]                                                 | Michael Crichton        |
 
 <small>🎧 Listening    📖 Reading     📚 Queued      ✅ Completed  </small>  
