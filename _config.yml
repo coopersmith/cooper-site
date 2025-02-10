@@ -1,6 +1,6 @@
 title:               Cooper Smith
 description: Cooper Smith's digital garden
-url: "http://127.0.0.1:4000" # Update later when deploying online
+url: "https://coopersmith.nyc"  # Your production URL
 author:
   name: Cooper Smith
 include:             ['_pages']
