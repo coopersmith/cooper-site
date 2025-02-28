@@ -1,3 +1,4 @@
+In the early days of Covid, 
 
 In the first days of Covid, once the groceries were purchased, there was a lot of Instagram scrolling and sharing, specifically for places we wanted to travel someday when if the world ever returned to normal. An early favorite was Cuixmala, Mexico, a place that felt like an Instagram trap, but also, somewhere 
 

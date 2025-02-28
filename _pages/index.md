@@ -10,7 +10,7 @@ permalink: /
 
 I'm a Director of Product Design at Asana, where I lead our Align design team. I have over a decade of experience building products and teams at Lyft, Twitter, Foursquare [among others](https://read.cv/coops). 
 
-I also roast coffee out of my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.com/) as a fun side project.
+I also roast coffee out of my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
 
 I split my time between Brooklyn, NY and our 1754 farmhouse on the [Rhode Island Farm Coast.](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html)
 
