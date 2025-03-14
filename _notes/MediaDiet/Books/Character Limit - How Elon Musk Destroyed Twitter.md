@@ -20,7 +20,8 @@ rating:
 cover: https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1709757863i/209543060.jpg
 isbn: "9780593656136"
 language: English
-created: 2025-01-21
+start: 2025-01-21
+completed: 2025-03-14
 tags:
   - books
   - reading
