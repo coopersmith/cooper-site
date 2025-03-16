@@ -20,4 +20,4 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | 📚     | Our Country Friends                                               | Gary Shteyngart         |
 | 📖     | [[Jurassic Park]]                                                 | Michael Crichton        |
 
-<small>🎧 Listening    📖 Reading     📚 Queued      ✅ Completed  </small>  
+<small>       📚 Queued        📖 Reading      🎧 Listening         ✅ Completed         ❌ Abandoned </small>  
