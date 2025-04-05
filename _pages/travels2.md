@@ -9,24 +9,23 @@ permalink: /travels2/
     max-width: 46em;
   }
   .notes-entry {
-    display: flex;
-    align-items: start;
-    margin-bottom: 2em;
-    gap: 1em;
+    margin-bottom: 3em;
+    text-align: center;
   }
   .notes-entry-thumbnail {
     width: 300px;
     height: 250px;
     object-fit: cover;
     border-radius: 4px;
+    margin-bottom: 1em;
   }
   .notes-entry-content {
-    flex: 1;
+    margin-top: 0.5em;
   }
   .notes-entry-title {
     font-size: 1.2em;
-    margin-bottom: 0.5em;
     display: block;
+    margin-bottom: 0.3em;
   }
   .notes-entry-date {
     color: #666;
