@@ -9,8 +9,10 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 
 | Status | **Title**                                                         | Author                  |
 | ------ | ----------------------------------------------------------------- | ----------------------- |
-| 🎧     | James                                                             | Percival Everett        |
 | ✅      | [[Character Limit]]                                               | Kate Conger<br>Ryan Mac |
+| ✅      | [[GitPublish/_notes/MediaDiet/Books/Jurassic Park]] [[2025-03-29]]                                  | Michael Crichton        |
+| ✅      | [[The Dream Hotel]] [[2025-04-03]]                                | Laila Lalami            |
+| 🎧     | James                                                             | Percival Everett        |
 | 📖     | Burn                                                              | Peter Heller            |
 | 📖     | The Creative Act                                                  | Rick Rubin              |
 | 📖     | [[Filterworld - How Algorithms Flattened Culture]]                | Kyle Chayka             |
@@ -18,6 +20,6 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | 📚     | Power Broker                                                      | Robert A. Caro          |
 | 📚     | It Was All a Dream: Biggie and the World That Made Him            | Justin Tinsley          |
 | 📚     | Our Country Friends                                               | Gary Shteyngart         |
-| 📖     | [[Jurassic Park]]                                                 | Michael Crichton        |
+| 📚     | The Sheltering Sky                                                | Paul Bowles             |
 
 <small>       📚 Queued        📖 Reading      🎧 Listening         ✅ Completed         ❌ Abandoned </small>  
