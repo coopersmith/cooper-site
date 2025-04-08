@@ -23,8 +23,13 @@ tags:
   - read
   - mediadiet/2025
 ---
-An astonishing technique for recovering and cloning dinosaur DNA has been discovered. Now humankind’s most thrilling fantasies have come true. Creatures extinct for eons roam Jurassic Park with their awesome presence and profound mystery, and all the world can visit them—for a price. Until something goes wrong. . . . In Jurassic Park, Michael Crichton taps all his mesmerizing talent and scientific brilliance to create his most electrifying technothriller.
+### My Review
 
-[[El Fenn]]
+This is shockingly the first book I've ever re-read. I originally read it as a ~12 year old, and th
+
+
+
+
+
 
 [[Readwise/Books/Jurassic Park|Jurassic Park]]
