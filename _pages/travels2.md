@@ -4,19 +4,14 @@ description:
 permalink: /travels2/
 ---
 
+<h2>Travels and Adventures</h2>
 
-
-<h2>Travel Notes</h2>
-{% assign travel_notes = site.notes | where_exp: "item", "item.tags contains '#travel'" | sort: "year" | reverse %}
-
-{% assign years = travel_notes | group_by: "year" %}
-{% for year in years %}
-<h2>{{ year.name }}</h2>
-<ul>
-  {% for note in year.items %}
-    <li>
+<div class="notes-entry-container">
+  {% assign travel_notes = site.notes | where_exp: "item", "item.tags contains '#travel'" | sort: "year" | reverse %}
+  {% for note in travel_notes %}
+    <div class="notes-entry">
       <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
-    </li>
+      <span class="notes-entry-date">{{ note.year }}</span>
+    </div>
   {% endfor %}
-</ul>
-{% endfor %}
+</div>
