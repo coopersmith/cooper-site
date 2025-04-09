@@ -16,7 +16,7 @@ genre:
 length: 480
 year: 2024
 scoreGr: 4.29
-rating: 
+rating: 6
 cover: https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1709757863i/209543060.jpg
 isbn: "9780593656136"
 language: English

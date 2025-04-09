@@ -22,6 +22,7 @@ tags:
   - books
   - read
   - mediadiet/2025
+  - MediaDiet2025
 ---
 ## My Review
 
@@ -30,10 +31,10 @@ This is shockingly the first book I've ever re-read. I originally read it as a ~
 
 ## Highlights
 
-But as Hammond talked about the elephant, he left a great deal unsaid. For example, Hammond was starting a genetics company, but the tiny elephant hadn’t been made by any genetic procedure; Atherton had simply taken a dwarf-elephant embryo and raised it in an artificial womb with hormonal modifications. That in itself was quite an achievement, but nothing like what Hammond hinted had been done. 
+>But as Hammond talked about the elephant, he left a great deal unsaid. For example, Hammond was starting a genetics company, but the tiny elephant hadn’t been made by any genetic procedure; Atherton had simply taken a dwarf-elephant embryo and raised it in an artificial womb with hormonal modifications. That in itself was quite an achievement, but nothing like what Hammond hinted had been done. 
 
 ---
-“But don’t you find it boring to wear only two colors?” “Not at all. I find it liberating. I believe my life has value, and I don’t want to waste it thinking about clothing,” Malcolm said. “I don’t want to think about what I will wear in the morning. Truly, can you imagine anything more boring than fashion? Professional sports, perhaps. Grown men swatting little balls, while the rest of the world pays money to applaud. But, on the whole, I find fashion even more tedious than sports.” 
+>“But don’t you find it boring to wear only two colors?” “Not at all. I find it liberating. I believe my life has value, and I don’t want to waste it thinking about clothing,” Malcolm said. “I don’t want to think about what I will wear in the morning. Truly, can you imagine anything more boring than fashion? Professional sports, perhaps. Grown men swatting little balls, while the rest of the world pays money to applaud. But, on the whole, I find fashion even more tedious than sports.” 
 
 ---
 We live in a world of frightful givens. It is given that you will behave like this, given that you will care about that. No one thinks about the givens. Isn’t it amazing? In the information society, nobody thinks. We expected to banish paper, but we actually banished thought.” 
