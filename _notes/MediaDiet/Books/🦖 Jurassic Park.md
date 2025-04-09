@@ -33,14 +33,18 @@ This is shockingly the first book I've ever re-read. I originally read it as a ~
 
 >But as Hammond talked about the elephant, he left a great deal unsaid. For example, Hammond was starting a genetics company, but the tiny elephant hadn’t been made by any genetic procedure; Atherton had simply taken a dwarf-elephant embryo and raised it in an artificial womb with hormonal modifications. That in itself was quite an achievement, but nothing like what Hammond hinted had been done. 
 
+Very Theranos / Elizabeth Holmes
+
 ---
 >“But don’t you find it boring to wear only two colors?” “Not at all. I find it liberating. I believe my life has value, and I don’t want to waste it thinking about clothing,” Malcolm said. “I don’t want to think about what I will wear in the morning. Truly, can you imagine anything more boring than fashion? Professional sports, perhaps. Grown men swatting little balls, while the rest of the world pays money to applaud. But, on the whole, I find fashion even more tedious than sports.” 
 
----
->We live in a world of frightful givens. It is given that you will behave like this, given that you will care about that. No one thinks about the givens. Isn’t it amazing? In the information society, nobody thinks. We expected to banish paper, but we actually banished thought.” 
+When did Steve Jobs start doing this / talking about it? Wonder if this is inspired by him, or inspired him.
 
 ---
->Chaos theory says two things. First, that complex systems like weather have an underlying order. Second, the reverse of that—that simple systems can produce complex behavior. 
+>"We live in a world of frightful givens. It is given that you will behave like this, given that you will care about that. No one thinks about the givens. Isn’t it amazing? In the information society, nobody thinks. We expected to banish paper, but we actually banished thought.” 
+
+---
+>"Chaos theory says two things. First, that complex systems like weather have an underlying order. Second, the reverse of that—that simple systems can produce complex behavior. ""
 
 ---
 >A day is like a whole life. You start out doing one thing, but end up doing something else, plan to run an errand, but never get there.… And at the end of your life, your whole existence has that same haphazard quality, too. Your whole life has the same shape as a single day.” 
@@ -50,6 +54,8 @@ This is shockingly the first book I've ever re-read. I originally read it as a ~
 
 ---
 >Scientists are actually preoccupied with accomplishment. So they are focused on whether they can do something. They never stop to ask if they should do something. 
+
+Current Artificial Intelligence tech race is very much this.
 
 ---
 >Astronauts leave trash on the moon. There is always some proof that scientists were there, making their discoveries. Discovery is always a rape of the natural world. Always.
