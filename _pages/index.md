@@ -16,6 +16,11 @@ I split my time between Brooklyn, NY and our 1754 farmhouse on the [Rhode Island
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop).
 
+<strong>Recently Played Music</strong>
+<div id="recently-played">
+  <p>Loading recently played tracks...</p>
+</div>
+
 <strong>My recently updated notes</strong>
 
 <!-- <h3>Recently Updated</h3> -->
@@ -43,3 +48,5 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     max-width: 46em;
   }
 </style>
+
+<script src="{{ site.baseurl }}/assets/js/lastfm.js"></script>
