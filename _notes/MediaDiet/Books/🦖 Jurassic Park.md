@@ -35,15 +35,15 @@ This is shockingly the first book I've ever re-read. I originally read it as a ~
 
 Very Theranos / Elizabeth Holmes
 
----
+
 >“But don’t you find it boring to wear only two colors?” “Not at all. I find it liberating. I believe my life has value, and I don’t want to waste it thinking about clothing,” Malcolm said. “I don’t want to think about what I will wear in the morning. Truly, can you imagine anything more boring than fashion? Professional sports, perhaps. Grown men swatting little balls, while the rest of the world pays money to applaud. But, on the whole, I find fashion even more tedious than sports.” 
 
 When did Steve Jobs start doing this / talking about it? Wonder if this is inspired by him, or inspired him.
 
----
+
 >"We live in a world of frightful givens. It is given that you will behave like this, given that you will care about that. No one thinks about the givens. Isn’t it amazing? In the information society, nobody thinks. We expected to banish paper, but we actually banished thought.” 
 
----
+
 >"Chaos theory says two things. First, that complex systems like weather have an underlying order. Second, the reverse of that—that simple systems can produce complex behavior. ""
 
 ---
