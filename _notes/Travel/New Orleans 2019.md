@@ -32,6 +32,9 @@ We stayed with the parade for a few hours and then split off to continue explori
 
 ![Second line parade dancers]({{ site.baseurl }}/assets/NewOrleans/©CooperLiskaSmith_20190331_150850_3stars_.jpeg)
 
-<div class="portrait-pair">![Second line parade dancers]({{ site.baseurl }}/assets/Cuixmala/Cuixmala - 1.jpeg)![Second line parade dancers]({{ site.baseurl }}/assets/Cuixmala/Cuixmala - 2.jpeg)</div>
+<div class="portrait-pair">
+  <img src="{{ site.baseurl }}/assets/Cuixmala/Cuixmala - 1.jpeg" alt="Second line parade dancers">
+  <img src="{{ site.baseurl }}/assets/Cuixmala/Cuixmala - 2.jpeg" alt="Second line parade dancers">
+</div>
 
 Since writing this, I've returned to New Orleans several times. I keep a comprehensive guide to all my favorite spots at [Coop's Guide to New Orleans](guide-to-new-orleans)
