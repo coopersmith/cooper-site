@@ -28,13 +28,7 @@ It was a rainy Sunday and we were fairly certain this weeks parade would be canc
 
 We stayed with the parade for a few hours and then split off to continue exploring. It was one of the coolest things I’ve ever been a part of, and I feel so fortunate to have been able to participate.
 
-<img src="{{ site.baseurl }}/assets/NewOrleans/©CooperLiskaSmith_20190331_150850_3stars_.jpeg"/>
+![Second line]({{ site.baseurl }}/assets/NewOrleans/©CooperLiskaSmith_20190331_150850_3stars_.jpeg)
 
-![Second line parade dancers]({{ site.baseurl }}/assets/NewOrleans/©CooperLiskaSmith_20190331_150850_3stars_.jpeg)
-
-<div class="portrait-pair">
-  <img src="{{ site.baseurl }}/assets/Cuixmala/Cuixmala - 1.jpeg" alt="Second line parade dancers">
-  <img src="{{ site.baseurl }}/assets/Cuixmala/Cuixmala - 2.jpeg" alt="Second line parade dancers">
-</div>
 
 Since writing this, I've returned to New Orleans several times. I keep a comprehensive guide to all my favorite spots at [Coop's Guide to New Orleans](guide-to-new-orleans)
