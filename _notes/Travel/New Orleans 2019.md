@@ -1,9 +1,8 @@
 ---
 title: New Orleans
 subtitle: 2019
-tags: 
+tags:
   - "#travel"
-  - "#2024"
 year: 2019
 ---
 
