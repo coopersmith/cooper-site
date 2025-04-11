@@ -16,7 +16,6 @@ I split my time between Brooklyn, NY and our 1754 farmhouse on the [Rhode Island
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop).
 
-<strong>Recently Played Music</strong>
 <div id="recently-played">
   <p>Loading recently played tracks...</p>
 </div>
