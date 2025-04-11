@@ -95,6 +95,28 @@ img {
   }
 }
 
+/* Side-by-side portrait images */
+.portrait-pair {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  
+  img {
+    width: 50%;
+    margin: 0; // Override the default img margin
+    max-height: none; // Override the default img max-height
+  }
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+    
+    img {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+  }
+}
+
 blockquote {
   padding: 1.5em;
   margin: 0;
