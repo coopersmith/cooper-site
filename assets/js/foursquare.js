@@ -4,15 +4,24 @@ const API_VERSION = '20240101';
 
 async function getLastCheckin() {
   try {
-    const response = await fetch(`https://api.foursquare.com/v2/users/self/checkins?v=${API_VERSION}&limit=1&oauth_token=${ACCESS_TOKEN}`);
+    // Using the correct endpoint structure for v2 API
+    const response = await fetch(`https://api.foursquare.com/v2/checkins/recent?v=${API_VERSION}&limit=1`, {
+      headers: {
+        'Authorization': `Bearer ${ACCESS_TOKEN}`
+      }
+    });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch Swarm data');
+      const errorText = await response.text();
+      console.error('API Response:', errorText);
+      throw new Error(`Failed to fetch Swarm data: ${response.status}`);
     }
     
     const data = await response.json();
-    if (data.response && data.response.checkins && data.response.checkins.items.length > 0) {
-      const lastCheckin = data.response.checkins.items[0];
+    console.log('API Response:', data); // Debug log
+    
+    if (data.response && data.response.recent && data.response.recent.length > 0) {
+      const lastCheckin = data.response.recent[0];
       const venueName = lastCheckin.venue.name;
       const location = lastCheckin.venue.location.city || lastCheckin.venue.location.neighborhood || '';
       const checkinTime = new Date(lastCheckin.createdAt * 1000).toLocaleDateString('en-US', {
@@ -26,7 +35,7 @@ async function getLastCheckin() {
       document.getElementById('last-checkin').innerHTML = 'No recent check-ins found';
     }
   } catch (error) {
-    console.error('Error fetching Swarm data:', error);
+    console.error('Error details:', error);
     document.getElementById('last-checkin').innerHTML = 'Unable to load check-in data';
   }
 }
