@@ -1,7 +1,3 @@
-// Replace with your Foursquare personal access token
-const ACCESS_TOKEN = 'fsq3qh3H+Bcvo06G4VTtxgN7/nUMSeHA2XWN0ymynYz9pPM=';
-const API_VERSION = '20240101';
-
 async function getLastCheckin() {
   try {
     const response = await fetch('/.netlify/functions/last-checkin');
@@ -31,4 +27,4 @@ async function getLastCheckin() {
 }
 
 // Call the function when the page loads
-document.addEventListener('DOMContentLoaded', getLastCheckin); 
+document.addEventListener('DOMContentLoaded', getLastCheckin);
