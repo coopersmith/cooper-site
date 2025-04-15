@@ -71,3 +71,5 @@ Its easy to write this with a bit of hindsight, but in 2017 I was in a bit of a 
 
 
 ![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 22.jpeg)
+
+<small> (Cameras: Leica Q) </small>

@@ -32,3 +32,5 @@ We stayed with the parade for a few hours and then split off to continue explori
 
 
 Since writing this, I've returned to New Orleans several times. I keep a comprehensive guide to all my favorite spots at [Coop's Guide to New Orleans](guide-to-new-orleans)
+
+<small> (Camera: Leica Q) </small>

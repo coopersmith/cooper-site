@@ -26,3 +26,4 @@ A few things that stuck out to me:
 
 <img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-L1010536.jpeg"/>
 
+<small> (Cameras: Leica Q3, iPhone 16)  </small>
