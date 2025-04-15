@@ -1,9 +1,10 @@
-// Replace with your Foursquare/Swarm API credentials
-const FOURSQUARE_ACCESS_TOKEN = 'fsq39T8ScLXPRGTrsVev6H7lntR23sMT7EAZ8qMy4lVIOlA=';
+// Replace with your Foursquare personal access token
+const ACCESS_TOKEN = 'fsq3qh3H+Bcvo06G4VTtxgN7/nUMSeHA2XWN0ymynYz9pPM=';
+const API_VERSION = '20240101';
 
 async function getLastCheckin() {
   try {
-    const response = await fetch('https://api.foursquare.com/v2/users/self/checkins?v=20240101&limit=1&oauth_token=' + FOURSQUARE_ACCESS_TOKEN);
+    const response = await fetch(`https://api.foursquare.com/v2/users/self/checkins?v=${API_VERSION}&limit=1&oauth_token=${ACCESS_TOKEN}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch Swarm data');
