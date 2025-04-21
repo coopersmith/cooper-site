@@ -6,6 +6,18 @@ permalink: /about
 
 # Cooper Smith
 
+
+## Elsewhere
+
+Instagram: @coopersmith
+Twitter: @coops
+Threads: @coopersmith
+Bluesky: [@coopersmith](https://bsky.app/profile/coopersmith.bsky.social)
+Glass:
+
+
+
+
 ## Now
 
 - Director of Product Design at [Asana](https://asana.com/features)

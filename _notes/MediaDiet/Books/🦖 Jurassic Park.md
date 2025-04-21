@@ -55,7 +55,7 @@ When did Steve Jobs start doing this / talking about it? Wonder if this is inspi
 ---
 >Scientists are actually preoccupied with accomplishment. So they are focused on whether they can do something. They never stop to ask if they should do something. 
 
-Current Artificial Intelligence tech race is very much this.
+Strong AI in 2025 vibez
 
 ---
 >Astronauts leave trash on the moon. There is always some proof that scientists were there, making their discoveries. Discovery is always a rape of the natural world. Always.
