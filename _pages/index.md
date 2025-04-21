@@ -7,11 +7,11 @@ permalink: /
 
 # Hey, I'm Cooper
 
-I split my time between Brooklyn, NY and Rhode Island's Farm Coast.
+I split my time between Brooklyn, NY and Rhode Island's [Farm Coast.](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html) 
 
 When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design for our Align organization, as well as our Mobile organization. I have over a decade of experience building products and teams at Lyft, Twitter, Foursquare [among others](https://read.cv/coops). 
 
-When I'm in Rhode Island, I'm in our 1754 farmhouse on the [Rhode Island Farm Coast.](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html). I also roast coffee out of my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
+When I'm in Rhode Island, I look after our 1754 farmhouse and roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop).
 
