@@ -26,6 +26,8 @@ tags:
 ---
 ## My Review
 
+★★★★½
+
 This is shockingly the first book I've ever re-read. I originally read it as a ~12 year old, and though I remember absolutely loving it, I knew even back then how much of it was going over my head. Really loved this re-read, getting as much from the science and theory as I did from the exciting dinosaur action sequences. I had a realization halfway through that so much of what Ian Malcolm talks about is largely what we describe and understand data science to be today.  
 
 
