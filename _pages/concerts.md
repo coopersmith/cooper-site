@@ -4,7 +4,7 @@ description: A running list of concerts attended
 permalink: /concerts/
 ---
 
-<h2>Concerts and Live Music</h2>
+<h2>A running list of concerts I've attended, with setlists if available</h2>
 
 <div class="notes-entry-container">
   {% assign concert_notes = site.notes | where_exp: "item", "item.tags contains 'concerts'" | sort: "Dates" | reverse %}
