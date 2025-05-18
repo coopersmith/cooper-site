@@ -17,8 +17,8 @@ category:
 1. DNA.
 2. ELEMENT.
 3. King Kunta
-4. untitled 07 | 2014 - 2016
-5. untitled 02 | 06.23.2014.
+4. untitled 07  2014 - 2016
+5. untitled 02  06.23.2014.
 6. Mask Off (Future cover)
 7. Collard Greens (ScHoolboy Q cover)
 8. Swimming Pools (Drank)
