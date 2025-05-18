@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Frightened Rabbit at Terminal 5"
 Artists:
   - "[[Frightened Rabbit]]"
 Dates: 2010-10-30

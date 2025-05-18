@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Bon Iver at Radio City Music Hall"
 Artists:
   - Bon Iver
 Dates: 2012-09-21

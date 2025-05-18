@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Bon Iver at Gerald R Ford Amphitheatre"
 Artists:
   - "[[Bon Iver]]"
 Dates: 2019-09-02

@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Local Natives at Larimer Lounge"
 Artists:
   - "[[Local Natives]]"
 Dates: 2010-05-21

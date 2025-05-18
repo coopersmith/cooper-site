@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Governor's Ball Music Festival"
 Artists:
   - "[[Kanye West]]"
   - "[[Kendrick Lamar]]"

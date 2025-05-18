@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Ray Lamontange at Rumsey Playfield"
 Artists:
   - "[[Ray LaMontagne]]"
 Dates: 2011-05-31

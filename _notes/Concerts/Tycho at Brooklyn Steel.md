@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Tycho at Brooklyn Steel"
 Artists:
   - "[[Tycho]]"
 Dates: 2017-05-03

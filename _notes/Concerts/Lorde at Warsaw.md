@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Lorde at Warsaw"
 Artists:
   - "[[Lorde]]"
 Dates: 2013-10-03

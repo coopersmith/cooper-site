@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Future Islands at The Mohawk"
 Artists:
   - "[[Future Islands]]"
 Dates: 2015-03-18

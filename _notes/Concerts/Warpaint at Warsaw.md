@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Warpaint at Warsaw"
 Artists:
   - "[[Warpaint]]"
 Dates: 2016-10-07

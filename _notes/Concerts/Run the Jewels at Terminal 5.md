@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Run the Jewels at Terminal 5"
 Artists:
   - "[[Run the Jewels]]"
 Dates: 2017-02-25
