@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Watch the Throne (Jay-Z, Kanye) at Madison Square Garden"
 Artists:
   - "[[Kanye Westa]]"
   - "[[Jay-Z]]"

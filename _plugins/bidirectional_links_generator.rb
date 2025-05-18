@@ -20,7 +20,7 @@ class BidirectionalLinksGenerator < Jekyll::Generator
             note_potentially_linked_to.basename,
             File.extname(note_potentially_linked_to.basename)
           )
-        )
+        ).gsub('\_', '[ _]').gsub('\-', '[ -]').capitalize
 
         title_from_data = note_potentially_linked_to.data['title']
         if title_from_data
