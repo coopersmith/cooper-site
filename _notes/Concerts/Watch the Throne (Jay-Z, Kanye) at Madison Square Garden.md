@@ -2,8 +2,8 @@
 layout: concert
 title: "Watch the Throne (Jay-Z, Kanye) at Madison Square Garden"
 Artists:
-  - "[[Kanye Westa]]"
   - "[[Jay-Z]]"
+  - "[[Kanye West]]"
 Dates: 2011-11-08
 Venue: "[[Madison Square Garden]]"
 With me:
