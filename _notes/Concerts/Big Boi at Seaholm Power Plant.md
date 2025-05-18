@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Big Boi]]"
 Dates: 2011-03-14

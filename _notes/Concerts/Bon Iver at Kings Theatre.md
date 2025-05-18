@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Bon Iver]]"
 Dates: 2016-12-12

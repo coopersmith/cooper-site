@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Local Natives]]"
 Dates: 2010-05-21

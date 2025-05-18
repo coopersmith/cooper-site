@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Kendrick Lamar]]"
 Dates: 2016-12-16

@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Childish Gambino]]"
 Dates: 2018-09-14

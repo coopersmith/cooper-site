@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Real Estate]]"
 Dates: 2015-03-18

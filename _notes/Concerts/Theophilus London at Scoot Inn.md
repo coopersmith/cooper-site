@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Theophilus London]]"
 Dates: 2011-03-11

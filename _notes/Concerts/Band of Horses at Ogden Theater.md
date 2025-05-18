@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Band of Horses]]"
 Dates: 2010-03-16

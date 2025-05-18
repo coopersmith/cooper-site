@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Tycho]]"
 Dates: 2017-05-03

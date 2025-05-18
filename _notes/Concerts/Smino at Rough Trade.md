@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Smino]]"
 Dates: 2016-08-02

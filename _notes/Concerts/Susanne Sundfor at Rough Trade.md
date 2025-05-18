@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Susanne Sundfør]]"
 Dates: 2015-05-22

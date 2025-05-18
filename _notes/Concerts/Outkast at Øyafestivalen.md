@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Outkast]]"
 Dates: 2014-08-07

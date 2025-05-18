@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Phoenix]]"
 Dates: 2010-04-20

@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Kanye West]]"
   - "[[Jay-Z]]"
