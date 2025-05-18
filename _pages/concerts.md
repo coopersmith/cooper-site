@@ -11,7 +11,7 @@ permalink: /concerts/
   {% for note in concert_notes %}
     <div class="notes-entry">
       <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
-      <span class="notes-entry-date">{{ note.Dates | date: "%B %d, %Y" }}</span>
+      <span class="notes-entry-date">&nbsp;&mdash;&nbsp;{{ note.Dates | date: "%B %d, %Y" }}</span>
     </div>
   {% endfor %}
 </div>
