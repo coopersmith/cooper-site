@@ -6,47 +6,34 @@ layout: default
   <div>
     <h1>{{ page.title }}</h1>
     
-    {% if page.Artists %}
     <p class="subtitle">
-      {% for artist in page.Artists %}
-        {% assign clean_artist = artist | replace: '[[' | replace: ']]' %}
-        {{ clean_artist }}{% unless forloop.last %}, {% endunless %}
-      {% endfor %}
-    </p>
-    {% endif %}
+      {% if page.Artists %}
+        {% for artist in page.Artists %}
+          {% assign clean_artist = artist | replace: '[[' | replace: ']]' %}
+          {{ clean_artist }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+        <br>
+      {% endif %}
 
-    {% if page.Venue %}
-    <p class="subtitle">
-      {% assign clean_venue = page.Venue | replace: '[[' | replace: ']]' %}
-      {{ clean_venue }}
-    </p>
-    {% endif %}
+      {% if page.Venue %}
+        {% assign clean_venue = page.Venue | replace: '[[' | replace: ']]' %}
+        {{ clean_venue }}
+        <br>
+      {% endif %}
 
-    {% if page.Dates %}
-    <p class="subtitle">
-      {{ page.Dates | date: "%B %-d, %Y" }}
-    </p>
-    {% endif %}
+      {% if page.Dates %}
+        {{ page.Dates | date: "%B %-d, %Y" }}
+        <br>
+      {% endif %}
 
-    {% if page.Openers %}
-    <p class="subtitle">
-      Opening for: 
-      {% for opener in page.Openers %}
-        {% assign clean_opener = opener | replace: '[[' | replace: ']]' %}
-        {{ clean_opener }}{% unless forloop.last %}, {% endunless %}
-      {% endfor %}
+      {% if page.Openers %}
+        Opening for: 
+        {% for opener in page.Openers %}
+          {% assign clean_opener = opener | replace: '[[' | replace: ']]' %}
+          {{ clean_opener }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      {% endif %}
     </p>
-    {% endif %}
-
-    {% if page.With_me %}
-    <p class="subtitle">
-      With: 
-      {% for person in page.With_me %}
-        {% assign clean_person = person | replace: '[[' | replace: ']]' %}
-        {{ clean_person }}{% unless forloop.last %}, {% endunless %}
-      {% endfor %}
-    </p>
-    {% endif %}
   </div>
 
   <div id="notes-entry-container">
