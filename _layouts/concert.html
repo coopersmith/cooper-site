@@ -27,7 +27,7 @@ layout: default
       {% endif %}
 
       {% if page.Openers %}
-        Opening for: 
+        Opener: 
         {% for opener in page.Openers %}
           {% assign clean_opener = opener | replace: '[[' | replace: ']]' %}
           {{ clean_opener }}{% unless forloop.last %}, {% endunless %}
