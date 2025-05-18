@@ -1,6 +1,6 @@
 ---
 Artists:
-  - "[[Kanye West]]"
+  - "[[Kanye Westa]]"
   - "[[Jay-Z]]"
 Dates: 2011-11-08
 Venue: "[[Madison Square Garden]]"
