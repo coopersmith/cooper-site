@@ -19,7 +19,7 @@ function fetchTopArtists() {
             const artistNames = artistData.map(artist => artist.name);
             const commaSeparatedArtists = artistNames.join(", ");
             
-            recentlyPlayedDiv.innerHTML = `<p>Recently listening to a lot of ${commaSeparatedArtists}</p>`;
+            recentlyPlayedDiv.innerHTML = `<p>Recently I've been listening to a lot of ${commaSeparatedArtists}</p>`;
         })
         .catch(error => {
             console.error("Error fetching data from Last.fm:", error);
