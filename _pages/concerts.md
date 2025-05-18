@@ -1,6 +1,6 @@
 ---
 title: Concerts and Live Music
-description: A collection of concert experiences and live music memories
+description: A running list of concerts attended
 permalink: /concerts/
 ---
 
