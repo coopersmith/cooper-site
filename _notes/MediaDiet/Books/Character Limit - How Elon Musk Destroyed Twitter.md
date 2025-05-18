@@ -1,5 +1,5 @@
 ---
-title: "Character Limit: How Elon Musk Destroyed Twitter"
+title: "📚 Character Limit: How Elon Musk Destroyed Twitter"
 category:
   - "[[Books]]"
 author:
