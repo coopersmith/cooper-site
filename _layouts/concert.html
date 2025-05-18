@@ -1,6 +1,5 @@
 ---
 layout: default
-title-casing: false
 ---
 
 <article>
@@ -28,7 +27,7 @@ title-casing: false
       {% endif %}
 
       {% if page.Openers %}
-        Opening for: 
+        Opener: 
         {% for opener in page.Openers %}
           {% assign clean_opener = opener | replace: '[[' | replace: ']]' %}
           {{ clean_opener }}{% unless forloop.last %}, {% endunless %}
@@ -42,4 +41,4 @@ title-casing: false
       {{ content }}
     </content>
   </div>
-</article> 
+</article>
