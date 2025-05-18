@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Kanye West]]"
 Dates: 2016-09-06

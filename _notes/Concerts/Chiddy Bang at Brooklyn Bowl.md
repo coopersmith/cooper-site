@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Chiddy Bang]]"
 Dates: 2010-07-14

@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Kendrick Lamar]]"
 Dates: 2017-07-23

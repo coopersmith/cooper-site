@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Lorde]]"
 Dates: 2013-10-03

@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Sigur Rós]]"
 Dates: 2012-07-31

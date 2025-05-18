@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Run the Jewels]]"
 Dates: 2017-02-25

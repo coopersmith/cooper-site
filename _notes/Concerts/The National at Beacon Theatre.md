@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[The National]]"
 Dates: 2011-12-16

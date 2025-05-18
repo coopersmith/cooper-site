@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[The War On Drugs]]"
 Dates: 2014-03-21

@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Horse Feathers]]"
 Dates: 2014-04-18

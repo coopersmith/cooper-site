@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Goldlink]]"
 Dates: 2017-10-13

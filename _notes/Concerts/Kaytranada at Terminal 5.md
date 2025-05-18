@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Kaytranada]]"
 Dates: 2016-10-05

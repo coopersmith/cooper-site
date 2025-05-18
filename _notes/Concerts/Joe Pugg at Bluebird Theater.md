@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Joe Pug]]"
 Dates: 2010-02-19
