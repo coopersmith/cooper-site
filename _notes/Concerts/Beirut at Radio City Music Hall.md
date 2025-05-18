@@ -1,4 +1,6 @@
 ---
+layout: concert
+layout: concert
 Artists:
   - "[[Beirut]]"
 Dates: 2015-10-01

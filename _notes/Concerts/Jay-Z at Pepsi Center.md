@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Jay-Z]]"
 Dates: 2010-03-22

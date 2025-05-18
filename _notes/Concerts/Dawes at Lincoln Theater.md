@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Dawes]]"
 Dates: 2010-10-23

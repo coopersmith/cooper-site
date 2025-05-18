@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Lord Huron]]"
 Dates: 2014-02-07

@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Frightened Rabbit]]"
 Dates: 2010-10-30

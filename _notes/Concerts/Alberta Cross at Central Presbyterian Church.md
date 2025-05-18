@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Alberta Cross]]"
 Dates: 2015-03-19

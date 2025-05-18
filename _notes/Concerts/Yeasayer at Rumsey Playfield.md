@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Yeasayer]]"
 Dates: 2012-09-12

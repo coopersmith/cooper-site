@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Future Islands]]"
 Dates: 2015-03-18

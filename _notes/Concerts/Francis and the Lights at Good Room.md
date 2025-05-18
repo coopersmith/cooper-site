@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Francis and the Lights]]"
 Dates: 2016-10-03

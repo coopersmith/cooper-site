@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Warpaint]]"
 Dates: 2016-10-07

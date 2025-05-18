@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Ray LaMontagne]]"
 Dates: 2011-05-31

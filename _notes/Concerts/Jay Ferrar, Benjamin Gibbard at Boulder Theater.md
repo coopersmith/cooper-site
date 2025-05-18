@@ -1,4 +1,5 @@
 ---
+layout: concert
 Artists:
   - "[[Jay Farrar]]"
   - "[[Benjamin Gibbard]]"
