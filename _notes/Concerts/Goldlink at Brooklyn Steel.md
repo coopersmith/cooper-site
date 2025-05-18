@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Goldlink at Brooklyn Steel"
 Artists:
   - "[[Goldlink]]"
 Dates: 2017-10-13

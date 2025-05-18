@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Horse Feathers at Glasslands Gallery"
 Artists:
   - "[[Horse Feathers]]"
 Dates: 2014-04-18

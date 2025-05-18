@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "The National at Prospect Park Bandshell"
 Artists:
   - "[[The National]]"
 Dates: 2010-07-27

@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Kendrick Lamar at Barclays"
 Artists:
   - "[[Kendrick Lamar]]"
 Dates: 2017-07-23

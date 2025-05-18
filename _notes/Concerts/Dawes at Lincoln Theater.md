@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Dawes at Lincoln Theater"
 Artists:
   - "[[Dawes]]"
 Dates: 2010-10-23

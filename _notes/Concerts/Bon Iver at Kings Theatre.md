@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Bon Iver at Kings Theatre"
 Artists:
   - "[[Bon Iver]]"
 Dates: 2016-12-12

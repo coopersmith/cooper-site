@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Jay-Z at Pepsi Center"
 Artists:
   - "[[Jay-Z]]"
 Dates: 2010-03-22

@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Yeasayer at Rumsey Playfield"
 Artists:
   - "[[Yeasayer]]"
 Dates: 2012-09-12

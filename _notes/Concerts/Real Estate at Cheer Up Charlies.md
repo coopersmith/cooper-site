@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Real Estate at Cheer Up Charlies"
 Artists:
   - "[[Real Estate]]"
 Dates: 2015-03-18

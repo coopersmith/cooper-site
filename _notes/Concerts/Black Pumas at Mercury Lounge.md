@@ -1,6 +1,6 @@
 ---
 layout: concert
-layout: concert
+title: "Black Pumas at Mercury Lounge"
 Artists:
   - "[[Black Pumas]]"
 Dates: 2019-07-29

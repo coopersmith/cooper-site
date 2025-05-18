@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Jay Ferrar, Benjamin Gibbard at Boulder Theater"
 Artists:
   - "[[Jay Farrar]]"
   - "[[Benjamin Gibbard]]"

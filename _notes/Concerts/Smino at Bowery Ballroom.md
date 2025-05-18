@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Smino at Bowery Ballroom"
 Artists:
   - "[[Smino]]"
 Dates: 2017-05-02

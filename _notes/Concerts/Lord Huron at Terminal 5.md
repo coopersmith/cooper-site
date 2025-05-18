@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Lord Huron at Terminal 5"
 Artists:
   - "[[Lord Huron]]"
 Dates: 2014-02-07

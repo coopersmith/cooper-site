@@ -1,4 +1,6 @@
 ---
+layout: concert
+title: "Kendrick Lamar and Sza at Gillette Stadium"
 Artists:
   - "[[Kendrick Lamar]]"
   - "[[Sza]]"

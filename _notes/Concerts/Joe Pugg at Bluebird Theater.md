@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Joe Pugg at Bluebird Theater"
 Artists:
   - "[[Joe Pug]]"
 Dates: 2010-02-19

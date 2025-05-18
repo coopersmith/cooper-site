@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Bon Iver at Red Rocks"
 Artists:
   - "[[Bon Iver]]"
 Dates: 2012-05-31

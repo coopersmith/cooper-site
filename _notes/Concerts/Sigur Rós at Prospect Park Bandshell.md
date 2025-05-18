@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Sigur Rós at Prospect Park Bandshell"
 Artists:
   - "[[Sigur Rós]]"
 Dates: 2012-07-31

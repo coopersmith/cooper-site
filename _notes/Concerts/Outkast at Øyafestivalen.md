@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "Outkast at Øyafestivalen"
 Artists:
   - "[[Outkast]]"
 Dates: 2014-08-07

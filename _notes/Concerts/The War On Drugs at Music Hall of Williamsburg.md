@@ -1,5 +1,6 @@
 ---
 layout: concert
+title: "The War On Drugs at Music Hall of Williamsburg"
 Artists:
   - "[[The War On Drugs]]"
 Dates: 2014-03-21
