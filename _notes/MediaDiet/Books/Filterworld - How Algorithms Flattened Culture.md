@@ -1,5 +1,5 @@
 ---
-title: "Filterworld: How Algorithms Flattened Culture"
+title: "📚 Filterworld: How Algorithms Flattened Culture"
 category:
   - "[[Books]]"
 author:
