@@ -10,7 +10,7 @@ Yesterday, I had an idea.
 
 I absolutely love Granola AI. It allows me to be 100% present in meetings without worrying about taking notes, but also ensures that after the meeting wraps, I have my list of action items. Its also really helpful to look back and review my previous week as I kick off the next.
 
-But the idea of leaving my notes in Granola terrifies me. It could shut down tomorrow (I hope it doesn't) and I'd lose everything. So at the end of every day, I've been manually copying and pasting each meeting note over to Obsidian, my repository for every piece of text in my life. (I could write an entire separate post about why I love Obsidian, but most it comes down to Steph Ango's philosophy of [File over App](https://stephango.com/file-over-app.)
+But the idea of leaving my notes in Granola terrifies me. It could shut down tomorrow (I hope it doesn't) and I'd lose everything. So at the end of every day, I've been manually copying and pasting each meeting note over to Obsidian, my repository for every piece of text in my life. (I could write an entire separate post about why I love Obsidian, but most it comes down to Steph Ango's philosophy of [File over App](https://stephango.com/file-over-app).
 
 So, I have a workflow that works, but its tedious and I can already feeling myself slipping in my routine. I had previously searched to see if anybody had written an Obsidian plugin, but had only come across a [blog post of a guy who had written a Python script and suggested it could probably easily become an Obsidian plugin](https://josephthacker.com/hacking/2025/05/08/reverse-engineering-granola-notes.html).
 
