@@ -24,7 +24,6 @@ start: 2025-01-21
 completed: 2025-03-14
 tags:
   - books
-  - reading
   - MediaDiet2025
 ---
 Character Limit: How Elon Musk Destroyed Twitter by Kate Conger and Ryan Mac provides a detailed account of Elon Musk's tumultuous acquisition of Twitter and the subsequent transformation of the platform into X. The authors explore the political, social, and financial ramifications of Musk's actions, revealing the chaotic inner workings of the company as it faced unprecedented challenges under his leadership. 
