@@ -3,8 +3,16 @@ title: New Orleans
 subtitle: 2019
 tags:
   - "#travel"
+  - trips
 year: 2019
+category:
+  - "[[Trips]]"
+start: 2019-03-28
+end: 2019-04-02
+loc:
+  - "[[New Orleans]]"
 ---
+
 
 <img src="{{ site.baseurl }}/assets/NewOrleans/47989916343_d39581b119_o.jpeg"/>
 

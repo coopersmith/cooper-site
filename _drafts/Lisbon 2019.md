@@ -3,8 +3,16 @@ title: Lisbon
 subtitle: 2019
 tags:
   - "#travel"
+  - trips
 year: 2019
+category:
+  - "[[Trips]]"
+start: 2019-09-26
+end: 2019-09-30
+loc:
+  - "[[Lisbon]]"
 ---
+
 In September 2019, Steph and I went on our first trip together to Lisbon. 
 
 <img src="{{ site.baseurl }}/assets/lisbon/Lisbon - 1.jpeg"/>  

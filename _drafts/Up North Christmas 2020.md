@@ -1,9 +1,10 @@
 ---
 category:
   - "[[Trips]]"
-start: 
-end: 
-loc: 
+start:
+end:
+loc:
+  - "[[Manitowish Waters]]"
 tags:
   - trips
 ---

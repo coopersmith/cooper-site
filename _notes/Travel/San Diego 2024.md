@@ -1,10 +1,17 @@
 ---
 title: San Diego
-tags: 
+tags:
   - "#travel"
-  - "#2024"
+  - trips
 year: 2024
+category:
+  - "[[Trips]]"
+start: 2024-02-26
+end: 2024-03-24
+loc:
+  - "[[San Diego]]"
 ---
+
 In the spring of 2024, I attended a team offsite in San Diego. While the first few days were spent locked in a hotel conference room, Thursday was a free day for team activities. For my team, I arranged a private tour of the Salk Institute just north of San Diego.
 
 Jonas Salk pioneered the polio vaccine. After that, he was a bit of scientific hero/celebrity and was able to establish the Salk Institute. He wanted it to be a place that was worthy of Picasso, so he hired the famous architect Louis Kahn. He wanted it to be an inspiring and comfortable place to come to work, and for people to do their best work. 
