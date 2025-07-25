@@ -8,7 +8,6 @@ tags:
 
 This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021).
 
-Test test test test
 
 ## Eulogized
 
