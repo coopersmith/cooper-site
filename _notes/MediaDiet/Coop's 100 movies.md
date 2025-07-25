@@ -12,16 +12,16 @@ A list of my 100 favorite movies.
 
 |         | Movie                                                                | Year |
 | ------- | -------------------------------------------------------------------- | ---- |
-| **1**   | Heat                                                                 | 1995 |
-| **2**   | The Social Network                                                   | 2010 |
-| **3**   | Wet Hot American Summer                                              | 2001 |
-| **4**   | Rushmore                                                             | 1998 |
-| **5**   | The Shawshank Redemption                                             | 1994 |
-| **6**   | Almost Famous                                                        | 2000 |
-| **7**   | GoodFellas                                                           | 1990 |
-| **8**   | The Departed                                                         | 2006 |
+| **1**   | [[Heat]]                                                             | 1995 |
+| **2**   | [[The Social Network]]                                               | 2010 |
+| **3**   | [[Wet Hot American Summer]]                                          | 2001 |
+| **4**   | [[Rushmore]]                                                         | 1998 |
+| **5**   | [[The Shawshank Redemption]]                                         | 1994 |
+| **6**   | [[Almost Famous]]                                                    | 2000 |
+| **7**   | [[Goodfellas]]                                                       | 1990 |
+| **8**   | [[The Departed]]                                                     | 2006 |
 | **9**   | Lost in Translation                                                  | 2003 |
-| **10**  | The Dark Knight                                                      | 2008 |
+| **10**  | [[The Dark Knight]]                                                  | 2008 |
 | **11**  | Dazed and Confused                                                   | 1993 |
 | **12**  | Donnie Darko                                                         | 2001 |
 | **13**  | Ghostbusters                                                         | 1984 |
@@ -112,3 +112,4 @@ A list of my 100 favorite movies.
 | **98**  | Terminator 2: Judgment Day                                           | 1991 |
 | **99**  | Wayne's World                                                        | 1992 |
 | **100** | The Prestige                                                         | 2006 |
+

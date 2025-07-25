@@ -23,6 +23,8 @@ tags:
   - read
   - mediadiet/2025
   - MediaDiet2025
+category:
+  - "[[Books]]"
 ---
 ## My Review
 

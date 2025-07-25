@@ -66,7 +66,7 @@ Field Stone Kombucha -
 
 [[Art Cafe]]
 
-[[Groundswell]]: A truly beautiful cafe, along with pastries that are out of this world, Groundswell has turned into a tourist destination and the heartbeat of the Tiverton Four Corners. Grab a coffee and browse their amazing home store and garden store.
+[[Groundswell Cafe]]: A truly beautiful cafe, along with pastries that are out of this world, Groundswell has turned into a tourist destination and the heartbeat of the Tiverton Four Corners. Grab a coffee and browse their amazing home store and garden store.
 
 
 
@@ -81,7 +81,7 @@ Nestled in amongst the lobster boats unloading todays fresh catch, you'll find W
 
 
 
-[[Ragged Island]]
+[[Ragged Island Brewing]]
 
 We don't often cross over to Aquidneck Island, but when we do, its usually to visit Ragged Island Brewery. If you try to order a New England hazy here, you'll be asked which one? And you can't go wrong with any of them (though Tiny Truck is our favorite).
 

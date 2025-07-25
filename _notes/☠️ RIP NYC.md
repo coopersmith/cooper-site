@@ -8,6 +8,8 @@ tags:
 
 This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021).
 
+Test test test test
+
 ## Eulogized
 
 **Red Star**  
@@ -26,7 +28,7 @@ While I never learned how to pronounce the name, I absolutely loved coming here,
 
 ### **Marlow and Sons**
 
-
+Nitecap
 
 **Donna**  
 _Date Closed: 2021-01-15 · Now: Unknown_  
