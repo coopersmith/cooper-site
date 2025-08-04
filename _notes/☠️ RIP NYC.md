@@ -6,7 +6,7 @@ tags:
 ---
 "You are a New Yorker when what was there before is more real and solid than what is here now." [[The Colossus of New York]]
 
-This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade in the city (2010-2021).
+This is an ever growing list of the places I've known, and often loved, that have closed in my 15 years in NYC. The list heavily biases towards the Williamsburg and Greenpoint neighborhoods, given thats where I spent my first decade living in the city (2010-2021).
 
 ## Eulogized
 
@@ -20,13 +20,13 @@ This place needed to close for obvious reasons. But that doesn't mean I don't st
 
 **Spuyten Duyvil**  
 _Date Closed: Unknown · Now: Unknown_  
-While I never learned how to pronounce the name, I absolutely loved coming here, especially while waiting for a table at St. Anselm's. You could put your name in for a delicious steak, wander two doors down, and sit in the backyard. Best part was that when your table was ready, you could carry your beer through the backyard to your table.
+While I never learned how to pronounce the name, I absolutely loved coming here, especially while waiting for a table at St. Anselm's. You could put your name in for a delicious steak, wander two doors down, and sit in the backyard with a great beer Best part was that when your table was ready, you could carry your beer through the backyard to your table.
 
 "The pared-down lineup of drafts—as well as its 100-plus bottle list, focused mainly on tiny European breweries—at this pioneering Williamsburg bar spoke to owner Joe Carroll's reverence for beer. ("With too many lines, the beer can sit around and get stale," he said.) Alas, Spuyten poured its last brewski in April 2024 due to rising rents."
 
 ### **Marlow and Sons**
 
-Nitecap
+
 
 **Donna**  
 _Date Closed: 2021-01-15 · Now: Unknown_  
@@ -215,6 +215,8 @@ _Date Closed: Unknown · Now: Unknown_
 _Date Closed: Unknown · Now: Unknown_  
 109A N 3rd St (btwn Berry St. & Wythe Ave.)  
 Brooklyn, NY 11249
+
+**Nitecap**
 
 **The Abbey**  
 _Date Closed: Unknown · Now: Unknown_  
