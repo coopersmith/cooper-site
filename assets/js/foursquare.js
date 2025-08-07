@@ -13,7 +13,7 @@ async function getLastCheckin() {
     }
     
     const venueName = data.venue;
-    const location = data.location.city || data.location.neighborhood || '';
+    const location = data.location?.city || data.location?.neighborhood || '';
     const checkinTime = new Date(data.createdAt * 1000).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric'
