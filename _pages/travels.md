@@ -33,8 +33,8 @@ Our honeymoon. Capetown, wine country, and safari.
 ---
 
 ### 2023
-## Inverness + LA + Guernville
-A west coast tour. Started in Inverness to spend time with family, I shot down to LA for a brief work trip, and then returned back to the bay area for a wedding in Guernville.
+## Inverness + LA + Guerneville
+A west coast tour. Started in Inverness to spend time with family, I shot down to LA for a brief work trip, and then returned back to the bay area for a wedding in Guerneville.
 
 ---
 
