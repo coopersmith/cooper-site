@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Horse Feathers at Glasslands Gallery"
+title: Horse Feathers at Glasslands Gallery
 Artists:
   - "[[Horse Feathers]]"
 Dates: 2014-04-18
@@ -9,6 +9,6 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

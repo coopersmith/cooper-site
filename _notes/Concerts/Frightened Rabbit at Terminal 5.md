@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Frightened Rabbit at Terminal 5"
+title: Frightened Rabbit at Terminal 5
 Artists:
   - "[[Frightened Rabbit]]"
 Dates: 2010-10-30
@@ -9,7 +9,7 @@ With me:
   - "[[Hoshi Ludwig]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

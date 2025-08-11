@@ -1,5 +1,5 @@
 ---
-category: "[[Cocktails]]"
+categories: "[[Cocktails]]"
 type:
   - "[[Negroni]]"
 ingredients:
@@ -7,11 +7,11 @@ ingredients:
   - "[[Campari]]"
   - "[[Sweet Vermouth]]"
   - "[[Amaro Braulio]]"
-author: 
+author:
 url: https://punchdrink.com/recipes/alpine-negroni-2/
 rating: 6
-created: 
-last: 
+created:
+last:
 tags:
   - cocktails
 ---

@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "The War On Drugs at Music Hall of Williamsburg"
+title: The War On Drugs at Music Hall of Williamsburg
 Artists:
   - "[[The War On Drugs]]"
 Dates: 2014-03-21
@@ -9,7 +9,7 @@ With me:
   - "[[Grant Anderson]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

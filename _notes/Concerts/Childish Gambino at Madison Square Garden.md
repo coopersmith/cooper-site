@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Childish Gambino at Madison Square Garden"
+title: Childish Gambino at Madison Square Garden
 Artists:
   - "[[Childish Gambino]]"
 Dates: 2018-09-14
@@ -11,7 +11,7 @@ With me:
   - "[[Jillian Van Niel]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Real Estate at Cheer Up Charlies"
+title: Real Estate at Cheer Up Charlies
 Artists:
   - "[[Real Estate]]"
 Dates: 2015-03-18
@@ -9,6 +9,6 @@ With me:
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

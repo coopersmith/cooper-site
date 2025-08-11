@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Joe Pugg at Bluebird Theater"
+title: Joe Pugg at Bluebird Theater
 Artists:
   - "[[Joe Pug]]"
 Dates: 2010-02-19
@@ -9,6 +9,6 @@ With me:
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

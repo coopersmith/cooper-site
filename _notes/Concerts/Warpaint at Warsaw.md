@@ -1,15 +1,15 @@
 ---
 layout: concert
-title: "Warpaint at Warsaw"
+title: Warpaint at Warsaw
 Artists:
   - "[[Warpaint]]"
 Dates: 2016-10-07
-Venue: "[[Warsaw]]"
+Venue: "[[The Warsaw]]"
 With me:
   - "[[Debbie]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

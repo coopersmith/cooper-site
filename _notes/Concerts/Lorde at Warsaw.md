@@ -1,19 +1,19 @@
 ---
 layout: concert
-title: "Lorde at Warsaw"
+title: Lorde at Warsaw
 Artists:
   - "[[Lorde]]"
 Dates: 2013-10-03
-Venue: "[[Warsaw]]"
+Venue: "[[The Warsaw]]"
 With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 
-May never get over the fact I got to see Lorde at the incredibly intimate [[Warsaw]] in Williamsburg. I bought these tickets in like May and by the time the concert happened in October, Lorde was huge. Tickets were going for like 10x.
+May never get over the fact I got to see Lorde at the incredibly intimate [[The Warsaw]] in Williamsburg. I bought these tickets in like May and by the time the concert happened in October, Lorde was huge. Tickets were going for like 10x.
 
 ### Setlist
 1. Bravado

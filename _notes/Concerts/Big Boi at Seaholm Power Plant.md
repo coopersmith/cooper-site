@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Big Boi at Seaholm Power Plant"
+title: Big Boi at Seaholm Power Plant
 Artists:
   - "[[Big Boi]]"
 Dates: 2011-03-14
@@ -9,6 +9,6 @@ With me:
   - "[[Dusty Albertz]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

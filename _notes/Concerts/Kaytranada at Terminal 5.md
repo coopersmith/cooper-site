@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Kaytranada at Terminal 5"
+title: Kaytranada at Terminal 5
 Artists:
   - "[[Kaytranada]]"
 Dates: 2016-10-05
@@ -9,6 +9,6 @@ With me:
   - "[[Marques Gartrell]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

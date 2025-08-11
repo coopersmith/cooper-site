@@ -40,6 +40,10 @@ _Date Closed: 2020-07 · Now: Unknown_
 
 
 
+**Puck Fair**
+
+
+
 **Reynard**  
 _Date Closed: 2020-03 · Now: Le Crocodile_  
 Reynard came before the reniassance in high end hotel restauraunts. While I went for both brunch and dinner, the brunch was absolutely fantastic, mostly because of the breakfast sandwich, which was basically a burger, and it was fantastic.

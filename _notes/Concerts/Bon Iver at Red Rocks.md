@@ -1,16 +1,16 @@
 ---
 layout: concert
-title: "Bon Iver at Red Rocks"
+title: Bon Iver at Red Rocks
 Artists:
   - "[[Bon Iver]]"
 Dates: 2012-05-31
-Venue: Red Rocks
+Venue: "[[Red Rocks]]"
 With me:
   - "[[Guri Venstad]]"
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

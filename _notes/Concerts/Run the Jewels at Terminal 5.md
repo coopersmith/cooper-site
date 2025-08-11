@@ -11,7 +11,7 @@ Openers:
   - "[[Danny Brown]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

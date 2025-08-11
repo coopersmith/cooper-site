@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "The National at Beacon Theatre"
+title: The National at Beacon Theatre
 Artists:
   - "[[The National]]"
 Dates: 2011-12-16
@@ -11,7 +11,7 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

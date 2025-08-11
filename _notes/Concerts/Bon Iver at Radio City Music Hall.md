@@ -1,15 +1,15 @@
 ---
 layout: concert
-title: "Bon Iver at Radio City Music Hall"
+title: Bon Iver at Radio City Music Hall
 Artists:
   - Bon Iver
 Dates: 2012-09-21
-Venue: Radio City Music Hall
+Venue: "[[Radio City Music Hall]]"
 With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

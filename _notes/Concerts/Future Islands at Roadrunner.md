@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Future Islands at Roadrunner"
+title: Future Islands at Roadrunner
 Artists:
   - "[[Future Islands]]"
 Dates: 2024-06-19
@@ -9,7 +9,7 @@ With me:
   - "[[Steph]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

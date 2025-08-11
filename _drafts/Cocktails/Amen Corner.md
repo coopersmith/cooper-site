@@ -1,16 +1,16 @@
 ---
-category: "[[Cocktails]]"
+categories: "[[Cocktails]]"
 type:
   - "[[Paper Plane]]"
 ingredients:
   - "[[Bourbon]]"
   - "[[Aperol]]"
   - "[[Amaro Nonino]]"
-author: 
+author:
 url: https://punchdrink.com/recipes/amen-corner/
-rating: 
-created: 
-last: 
+rating:
+created:
+last:
 tags:
   - cocktails
 ---

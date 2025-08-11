@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Ray Lamontange at Rumsey Playfield"
+title: Ray Lamontange at Rumsey Playfield
 Artists:
   - "[[Ray LaMontagne]]"
 Dates: 2011-05-31
@@ -9,7 +9,7 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

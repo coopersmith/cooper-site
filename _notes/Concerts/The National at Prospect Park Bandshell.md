@@ -1,13 +1,13 @@
 ---
 layout: concert
-title: "The National at Prospect Park Bandshell"
+title: The National at Prospect Park Bandshell
 Artists:
   - "[[The National]]"
 Dates: 2010-07-27
 Venue: "[[Prospect Park Bandshell]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

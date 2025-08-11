@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Watch the Throne (Jay-Z, Kanye) at Madison Square Garden"
+title: Watch the Throne (Jay-Z, Kanye) at Madison Square Garden
 Artists:
   - "[[Jay-Z]]"
   - "[[Kanye West]]"
@@ -10,7 +10,7 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

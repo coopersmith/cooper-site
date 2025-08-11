@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Local Natives at Larimer Lounge"
+title: Local Natives at Larimer Lounge
 Artists:
   - "[[Local Natives]]"
 Dates: 2010-05-21
@@ -9,6 +9,6 @@ With me:
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

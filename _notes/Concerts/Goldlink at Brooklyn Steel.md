@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Goldlink at Brooklyn Steel"
+title: Goldlink at Brooklyn Steel
 Artists:
   - "[[Goldlink]]"
 Dates: 2017-10-13
@@ -9,6 +9,6 @@ With me:
   - Marques Gartrell,Nick Lindsey
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

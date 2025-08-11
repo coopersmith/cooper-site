@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Kendrick Lamar at Music Hall of Williamsburg"
+title: Kendrick Lamar at Music Hall of Williamsburg
 Artists:
   - "[[Kendrick Lamar]]"
 Dates: 2016-12-16
@@ -9,7 +9,7 @@ With me:
   - "[[Marques Gartrell]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

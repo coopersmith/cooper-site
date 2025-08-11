@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Kendrick Lamar at Barclays"
+title: Kendrick Lamar at Barclays
 Artists:
   - "[[Kendrick Lamar]]"
 Dates: 2017-07-23
@@ -11,7 +11,7 @@ With me:
   - "[[Jillian Van Niel]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

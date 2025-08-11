@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Susanne Sundfor at Rough Trade"
+title: Susanne Sundfor at Rough Trade
 Artists:
   - "[[Susanne Sundfør]]"
 Dates: 2015-05-22
@@ -9,6 +9,6 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

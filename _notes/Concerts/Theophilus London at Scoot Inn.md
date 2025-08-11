@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Theophilus London at Scoot Inn"
+title: Theophilus London at Scoot Inn
 Artists:
   - "[[Theophilus London]]"
 Dates: 2011-03-11
@@ -9,6 +9,6 @@ With me:
   - "[[Dusty Albertz]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

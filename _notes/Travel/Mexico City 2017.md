@@ -5,7 +5,7 @@ tags:
   - "#travel"
   - trips
 year: 2017
-category:
+categories:
   - "[[Trips]]"
 start: 2017-03-30
 end: 2017-04-03

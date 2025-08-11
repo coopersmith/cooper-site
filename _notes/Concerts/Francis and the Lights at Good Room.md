@@ -9,6 +9,6 @@ With me:
   - "[[Wenzel]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
