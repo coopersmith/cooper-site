@@ -8,7 +8,7 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 title: Beirut at Radio City Music Hall
 ---

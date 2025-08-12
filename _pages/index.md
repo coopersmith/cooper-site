@@ -13,7 +13,7 @@ When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design 
 
 When I'm in Rhode Island, I look after our 1754 farmhouse and roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
 
-I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop).
+I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop). 
 
 <div id="recently-played">
   <p>Loading recently played tracks...</p>

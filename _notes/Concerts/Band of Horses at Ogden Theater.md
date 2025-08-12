@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Band of Horses at Ogden Theater"
+title: Band of Horses at Ogden Theater
 Artists:
   - "[[Band of Horses]]"
 Dates: 2010-03-16
@@ -9,6 +9,6 @@ With me:
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

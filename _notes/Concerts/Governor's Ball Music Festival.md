@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Governor's Ball Music Festival"
+title: Governor's Ball Music Festival
 Artists:
   - "[[Kanye West]]"
   - "[[Kendrick Lamar]]"
@@ -14,7 +14,7 @@ With me:
   - "[[Marques Gartrell]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

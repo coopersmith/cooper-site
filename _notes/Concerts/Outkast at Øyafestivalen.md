@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Outkast at Øyafestivalen"
+title: Outkast at Øyafestivalen
 Artists:
   - "[[Outkast]]"
 Dates: 2014-08-07
@@ -9,7 +9,7 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 Openers:
   - "[[Janelle Monae]]"

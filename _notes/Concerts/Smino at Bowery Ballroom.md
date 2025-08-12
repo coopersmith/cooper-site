@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Smino at Bowery Ballroom"
+title: Smino at Bowery Ballroom
 Artists:
   - "[[Smino]]"
 Dates: 2017-05-02
@@ -9,6 +9,6 @@ With me:
   - "[[Marques Gartrell]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

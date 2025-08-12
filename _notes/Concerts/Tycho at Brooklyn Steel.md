@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Tycho at Brooklyn Steel"
+title: Tycho at Brooklyn Steel
 Artists:
   - "[[Tycho]]"
 Dates: 2017-05-03
@@ -9,7 +9,7 @@ With me:
   - "[[Wenzel]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

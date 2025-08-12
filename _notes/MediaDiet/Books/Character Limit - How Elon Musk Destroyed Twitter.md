@@ -1,7 +1,7 @@
 ---
 title: "📚 Character Limit: How Elon Musk Destroyed Twitter"
-category:
-  - "[[Books]]"
+categories:
+  - "[[1 Get Organized/Categories/Books]]"
 author:
   - "[[Kate Conger]]"
   - "[[Ryan  Mac]]"

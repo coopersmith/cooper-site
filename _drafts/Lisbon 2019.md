@@ -5,7 +5,7 @@ tags:
   - "#travel"
   - trips
 year: 2019
-category:
+categories:
   - "[[Trips]]"
 start: 2019-09-26
 end: 2019-09-30

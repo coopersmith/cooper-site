@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Sigur Rós at Prospect Park Bandshell"
+title: Sigur Rós at Prospect Park Bandshell
 Artists:
   - "[[Sigur Rós]]"
 Dates: 2012-07-31
@@ -11,7 +11,7 @@ With me:
   - "[[Guri Venstad]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

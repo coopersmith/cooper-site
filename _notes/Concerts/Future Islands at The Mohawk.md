@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Future Islands at The Mohawk"
+title: Future Islands at The Mohawk
 Artists:
   - "[[Future Islands]]"
 Dates: 2015-03-18
@@ -9,7 +9,7 @@ With me:
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

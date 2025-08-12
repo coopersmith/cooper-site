@@ -1,13 +1,13 @@
 ---
 layout: concert
-title: "Jay-Z at Pepsi Center"
+title: Jay-Z at Pepsi Center
 Artists:
   - "[[Jay-Z]]"
 Dates: 2010-03-22
 Venue: "[[Pepsi Center]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

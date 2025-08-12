@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Dawes at Lincoln Theater"
+title: Dawes at Lincoln Theater
 Artists:
   - "[[Dawes]]"
 Dates: 2010-10-23
@@ -11,6 +11,6 @@ With me:
   - "[[Andrew Hagen]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---

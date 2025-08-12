@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Jay-Z at Barclays"
+title: Jay-Z at Barclays
 Artists:
   - "[[Jay-Z]]"
 Dates: 2012-10-03
@@ -9,7 +9,7 @@ With me:
   - "[[Marques Gartrell]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

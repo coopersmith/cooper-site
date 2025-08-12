@@ -4,7 +4,7 @@ tags:
   - "#travel"
   - trips
 year: 2024
-category:
+categories:
   - "[[Trips]]"
 start: 2024-02-26
 end: 2024-03-24

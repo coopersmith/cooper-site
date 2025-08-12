@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Bon Iver at Gerald R Ford Amphitheatre"
+title: Bon Iver at Gerald R Ford Amphitheatre
 Artists:
   - "[[Bon Iver]]"
 Dates: 2019-09-02
@@ -12,7 +12,7 @@ With me:
   - "[[Lee Bley]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 

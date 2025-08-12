@@ -1,7 +1,7 @@
 ---
 title: "📚 Filterworld: How Algorithms Flattened Culture"
-category:
-  - "[[Books]]"
+categories:
+  - "[[1 Get Organized/Categories/Books]]"
 author:
   - "[[Kyle Chayka]]"
 genre:
@@ -15,9 +15,9 @@ genre:
 length: 290
 year: 2024
 scoreGr: 3.67
-rating: 
+rating:
 cover: https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1688419363i/134119018.jpg
-isbn: 
+isbn:
 language: English
 created: 2025-01-21
 tags:

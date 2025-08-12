@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Kendrick Lamar and Sza at Gillette Stadium"
+title: Kendrick Lamar and Sza at Gillette Stadium
 Artists:
   - "[[Kendrick Lamar]]"
   - "[[Sza]]"
@@ -10,7 +10,7 @@ With me:
   - Steph
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 Openers:
   - "[[DJ Mustard]]"

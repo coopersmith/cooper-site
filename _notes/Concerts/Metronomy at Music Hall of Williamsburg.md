@@ -1,6 +1,6 @@
 ---
 layout: concert
-title: "Metronomy at Music Hall of Williamsburg"
+title: Metronomy at Music Hall of Williamsburg
 Artists:
   - "[[Metronomy]]"
 Dates: 2014-02-05
@@ -11,7 +11,7 @@ With me:
   - "[[Becca]]"
 tags:
   - concerts
-category:
+categories:
   - "[[Concerts]]"
 ---
 
