@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 export const handler = async () => {
   const token = process.env.READWISE_TOKEN;
   const endpoint = 'https://readwise.io/api/v2/highlights/?page_size=20';
