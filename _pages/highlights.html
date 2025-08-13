@@ -1,0 +1,34 @@
+---
+layout: page
+title: Highlights
+permalink: /highlights
+---
+
+<div id="highlights"></div>
+<script>
+async function loadHighlights() {
+  const container = document.getElementById('highlights');
+  try {
+    const response = await fetch('/.netlify/functions/readwise-highlights');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const highlights = await response.json();
+    if (!Array.isArray(highlights) || highlights.length === 0) {
+      container.textContent = 'No highlights found.';
+      return;
+    }
+    highlights.forEach(h => {
+      const item = document.createElement('div');
+      item.className = 'highlight';
+      const source = h.book_title || h.source || '';
+      item.innerHTML = `<p>${h.text}</p><p class="source">${source}</p>`;
+      container.appendChild(item);
+    });
+  } catch (error) {
+    console.error('Failed to load highlights:', error);
+    container.textContent = 'Failed to load highlights.';
+  }
+}
+loadHighlights();
+</script>

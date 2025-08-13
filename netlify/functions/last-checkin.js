@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 export const handler = async () => {
   const CLIENT_ID = process.env.FOURSQUARE_CLIENT_ID;
   const CLIENT_SECRET = process.env.FOURSQUARE_CLIENT_SECRET;
