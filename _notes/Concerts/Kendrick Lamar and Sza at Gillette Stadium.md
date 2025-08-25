@@ -7,7 +7,7 @@ Artists:
 Dates: 2025-05-12
 Venue: "[[Gillette Stadium]]"
 With me:
-  - Steph
+  - "[[Steph]]"
 tags:
   - concerts
 categories:
