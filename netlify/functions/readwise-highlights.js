@@ -65,13 +65,28 @@ export const handler = async () => {
     // Enhance highlights with book information
     const enhancedHighlights = data.results.map(highlight => {
       const book = bookDetailsMap[highlight.book_id];
+      
+      // Debug: Log available URL fields for the first few highlights
+      if (enhancedHighlights.length < 3) {
+        console.log('Available URL fields for highlight:', {
+          highlight_url: highlight.url,
+          highlight_source_url: highlight.source_url,
+          book_source_url: book?.source_url,
+          book_url: book?.url,
+          book_web_url: book?.web_url,
+          book_cover_image_url: book?.cover_image_url,
+          allHighlightFields: Object.keys(highlight),
+          allBookFields: book ? Object.keys(book) : []
+        });
+      }
+      
       return {
         ...highlight,
         book_title: book?.title || highlight.title || 'Unknown Source',
         author: book?.author || highlight.author,
         source: book?.source || book?.category || highlight.source,
-        source_url: highlight.source_url, // Original article/source URL
-        url: highlight.url, // Readwise highlight URL (fallback)
+        source_url: highlight.source_url || book?.source_url || book?.web_url, // Try multiple URL fields
+        readwise_url: highlight.url, // Keep Readwise URL separate
         tags: highlight.tags,
         text: highlight.text
       };

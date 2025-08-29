@@ -44,9 +44,57 @@ async function loadHighlights() {
       
       // Create linkified attribution if original source URL is available
       if (attribution) {
-        // Prioritize source_url (original article) over url (Readwise highlight page)
-        const linkUrl = h.source_url || h.url;
-        if (linkUrl && linkUrl.startsWith('http')) {
+        let linkUrl = null;
+        
+        // Function to extract original URL from various sources
+        function getOriginalUrl() {
+          // First try source_url if it's not a readwise URL
+          if (h.source_url && h.source_url.startsWith('http') && !h.source_url.includes('readwise.io')) {
+            return h.source_url;
+          }
+          
+          // Try to extract from readwise URL parameters
+          if (h.readwise_url || h.url) {
+            const readwiseUrl = h.readwise_url || h.url;
+            if (readwiseUrl && readwiseUrl.includes('readwise.io')) {
+              try {
+                const urlObj = new URL(readwiseUrl);
+                // Check various parameter names that might contain the original URL
+                const originalUrl = urlObj.searchParams.get('url') || 
+                                  urlObj.searchParams.get('source') ||
+                                  urlObj.searchParams.get('original_url');
+                if (originalUrl) {
+                  return decodeURIComponent(originalUrl);
+                }
+                
+                // Check if the URL is embedded in the path or fragment
+                const hash = urlObj.hash;
+                if (hash && hash.includes('http')) {
+                  const match = hash.match(/https?:\/\/[^\s)]+/);
+                  if (match) {
+                    return match[0];
+                  }
+                }
+              } catch (e) {
+                console.log('Could not parse readwise URL:', readwiseUrl);
+              }
+            }
+          }
+          
+          return null;
+        }
+        
+        linkUrl = getOriginalUrl();
+        
+        console.log('URL decision for highlight:', {
+          source_url: h.source_url,
+          url: h.url,
+          readwise_url: h.readwise_url,
+          chosen_url: linkUrl,
+          attribution: attribution
+        });
+        
+        if (linkUrl) {
           attributionHtml = `<a href="${linkUrl}" target="_blank" rel="noopener">${attribution}</a>`;
         } else {
           attributionHtml = attribution;
