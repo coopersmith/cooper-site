@@ -70,9 +70,7 @@ export const handler = async () => {
         book_title: book?.title || highlight.title || 'Unknown Source',
         author: book?.author || highlight.author,
         source: book?.source || book?.category || highlight.source,
-        location: highlight.location,
-        note: highlight.note,
-        url: highlight.url,
+        url: highlight.url || book?.source_url, // Preserve URL for linking
         tags: highlight.tags,
         text: highlight.text
       };

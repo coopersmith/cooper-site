@@ -30,6 +30,7 @@ async function loadHighlights() {
       
       // Build comprehensive attribution
       let attribution = '';
+      let attributionHtml = '';
       
       // Primary attribution: book title and author
       if (h.book_title) {
@@ -41,15 +42,19 @@ async function loadHighlights() {
         attribution = h.source;
       }
       
-      // Add location information if we have primary attribution
-      if (attribution && h.location) {
-        attribution += ` (Location ${h.location})`;
+      // Create linkified attribution if URL is available
+      if (attribution) {
+        if (h.url && h.url.startsWith('http')) {
+          attributionHtml = `<a href="${h.url}" target="_blank" rel="noopener">${attribution}</a>`;
+        } else {
+          attributionHtml = attribution;
+        }
       }
       
       item.innerHTML = `
         <blockquote>
           <p>${h.text}</p>
-          ${attribution ? `<cite>— ${attribution}</cite>` : ''}
+          ${attributionHtml ? `<cite>— ${attributionHtml}</cite>` : ''}
         </blockquote>
       `;
       container.appendChild(item);

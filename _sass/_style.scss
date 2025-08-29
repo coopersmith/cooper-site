@@ -150,6 +150,18 @@ blockquote {
     &:before {
       content: '';
     }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted var(--color-text-tertiary);
+      transition: border-bottom-color 0.2s ease;
+      
+      &:hover {
+        border-bottom-color: var(--color-text-secondary);
+        color: var(--color-text-secondary);
+      }
+    }
   }
 
   @media (prefers-color-scheme: dark) {
