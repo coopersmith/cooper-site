@@ -18,12 +18,15 @@ async function loadHighlights() {
       container.textContent = 'No highlights found.';
       return;
     }
+    
     highlights.forEach(h => {
       const item = document.createElement('div');
       item.className = 'highlight';
       
       // Build comprehensive attribution
       let attribution = '';
+      
+      // Primary attribution: book title and author
       if (h.book_title) {
         attribution = h.book_title;
         if (h.author) {
@@ -31,15 +34,11 @@ async function loadHighlights() {
         }
       } else if (h.source) {
         attribution = h.source;
-      } else if (h.title) {
-        attribution = h.title;
       }
       
-      // Add location information if available
-      if (h.location) {
+      // Add location information if we have primary attribution
+      if (attribution && h.location) {
         attribution += ` (Location ${h.location})`;
-      } else if (h.note) {
-        attribution += ` (${h.note})`;
       }
       
       item.innerHTML = `
