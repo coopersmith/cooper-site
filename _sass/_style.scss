@@ -73,7 +73,8 @@ p {
 time {
   display: block;
   color: var(--color-text-tertiary);
-  margin: 0.5em 0 1em;
+  margin: 0 0 2em;
+  font-size: 0.9em;
 
   @media (prefers-color-scheme: dark) {
     color: var(--color-text-tertiary);
@@ -176,7 +177,7 @@ h1 {
   font-size: 36px;
   line-height: 1.25;
   color: var(--color-text-primary);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.2em;
   margin-top: 0;
   letter-spacing: -0.02em;
 
@@ -195,8 +196,8 @@ h1 {
   font-size: 19px;
   line-height: 1.5;
   color: var(--color-text-subtle);
-  margin-top: 0.3em;
-  margin-bottom: 2.5em;
+  margin-top: 0;
+  margin-bottom: 0.3em;
   font-weight: 400;
 
   @media (prefers-color-scheme: dark) {
