@@ -70,7 +70,8 @@ export const handler = async () => {
         book_title: book?.title || highlight.title || 'Unknown Source',
         author: book?.author || highlight.author,
         source: book?.source || book?.category || highlight.source,
-        url: highlight.url || book?.source_url, // Preserve URL for linking
+        source_url: highlight.source_url, // Original article/source URL
+        url: highlight.url, // Readwise highlight URL (fallback)
         tags: highlight.tags,
         text: highlight.text
       };

@@ -42,10 +42,12 @@ async function loadHighlights() {
         attribution = h.source;
       }
       
-      // Create linkified attribution if URL is available
+      // Create linkified attribution if original source URL is available
       if (attribution) {
-        if (h.url && h.url.startsWith('http')) {
-          attributionHtml = `<a href="${h.url}" target="_blank" rel="noopener">${attribution}</a>`;
+        // Prioritize source_url (original article) over url (Readwise highlight page)
+        const linkUrl = h.source_url || h.url;
+        if (linkUrl && linkUrl.startsWith('http')) {
+          attributionHtml = `<a href="${linkUrl}" target="_blank" rel="noopener">${attribution}</a>`;
         } else {
           attributionHtml = attribution;
         }
