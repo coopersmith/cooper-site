@@ -56,6 +56,25 @@ body {
   max-width: 720px;
 }
 
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  
+  &:focus {
+    top: 6px;
+    background: var(--color-text-primary) !important;
+    color: var(--color-bg-primary) !important;
+  }
+}
+
 time {
   display: block;
   color: var(--color-text-tertiary);
@@ -296,7 +315,11 @@ a {
 }
 
 .nav a:hover {
-  color: #007acc; /* Change color on hover */
+  color: #0066cc; /* Improved contrast for accessibility */
+  
+  @media (prefers-color-scheme: dark) {
+    color: #4da6ff; /* Better contrast for dark mode */
+  }
 }
 
 .nav a b {
@@ -378,9 +401,13 @@ a {
 }
 
 .two-column-grid a {
-  color: #007acc;
+  color: #0066cc;
   text-decoration: none;
   font-weight: 500;
+  
+  @media (prefers-color-scheme: dark) {
+    color: #4da6ff;
+  }
 }
 
 .two-column-grid a:hover {
@@ -447,6 +474,11 @@ table {
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   will-change: opacity, transform;
+  
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    transform: none;
+  }
 }
 
 .fade-in-section.is-visible {

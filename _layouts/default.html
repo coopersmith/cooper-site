@@ -2,9 +2,10 @@
 <html lang="en">
   {% include head.html %}
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav>{% include nav.html %}</nav>
     <div class="wrapper">
-      <main>{{ content }}</main>
+      <main id="main-content">{{ content }}</main>
       <footer>{% include footer.html %}</footer>
     </div>
 
