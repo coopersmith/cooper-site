@@ -17,13 +17,28 @@ export const handler = async () => {
     }
 
     const data = await response.json();
+    
+    // Enhance highlights with better attribution data
+    const enhancedHighlights = (data.results || []).map(highlight => ({
+      ...highlight,
+      // Ensure we have all possible attribution fields available
+      book_title: highlight.book_title || highlight.title,
+      author: highlight.author,
+      source: highlight.source,
+      location: highlight.location,
+      note: highlight.note,
+      url: highlight.url,
+      tags: highlight.tags,
+      text: highlight.text
+    }));
+    
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(data.results || []),
+      body: JSON.stringify(enhancedHighlights),
     };
   } catch (error) {
     console.error('Readwise API Error:', error);

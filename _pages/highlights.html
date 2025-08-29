@@ -21,8 +21,33 @@ async function loadHighlights() {
     highlights.forEach(h => {
       const item = document.createElement('div');
       item.className = 'highlight';
-      const source = h.book_title || h.source || '';
-      item.innerHTML = `<p>${h.text}</p><p class="source">${source}</p>`;
+      
+      // Build comprehensive attribution
+      let attribution = '';
+      if (h.book_title) {
+        attribution = h.book_title;
+        if (h.author) {
+          attribution += ` by ${h.author}`;
+        }
+      } else if (h.source) {
+        attribution = h.source;
+      } else if (h.title) {
+        attribution = h.title;
+      }
+      
+      // Add location information if available
+      if (h.location) {
+        attribution += ` (Location ${h.location})`;
+      } else if (h.note) {
+        attribution += ` (${h.note})`;
+      }
+      
+      item.innerHTML = `
+        <blockquote>
+          <p>${h.text}</p>
+          ${attribution ? `<cite>— ${attribution}</cite>` : ''}
+        </blockquote>
+      `;
       container.appendChild(item);
     });
   } catch (error) {
