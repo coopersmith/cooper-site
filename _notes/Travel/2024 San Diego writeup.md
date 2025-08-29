@@ -11,12 +11,15 @@ end: 2024-03-24
 loc:
   - "[[San Diego]]"
 ---
+<img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-L1010536.jpeg"/>
 
 In the spring of 2024, I attended a team offsite in San Diego. While the first few days were spent locked in a hotel conference room, Thursday was a free day for team activities. For my team, I arranged a private tour of the Salk Institute just north of San Diego.
 
 Jonas Salk pioneered the polio vaccine. After that, he was a bit of scientific hero/celebrity and was able to establish the Salk Institute. He wanted it to be a place that was worthy of Picasso, so he hired the famous architect Louis Kahn. He wanted it to be an inspiring and comfortable place to come to work, and for people to do their best work. 
 
 Today, people come to the Salk Institute to work on some of the most challenging problems facing our time, including cancer, climate change, and more.
+
+<img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-IMG_8661.jpeg"/>
 
 A few things that stuck out to me:
 
@@ -26,11 +29,5 @@ A few things that stuck out to me:
 - "Hope lies in dreams, in imagination and in the courage of those who dare to make dreams into reality."
 - Fibinachi sequence of the heights of floors. A, B, A, C
 
-
-
-<img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-IMG_8661.jpeg"/>
-
-
-<img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-L1010536.jpeg"/>
 
 <small> (Cameras: Leica Q3, iPhone 16)  </small>
