@@ -1,6 +1,18 @@
-export const handler = async () => {
+export const handler = async (event) => {
   const token = process.env.READWISE_TOKEN;
-  const endpoint = 'https://readwise.io/api/v2/highlights/?page_size=20';
+  
+  // Handle pagination - check if a specific page URL is requested
+  const queryParams = event.queryStringParameters || {};
+  const pageUrl = queryParams.page_url;
+  
+  let endpoint;
+  if (pageUrl) {
+    // Use the provided page URL for pagination
+    endpoint = pageUrl;
+  } else {
+    // Default to first page
+    endpoint = 'https://readwise.io/api/v2/highlights/?page_size=20';
+  }
 
   try {
     const response = await fetch(endpoint, {
@@ -97,7 +109,11 @@ export const handler = async () => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(enhancedHighlights),
+      body: JSON.stringify({
+        highlights: enhancedHighlights,
+        nextPageUrl: data.next ? `/.netlify/functions/readwise-highlights?page_url=${encodeURIComponent(data.next)}` : null,
+        hasMore: !!data.next
+      }),
     };
   } catch (error) {
     console.error('Readwise API Error:', error);

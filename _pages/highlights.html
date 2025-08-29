@@ -5,22 +5,49 @@ permalink: /highlights
 ---
 
 <div id="highlights"></div>
+<div id="load-more-container" style="text-align: center; margin-top: 2em;">
+  <button id="load-more-btn" style="display: none; padding: 0.8em 1.5em; background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-secondary); cursor: pointer; font-family: inherit;">
+    Load More Highlights
+  </button>
+</div>
+
 <script>
-async function loadHighlights() {
+let nextPageUrl = null;
+let isLoading = false;
+
+async function loadHighlights(pageUrl = null, append = false) {
   const container = document.getElementById('highlights');
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  
+  if (isLoading) return;
+  isLoading = true;
+  
+  if (!append) {
+    container.innerHTML = '';
+    loadMoreBtn.style.display = 'none';
+  }
+  
   try {
-    const response = await fetch('/.netlify/functions/readwise-highlights');
+    const url = pageUrl || '/.netlify/functions/readwise-highlights';
+    const response = await fetch(url);
     if (!response.ok) {
       const errorText = await response.text();
       console.error('API Error:', response.status, errorText);
-      container.textContent = `Error loading highlights: ${response.status}`;
+      if (!append) {
+        container.textContent = `Error loading highlights: ${response.status}`;
+      }
       return;
     }
-    const highlights = await response.json();
-    console.log('Received highlights:', highlights);
+    const data = await response.json();
+    console.log('Received highlights data:', data);
+    
+    const highlights = data.highlights || data;
+    nextPageUrl = data.nextPageUrl;
     
     if (!Array.isArray(highlights) || highlights.length === 0) {
-      container.textContent = 'No highlights found.';
+      if (!append) {
+        container.textContent = 'No highlights found.';
+      }
       return;
     }
     
@@ -95,7 +122,7 @@ async function loadHighlights() {
         });
         
         if (linkUrl) {
-          attributionHtml = `<a href="${linkUrl}" target="_blank" rel="noopener">${attribution}</a>`;
+          attributionHtml = `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer">${attribution}</a>`;
         } else {
           attributionHtml = attribution;
         }
@@ -109,10 +136,38 @@ async function loadHighlights() {
       `;
       container.appendChild(item);
     });
+    
+    // Show Load More button if there are more highlights available
+    if (nextPageUrl) {
+      loadMoreBtn.style.display = 'inline-block';
+    } else {
+      loadMoreBtn.style.display = 'none';
+    }
+    
   } catch (error) {
     console.error('Failed to load highlights:', error);
-    container.textContent = 'Failed to load highlights.';
+    if (!append) {
+      container.textContent = 'Failed to load highlights.';
+    }
+  } finally {
+    isLoading = false;
   }
 }
+
+// Load More button event listener
+document.getElementById('load-more-btn').addEventListener('click', () => {
+  if (nextPageUrl && !isLoading) {
+    const btn = document.getElementById('load-more-btn');
+    btn.textContent = 'Loading...';
+    btn.disabled = true;
+    
+    loadHighlights(nextPageUrl, true).finally(() => {
+      btn.textContent = 'Load More Highlights';
+      btn.disabled = false;
+    });
+  }
+});
+
+// Initial load
 loadHighlights();
 </script>
