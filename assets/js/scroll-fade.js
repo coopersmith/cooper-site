@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
   // Include all heading levels explicitly
   const contentElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, img, ul, ol, hr');
   
@@ -35,14 +38,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const scrollPosition = window.scrollY + window.innerHeight;
 
   contentElements.forEach(element => {
-    element.classList.add('fade-in-section');
-    
-    // If element is above current viewport bottom, make it visible immediately
-    if (element.getBoundingClientRect().top + window.scrollY <= scrollPosition) {
+    // If user prefers reduced motion, make all elements visible immediately
+    if (prefersReducedMotion) {
       element.classList.add('is-visible');
     } else {
-      // Only observe elements that are below the current viewport
-      fadeInObserver.observe(element);
+      element.classList.add('fade-in-section');
+      
+      // If element is above current viewport bottom, make it visible immediately
+      if (element.getBoundingClientRect().top + window.scrollY <= scrollPosition) {
+        element.classList.add('is-visible');
+      } else {
+        // Only observe elements that are below the current viewport
+        fadeInObserver.observe(element);
+      }
     }
   });
 }); 
