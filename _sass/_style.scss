@@ -442,16 +442,70 @@ table {
   }
 }
 
+/* Enhanced fade-in animations with accessibility support */
 .fade-in-section {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: opacity, transform;
 }
 
 .fade-in-section.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Staggered animation support */
+.fade-in-section.fade-staggered {
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+/* Enhanced animations for different element types */
+.fade-in-section h1,
+.fade-in-section h2,
+.fade-in-section h3,
+.fade-in-section h4,
+.fade-in-section h5,
+.fade-in-section h6 {
+  transform: translateY(30px);
+}
+
+.fade-in-section img {
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-section img.is-visible {
+  transform: translateY(0) scale(1);
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-section {
+    opacity: 0;
+    transform: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .fade-in-section.fade-staggered {
+    transition-delay: 0ms;
+  }
+  
+  .fade-in-section img {
+    transform: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .fade-in-section img.is-visible {
+    transform: none;
+  }
 }
 
 .image-grid {
