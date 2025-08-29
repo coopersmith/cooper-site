@@ -63,18 +63,17 @@ export const handler = async () => {
     await Promise.allSettled(bookFetchPromises);
     
     // Enhance highlights with book information
-    const enhancedHighlights = data.results.map(highlight => {
+    const enhancedHighlights = data.results.map((highlight, index) => {
       const book = bookDetailsMap[highlight.book_id];
       
       // Debug: Log available URL fields for the first few highlights
-      if (enhancedHighlights.length < 3) {
+      if (index < 3) {
         console.log('Available URL fields for highlight:', {
           highlight_url: highlight.url,
           highlight_source_url: highlight.source_url,
           book_source_url: book?.source_url,
           book_url: book?.url,
           book_web_url: book?.web_url,
-          book_cover_image_url: book?.cover_image_url,
           allHighlightFields: Object.keys(highlight),
           allBookFields: book ? Object.keys(book) : []
         });
