@@ -1,6 +1,18 @@
-export const handler = async () => {
+export const handler = async (event) => {
   const token = process.env.READWISE_TOKEN;
-  const endpoint = 'https://readwise.io/api/v2/highlights/?page_size=20';
+  
+  // Handle pagination - check if a specific page URL is requested
+  const queryParams = event.queryStringParameters || {};
+  const pageUrl = queryParams.page_url;
+  
+  let endpoint;
+  if (pageUrl) {
+    // Use the provided page URL for pagination
+    endpoint = pageUrl;
+  } else {
+    // Default to first page
+    endpoint = 'https://readwise.io/api/v2/highlights/?page_size=20';
+  }
 
   try {
     const response = await fetch(endpoint, {
@@ -17,13 +29,91 @@ export const handler = async () => {
     }
 
     const data = await response.json();
+    
+    if (!data.results || data.results.length === 0) {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify([]),
+      };
+    }
+    
+    // Get unique book IDs from highlights
+    const bookIds = [...new Set(data.results.map(h => h.book_id).filter(Boolean))];
+    
+    // Fetch book details for all unique books (with timeout and error handling)
+    const bookDetailsMap = {};
+    
+    const bookFetchPromises = bookIds.map(async (bookId) => {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        const bookResponse = await fetch(`https://readwise.io/api/v2/books/${bookId}/`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (bookResponse.ok) {
+          const bookData = await bookResponse.json();
+          bookDetailsMap[bookId] = bookData;
+        }
+      } catch (error) {
+        console.error(`Error fetching book ${bookId}:`, error);
+        // Continue without book details for this book
+      }
+    });
+    
+    // Wait for all book fetches to complete (or timeout)
+    await Promise.allSettled(bookFetchPromises);
+    
+    // Enhance highlights with book information
+    const enhancedHighlights = data.results.map((highlight, index) => {
+      const book = bookDetailsMap[highlight.book_id];
+      
+      // Debug: Log available URL fields for the first few highlights
+      if (index < 3) {
+        console.log('Available URL fields for highlight:', {
+          highlight_url: highlight.url,
+          highlight_source_url: highlight.source_url,
+          book_source_url: book?.source_url,
+          book_url: book?.url,
+          book_web_url: book?.web_url,
+          allHighlightFields: Object.keys(highlight),
+          allBookFields: book ? Object.keys(book) : []
+        });
+      }
+      
+      return {
+        ...highlight,
+        book_title: book?.title || highlight.title || 'Unknown Source',
+        author: book?.author || highlight.author,
+        source: book?.source || book?.category || highlight.source,
+        source_url: highlight.source_url || book?.source_url || book?.web_url, // Try multiple URL fields
+        readwise_url: highlight.url, // Keep Readwise URL separate
+        tags: highlight.tags,
+        text: highlight.text
+      };
+    });
+    
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(data.results || []),
+      body: JSON.stringify({
+        highlights: enhancedHighlights,
+        nextPageUrl: data.next ? `/.netlify/functions/readwise-highlights?page_url=${encodeURIComponent(data.next)}` : null,
+        hasMore: !!data.next
+      }),
     };
   } catch (error) {
     console.error('Readwise API Error:', error);

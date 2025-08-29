@@ -5,30 +5,169 @@ permalink: /highlights
 ---
 
 <div id="highlights"></div>
+<div id="load-more-container" style="text-align: center; margin-top: 2em;">
+  <button id="load-more-btn" style="display: none; padding: 0.8em 1.5em; background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-secondary); cursor: pointer; font-family: inherit;">
+    Load More Highlights
+  </button>
+</div>
+
 <script>
-async function loadHighlights() {
+let nextPageUrl = null;
+let isLoading = false;
+
+async function loadHighlights(pageUrl = null, append = false) {
   const container = document.getElementById('highlights');
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  
+  if (isLoading) return;
+  isLoading = true;
+  
+  if (!append) {
+    container.innerHTML = '';
+    loadMoreBtn.style.display = 'none';
+  }
+  
   try {
-    const response = await fetch('/.netlify/functions/readwise-highlights');
+    const url = pageUrl || '/.netlify/functions/readwise-highlights';
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const highlights = await response.json();
-    if (!Array.isArray(highlights) || highlights.length === 0) {
-      container.textContent = 'No highlights found.';
+      const errorText = await response.text();
+      console.error('API Error:', response.status, errorText);
+      if (!append) {
+        container.textContent = `Error loading highlights: ${response.status}`;
+      }
       return;
     }
+    const data = await response.json();
+    console.log('Received highlights data:', data);
+    
+    const highlights = data.highlights || data;
+    nextPageUrl = data.nextPageUrl;
+    
+    if (!Array.isArray(highlights) || highlights.length === 0) {
+      if (!append) {
+        container.textContent = 'No highlights found.';
+      }
+      return;
+    }
+    
     highlights.forEach(h => {
       const item = document.createElement('div');
       item.className = 'highlight';
-      const source = h.book_title || h.source || '';
-      item.innerHTML = `<p>${h.text}</p><p class="source">${source}</p>`;
+      
+      // Build comprehensive attribution
+      let attribution = '';
+      let attributionHtml = '';
+      
+      // Primary attribution: book title and author
+      if (h.book_title) {
+        attribution = h.book_title;
+        if (h.author) {
+          attribution += ` by ${h.author}`;
+        }
+      } else if (h.source) {
+        attribution = h.source;
+      }
+      
+      // Create linkified attribution if original source URL is available
+      if (attribution) {
+        let linkUrl = null;
+        
+        // Function to extract original URL from various sources
+        function getOriginalUrl() {
+          // First try source_url if it's not a readwise URL
+          if (h.source_url && h.source_url.startsWith('http') && !h.source_url.includes('readwise.io')) {
+            return h.source_url;
+          }
+          
+          // Try to extract from readwise URL parameters
+          if (h.readwise_url || h.url) {
+            const readwiseUrl = h.readwise_url || h.url;
+            if (readwiseUrl && readwiseUrl.includes('readwise.io')) {
+              try {
+                const urlObj = new URL(readwiseUrl);
+                // Check various parameter names that might contain the original URL
+                const originalUrl = urlObj.searchParams.get('url') || 
+                                  urlObj.searchParams.get('source') ||
+                                  urlObj.searchParams.get('original_url');
+                if (originalUrl) {
+                  return decodeURIComponent(originalUrl);
+                }
+                
+                // Check if the URL is embedded in the path or fragment
+                const hash = urlObj.hash;
+                if (hash && hash.includes('http')) {
+                  const match = hash.match(/https?:\/\/[^\s)]+/);
+                  if (match) {
+                    return match[0];
+                  }
+                }
+              } catch (e) {
+                console.log('Could not parse readwise URL:', readwiseUrl);
+              }
+            }
+          }
+          
+          return null;
+        }
+        
+        linkUrl = getOriginalUrl();
+        
+        console.log('URL decision for highlight:', {
+          source_url: h.source_url,
+          url: h.url,
+          readwise_url: h.readwise_url,
+          chosen_url: linkUrl,
+          attribution: attribution
+        });
+        
+        if (linkUrl) {
+          attributionHtml = `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer">${attribution}</a>`;
+        } else {
+          attributionHtml = attribution;
+        }
+      }
+      
+      item.innerHTML = `
+        <blockquote>
+          <p>${h.text}</p>
+          ${attributionHtml ? `<cite>— ${attributionHtml}</cite>` : ''}
+        </blockquote>
+      `;
       container.appendChild(item);
     });
+    
+    // Show Load More button if there are more highlights available
+    if (nextPageUrl) {
+      loadMoreBtn.style.display = 'inline-block';
+    } else {
+      loadMoreBtn.style.display = 'none';
+    }
+    
   } catch (error) {
     console.error('Failed to load highlights:', error);
-    container.textContent = 'Failed to load highlights.';
+    if (!append) {
+      container.textContent = 'Failed to load highlights.';
+    }
+  } finally {
+    isLoading = false;
   }
 }
+
+// Load More button event listener
+document.getElementById('load-more-btn').addEventListener('click', () => {
+  if (nextPageUrl && !isLoading) {
+    const btn = document.getElementById('load-more-btn');
+    btn.textContent = 'Loading...';
+    btn.disabled = true;
+    
+    loadHighlights(nextPageUrl, true).finally(() => {
+      btn.textContent = 'Load More Highlights';
+      btn.disabled = false;
+    });
+  }
+});
+
+// Initial load
 loadHighlights();
 </script>
