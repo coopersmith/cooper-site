@@ -369,6 +369,14 @@ a {
   font-size: 18px; /* Slightly larger for the site title */
 }
 
+nav {
+  margin-bottom: 1.5em;
+  
+  @media (max-width: 600px) {
+    margin-bottom: 1.2em;
+  }
+}
+
 #notes-entry-container {
   display: grid;
   grid-gap: 2em;
