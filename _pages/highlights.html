@@ -11,9 +11,14 @@ async function loadHighlights() {
   try {
     const response = await fetch('/.netlify/functions/readwise-highlights');
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      const errorText = await response.text();
+      console.error('API Error:', response.status, errorText);
+      container.textContent = `Error loading highlights: ${response.status}`;
+      return;
     }
     const highlights = await response.json();
+    console.log('Received highlights:', highlights);
+    
     if (!Array.isArray(highlights) || highlights.length === 0) {
       container.textContent = 'No highlights found.';
       return;

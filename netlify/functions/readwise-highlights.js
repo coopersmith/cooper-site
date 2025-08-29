@@ -1,7 +1,6 @@
 export const handler = async () => {
   const token = process.env.READWISE_TOKEN;
-  // Use the books endpoint with highlights included to get both highlights and book metadata
-  const endpoint = 'https://readwise.io/api/v2/books/?page_size=20&highlights_limit=10';
+  const endpoint = 'https://readwise.io/api/v2/highlights/?page_size=20';
 
   try {
     const response = await fetch(endpoint, {
@@ -19,30 +18,65 @@ export const handler = async () => {
 
     const data = await response.json();
     
-    // Extract highlights from books with proper attribution
-    const highlights = [];
-    
-    if (data.results) {
-      data.results.forEach(book => {
-        if (book.highlights && book.highlights.length > 0) {
-          book.highlights.forEach(highlight => {
-            highlights.push({
-              ...highlight,
-              book_title: book.title,
-              author: book.author,
-              source: book.source || book.category,
-              book_id: book.id
-            });
-          });
-        }
-      });
+    if (!data.results || data.results.length === 0) {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify([]),
+      };
     }
     
-    // Sort by updated date (most recent first)
-    highlights.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+    // Get unique book IDs from highlights
+    const bookIds = [...new Set(data.results.map(h => h.book_id).filter(Boolean))];
     
-    // Limit to 20 highlights
-    const limitedHighlights = highlights.slice(0, 20);
+    // Fetch book details for all unique books (with timeout and error handling)
+    const bookDetailsMap = {};
+    
+    const bookFetchPromises = bookIds.map(async (bookId) => {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        const bookResponse = await fetch(`https://readwise.io/api/v2/books/${bookId}/`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (bookResponse.ok) {
+          const bookData = await bookResponse.json();
+          bookDetailsMap[bookId] = bookData;
+        }
+      } catch (error) {
+        console.error(`Error fetching book ${bookId}:`, error);
+        // Continue without book details for this book
+      }
+    });
+    
+    // Wait for all book fetches to complete (or timeout)
+    await Promise.allSettled(bookFetchPromises);
+    
+    // Enhance highlights with book information
+    const enhancedHighlights = data.results.map(highlight => {
+      const book = bookDetailsMap[highlight.book_id];
+      return {
+        ...highlight,
+        book_title: book?.title || highlight.title || 'Unknown Source',
+        author: book?.author || highlight.author,
+        source: book?.source || book?.category || highlight.source,
+        location: highlight.location,
+        note: highlight.note,
+        url: highlight.url,
+        tags: highlight.tags,
+        text: highlight.text
+      };
+    });
     
     return {
       statusCode: 200,
@@ -50,7 +84,7 @@ export const handler = async () => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(limitedHighlights),
+      body: JSON.stringify(enhancedHighlights),
     };
   } catch (error) {
     console.error('Readwise API Error:', error);
