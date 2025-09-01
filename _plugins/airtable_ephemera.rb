@@ -32,6 +32,9 @@ module Jekyll
             attrs['image_filename'] = attrs['Attachments'][0]['filename']
           end
           
+          # Get created time safely
+          created_time = record.respond_to?(:created_time) ? record.created_time : attrs['Created']
+          
           # Clean up and format data
           {
             'id' => record.id,
@@ -42,12 +45,15 @@ module Jekyll
             'tags' => attrs['Tags'],
             'image_url' => attrs['image_url'],
             'image_filename' => attrs['image_filename'],
-            'created_time' => record.created_time
+            'created_time' => created_time
           }
         end
         
-        # Sort by date (most recent first)
-        ephemera_data.sort_by! { |item| item['date'] || item['created_time'] }.reverse!
+        # Sort by date (most recent first, fallback to created time)
+        ephemera_data.sort_by! { |item| 
+          date_to_sort = item['date'] || item['created_time'] || Time.now
+          date_to_sort.is_a?(String) ? Date.parse(date_to_sort) : date_to_sort
+        }.reverse!
         
         # Write to _data directory
         FileUtils.mkdir_p(File.join(site.source, '_data'))
