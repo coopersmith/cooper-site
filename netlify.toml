@@ -1,4 +1,9 @@
 [build]
-  command = "jekyll build --trace"
+  command = "bundle exec jekyll build --trace"
   publish = "_site"
   functions = "netlify/functions"
+
+[dev]
+  command = "bundle exec jekyll serve --livereload --host 0.0.0.0 --port 4000"
+  publish = "_site"
+  targetPort = 4000
