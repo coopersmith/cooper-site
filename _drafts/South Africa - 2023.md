@@ -5,11 +5,11 @@ tags:
 year: 2023
 ---
 
-Rather than rush off to a honeymoon immediately after our wedding, and deal with the planning of both simultaneously, we decided to plan our honeymoon around our first wedding anniversary. And so, a year after our wedding
+One of the best decisions we made around our wedding was to differ our honeymoon one year. Rather than needing to plan both simultaneously, we focused solely on our wedding, and then turned our focus to a two week trip to South Africa, which landed on our one year anniversay. 
 
 ## Capetown
 
-We spent the first few days of our trip to adjust to the time change and explore Capetown. The highlight of our time in Capetown was undoubtedly our adventure tour out to the Cape of Good Hope.
+We spent the first few days of our trip in Capetown, staying at the incredible [[The Silo Hotel]]. Though we had a blast exploring the city, going to the top of Table Mountain, and eating amazing meals, the highlight of our time was undoubtedly our adventure tour out to the Cape of Good Hope.
 
 <img src="{{ site.baseurl }}/assets/southafrica2024/IMG_1849.jpeg"/>
 
