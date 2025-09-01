@@ -5,7 +5,7 @@ tags:
 year: 2023
 ---
 
-One of the best decisions we made around our wedding was to differ our honeymoon one year. Rather than needing to plan both simultaneously, we focused solely on our wedding, and then turned our focus to a two week trip to South Africa, which landed on our one year anniversay. 
+One of the best decisions we made around our wedding was to differ our honeymoon one year. Rather than needing to plan both simultaneously, we focused solely on our wedding, and then turned our focus to a two week trip to South Africa, which landed on our one year anniversary. 
 
 ## Capetown
 
