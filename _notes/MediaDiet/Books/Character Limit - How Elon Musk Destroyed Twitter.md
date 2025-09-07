@@ -1,7 +1,7 @@
 ---
 title: "📚 Character Limit: How Elon Musk Destroyed Twitter"
 categories:
-  - "[[1 Get Organized/Categories/Books]]"
+  - "[[Books]]"
 author:
   - "[[Kate Conger]]"
   - "[[Ryan  Mac]]"
@@ -21,7 +21,7 @@ cover: https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodrea
 isbn: "9780593656136"
 language: English
 start: 2025-01-21
-completed: 2025-03-14
+end: 2025-03-14
 tags:
   - books
   - MediaDiet2025

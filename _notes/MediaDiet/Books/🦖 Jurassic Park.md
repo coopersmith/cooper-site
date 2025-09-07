@@ -10,7 +10,7 @@ genre:
   - "[[Fantasy]]"
   - "[[Adventure]]"
   - "[[Classics]]"
-length: 450å
+length: "451"
 year: 1990
 scoreGr: 4.12
 rating: 6
@@ -24,7 +24,8 @@ tags:
   - mediadiet/2025
   - MediaDiet2025
 categories:
-  - "[[1 Get Organized/Categories/Books]]"
+  - "[[Books]]"
+end:
 ---
 ## My Review
 

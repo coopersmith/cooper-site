@@ -11,7 +11,7 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | ------ | ------------------------------------------------------------------------------------------------------ | ------------------------------- |
 | ✅      | [[Character Limit]]                                                                                    | [[Kate Conger]]<br>[[Ryan Mac]] |
 | ✅      | [[🦖 Jurassic Park]]                                                                                   | [[Michael Crichton]]            |
-| ✅      | [[The Dream Hotel]]                                                                                    | Laila Lalami                    |
+| ✅      | [[📚 The Dream Hotel]]                                                                   | Laila Lalami                    |
 | 📚     | James                                                                                                  | Percival Everett                |
 | ✅      | [[Burn]]                                                                                               | [[Peter Heller]]                |
 | 📖     | The Creative Act                                                                                       | [[Rick Rubin]]                  |
@@ -23,7 +23,7 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | 📖     | [[📚 The Sheltering Sky\|The Sheltering Sky]]                                                          | [[Paul Bowles]]                 |
 | 🎧     | [[Lorne - The Man Who Invented Saturday Night Live]]                                                   | [[Susan Morrison]]              |
 | 📚     | [[Stupid TV, Be More Funny How the Golden Era of The Simpsons Changed Television—and America—Forever]] | [[Alan Siegel]]                 |
-| 🎧     | [[The God of the Woods]]                                                                               | [[Liz Moore]]                   |
+| ✅      | [[The God of the Woods]]                                                                               | [[Liz Moore]]                   |
 | 📖     | [[📚 North Woods]]                                                                                     | [[Daniel Mason]]                |
 
 <small>       📚 Queued        📖 Reading      🎧 Listening         ✅ Completed         ❌ Abandoned </small>  
