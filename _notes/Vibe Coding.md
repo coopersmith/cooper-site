@@ -1,5 +1,6 @@
 ---
 title: Vibe Coding
+featured: true
 tags:
   - VibeCoding
   - ai

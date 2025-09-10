@@ -1,0 +1,103 @@
+<!-- Notes List Component -->
+<!-- Usage: {% include notes-list.html notes=site.notes limit=5 show_excerpt=true title="Recent Updates" %} -->
+
+{% assign notes = include.notes | default: site.notes %}
+{% assign limit = include.limit | default: 10 %}
+{% assign show_excerpt = include.show_excerpt | default: false %}
+{% assign show_tags = include.show_tags | default: true %}
+{% assign show_date = include.show_date | default: true %}
+{% assign filter_tag = include.filter_tag %}
+{% assign exclude_path = include.exclude_path %}
+{% assign featured_only = include.featured_only | default: false %}
+{% assign compact = include.compact | default: false %}
+
+{% if include.title %}
+  <div class="notes-list__header">
+    <h2 class="notes-list__title">{{ include.title }}</h2>
+    {% if include.subtitle %}
+      <p class="notes-list__subtitle">{{ include.subtitle }}</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+<div class="notes-list {% if compact %}notes-list--compact{% endif %}">
+  {% assign filtered_notes = notes %}
+  
+  {% comment %} Apply filters {% endcomment %}
+  {% if filter_tag %}
+    {% assign filtered_notes = filtered_notes | where: "tags", filter_tag %}
+  {% endif %}
+  
+  {% if exclude_path %}
+    {% assign temp_notes = "" | split: "" %}
+    {% for note in filtered_notes %}
+      {% unless note.path contains exclude_path %}
+        {% assign temp_notes = temp_notes | push: note %}
+      {% endunless %}
+    {% endfor %}
+    {% assign filtered_notes = temp_notes %}
+  {% endif %}
+  
+  {% if featured_only %}
+    {% assign filtered_notes = filtered_notes | where: "featured", true %}
+  {% endif %}
+  
+  {% comment %} Sort by last modified or date {% endcomment %}
+  {% if filtered_notes.first.last_modified_at %}
+    {% assign sorted_notes = filtered_notes | sort: "last_modified_at_timestamp" | reverse %}
+  {% else %}
+    {% assign sorted_notes = filtered_notes | sort: "date" | reverse %}
+  {% endif %}
+  
+  {% for note in sorted_notes limit: limit %}
+    <article class="notes-list__item">
+      {% if show_date and note.last_modified_at %}
+        <time class="notes-list__date" datetime="{{ note.last_modified_at | date_to_xmlschema }}">
+          {{ note.last_modified_at | date: "%Y-%m-%d" }}
+        </time>
+      {% elsif show_date and note.date %}
+        <time class="notes-list__date" datetime="{{ note.date | date_to_xmlschema }}">
+          {{ note.date | date: "%Y-%m-%d" }}
+        </time>
+      {% endif %}
+
+      <div class="notes-list__content">
+        <h3 class="notes-list__title">
+          <a href="{{ site.baseurl }}{{ note.url }}" class="notes-list__link">
+            {{ note.title }}
+            {% if note.featured %}
+              <svg class="notes-list__star" width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0l2.4 4.8L16 5.6l-4 3.9.9 5.3L8 12.4 3.1 14.8 4 9.5 0 5.6l5.6-.8L8 0z"/>
+              </svg>
+            {% endif %}
+          </a>
+        </h3>
+
+        {% if show_excerpt and note.excerpt %}
+          <p class="notes-list__excerpt">
+            {{ note.excerpt | strip_html | truncatewords: 20 }}
+          </p>
+        {% endif %}
+
+        {% if show_tags and note.tags.size > 0 %}
+          <div class="notes-list__tags">
+            {% for tag in note.tags limit: 3 %}
+              <span class="notes-list__tag">{{ tag }}</span>
+            {% endfor %}
+            {% if note.tags.size > 3 %}
+              <span class="notes-list__tag notes-list__tag--more">+{{ note.tags.size | minus: 3 }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</div>
+
+{% if include.show_more_link %}
+  <div class="notes-list__footer">
+    <a href="{{ include.show_more_link }}" class="notes-list__more-link">
+      View all {{ include.show_more_text | default: "notes" }} →
+    </a>
+  </div>
+{% endif %}

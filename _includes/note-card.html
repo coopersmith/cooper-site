@@ -1,0 +1,53 @@
+<!-- Note Card Component -->
+<!-- Usage: {% include note-card.html note=note show_excerpt=true show_tags=true show_date=true %} -->
+
+{% assign show_excerpt = include.show_excerpt | default: false %}
+{% assign show_tags = include.show_tags | default: true %}
+{% assign show_date = include.show_date | default: true %}
+{% assign show_image = include.show_image | default: false %}
+{% assign card_size = include.card_size | default: "standard" %}
+
+<article class="note-card note-card--{{ card_size }}">
+  <div class="note-card__content">
+    {% if show_date and include.note.last_modified_at %}
+      <time class="note-card__date" datetime="{{ include.note.last_modified_at | date_to_xmlschema }}">
+        {{ include.note.last_modified_at | date: "%b %d, %Y" }}
+      </time>
+    {% elsif show_date and include.note.date %}
+      <time class="note-card__date" datetime="{{ include.note.date | date_to_xmlschema }}">
+        {{ include.note.date | date: "%b %d, %Y" }}
+      </time>
+    {% endif %}
+
+    <h3 class="note-card__title">
+      <a href="{{ site.baseurl }}{{ include.note.url }}" class="note-card__link">
+        {{ include.note.title }}
+      </a>
+    </h3>
+
+    {% if show_excerpt and include.note.excerpt %}
+      <p class="note-card__excerpt">
+        {{ include.note.excerpt | strip_html | truncatewords: 25 }}
+      </p>
+    {% endif %}
+
+    {% if show_tags and include.note.tags.size > 0 %}
+      <div class="note-card__tags">
+        {% for tag in include.note.tags limit: 3 %}
+          <span class="note-card__tag">{{ tag }}</span>
+        {% endfor %}
+        {% if include.note.tags.size > 3 %}
+          <span class="note-card__tag note-card__tag--more">+{{ include.note.tags.size | minus: 3 }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if include.note.featured %}
+      <div class="note-card__featured-badge">
+        <svg class="note-card__star" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0l2.4 4.8L16 5.6l-4 3.9.9 5.3L8 12.4 3.1 14.8 4 9.5 0 5.6l5.6-.8L8 0z"/>
+        </svg>
+      </div>
+    {% endif %}
+  </div>
+</article>

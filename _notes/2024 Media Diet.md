@@ -1,5 +1,6 @@
 ---
 title: 2024 Media Diet
+featured: true
 tags:
   - mediadiet
 ---

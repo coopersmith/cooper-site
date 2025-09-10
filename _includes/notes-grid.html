@@ -1,0 +1,69 @@
+<!-- Notes Grid Component -->
+<!-- Usage: {% include notes-grid.html notes=site.notes limit=6 show_excerpt=true title="Recent Notes" %} -->
+
+{% assign notes = include.notes | default: site.notes %}
+{% assign limit = include.limit | default: 10 %}
+{% assign show_excerpt = include.show_excerpt | default: false %}
+{% assign show_tags = include.show_tags | default: true %}
+{% assign show_date = include.show_date | default: true %}
+{% assign grid_columns = include.grid_columns | default: "auto" %}
+{% assign card_size = include.card_size | default: "standard" %}
+{% assign filter_tag = include.filter_tag %}
+{% assign exclude_path = include.exclude_path %}
+{% assign featured_only = include.featured_only | default: false %}
+
+{% if include.title %}
+  <div class="notes-grid__header">
+    <h2 class="notes-grid__title">{{ include.title }}</h2>
+    {% if include.subtitle %}
+      <p class="notes-grid__subtitle">{{ include.subtitle }}</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+<div class="notes-grid notes-grid--{{ grid_columns }}-cols">
+  {% assign filtered_notes = notes %}
+  
+  {% comment %} Apply filters {% endcomment %}
+  {% if filter_tag %}
+    {% assign filtered_notes = filtered_notes | where: "tags", filter_tag %}
+  {% endif %}
+  
+  {% if exclude_path %}
+    {% assign temp_notes = "" | split: "" %}
+    {% for note in filtered_notes %}
+      {% unless note.path contains exclude_path %}
+        {% assign temp_notes = temp_notes | push: note %}
+      {% endunless %}
+    {% endfor %}
+    {% assign filtered_notes = temp_notes %}
+  {% endif %}
+  
+  {% if featured_only %}
+    {% assign filtered_notes = filtered_notes | where: "featured", true %}
+  {% endif %}
+  
+  {% comment %} Sort by last modified or date {% endcomment %}
+  {% if filtered_notes.first.last_modified_at %}
+    {% assign sorted_notes = filtered_notes | sort: "last_modified_at_timestamp" | reverse %}
+  {% else %}
+    {% assign sorted_notes = filtered_notes | sort: "date" | reverse %}
+  {% endif %}
+  
+  {% for note in sorted_notes limit: limit %}
+    {% include note-card.html 
+       note=note 
+       show_excerpt=show_excerpt 
+       show_tags=show_tags 
+       show_date=show_date 
+       card_size=card_size %}
+  {% endfor %}
+</div>
+
+{% if include.show_more_link %}
+  <div class="notes-grid__footer">
+    <a href="{{ include.show_more_link }}" class="notes-grid__more-link">
+      View all {{ include.show_more_text | default: "notes" }} →
+    </a>
+  </div>
+{% endif %}
