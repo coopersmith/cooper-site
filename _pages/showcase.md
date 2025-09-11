@@ -2,6 +2,7 @@
 layout: page
 title: Index Views Showcase
 permalink: /showcase/
+published: false
 ---
 
 # Index Views Showcase

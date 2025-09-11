@@ -1,15 +1,7 @@
-<!-- Notes List Component -->
-<!-- Usage: {% include notes-list.html notes=site.notes limit=5 show_excerpt=true title="Recent Updates" %} -->
-
+<!-- Simplified Notes List Component for Debugging -->
 {% assign notes = include.notes | default: site.notes %}
 {% assign limit = include.limit | default: 10 %}
-{% assign show_excerpt = include.show_excerpt | default: false %}
-{% assign show_tags = include.show_tags | default: true %}
-{% assign show_date = include.show_date | default: true %}
-{% assign filter_tag = include.filter_tag %}
 {% assign exclude_path = include.exclude_path %}
-{% assign featured_only = include.featured_only | default: false %}
-{% assign compact = include.compact | default: false %}
 
 {% if include.title %}
   <div class="notes-list__header">
@@ -20,20 +12,10 @@
   </div>
 {% endif %}
 
-<div class="notes-list {% if compact %}notes-list--compact{% endif %}">
+<div class="notes-list">
   {% assign filtered_notes = notes %}
   
-  {% comment %} Apply filters {% endcomment %}
-  {% if filter_tag %}
-    {% assign temp_notes = "" | split: "" %}
-    {% for note in filtered_notes %}
-      {% if note.tags contains filter_tag %}
-        {% assign temp_notes = temp_notes | push: note %}
-      {% endif %}
-    {% endfor %}
-    {% assign filtered_notes = temp_notes %}
-  {% endif %}
-  
+  {% comment %} Apply path exclusion filter {% endcomment %}
   {% if exclude_path %}
     {% assign temp_notes = "" | split: "" %}
     {% for note in filtered_notes %}
@@ -44,22 +26,14 @@
     {% assign filtered_notes = temp_notes %}
   {% endif %}
   
-  {% if featured_only %}
-    {% assign filtered_notes = filtered_notes | where: "featured", true %}
-  {% endif %}
-  
-  {% comment %} Sort by last modified or date {% endcomment %}
+  {% comment %} Sort by last modified {% endcomment %}
   {% assign sorted_notes = filtered_notes | sort: "last_modified_at_timestamp" | reverse %}
   
   {% for note in sorted_notes limit: limit %}
     <article class="notes-list__item">
-      {% if show_date and note.last_modified_at %}
+      {% if note.last_modified_at %}
         <time class="notes-list__date" datetime="{{ note.last_modified_at | date_to_xmlschema }}">
           {{ note.last_modified_at | date: "%Y-%m-%d" }}
-        </time>
-      {% elsif show_date and note.date %}
-        <time class="notes-list__date" datetime="{{ note.date | date_to_xmlschema }}">
-          {{ note.date | date: "%Y-%m-%d" }}
         </time>
       {% endif %}
 
@@ -75,13 +49,7 @@
           </a>
         </h3>
 
-        {% if show_excerpt and note.excerpt %}
-          <p class="notes-list__excerpt">
-            {{ note.excerpt | strip_html | truncatewords: 20 }}
-          </p>
-        {% endif %}
-
-        {% if show_tags and note.tags.size > 0 %}
+        {% if note.tags and note.tags.size > 0 %}
           <div class="notes-list__tags">
             {% for tag in note.tags limit: 3 %}
               <span class="notes-list__tag">{{ tag }}</span>

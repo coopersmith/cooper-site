@@ -26,7 +26,13 @@
   
   {% comment %} Apply filters {% endcomment %}
   {% if filter_tag %}
-    {% assign filtered_notes = filtered_notes | where: "tags", filter_tag %}
+    {% assign temp_notes = "" | split: "" %}
+    {% for note in filtered_notes %}
+      {% if note.tags contains filter_tag %}
+        {% assign temp_notes = temp_notes | push: note %}
+      {% endif %}
+    {% endfor %}
+    {% assign filtered_notes = temp_notes %}
   {% endif %}
   
   {% if exclude_path %}
@@ -44,11 +50,7 @@
   {% endif %}
   
   {% comment %} Sort by last modified or date {% endcomment %}
-  {% if filtered_notes.first.last_modified_at %}
-    {% assign sorted_notes = filtered_notes | sort: "last_modified_at_timestamp" | reverse %}
-  {% else %}
-    {% assign sorted_notes = filtered_notes | sort: "date" | reverse %}
-  {% endif %}
+  {% assign sorted_notes = filtered_notes | sort: "last_modified_at_timestamp" | reverse %}
   
   {% for note in sorted_notes limit: limit %}
     {% include note-card.html 

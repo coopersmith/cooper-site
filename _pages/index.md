@@ -26,25 +26,18 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
 {% comment %} Featured Notes {% endcomment %}
 {% assign featured_notes = site.notes | where: "featured", true %}
 {% if featured_notes.size > 0 %}
-<div class="featured-notes">
-  {% include notes-list.html 
+  {% include basic-notes-list.html 
      notes=featured_notes 
      title="Featured Notes" 
-     limit=3 
-     show_excerpt=true 
-     show_tags=true 
-     compact=true %}
-</div>
+     limit=3 %}
 {% endif %}
 
 {% comment %} Recent Updates {% endcomment %}
-{% include notes-list.html 
+{% include basic-notes-list.html 
    notes=site.notes 
    title="Recently Updated" 
    subtitle="My latest thoughts and explorations"
    limit=5 
-   show_excerpt=false 
-   show_tags=true 
    exclude_path="Concerts" 
    show_more_link="/tableofcontents" 
    show_more_text="notes" %}

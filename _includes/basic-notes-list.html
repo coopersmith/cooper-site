@@ -1,0 +1,25 @@
+<!-- Basic Notes List - Fallback Version -->
+{% if include.title %}<h2>{{ include.title }}</h2>{% endif %}
+{% if include.subtitle %}<p>{{ include.subtitle }}</p>{% endif %}
+
+<ul class="basic-notes-list">
+  {% assign notes = include.notes | default: site.notes %}
+  {% assign limit = include.limit | default: 10 %}
+  {% assign sorted_notes = notes | sort: "last_modified_at_timestamp" | reverse %}
+  
+  {% for note in sorted_notes limit: limit %}
+    {% unless include.exclude_path and note.path contains include.exclude_path %}
+      <li>
+        {% if note.last_modified_at %}
+          {{ note.last_modified_at | date: "%Y-%m-%d" }} — 
+        {% endif %}
+        <a href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
+        {% if note.featured %} ⭐{% endif %}
+      </li>
+    {% endunless %}
+  {% endfor %}
+</ul>
+
+{% if include.show_more_link %}
+  <p><a href="{{ include.show_more_link }}">View all {{ include.show_more_text | default: "notes" }} →</a></p>
+{% endif %}
