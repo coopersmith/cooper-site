@@ -354,15 +354,27 @@
   li {
     padding: 0.5em 0;
     border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 1em;
     
     &:last-child {
       border-bottom: none;
+    }
+    
+    .note-date {
+      font-size: 0.8em;
+      color: var(--color-text-subtle);
+      font-weight: 500;
+      min-width: 80px;
+      flex-shrink: 0;
     }
     
     a {
       color: var(--color-text-primary);
       text-decoration: none;
       font-weight: 500;
+      flex: 1;
       
       &:hover {
         color: var(--color-text-secondary);

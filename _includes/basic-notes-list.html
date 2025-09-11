@@ -11,7 +11,7 @@
     {% unless include.exclude_path and note.path contains include.exclude_path %}
       <li>
         {% if note.last_modified_at %}
-          {{ note.last_modified_at | date: "%Y-%m-%d" }} — 
+          <span class="note-date">{{ note.last_modified_at | date: "%Y-%m-%d" }}</span>
         {% endif %}
         <a href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
         {% if note.featured %} ⭐{% endif %}
