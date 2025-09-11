@@ -536,6 +536,118 @@
   }
 }
 
+// Travel Page Styling
+.travel-grid {
+  display: grid;
+  gap: 1.5em;
+  margin: 2em 0;
+  
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+.travel-item {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-text-tertiary);
+
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.travel-year {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75em 1.5em;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.travel-content {
+  padding: 1.5em;
+  
+  h3 {
+    margin: 0 0 0.5em;
+    font-size: 1.3em;
+    font-weight: 600;
+    line-height: 1.3;
+    
+    a {
+      color: var(--color-text-primary);
+      text-decoration: none;
+      
+      &:hover {
+        color: var(--color-text-secondary);
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .travel-subtitle {
+    font-size: 0.95em;
+    color: var(--color-text-tertiary);
+    margin: 0 0 0.75em;
+    font-style: italic;
+  }
+  
+  .travel-dates {
+    font-size: 0.9em;
+    color: var(--color-text-subtle);
+    margin: 0 0 0.75em;
+    font-weight: 500;
+  }
+  
+  .travel-locations {
+    margin: 0.75em 0;
+    
+    .travel-location {
+      display: inline-block;
+      font-size: 0.8em;
+      color: var(--color-text-tertiary);
+      background: var(--color-border);
+      padding: 0.25em 0.5em;
+      border-radius: 4px;
+      margin: 0.25em 0.25em 0.25em 0;
+    }
+  }
+  
+  .travel-excerpt {
+    font-size: 0.9em;
+    color: var(--color-text-tertiary);
+    line-height: 1.5;
+    margin: 0.75em 0 0;
+  }
+}
+
+.travel-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1em;
+  margin: 2em 0;
+  padding: 2em;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1.5em;
+  }
+}
+
 // Responsive adjustments
 @media (max-width: 600px) {
   .notes-grid {
@@ -548,5 +660,13 @@
 
   .notes-list__item {
     padding: 0.75em 0;
+  }
+  
+  .travel-grid {
+    gap: 1em;
+  }
+  
+  .travel-content {
+    padding: 1em;
   }
 }
