@@ -1,36 +1,26 @@
 ---
 layout: page
-title: ToC
+title: All Notes
 id: tableofcontents
 permalink: /tableofcontents/
 ---
 
+# All Notes
 
+A comprehensive view of all my notes, organized and accessible.
 
-<strong>My recently updated notes</strong>
+{% comment %} Featured Notes Section {% endcomment %}
+{% assign featured_notes = site.notes | where: "featured", true %}
+{% if featured_notes.size > 0 %}
+  {% include basic-notes-list.html 
+     notes=featured_notes 
+     title="Featured Notes" 
+     limit=6 %}
+{% endif %}
 
-<!-- <h3>Recently Updated</h3> -->
-<ul>
-  {% assign recent_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
-  {% for note in recent_notes limit: 500 %}
-    <li>
-      {{ note.last_modified_at | date: "%Y-%m-%d" }} — <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
-
-<!-- <h3>Recently Created</h3>
-<ul>
-  {% assign new_notes = site.notes | sort: "created_at_timestamp" | reverse %}
-  {% for note in new_notes limit: 5 %}
-    <li>
-      {{ note.created_at | date: "%Y-%m-%d" }} — <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
--->
-<style>
-  .wrapper {
-    max-width: 46em;
-  }
-</style>
+{% comment %} All Notes {% endcomment %}
+{% include basic-notes-list.html 
+   notes=site.notes 
+   title="All Notes" 
+   subtitle="Everything I've written, sorted by most recent updates"
+   limit=100 %}

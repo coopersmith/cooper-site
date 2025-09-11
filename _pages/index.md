@@ -23,23 +23,24 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
   <p>Loading last location...</p>
 </div> -->
 
-<strong>My recently updated notes</strong>
+{% comment %} Featured Notes {% endcomment %}
+{% assign featured_notes = site.notes | where: "featured", true %}
+{% if featured_notes.size > 0 %}
+  {% include basic-notes-list.html 
+     notes=featured_notes 
+     title="Featured Notes" 
+     limit=3 %}
+{% endif %}
 
-<!-- <h3>Recently Updated</h3> -->
-<ul>
-  {% assign all_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
-  {% assign count = 0 %}
-  {% for note in all_notes %}
-    {% unless note.path contains 'Concerts' %}
-      {% if count < 5 %}
-        <li>
-          {{ note.last_modified_at | date: "%Y-%m-%d" }} — <a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a>
-        </li>
-        {% assign count = count | plus: 1 %}
-      {% endif %}
-    {% endunless %}
-  {% endfor %}
-</ul>
+{% comment %} Recent Updates {% endcomment %}
+{% include basic-notes-list.html 
+   notes=site.notes 
+   title="Recently Updated" 
+   subtitle="My latest thoughts and explorations"
+   limit=5 
+   exclude_path="Concerts" 
+   show_more_link="/tableofcontents" 
+   show_more_text="notes" %}
 
 <!-- <h3>Recently Created</h3>
 <ul>
