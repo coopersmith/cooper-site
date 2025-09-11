@@ -1,0 +1,57 @@
+<!-- Media Item Component -->
+<!-- Usage: {% include media-item.html item=book type="book" %} -->
+
+{% assign item = include.item %}
+{% assign type = include.type | default: "book" %}
+
+<div class="media-item media-item--{{ type }}">
+  {% if type == "book" %}
+    {% if item.end %}
+      <div class="media-status">✅ Completed</div>
+    {% elsif item.start %}
+      <div class="media-status">📖 Reading</div>
+    {% else %}
+      <div class="media-status">📚 Book</div>
+    {% endif %}
+  {% elsif type == "movie" %}
+    <div class="media-status">🎬 Movie</div>
+  {% elsif type == "tv" %}
+    <div class="media-status">📺 TV</div>
+  {% endif %}
+
+  <h4><a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></h4>
+
+  {% if item.author %}
+    <p class="media-author">by {{ item.author | join: ", " }}</p>
+  {% elsif item.director %}
+    <p class="media-author">Directed by {{ item.director | join: ", " }}</p>
+  {% elsif item.creator %}
+    <p class="media-author">Created by {{ item.creator | join: ", " }}</p>
+  {% endif %}
+
+  {% if item.year %}
+    <p class="media-year">{{ item.year }}</p>
+  {% endif %}
+
+  {% if item.season %}
+    <p class="media-season">Season {{ item.season }}</p>
+  {% endif %}
+
+  {% if item.rating %}
+    <p class="media-rating">
+      {% assign stars = item.rating %}
+      {% for i in (1..stars) %}★{% endfor %}
+      {% assign empty_stars = 10 | minus: stars %}
+      {% for i in (1..empty_stars) %}☆{% endfor %}
+      ({{ item.rating }}/10)
+    </p>
+  {% endif %}
+
+  {% if item.end %}
+    <p class="media-date">Finished: {{ item.end | date: "%B %d, %Y" }}</p>
+  {% elsif item.start %}
+    <p class="media-date">Started: {{ item.start | date: "%B %d, %Y" }}</p>
+  {% elsif item.date %}
+    <p class="media-date">{{ item.date | date: "%B %d, %Y" }}</p>
+  {% endif %}
+</div>
