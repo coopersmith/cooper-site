@@ -5,6 +5,7 @@ tags:
   - journal
   - dataviz
   - tufte
+date: 2011-06-11
 ---
 [Originally published to my Tumblr on 2011-06-11](https://coopersmith.tumblr.com/post/6976521253/tuftelecture)
 

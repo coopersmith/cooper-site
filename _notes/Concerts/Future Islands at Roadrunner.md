@@ -6,7 +6,7 @@ Artists:
 Dates: 2024-06-19
 Venue: "[[Roadrunner]]"
 With me:
-  - "[[Steph]]"
+  - "[[Stephanie Reichin]]"
 tags:
   - concerts
 categories:

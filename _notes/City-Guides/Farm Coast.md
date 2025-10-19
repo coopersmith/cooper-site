@@ -6,6 +6,7 @@ tags:
   - journal
   - farmcoastcoffee
   - FarmCoastCoffee/website
+date: 2024-08-04
 ---
 Whether you know it as the Farm Coast, the East Bay, or something else, this idyllic stretch of New England is characterized by beautiful stone walls framing picturesque farms nestled up next to the beaches of the Atlantic ocean. 
 

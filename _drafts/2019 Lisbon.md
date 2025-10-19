@@ -11,6 +11,8 @@ start: 2019-09-26
 end: 2019-09-30
 loc:
   - "[[Lisbon]]"
+people:
+  - "[[Stephanie Reichin]]"
 ---
 
 In September 2019, Steph and I went on our first trip together to Lisbon. 

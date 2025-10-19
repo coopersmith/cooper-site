@@ -5,6 +5,7 @@ tags:
   - journal
   - movies
   - 0🌲
+date: 2024-03-17
 ---
 A list of my 100 favorite movies.   
 <small>Current as of 2024-03-17 </small>
