@@ -14,11 +14,12 @@ _includes/notes_graph.json
 # Obsidian config
 .obsidian/
 
+# Environment variables
+.env
+
 # macOS system files
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-.DS_Store
-.DS_Store

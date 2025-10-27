@@ -1,0 +1,59 @@
+---
+layout: default
+---
+
+<div class="ephemera-container">
+  <header class="ephemera-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}
+      <p class="ephemera-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="ephemera-grid">
+    {% for item in site.data.ephemera %}
+      <article class="ephemera-item" data-tags="{{ item.tags | join: ' ' }}">
+        {% if item.image_url %}
+          <div class="ephemera-image-container">
+            <img src="{{ item.image_url }}" 
+                 alt="{{ item.title }}" 
+                 class="ephemera-image"
+                 loading="lazy">
+          </div>
+        {% endif %}
+        
+        <div class="ephemera-content">
+          <h3 class="ephemera-title">{{ item.title }}</h3>
+          
+          {% if item.date %}
+            <time class="ephemera-date">{{ item.date | date: "%B %d, %Y" }}</time>
+          {% endif %}
+          
+          {% if item.location %}
+            <p class="ephemera-location">📍 {{ item.location }}</p>
+          {% endif %}
+          
+          {% if item.description %}
+            <p class="ephemera-description">{{ item.description }}</p>
+          {% endif %}
+          
+          {% if item.tags %}
+            <div class="ephemera-tags">
+              {% for tag in item.tags %}
+                <span class="ephemera-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+  
+  {% if site.data.ephemera.size == 0 %}
+    <div class="ephemera-empty">
+      <p>No ephemera items found. Make sure your Airtable is configured correctly.</p>
+    </div>
+  {% endif %}
+</div>
+
+{{ content }}
