@@ -617,6 +617,12 @@ table {
 #highlights {
   .highlight {
     margin-bottom: 2em;
+    /* Ensure no background from code highlighting styles */
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: inherit !important;
+    overflow: visible !important;
     
     blockquote {
       margin: 0;
