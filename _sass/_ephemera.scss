@@ -1,0 +1,164 @@
+/* Ephemera Section Styles */
+
+.ephemera-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.ephemera-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .ephemera-description {
+    font-size: 1.1rem;
+    color: var(--text-color-secondary, #666);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.ephemera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ephemera-item {
+  background: var(--background-secondary, #f9f9f9);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.ephemera-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  
+  .ephemera-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover .ephemera-image {
+    transform: scale(1.05);
+  }
+}
+
+.ephemera-content {
+  padding: 1.5rem;
+}
+
+.ephemera-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ephemera-date {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-color-secondary, #666);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.ephemera-location {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-color-secondary, #666);
+}
+
+.ephemera-description {
+  margin: 1rem 0;
+  line-height: 1.5;
+  color: var(--text-color, #333);
+}
+
+.ephemera-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.ephemera-tag {
+  background: var(--accent-color, #007acc);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.ephemera-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-color-secondary, #666);
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ephemera-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .ephemera-content {
+    padding: 1rem;
+  }
+  
+  .ephemera-header {
+    margin-bottom: 1.5rem;
+    
+    .ephemera-description {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .ephemera-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .ephemera-image-container {
+    height: 150px;
+  }
+}
+
+/* Dark mode support (if your site has it) */
+@media (prefers-color-scheme: dark) {
+  .ephemera-item {
+    background: var(--background-secondary-dark, #2a2a2a);
+    color: var(--text-color-dark, #e0e0e0);
+  }
+  
+  .ephemera-description {
+    color: var(--text-color-dark, #e0e0e0);
+  }
+  
+  .ephemera-date,
+  .ephemera-location {
+    color: var(--text-color-secondary-dark, #aaa);
+  }
+}
