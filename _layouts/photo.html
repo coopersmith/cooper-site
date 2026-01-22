@@ -1,0 +1,136 @@
+---
+layout: default
+---
+
+<a href="{{ site.baseurl }}/" class="photo-back-button">
+  ←
+</a>
+
+<style>
+body.photo-page-body {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+body.photo-page-body .wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+body.photo-page-body #main-content {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+.photo-page {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+.photo-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.photo-image {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+.photo-back-button {
+  position: fixed !important;
+  top: 2rem !important;
+  left: 2rem !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(0, 0, 0, 0.9) !important;
+  padding: 0.75rem 1.25rem !important;
+  border-radius: 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  z-index: 9999 !important;
+  text-decoration: none !important;
+  display: block !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  transition: all 0.3s ease !important;
+}
+.photo-back-button:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  transform: translateX(-2px) !important;
+  text-decoration: none !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+@media (prefers-color-scheme: dark) {
+  .photo-back-button {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .photo-back-button:hover {
+    background: rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+}
+</style>
+
+<article class="photo-page">
+  <div class="photo-container">
+    <img src="{{ site.baseurl }}{{ page.image }}" alt="{{ page.title }}" class="photo-image">
+  </div>
+  
+  {% comment %}
+  <div class="photo-meta">
+    {% if page.date %}
+      <time datetime="{{ page.date | date_to_xmlschema }}" class="photo-date">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+    {% endif %}
+  </div>
+  {% endcomment %}
+
+  <nav class="photo-navigation">
+    {% assign sorted_photos = site.photos | sort: 'date' | reverse %}
+    {% if sorted_photos.size > 0 %}
+      {% for photo in sorted_photos %}
+        {% if photo.url == page.url %}
+          {% assign photo_index = forloop.index0 %}
+          {% assign prev_index = photo_index | minus: 1 %}
+          {% assign next_index = photo_index | plus: 1 %}
+          
+          {% if prev_index >= 0 %}
+            {% assign prev_photo = sorted_photos[prev_index] %}
+            <a href="{{ site.baseurl }}{{ prev_photo.url }}" class="photo-nav-link photo-nav-prev">
+              ← Previous
+            </a>
+          {% endif %}
+          
+          <a href="{{ site.baseurl }}/photos/" class="photo-nav-link photo-nav-index">
+            All Photos
+          </a>
+          
+          {% if next_index < sorted_photos.size %}
+            {% assign next_photo = sorted_photos[next_index] %}
+            <a href="{{ site.baseurl }}{{ next_photo.url }}" class="photo-nav-link photo-nav-next">
+              Next →
+            </a>
+          {% endif %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <a href="{{ site.baseurl }}/photos/" class="photo-nav-link photo-nav-index">
+        All Photos
+      </a>
+    {% endif %}
+  </nav>
+</article>

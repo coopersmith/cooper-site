@@ -2,3 +2,19 @@
   command = "jekyll build --trace"
   publish = "_site"
   functions = "netlify/functions"
+
+# Subdomain configuration for photos.coopersmith.nyc
+# Note: You'll need to configure the subdomain in Netlify dashboard:
+# 1. Go to Site settings > Domain management
+# 2. Add custom domain: photos.coopersmith.nyc
+# 3. Netlify will provide DNS instructions (CNAME record)
+
+[[redirects]]
+  from = "https://photos.coopersmith.nyc/*"
+  to = "https://coopersmith.nyc/photos/:splat"
+  status = 301
+  force = true
+
+# Alternative: If you want photos subdomain to show only photos (no redirect)
+# You can use context-based builds or create a separate site
+# For now, the redirect above will send photos subdomain to /photos/ path

@@ -35,6 +35,9 @@ collections:
   notes:
     output: true
     permalink: /:slug
+  photos:
+    output: true
+    permalink: /photos/:slug
 
 defaults:
   - scope:
@@ -45,3 +48,7 @@ defaults:
       path: "_notes/**/*.md"
     values:
       layout: "note"
+  - scope:
+      path: "_photos/**/*.md"
+    values:
+      layout: "photo"

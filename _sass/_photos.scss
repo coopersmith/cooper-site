@@ -1,0 +1,240 @@
+// Override body constraints for photo pages - allow full width container
+body.photo-page-body {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+// Override wrapper constraints for photo pages - allow full width container
+body.photo-page-body .wrapper.photo-page-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+// Override main content area
+body.photo-page-body #main-content {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+// Override any img max-width constraints on photo pages
+body.photo-page-body img,
+body.photo-page-body .photo-thumbnail,
+body.photo-page-body .photo-image {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+// Hide nav and footer on photo pages for cleaner look
+body.photo-page-body nav,
+body.photo-page-body footer {
+  display: none !important;
+}
+
+// Photos Stream Layout
+body.photo-page-body .photos-stream {
+  max-width: 100% !important;
+  margin: 0 !important;
+  width: 100% !important;
+  
+  .photos-header {
+    display: none; // Hide header for now
+    margin-bottom: 2em;
+    
+    h1 {
+      margin-bottom: 0.5em;
+    }
+  }
+  
+  .photos-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    margin-bottom: 0 !important;
+    padding: 2rem 1.5rem !important;
+    align-items: center !important;
+    
+    @media (max-width: 600px) {
+      padding: 1rem 1rem !important;
+      gap: 1.5rem !important;
+    }
+  }
+  
+  .photo-item {
+    position: relative;
+    display: block;
+    overflow: visible;
+    background: transparent;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    cursor: default !important;
+    
+    &:hover {
+      .photo-thumbnail {
+        opacity: 0.95;
+      }
+    }
+  }
+  
+  .photo-thumbnail {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    transition: opacity 0.3s ease;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .photo-overlay {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  .photo-location-label,
+  .photo-date-label {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  // Also hide the overlay container
+  .photo-item .photo-overlay {
+    display: none !important;
+  }
+  
+  // Target date labels more specifically - multiple selectors for maximum specificity
+  body.photo-page-body .photo-date-label,
+  body.photo-page-body .photos-stream .photo-date-label,
+  body.photo-page-body .photo-item .photo-date-label,
+  body.photo-page-body .photo-overlay .photo-date-label {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  body.photo-page-body .photo-overlay,
+  body.photo-page-body .photos-stream .photo-overlay,
+  body.photo-page-body .photo-item .photo-overlay {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
+// Individual Photo Page Layout
+body.photo-page-body .photo-page {
+  max-width: 100% !important;
+  margin: 0 !important;
+  width: 100% !important;
+  
+  .photo-container {
+    margin-bottom: 0 !important;
+    text-align: center;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .photo-image {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+  
+  .photo-meta {
+    display: none !important; // Hidden for now, but keeping structure for later
+  }
+  
+  .photo-location {
+    display: none !important; // Hidden for now
+  }
+  
+  .photo-date {
+    display: none !important; // Hidden for now
+  }
+  
+  .photo-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    padding-top: 1.5em;
+    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+  
+  .photo-nav-link {
+    padding: 0.6em 1.2em;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: $border-radius;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-size: 0.95em;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+    
+    &:hover {
+      background: var(--color-border);
+      border-color: var(--color-text-tertiary);
+      text-decoration: none;
+    }
+    
+    @media (max-width: 600px) {
+      width: 100%;
+    }
+  }
+  
+  .photo-nav-index {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+// Ensure photos directory exists styling
+.photos-stream:empty::before {
+  content: "No photos yet. Add photos to assets/photos/ to get started.";
+  display: block;
+  text-align: center;
+  color: var(--color-text-tertiary);
+  padding: 3em 1em;
+  font-style: italic;
+}
