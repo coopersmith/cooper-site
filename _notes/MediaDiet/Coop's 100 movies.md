@@ -13,7 +13,7 @@ A list of my 100 favorite movies.
 
 |         | Movie                                                                | Year |
 | ------- | -------------------------------------------------------------------- | ---- |
-| **1**   | [[Heat]]                                                             | 1995 |
+| **1**   | [[Heat (1995)]]                                                      | 1995 |
 | **2**   | [[The Social Network]]                                               | 2010 |
 | **3**   | [[Wet Hot American Summer]]                                          | 2001 |
 | **4**   | [[Rushmore]]                                                         | 1998 |
@@ -21,36 +21,36 @@ A list of my 100 favorite movies.
 | **6**   | [[Almost Famous]]                                                    | 2000 |
 | **7**   | [[Goodfellas]]                                                       | 1990 |
 | **8**   | [[The Departed]]                                                     | 2006 |
-| **9**   | Lost in Translation                                                  | 2003 |
+| **9**   | [[Lost in Translation]]                                              | 2003 |
 | **10**  | [[The Dark Knight]]                                                  | 2008 |
-| **11**  | Dazed and Confused                                                   | 1993 |
-| **12**  | Donnie Darko                                                         | 2001 |
-| **13**  | Ghostbusters                                                         | 1984 |
-| **14**  | The Royal Tenenbaums                                                 | 2001 |
-| **15**  | Call Me by Your Name                                                 | 2017 |
-| **16**  | BASEketball                                                          | 1998 |
-| **17**  | The Matrix                                                           | 1999 |
-| **18**  | Pulp Fiction                                                         | 1994 |
-| **19**  | The Game                                                             | 1997 |
-| **20**  | Poor Things                                                          | 2023 |
-| **21**  | Good Will Hunting                                                    | 1997 |
-| **22**  | Caddyshack                                                           | 1980 |
-| **23**  | Oppenheimer                                                          | 2023 |
-| **24**  | Vanilla Sky                                                          | 2001 |
-| **25**  | Fight Club                                                           | 1999 |
-| **26**  | Gone Girl                                                            | 2014 |
-| **27**  | Past Lives                                                           | 2023 |
-| **28**  | Knives Out                                                           | 2019 |
-| **29**  | Jaws                                                                 | 1975 |
-| **30**  | Ocean's Eleven                                                       | 2001 |
-| **31**  | Snatch                                                               | 2000 |
-| **32**  | Casino Royale                                                        | 2006 |
-| **33**  | Hook                                                                 | 1991 |
-| **34**  | Once Upon a Time… in Hollywood                                       | 2019 |
-| **35**  | Se7en                                                                | 1995 |
-| **36**  | The Wolf of Wall Street                                              | 2013 |
-| **37**  | The Empire Strikes Back                                              | 1980 |
-| **38**  | The Usual Suspects                                                   | 1995 |
+| **11**  | [[Dazed and Confused]]                                               | 1993 |
+| **12**  | [[Donnie Darko]]                                                     | 2001 |
+| **13**  | [[Ghostbusters]]                                                     | 1984 |
+| **14**  | [[The Royal Tenenbaums]]                                             | 2001 |
+| **15**  | [[Call Me by Your Name (2017)]]                                      | 2017 |
+| **16**  | [[BASEketball]]                                                      | 1998 |
+| **17**  | [[The Matrix]]                                                       | 1999 |
+| **18**  | [[Pulp Fiction]]                                                     | 1994 |
+| **19**  | [[The Game (1997)]]                                                  | 1997 |
+| **20**  | [[Poor Things]]                                                      | 2023 |
+| **21**  | [[Good Will Hunting (1997)]]                                         | 1997 |
+| **22**  | [[Caddyshack]]                                                       | 1980 |
+| **23**  | [[Oppenheimer (2023)]]                                               | 2023 |
+| **24**  | [[Vanilla Sky]]                                                      | 2001 |
+| **25**  | [[Fight Club]]                                                       | 1999 |
+| **26**  | [[Gone Girl (2014)]]                                                 | 2014 |
+| **27**  | [[Past Lives (2023)]]                                                | 2023 |
+| **28**  | [[Knives Out]]                                                       | 2019 |
+| **29**  | [[Jaws]]                                                             | 1975 |
+| **30**  | [[Ocean's Eleven]]                                                   | 2001 |
+| **31**  | [[Snatch]]                                                           | 2000 |
+| **32**  | [[Casino Royale]]                                                    | 2006 |
+| **33**  | [[Hook]]                                                             | 1991 |
+| **34**  | [[Once Upon a Time… in Hollywood]]                                   | 2019 |
+| **35**  | [[Se7en]]                                                            | 1995 |
+| **36**  | [[The Wolf of Wall Street]]                                          | 2013 |
+| **37**  | [[The Empire Strikes Back]]                                          | 1980 |
+| **38**  | [[The Usual Suspects]]                                               | 1995 |
 | **39**  | Hell or High Water                                                   | 2016 |
 | **40**  | The French Connection                                                | 1971 |
 | **41**  | L.A. Confidential                                                    | 1997 |
@@ -83,7 +83,7 @@ A list of my 100 favorite movies.
 | **68**  | Catch Me If You Can                                                  | 2002 |
 | **69**  | Eyes Wide Shut                                                       | 1999 |
 | **70**  | Birdman or (The Unexpected Virtue of Ignorance)                      | 2014 |
-| **71**  | Ghostbusters II                                                      | 1989 |
+| **71**  | [[Ghostbusters II]]                                                  | 1989 |
 | **72**  | American Beauty                                                      | 1999 |
 | **73**  | Isle of Dogs                                                         | 2018 |
 | **74**  | Lock, Stock and Two Smoking Barrels                                  | 1998 |
@@ -96,7 +96,7 @@ A list of my 100 favorite movies.
 | **81**  | American Psycho                                                      | 2000 |
 | **82**  | Moon                                                                 | 2009 |
 | **83**  | Collateral                                                           | 2004 |
-| **84**  | American Gangster                                                    | 2007 |
+| **84**  | [[American Gangster (2007)]]                                         | 2007 |
 | **85**  | Booksmart                                                            | 2019 |
 | **86**  | Parasite                                                             | 2019 |
 | **87**  | Licorice Pizza                                                       | 2021 |
@@ -114,3 +114,5 @@ A list of my 100 favorite movies.
 | **99**  | Wayne's World                                                        | 1992 |
 | **100** | The Prestige                                                         | 2006 |
 
+
+![[Movies.base#Ranking]]

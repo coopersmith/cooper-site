@@ -26,6 +26,8 @@ tags:
 categories:
   - "[[Books]]"
 end:
+shelf:
+  - read
 ---
 ## My Review
 
