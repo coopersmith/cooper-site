@@ -6,11 +6,6 @@ tags:
   - WhiteHomestead
 title: White Homestead
 ---
-
-← [Back to Home](Tiverton%20Home.md) · Companion: [Tiverton House History (working research)](Tiverton%20House%20History.md)
-
-# White Homestead
-
 The **White Homestead** is a late-18th-century Federal-style farmhouse at 4398 Main Road in Tiverton, Rhode Island, USA. It was built around 1790 on land then owned by **Godfrey Cook**, a Tiverton yeoman; was acquired in November 1791 by **Christopher White of Little Compton**, and subsequently descended through six successive generations of his White-line family — Christopher⁵, Peregrine⁶ (Perry G.), Gideon S., Andrew, Louisa P. (White) Hart, and George P. W. + Edgar S. Hart — until its sale outside the family in August 1943. After two short intermediate ownerships (Humphrey 1943–1971, Toste 1971–1981), the modern 3.56-acre parcel was subdivided off the larger Toste estate in January 1981 and acquired by **Edward L. and Michelle E. Fisher**, who held the property for 41 years until selling to **Cooper Liska-Smith and Stephanie Reichin** in June 2022.
 
 The property takes its historical name from the 152-year White-Hart family residency. It is described in the Rhode Island Historical Preservation and Heritage Commission's 1983 *Town of Tiverton Preliminary Survey Report* as the "White Homestead" — entry #112 — and was commemorated with a Tiverton Historical Preservation Advisory Board (THPAB) plaque in 2016. The White family who lived here are documented descendants of *Mayflower* passenger **William White** (d. 1621) and his son **Peregrine White** (b. aboard the *Mayflower*, November 1620), via Sylvanus³ → William⁴ → Christopher⁵ → Peregrine⁶ → Gideon S. → Andrew → Louisa P. White (m. David Hart). Eight of the nine documented generations were reportedly born in the house.
