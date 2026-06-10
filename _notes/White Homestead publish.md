@@ -6,7 +6,8 @@ tags:
   - WhiteHomestead
 title: White Homestead
 ---
-The **White Homestead** is a late-18th-century Federal-style farmhouse at 4398 Main Road in Tiverton, Rhode Island, USA. It was built around 1790 on land then owned by **Godfrey Cook**, a Tiverton yeoman; was acquired in November 1791 by **Christopher White of Little Compton**, and subsequently descended through six successive generations of his White-line family — Christopher⁵, Peregrine⁶ (Perry G.), Gideon S., Andrew, Louisa P. (White) Hart, and George P. W. + Edgar S. Hart — until its sale outside the family in August 1943. After two short intermediate ownerships (Humphrey 1943–1971, Toste 1971–1981), the modern 3.56-acre parcel was subdivided off the larger Toste estate in January 1981 and acquired by **Edward L. and Michelle E. Fisher**, who held the property for 41 years until selling to **Cooper Liska-Smith and Stephanie Reichin** in June 2022.
+
+The **White Homestead** is a late-18th-century Federal-style farmhouse at 4398 Main Road in Tiverton, Rhode Island, USA. It was built around 1790 on land then owned by **Godfrey Cook**, a Tiverton yeoman; was acquired in November 1791 by **Christopher White of Little Compton**, and subsequently descended through six successive generations of his White-line family — Christopher⁵, Peregrine⁶ (Perry G.), Gideon S., Andrew, Louisa Parker (White) Hart, and George Pardon White + Edgar Stephen Hart — until its sale outside the family in August 1943. After two short intermediate ownerships (Humphrey 1943–1971, Toste 1971–1981), the modern 3.56-acre parcel was subdivided off the larger Toste estate in January 1981 and acquired by **Edward L. and Michelle E. Fisher**, who held the property for 41 years until selling to **Cooper Liska-Smith and Stephanie Reichin** in June 2022.
 
 The property takes its historical name from the 152-year White-Hart family residency. It is described in the Rhode Island Historical Preservation and Heritage Commission's 1983 *Town of Tiverton Preliminary Survey Report* as the "White Homestead" — entry #112 — and was commemorated with a Tiverton Historical Preservation Advisory Board (THPAB) plaque in 2016. The White family who lived here are documented descendants of *Mayflower* passenger **William White** (d. 1621) and his son **Peregrine White** (b. aboard the *Mayflower*, November 1620), via Sylvanus³ → William⁴ → Christopher⁵ → Peregrine⁶ → Gideon S. → Andrew → Louisa P. White (m. David Hart). Eight of the nine documented generations were reportedly born in the house.
 
@@ -46,31 +47,53 @@ The property entered the White line through **Christopher⁵ White** of Little C
 
 On the same day Christopher took title (9 November 1791), he immediately reconveyed a **half interest** in the parcel to his son **Peregrine⁶ White** — known formally as Perry G. White or, in his own signature, "Parigreen" White — then a 43-year-old **mariner** of Little Compton. The consideration was £303 11s — almost exactly half of the £607 2s 6d Christopher had just paid. Father and son walked out of a single sitting of Justice Walter Cook that day as co-owners of the property. Three years later, on **11 November 1794**, Christopher made a final inter vivos gift of his remaining half-interest to Peregrine⁶, conveying "one undivided equal half part of a certain farm with the dwelling house and other buildings there on standing" in consideration of "love good will and effection." Christopher signed this 1794 deed **by mark** — he had become "feeble," as his will of December 1793 already described him. He died sometime in the year before his will was probated on **5 October 1795**.
 
-By the end of 1794, **Peregrine⁶ White was the sole owner of 4398**. He held the property for the remainder of his life — at least 35 years and possibly as many as 38. His wife **Patience White** lived with him there; in his **last will and testament, executed on 11 April 1829**, he provided for her widowhood by giving her the "**West half of my Dwelling House where I now live**" so long as she remained his widow, together with detailed allowances of beds, books, firewood, a horse and chaise, Souchong tea, and "eight gallons of molasses." He had two daughters, both then single — Patience and Abigail White — and two sons: **Gideon S. White** of Tiverton, to whom he devised "all my Real Estates which lies in the Towns of Tiverton and Little Compton, together with all the buildings and improvements thereon standing," and George White, who had moved to Madison County, New York, where he lived with his wife Hannah and six children on a farm Peregrine⁶ had bought from "one Richmond." Peregrine⁶ also held pews at the Methodist Meeting House in Little Compton and the New Congregational Meeting House in Tiverton. He died between **April 1829** and the probate of his will on **3 December 1832** — the inscription "1832" on his Hillside Cemetery headstone is consistent with this window. He was 81–84 years old.
+By the end of 1794, **Peregrine⁶ White was the sole owner of 4398**. He held the property for the remainder of his life — 38 years. Peregrine⁶ married twice: first **Abigail Soule** (1746–1804), the mother of his son Gideon Soule White; then, on her death in 1804, **Patience Soule Taber** (1764–1841), the wife who lived with him at 4398 through his old age. (Both wives' maiden names carried "Soule" — Abigail by birth, Patience as a middle name from a Soule maternal grandmother. Whether they were related is not yet established.) In his **last will and testament, executed on 11 April 1829**, Peregrine⁶ provided for Patience's widowhood by giving her the "**West half of my Dwelling House where I now live**" so long as she remained his widow, together with detailed allowances of beds, books, firewood, a horse and chaise, Souchong tea, and "eight gallons of molasses." The will named two daughters, both then single (Patience and Abigail White — distinct from his second wife Patience and from his daughter Abigail "Abby" b. 1807 who married Pardon Brownell), and two sons: **Gideon Soule White** of Tiverton, to whom he devised "all my Real Estates which lies in the Towns of Tiverton and Little Compton, together with all the buildings and improvements thereon standing," and George White, who had moved to Madison County, New York, where he lived with his wife Hannah and six children on a farm Peregrine⁶ had bought from "one Richmond." Peregrine⁶ also held pews at the Methodist Meeting House in Little Compton and the New Congregational Meeting House in Tiverton. He died on **29 September 1832** at age 83, per his Hillside Cemetery headstone and Find a Grave memorial [47117066](https://www.findagrave.com/memorial/47117066/peregrine-white); his will was probated 3 December 1832. Patience Soule Taber White outlived him by nine years, dying in 1841. Both are buried at Hillside Lot #77.
 
-### Gideon S. White (1832–1865)
+### Gideon Soule White (1832–1865)
 
-**Gideon S. White** (21 April 1783 Little Compton – 15 March 1865, Hillside Cemetery) — Peregrine⁶'s son and sole executor — inherited the homestead farm and Peregrine⁶'s other Tiverton and Little Compton real estate by direct testamentary devise in 1832. Less is known about Gideon's life than about his father's or son's: the cemetery headstone gives his birth and death years, and his role as Peregrine⁶'s executor and Andrew White's father is documented through both wills.
+**Gideon Soule White** (21 April 1783 Little Compton – 15 March 1865 Tiverton; Hillside Cemetery Lot #77) — Peregrine⁶'s only documented son from his first marriage to Abigail Soule, and sole executor of Peregrine⁶'s 1829 will — inherited the homestead farm and Peregrine⁶'s other Tiverton and Little Compton real estate by direct testamentary devise in 1832. His middle name "Soule" preserves his mother's maiden name and roots the family back to Mayflower passenger George Soule, in addition to the William White line already documented on his paternal side.
+
+In 1807, at age 24, Gideon married **Hannah Gray White** (5 September 1786 Tiverton – 20 January 1862; Hillside Lot #77), daughter of **William Gray, Jr.** and **Peace Cook**. The maternal "Peace Cook" grandmother is a potentially significant link to the same Cook family that owned 4398 before 1791 — see [Open Questions #30](Open%20Questions.md) for the open trace. Gideon and Hannah had **ten children** at the homestead, all of whom appear on Find a Grave:
+
+1. **Philip T. White** (1808–1852)
+2. **William G. White** (1810–1880; "G." almost certainly Gray for his mother)
+3. **Dennis White** (1812–1880)
+4. **Andrew White** (1815–1896; the next homestead owner — see following section)
+5. **Pardon White** (15 March 1817 – 9 September 1895; the namesake of his great-nephew George Pardon White Hart two generations later)
+6. **Diana White** (1819–1848; died at 29; the "Diana White" Hillside stone previously of uncertain identity)
+7. **Isaac Gray White** (1821–1900; builder of the Isaac G. White House at 563 Neck Road, Tiverton; one of the "four old houses in the area built by members of the White family" the 1983 RIHPHC survey identifies)
+8. **Christopher White** (19 March 1823 – 8 May 1895; the 1894-95 contested-probate testator — see [Beyond the main history](#the-1894–95-contest-of-christopher-white-andrews-younger-brother) below; builder of the two Christopher White Houses at 3650 and 3658 Main Road)
+9. **Peace C. White Gray** (1826–1853; named for her maternal grandmother Peace Cook; married a Gray)
+10. **Amy Ann White Gray** (1830–1855; also married a Gray)
+
+The Gray middle-naming pattern (William G., Isaac Gray, Peace C., Amy Ann m. Gray) honored Hannah's family across multiple children. Four of the ten children died young (Philip T. at 44, Diana at 29, Peace C. at 27, Amy Ann at 25).
 
 Gideon also expanded the farm during his ownership. According to his son Andrew's 1892 will, Gideon "bought of George Cook with my homestead farm" a 3.5-acre salt marsh (an undivided half part of a 7-acre tract on Nonquit Pond), and separately bought an additional ~4 acres of salt marsh from Job Eddy. Whether the "homestead farm" Gideon bought from George Cook in this single transaction was 4398 itself or an additional adjoining parcel is somewhat unclear — Peregrine⁶'s 1829 will already devised "all real estate in Tiverton and Little Compton" to Gideon, so 4398 would have passed by inheritance. The most likely reading: Gideon acquired adjacent or related land from a later George Cook to consolidate the homestead aggregate.
 
-### Andrew White (1865–1894)
+### Andrew White (1865–1896)
 
-**Andrew White** (1815, on the farm – between 15 December 1892 and ~1895) was the family's most documented 19th-century resident. According to the 2016 THPAB plaque research, he was one of ten children; he learned the cooper's trade from 1832 to 1835, then went to sea at age 21. He spent **nine years at sea as a cooper** — a skilled position equivalent to second mate — before returning to Tiverton in the mid-1840s. He married **Louisa Tripp** of Westport, Massachusetts.
+**Andrew White** (**19 April 1815** – **9 February 1896**) was the family's most documented 19th-century resident. His parents — confirmed by Find a Grave memorial chains on 9 June 2026 — were **Gideon Soule White** (21 April 1783 Little Compton – 15 March 1865 Tiverton) and **Hannah Gray White** (5 September 1786 Tiverton – 20 January 1862), who married in 1807; Andrew was their fourth of ten documented children. He learned the cooper's trade from 1832 to 1835, then went to sea at age 21. He spent **nine years at sea as a cooper** — a skilled position equivalent to second mate — culminating in the **November 1842 mutiny voyage of the whaleship *Sharon* out of Fairhaven, MA**, on which he served as Cooper (lay 1/50) from 22 May 1841 to the voyage's return on 10 February 1845. His role on the *Sharon* is attested both by the American Offshore Whaling Crew Lists database ([AE131401005](https://whalinghistory.org/wri/AE131401005)) and by the family-side biography preserved on his son Edgar Rodman White's Find a Grave memorial, which adds that he "returned to Tiverton and took up farming" after the voyage — see the [whaling-captain section below](#the-american-offshore-whaling-crew-list-database-31-may-2026-search) for the full evidence chain. He married **Louisa Tripp of Westport, Massachusetts** (15 December 1821 – 8 June 1887) on returning from his first voyages in 1839, six years before the *Sharon* voyage; she predeceased him by nine years. Her parents were Daniel Tripp (1798–1888) and Eliza Davis Tripp (1801–1841) of Westport.
 
-Andrew's brother **Isaac G. White** (b. 1821) is identified by the plaque as the builder of the **Isaac G. White House** at 563 Neck Road, Tiverton (c. 1863) — one of the "four old houses in the area built by members of the White family" referenced in the 1983 RIHPHC survey. The other two White-family houses are the **Christopher White House** at 3650 Main Road (c. 1855, Greek Revival) and another **Christopher White House** at 3658 Main Road (late 18th c.). These were not built by Christopher⁵, who died in 1795, but by a later 19th-century Christopher White — almost certainly **Andrew's elder brother** of the same name, who is mentioned as a grandson in Peregrine⁶'s 1829 will.
+Andrew's nine siblings are detailed in the [Gideon Soule White section above](#gideon-soule-white-1832–1865). Three of them are central to the wider 4398 story: brother **Isaac Gray White** (1821–1900) built the Isaac G. White House at 563 Neck Road; brother **Christopher White** (1823–1895) built the two Christopher White Houses at 3650 and 3658 Main Road and was the testator of the 1894-95 contested probate (see [Beyond the main history](#the-1894–95-contest-of-christopher-white-andrews-younger-brother)); and brother **Pardon White** (1817–1895) is the most likely namesake for his great-nephew George Pardon White Hart (b. 1881, who inherited the homestead two generations later). These three plus Andrew himself account for the "four old houses in the area built by members of the White family" referenced in the 1983 RIHPHC survey.
 
-Andrew had four children documented by the THPAB plaque: **Charles H. White**; **Andrew Peregrine White** (b. 1845, "A.P.," later a prominent Four Corners merchant); **Edgar R. White**; and **Louisa P. White**, who married **David Hart** and remained on the homestead farm. The Edgar R. White line is something of a puzzle — he is named by the plaque but does not appear in Andrew's 1892 will, suggesting he may have predeceased his father.
+Andrew had four documented children (dates from June 2026 Find a Grave research; see [References/Hillside Cemetery — Find a Grave](../References/Hillside%20Cemetery%20—%20Find%20a%20Grave.md)):
 
-Andrew's **will, executed on 15 December 1892**, distributed his property as follows: his eldest son Charles H. had already received "all that part of the Godfrey Cook farm lying West of the Davol road" by inter vivos conveyance. Andrew P. White received "all that part of the Godfrey Cook land lying East of the Davol road" plus a one-third interest in a Cold Brook wood lot in Little Compton, plus the cancellation of an outstanding mortgage debt to his father. **The homestead farm — including the dwelling, all buildings, all chattels found within, and the salt marsh** — was devised to daughter **Louisa P. Hart**, on condition that she pay all of Andrew's debts and funeral expenses. Louisa and her husband David W. Hart were named principal executrix and assistant executor. Andrew signed by signature, not by mark — he was 77 years old, literate, and competent. Witnesses to the will were Christopher Manchester, George W. Cory, and John T. Cook (later the Tiverton Probate Clerk). Andrew died sometime after this date and before January 1896.
+- **Charles Henry White** (1840–1926) — eldest son; received the west part of the "Godfrey Cook farm" by inter vivos conveyance before Andrew's 1892 will.
+- **Andrew Peregrine "A.P." White** (12 November 1845 – 20 January 1923) — the prominent Four Corners merchant who built the A.P. White Store (today's Provender) in 1876. Born in Westport, MA at his mother's family home — possibly during his father's *Sharon* voyage. Married first **Mary E. Nickerson** (1848–1875, m. 1869) and after her death her sister **Ellen Lurana "Ellie" Nickerson** (1854–1943, m. 1886). *Note: the 2016 THPAB plaque calls A.P.'s second wife "Sarah Nickerson" — Find a Grave documents her as Ellen Lurana. The plaque appears to be wrong on the name.*
+- **Edgar Rodman White** (1851–1874) — predeceased his father at age 23, which explains his appearance in the plaque genealogy but absence from Andrew's 1892 will.
+- **Louisa Parker White** (1861–1940) — married **David W. Hart** and remained on the homestead farm; the residing heir who held 4398 until her own death 44 years after Andrew's. Her middle name "Parker" (also passed to her niece Cora Parker White Grinnell) may indicate a maternal-grandmother or namesake lineage worth investigating.
 
-### Louisa P. (White) Hart and the Hart sons (1894–1943)
+Andrew's **will, executed on 15 December 1892**, distributed his property as follows: his eldest son Charles H. had already received "all that part of the Godfrey Cook farm lying West of the Davol road" by inter vivos conveyance. Andrew P. White received "all that part of the Godfrey Cook land lying East of the Davol road" plus a one-third interest in a Cold Brook wood lot in Little Compton, plus the cancellation of an outstanding mortgage debt to his father. **The homestead farm — including the dwelling, all buildings, all chattels found within, and the salt marsh** — was devised to daughter **Louisa P. Hart**, on condition that she pay all of Andrew's debts and funeral expenses. Louisa and her husband David W. Hart were named principal executrix and assistant executor. Andrew signed by signature, not by mark — he was 77 years old, literate, and competent. Witnesses to the will were Christopher Manchester, George W. Cory, and John T. Cook (later the Tiverton Probate Clerk). Andrew died on **9 February 1896** at age 80; he is buried at Pleasant View Cemetery, Tiverton, next to his wife.
 
-**Louisa P. (White) Hart** held the homestead farm only briefly. By 6 January 1896, her husband David W. Hart was petitioning the Tiverton Probate Court for guardianship of their son **George P.W. Hart**, then a minor of fourteen years — meaning Louisa had died sometime between Andrew's December 1892 will and January 1896. She died **intestate**; administration of her estate is recorded in Tiverton Probate Book 27.
+### Louisa Parker (White) Hart and the Hart sons (1896–1943)
 
-By Louisa's death the property passed by intestate succession to her two minor sons, **George P. W. Hart** (born approximately 1881–1882) and **Edgar S. Hart**, who became co-owners as heirs-at-law. George P. W. Hart's middle initials almost certainly stand for "Peregrine White," preserving the family's mid-18th-century patriarch's name into the late 19th century.
+**Louisa Parker (White) Hart** (15 September 1861 – 1 November 1940) inherited the homestead from her father Andrew (d. 9 February 1896) and held it for the next 44 years. She had married **David Wilbur Hart** (1849–1924) in 1879 at age 17 or 18; their first son George was born in 1881, their second son Edgar Stephen 18 years later in 1899. By 6 January 1896 — within weeks of Andrew's death — David Hart had petitioned the Tiverton Probate Court for guardianship of their son **George Hart**, then a minor of fourteen years. (Edgar Stephen had not yet been born; the 1896 petition concerned only George.) The natural reading is that this was a **property guardianship** triggered by George's inheritance from his grandfather Andrew, not a death-of-mother guardianship: Louisa herself lived another 44 years, dying intestate at 4398 in 1940 at age 79. Her estate administration is recorded in Tiverton Probate Book 27 (as cited in the 1943 sale deed). David Hart predeceased Louisa by 16 years, dying in 1924.
 
-George P. W. Hart became the principal long-term resident — the THPAB plaque records that he "occupied the house until his death" — while his brother Edgar S. Hart (later a Chief of Police in Tiverton) built a separate residence nearby. The two brothers were the last members of the family to live continuously at the homestead.
+> **June 2026 revisions:** Until Find a Grave research on 9 June 2026, this section had Louisa dying between Dec 1892 and Jan 1896 — an inference from the January 1896 guardianship petition. The corrected dates (1861–1940) come from her Find a Grave memorial ([51205730](https://www.findagrave.com/memorial/51205730/louisa_parker-hart)) and her brother Andrew P. White's family-tree links. The revision dissolves a 47-year gap in the prior reading and makes the chain of title cleaner: Andrew (d. 1896) → Louisa (1896–1940) → Hart sons (1940–1943) → Humphrey sale (1943). The same batch of Find a Grave memorials also corrected G.P.W. Hart's middle initials (see next paragraph) and pinned down both sons' dates.
+
+On Louisa's death the homestead passed by intestate succession to her two surviving sons, **George Pardon White Hart** (1881–1971, then 59) and **Edgar Stephen Hart** (1899–1980, then 41). G.P.W.'s middle initials — long assumed in this document to stand for "Peregrine White," preserving the 18th-century patriarch's name — are in fact "**Pardon White**," per his 2010 Find a Grave memorial. The most likely namesake is his great-uncle **Pardon White** (1817–1895), Andrew's younger brother, who was still alive when George was born and didn't die until George was 14 — a much closer namesake than the previously-conjectured great-uncle-by-marriage Pardon Brownell. The "Pardon" name in this family likely traces further back via either Peace Cook's family or Patience Soule Taber's line.
+
+George Pardon White Hart became the principal long-term resident — the THPAB plaque records that he "occupied the house until his death" — while his brother Edgar Stephen Hart (later a Chief of Police in Tiverton) built a separate residence nearby. The two brothers held the property together from 1940 to 1943, when they sold to the Humphreys; George retained a life-tenancy under the 1943 deed that kept him at 4398 until **his death on 20 May 1971 in Fall River, MA**. (Edgar Stephen lived another nine years, dying in November 1980.) A timing curiosity: the 27 September 1971 Humphrey→Toste deed still explicitly preserved George's life tenancy, four months after his actual death — the lawyers appear to have used outdated boilerplate language. The Toste corporation treated the dwelling as unencumbered when it subdivided and sold to the Fishers in January 1981. Both Hart brothers are buried at **Pleasant View Cemetery, Tiverton** — the same plot as their parents Louisa Parker and David Wilbur Hart, and as their grandmother Louisa Tripp White before them.
 
 ### The 1943 sale and the Humphrey decade (1943–1971)
 
@@ -80,11 +103,9 @@ The Humphreys never lived at 4398 — they were Providence residents — but ove
 
 ### Joseph F. Toste, Jr. and the Toste decade (1971–1981)
 
-After 28 years of Humphrey ownership, on **27 September 1971** Karl and Marion Humphrey sold their entire seven-parcel Tiverton and Little Compton portfolio — including the homestead farm — to **Joseph F. Toste, Jr. and Beverly M. Toste**, husband and wife, of Tiverton, as tenants by the entirety. The 1971 deed (Book 106, pages 1139–1142) expressly preserved George P. W. Hart's 1943 life-tenancy reservation; Hart was then 89–90 years old and still living on the property.
+After 28 years of Humphrey ownership, on **27 September 1971** Karl and Marion Humphrey sold their entire seven-parcel Tiverton and Little Compton portfolio — including the homestead farm — to **Joseph F. Toste, Jr. and Beverly M. Toste**, husband and wife, of Tiverton, as tenants by the entirety. The 1971 deed (Book 106, pages 1139–1142) expressly preserved George P. W. Hart's 1943 life-tenancy reservation — though in fact Hart had died **20 May 1971 in Fall River, MA**, four months before the deed was executed. The reservation language appears to be outdated boilerplate that was not updated in light of his recent death; in practice the dwelling was unencumbered when the Tostes took title.
 
 The Tostes incorporated **Joseph F. Toste, Jr. and Sons, Inc.** as a Rhode Island corporation and used it as a vehicle for subdividing and developing the larger holdings. The corporation is distinct from the later (1993) **Toste Farm Corporation** — a Morash/Acebes investor entity unrelated to the Toste family that took its name from the 417-acre adjacent Toste Farm tract.
-
-George P. W. Hart died sometime between 28 September 1971 (when his life tenancy was preserved) and 29 January 1981 (when the Toste corporation, treating the dwelling as unencumbered, subdivided the homestead lot for sale to the Fishers). He was in his early 90s.
 
 ### The 1981 subdivision and the Fisher era (1981–2022)
 
@@ -108,42 +129,95 @@ William¹ White (Mayflower, d. 1621)
        └─ Sylvanus³ White (pre-1667 – ?, Scituate MA)
             └─ William⁴ White (c. 1683 – Oct 1780, Dartmouth MA; blacksmith)
                  └─ Christopher⁵ White (1715 Dartmouth – Oct 1795 Tiverton; blacksmith; m. Elizabeth Thurston 1738/9, then Sarah Earl)
-                      └─ Peregrine⁶ "Perry G." White (19 Nov 1748 Little Compton – between 1829 and 1832; mariner; m. Patience)
-                           ├─ Gideon S. White (21 Apr 1783 – 15 Mar 1865; sole executor of father's will)
-                           │   ├─ Christopher White (Andrew's older brother; likely the builder of 3650/3658 Main Road)
-                           │   └─ Andrew White (1815 – between 1892 and 1895; cooper at sea 1836–1845; m. Louisa Tripp of Westport, MA)
-                           │        ├─ Charles H. White (received west part of "Godfrey Cook farm")
-                           │        ├─ Andrew Peregrine "A.P." White (b. 1845; Four Corners merchant; built A.P. White Store / Provender)
-                           │        ├─ Edgar R. White (named in plaque, not in 1892 will — possibly predeceased)
-                           │        ├─ Isaac G. White (b. 1821 — Andrew's brother; built Isaac G. White House at 563 Neck Road)
-                           │        └─ Louisa P. White (m. David Hart; the residing heir of the homestead)
-                           │             ├─ George P. W. Hart (~1881/82 – between 1971 and 1981; m. Blanche M. Hart)
-                           │             └─ Edgar S. Hart (Chief of Police, Tiverton; m. May B. Hart; lived in separate house nearby)
-                           ├─ George White (in Madison Co., NY; m. Hannah; six children: Abigail, Perry Green, Robert, Leverette, Patience, George Franklin)
-                           ├─ Patience White (single in 1829)
-                           └─ Abigail White (single in 1829)
+                      └─ Peregrine⁶ "Perry G." White (19 Nov 1748 Little Compton – 29 Sep 1832 Tiverton; mariner)
+                          m1. Abigail Soule (1746–1804)
+                           ├─ Gideon Soule White (21 Apr 1783 – 15 Mar 1865; sole executor of father's will; m. 1807 Hannah Gray 1786–1862, d/o William Gray Jr. & Peace Cook)
+                           │   ├─ Philip T. White (1808–1852)
+                           │   ├─ William G[ray] White (1810–1880)
+                           │   ├─ Dennis White (1812–1880)
+                           │   ├─ Andrew White (19 Apr 1815 – 9 Feb 1896; cooper on Sharon 1841–1845 mutiny voyage; m. 1839 Louisa Tripp 1821–1887 of Westport, MA, dau. of Daniel Tripp & Eliza Davis Tripp)
+                           │        ├─ Charles Henry White (Jun 1840 – 1926; received west part of "Godfrey Cook farm")
+                           │        ├─ Andrew Peregrine "A.P." White (12 Nov 1845 Westport, MA – 20 Jan 1923; Four Corners merchant; built A.P. White Store / Provender; m. 1869 Mary E. Nickerson 1848–1875, then 1886 her sister Ellen Lurana "Ellie" Nickerson 1854–1943)
+                           │        │   ├─ Bertha Jane White (1871, infant death)
+                           │        │   └─ Cora Parker White Grinnell (1873–1959)
+                           │        ├─ Edgar Rodman White (27 Oct 1851 – 9 May 1874; predeceased Andrew at 22 yrs 6 mos; bur. Oak Grove Cemetery, Fall River, MA; m. ~1870–73 Ellen L. "Nellie" Smith 1852–1883)
+                           │        │   └─ Edna Rodman White Halden (1873–1923)
+                           │        └─ Louisa Parker White (15 Sep 1861 – 1 Nov 1940; m. 1879 David Wilbur Hart 1849–1924; the residing heir of the homestead)
+                           │             ├─ George Pardon White Hart (8 Aug 1881 – 20 May 1971; "P.W." = Pardon White, likely after his great-uncle Pardon White (Andrew's brother, 1817–1895); m. 1903 Blanche May Magee Hart 1875–1956)
+                           │             └─ Edgar Stephen Hart (23 Oct 1899 – Nov 1980; Chief of Police, Tiverton; m. May Bright Hart 1887–1963; one known child: Richard David Hart 1929–2020)
+                           │   ├─ Pardon White (15 Mar 1817 – 9 Sep 1895; bur. Moshassuck Cemetery, Central Falls RI; m. 1842 Lavinia P. Bryant 1818–1897; son George P. White 1842–1872)
+                           │   ├─ Diana White (1819–1848; the "Diana White" Hillside stone)
+                           │   ├─ Isaac Gray White (1821–1900; built the Isaac G. White House at 563 Neck Road, Tiverton)
+                           │   ├─ Christopher White (19 Mar 1823 – 8 May 1895; the 1894–95 contested-probate testator; m. Sarah A. Peckham 1826–1906; children Harriet B. Durfee 1847–1920, Frank Eugene 1849–1902, LeRoy M. 1852–1934, William Frank 1859–1929; bur. Hillside Lot #24)
+                           │   ├─ Peace C. White Gray (1826–1853; named for maternal grandmother Peace Cook; m. a Gray)
+                           │   └─ Amy Ann White Gray (1830–1855; m. a Gray)
+                          m2. Patience Soule Taber (1764–1841; m. 1804; the "Patience White ~1764–184?" Hillside stone)
+                           ├─ Abigail "Abby" White (22 Mar 1807 – 27 Jul 1857; m. Pardon Brownell 1809–1873)
+                           ├─ George White (in Madison Co., NY; m. Hannah; six children: Abigail, Perry Green, Robert, Leverette, Patience, George Franklin — marriage parentage uncertain, possibly from 1st marriage)
+                           ├─ Patience White (single in 1829 will)
+                           └─ Abigail White (single in 1829 will — distinct from Abby Brownell)
 ```
 
 The compound surname "**White-Hart**" used by the 1983 RIHPHC survey refers to the marriage of **Louisa P. White to David Hart**, which brought the Hart name into the family at the homestead. Their two sons George P. W. and Edgar S. Hart are the only two Hart-surname generations of the nine-generation total. Following the 1943 sale, no member of the White or Hart families has been documented at the property.
 
 ---
 
-## Family burials at Hillside Cemetery
+## Family burials — Hillside, Pleasant View, and Oak Grove
 
-Several generations of the family are buried at **Hillside Cemetery** (Rhode Island Historical Cemetery, Tiverton #6), about 0.4 miles south of the homestead on Main Road, across from the Amicable Congregational Church. Headstones photographed at the cemetery and confirmed against probate records include:
+The family is divided across three cemeteries, in a pattern that is itself informative. Earlier generations and one A.P. White branch are at **Hillside Cemetery** (Rhode Island Historical Cemetery, Tiverton #6), about 0.4 miles south of the homestead on Main Road, across from the Amicable Congregational Church. **Andrew White's immediate family and the Hart line are at Pleasant View Cemetery, Tiverton**, adjacent to "the Stone Church." A single anomaly — Edgar Rodman White — is at Oak Grove Cemetery, Fall River, MA.
+
+### Hillside Cemetery (Tiverton #6)
+
+Headstones photographed at Hillside in January 2026 and confirmed against probate records:
 
 | Name | Dates | Relationship to homestead |
 |---|---|---|
-| Peregrine White | 1748–1832 | Christopher⁵'s son; the first White-line owner-occupant of 4398 |
-| Patience White | ~1764–184? | Plausibly Peregrine⁶'s wife (or his daughter of the same name) |
-| Gideon S. White | 1783–1865 | Peregrine⁶'s son; Andrew White's father; held the property 1832–1865 |
-| Abigail (White) Brownell | 22 Mar 1807 – 27 Jul 1857 | White daughter married into the Brownell family |
-| Pardon Brownell | 1809 – 17 May 1873 | Husband of Abigail (White) Brownell |
-| Frank E. White | 1849–1902 | Son of the 1894-95 Christopher White (a different Christopher line); separate from the 4398 chain but a Tiverton-area White relative |
-| Mary E. (Durfee) White | 1849–1882 | Wife of Frank E. White |
-| Diana White | 1819–1848 | Relationship not yet established |
-| Hannah White | ~178?–1862 | Relationship not yet established |
-| Abigail White | 1746–1804 | Contemporary of Peregrine⁶ — but surname married into Soule, not Brownell — separate person |
+| Peregrine White | 19 Nov 1748 – 29 Sep 1832 | Christopher⁵'s son; the first White-line owner-occupant of 4398. **Hillside Lot #77.** |
+| Abigail Soule White | 1746–1804 | **Peregrine⁶'s first wife** and mother of Gideon Soule White (previously misidentified as a separate Soule descendant). |
+| Patience Soule Taber White | 1764 – 1841 | **Peregrine⁶'s second wife** (m. 1804); mother of Abigail "Abby" Brownell. |
+| Gideon Soule White | 21 Apr 1783 – 15 Mar 1865 | Peregrine⁶'s son by first marriage; Andrew White's father; held the property 1832–1865. Middle name preserves mother's maiden name. **Hillside Lot #77.** |
+| Hannah Gray White | 5 Sep 1786 – 20 Jan 1862 | Gideon Soule White's wife (m. 1807); Andrew's mother; d/o **William Gray Jr. + Peace Cook**. The Peace Cook maternal grandmother is a potential link back to the Cook family that preceded the Whites at 4398. **Hillside Lot #77.** |
+| Abigail (White) Brownell | 22 Mar 1807 – 27 Jul 1857 | Peregrine⁶'s daughter by second marriage; half-sister to Gideon Soule White. |
+| Pardon Brownell | 1809 – 17 May 1873 | Husband of Abigail (White) Brownell. |
+| Diana White | 1819–1848 | **Andrew White's sister** (4th of Gideon Soule + Hannah Gray's daughters); died at 29. |
+| Christopher White | 19 Mar 1823 – 8 May 1895 | **Andrew's younger brother**, the 1894-95 contested-probate testator. Buried Hillside Lot #24 (he was the lot owner). |
+| Frank E. White | 1849–1902 | Son of Christopher above; nephew of Andrew. Named executor and (after the contest) co-administrator of his father's intestate estate. |
+| Mary E. (Durfee) White | 1849–1882 | Wife of Frank E. White. |
+
+The A.P. White plot (Hillside **Lot #70**), confirmed via Find a Grave in June 2026, holds:
+
+| Name | Dates | Relationship |
+|---|---|---|
+| Andrew Peregrine "A.P." White | 12 Nov 1845 – 20 Jan 1923 | Four Corners merchant; Andrew's son |
+| Mary E. Nickerson White | 1848 – 1875 | A.P.'s first wife (m. 1869) |
+| Ellen Lurana "Ellie" Nickerson White | 1854 – 1943 | A.P.'s second wife (m. 1886) (the 2016 plaque erroneously calls her "Sarah") |
+| Bertha Jane White | 1871 | A.P.'s first daughter, infant death |
+| Cora Parker White Grinnell | 1873 – 1959 | A.P.'s surviving daughter |
+
+### Pleasant View Cemetery (Tiverton)
+
+Adjacent to "the Stone Church" per the newspaper clipping accompanying Louisa Tripp White's Find a Grave entry. Confirmed burials (all via Find a Grave June 2026):
+
+| Name | Dates | Relationship |
+|---|---|---|
+| Andrew White | 19 Apr 1815 – 9 Feb 1896 | Owner-occupant 1865–1896; son of Gideon Soule + Hannah Gray White |
+| Louisa Tripp White | 15 Dec 1821 Westport, MA – 8 Jun 1887 | Andrew's wife (m. 1839) |
+| Louisa Parker White Hart | 15 Sep 1861 – 1 Nov 1940 | Andrew's daughter; owner-occupant 1896–1940 |
+| David Wilbur Hart | 1849 – 1924 | Louisa Parker's husband (m. 1879) |
+| George Pardon White Hart | 8 Aug 1881 – 20 May 1971 | Long-term resident of 4398; "P.W." = "Pardon White" |
+| Blanche May Magee Hart | 1875 – 1956 | G.P.W.'s wife (m. 1903) |
+| Edgar Stephen Hart | 23 Oct 1899 – Nov 1980 | The younger Hart son; Tiverton Chief of Police |
+| May Bright Hart | 1887 – 1963 | Edgar Stephen's wife |
+
+**Andrew White himself (d. 9 Feb 1896)** is confirmed at Pleasant View Cemetery per Find a Grave [209503187](https://www.findagrave.com/memorial/209503187/andrew-white) — added to the table above. Charles Henry White (Andrew's eldest, d. 1926) is still TBD.
+
+### Oak Grove Cemetery (Fall River, MA)
+
+| Name | Dates | Relationship |
+|---|---|---|
+| Edgar Rodman White | 27 Oct 1851 – 9 May 1874 | Andrew's third son; predeceased his father at 22. Buried in Fall River — likely his wife Ellen Smith's family connection. |
+
+Full memorial table with IDs, sources, and follow-up questions in [References/Hillside Cemetery — Find a Grave](../References/Hillside%20Cemetery%20—%20Find%20a%20Grave.md). The cemetery split is itself notable: **the Andrew White / Hart line broke from Hillside burial tradition starting with Louisa Tripp's 1887 burial at Pleasant View**, the first family entry there. Andrew's son A.P. reverted to Hillside by founding his own Lot #70 there.
 
 ---
 
@@ -158,9 +232,9 @@ The 1983 RIHPHC survey records that 4398 was "**one of four old houses in the ar
 | House | Address | Period | Builder / first known White owner |
 |---|---|---|---|
 | **White Homestead** (this house) | 4398 Main Road | ca. 1790 Federal | Built during Cook ownership; Christopher⁵ White acquired Nov 1791 |
-| Christopher White House | 3650 Main Road | c. 1855 Greek Revival | 19th-c. Christopher White — almost certainly Andrew's elder brother |
-| Christopher White House | 3658 Main Road | Late 18th century | Same 19th-c. Christopher line |
-| Isaac G. White House | 563 Neck Road | c. 1863 | Isaac G. White (b. 1821), Andrew's brother |
+| Christopher White House | 3650 Main Road | c. 1855 Greek Revival | Christopher White (1823–1895), Andrew's **younger** brother (previously assumed older — corrected June 2026). Identified as the 1894-95 contested-probate testator. |
+| Christopher White House | 3658 Main Road | Late 18th century | Same Christopher (1823–1895), or possibly an earlier-built house he later occupied |
+| Isaac G. White House | 563 Neck Road | c. 1863 | Isaac Gray White (1821–1900), Andrew's brother. Middle name preserves mother Hannah Gray's maiden name. |
 
 In addition, **Andrew Peregrine ("A.P.") White**, Andrew's son, built the substantial **A.P. White Store** at 3883 Main Road in 1876 — today's **Provender** café — at the northwest corner of Tiverton Four Corners. While not residential, the store records the family's continuing presence on the Main Road corridor through the late 19th century.
 
@@ -178,9 +252,9 @@ Sarah later remarried **John Perry** of Tiverton, becoming **Sarah Perry**, and 
 
 When Sarah Perry's will and codicil were presented at the Tiverton Probate Court on **5 March 1810**, the will was approved — and **Borden Brownell** (most plausibly Sarah Brownell's son, the testator's grandson, who stood to lose his share of the dwelling-house bequest under the codicil) immediately appealed to the Supreme Court of Probate at Newport. He posted **John Cook Jun.r and Andrew M. Corie** as bondsmen. The outcome of his appeal is not recorded in the documents currently in hand.
 
-#### The 1894–95 contest of Christopher White (the great-grandson)
+#### The 1894–95 contest of Christopher White (Andrew's younger brother)
 
-A second, more dramatic contest involved a **later Christopher White** — not Christopher⁵ of 1715 (long dead by 1894), but most plausibly **Christopher⁵'s great-grandson**, the very Christopher White whom Peregrine⁶'s 1829 will named as a grandson "son of my said Son Gideon S. White." If that identification is right, this 1894 testator would be **Andrew White's older brother** — born ca. 1810, raised at 4398, and the most likely 19th-century builder of the two **Christopher White Houses** at 3650 and 3658 Main Road that the RIHPHC survey records. His farm passed to his son Leroy M. White by inter vivos conveyance and is not 4398, but the probate file ties directly into the Hillside Cemetery scene across from the homestead: this Christopher's son **Frank E. White (1849–1902)**, named as executor under the disputed will, is buried at Hillside.
+A second, more dramatic contest involved a **later Christopher White (19 March 1823 – 8 May 1895)** — definitively identified in June 2026 via Find a Grave memorial [46789308](https://www.findagrave.com/memorial/46789308/christopher-white) as **Andrew White's younger brother**, the eighth child of Gideon Soule White + Hannah Gray. He is the grandson Peregrine⁶'s 1829 will named "son of my said Son Gideon S. White" (he was 6 at the time of the will, age-18 trigger for the silver-spoon bequest hitting in 1841). He was almost certainly the 19th-century builder of the two **Christopher White Houses** at 3650 and 3658 Main Road that the RIHPHC survey records. His farm passed to his son Leroy M. White by inter vivos conveyance and is not 4398, but the probate file ties directly into the Hillside Cemetery scene across from the homestead: Christopher himself is buried at Hillside Lot #24 (lot owner), and his son **Frank E. White (1849–1902)**, named as executor under the disputed will, is also at Hillside. The vault narrative had carried Christopher as "Andrew's elder brother" through 9 June 2026 — that was wrong; he was 8 years younger.
 
 Christopher White executed his last will on **1 June 1894**, distributing his residue (after a life estate to his wife Sarah A. White) in one-fifth shares to his five surviving children — **Frank E. White**, daughters **Charlotte P. Chace**, **Amy P. Pierce**, and **Harriet B. Durfee**, and son **William F. White**. William's share was burdened with an unusual debt-offset condition: he had to repay sums owing to the estate before he could draw anything, or his share would be redistributed to his four siblings. The will also contained an aggressive forfeiture clause: any devisee who contested the will would lose their gift entirely. Christopher appointed son Frank E. and son-in-law **William H. Pierce** (of Fall River, MA, husband of daughter Amy) as joint executors, with no bond required.
 
@@ -204,6 +278,31 @@ The 1983 RIHPHC survey describes the homestead as "**built by a whaling captain 
 - The Cory family — distinct from the Whites — produced documented whaling captains named Andrew Jackson Cory and Edward Gray Cory, and an earlier historian (probably Bayles, 1888) appears to have conflated them with the Whites of 4398.
 
 The most likely reading of the "whaling captain" tradition is that it is a **retrospective folk attribution** — fusing Peregrine⁶'s 1791 mariner identification, Andrew White's 1830s–40s cooper career, and the Cory whaling captains in nearby houses — that hardened into a local legend by the time Bayles wrote in 1888 and was repeated by the Patchwork History in 1976.
+
+#### The American Offshore Whaling crew-list database (31 May 2026 search)
+
+A search of the [American Offshore Whaling Crew Lists](https://whalinghistory.org/av/crew/) (Mystic Seaport / New Bedford Whaling Museum / Nantucket Historical Association) returned the following results bearing on the homestead family:
+
+**Andrew White** — six hits, of which two are strong candidates for our Andrew White (b. 1815):
+
+| Voyage | Crew list date | Rank | Lay | WRI |
+|---|---|---|---|---|
+| Sharon, 1841–1845 | 22 May 1841 | Cooper | 1/50 | [AE131401005](https://whalinghistory.org/wri/AE131401005) |
+| Sharon, 1845–1848 | 15 May 1845 | Cooper | 1/40 | [AE131421009](https://whalinghistory.org/wri/AE131421009) |
+
+These are consecutive *Sharon* voyages — out of **Fairhaven, MA** (across the harbor from New Bedford and habitually conflated with it in folk attribution) — on which an Andrew White served as Cooper, with the lay improving between voyages (1/50 → 1/40), the standard pattern for one man re-signing on the same ship. The 1841 voyage opens in the back half of the "nine years at sea" the plaque attributes to our Andrew (1836–~1845), and the re-signing in May 1845 would extend that figure to ~12 years total. The crew-list records do not include age or residence in either case, so the identification cannot be confirmed from this source alone.
+
+The other four Andrew White hits can be ruled out: *Seine* 1842–1844 (Cooper's Mate, "did not return from voyage" — our Andrew returned to marry Louisa Tripp); *Dryade* 1840–1842 (Rochester resident, age 18, b. ~1822); *Golconda II* 1844–1848 (seaman, discharged at Sydney NSW Feb 1847); *Oscar* 1849–1851 (Andrew G. White of North Middleboro, age 26, b. ~1823).
+
+**The Sharon mutiny context.** The *Sharon* 1841–1845 voyage (Fairhaven, departed 25 May 1841, returned 10 February 1845) was one of the most famous mutinies of 19th-century American whaling. Master **Capt. Howes N. Norris** had murdered the ship's mulatto steward George Babcock on 1 September 1842 in a fit of brutality; on **5 November 1842** three Pacific Islander crewmen — taking advantage of most of the ship's officers being out in whaleboats chasing whales — killed Norris with cutting spades. **Third Mate Benjamin Clough** swam back through shark-infested water, boarded the *Sharon*, and recaptured the vessel in hand-to-hand combat. The voyage was finished under Capt. Thomas Harlock Smith, Jr. Clough kept a journal which survives and has been digitized at the Internet Archive ([nbw-1347](https://archive.org/details/nbw-1347)); the mutiny is covered in Joan Druett's *In the Wake of Madness: The Murderous Voyage of the Whaleship Sharon* (2003), among other secondary works.
+
+**Andrew White's role on the *Sharon* is now externally attested.** The Find a Grave memorial for Andrew's son **Edgar Rodman White** ([147240929](https://www.findagrave.com/memorial/147240929/edgar_rodman-white), originally created by Barbara Haines, 2015) carries the bio: *"A son of Andrew White by his wife Louisa Tripp, his father had been a cooper aboard the whaling ship 'Sharon' which experienced a mutiny (see 'In the Wake of Madness' by J. Druett, Algonquin Books, 2003), after which Andrew returned to Tiverton and took up farming."* This independent family-side attribution, combined with the crew-list match, takes the identification past candidate status. It also implies Andrew did **not** re-ship on the *Sharon* for 1845–1848 — making the second consecutive *Sharon* crew-list entry (AE131421009) most likely a **different** Andrew White. Andrew's nine-year sea career thus runs roughly 1836–1845, ending with the mutiny voyage's February 1845 return; he was 27 at the time of the mutiny and 30 when the voyage ended. He came home, settled at 4398, and took up farming for the next five decades.
+
+**Peregrine White, Perry White, Peregrine⁶ White:** zero hits. The four "Perry White" results returned by the search are all false positives — they reference *Perry & Swift* (the New Bedford agent firm), not a person. Peregrine⁶ is documented as a "mariner of Little Compton" in the 1791 deed but does not appear in the post-1820 New Bedford crew-list corpus. He plausibly sailed earlier than systematic recording, sailed out of an uncovered port, or worked the coastal / merchant trade rather than offshore whaling. The negative result further weakens the "Peregrine was the New Bedford whaling captain" reading of the plaque tradition.
+
+**Gideon White:** one American crew-list hit — *L. C. Richmond* 1851–1854, Ordinary seaman, lay 1/180. No age or residence given. Our Gideon S. White (b. 1783) would have been 68 in 1851, too old for an entry-level "Ordinary" rank. This is a different Gideon White; the Dennis Wood abstract hits with the search term are agent references ("Allen, Gideon & Son") rather than crewmen.
+
+The "whaling captain" tradition thus traces to Andrew White's documented role as **cooper on the *Sharon* mutiny voyage, 1841–1845**, out of Fairhaven, MA. By 1888 when Bayles wrote, "Fairhaven" had collapsed into "New Bedford" in folk memory, "cooper" had collapsed into "captain," and the role had been backdated from a mid-19th-century descendant to the late-18th-century builder. The plaque tradition is recoverable as a real biographical fact about a real Andrew White on a real and famous voyage, even if every word of the plaque needs reframing to land on the truth.
 
 ---
 
@@ -233,10 +332,16 @@ The most heavily-used primary sources for this history, all on file:
 - Tiverton Historic Preservation Advisory Board plaque research, by Susan E. Anderson (2016)
 - Headstone photographs, Hillside Cemetery / Tiverton #6
 - Correspondence: Jeanne Spencer (Tiverton Recording Clerk), Susan E. Anderson (Tiverton Historical Society), David Robert (Tiverton Tax Assessor)
+- **Find a Grave memorials, June 2026 pulls** — 18 family memorials covering Peregrine⁶ + both wives, Gideon Soule + Hannah Gray, all ten of their children, Andrew + Louisa Tripp + their four children + spouses, Louisa Tripp's Tripp-family parents, David Wilbur Hart and both Hart sons. Full memorial table at [References/Hillside Cemetery — Find a Grave](../References/Hillside%20Cemetery%20—%20Find%20a%20Grave.md). Principal Find a Grave contributors: **GPoppa** (Hart-line), **audrey** (Andrew/Tripp-line), **V. Nareen Lake** (earlier-generation Whites), **Barbara Anne 'Brownell' Potter** (Peregrine⁶), with family informant **George Gray** on A.P. White's page.
+
+**Whaling records**
+- American Offshore Whaling Crew Lists ([whalinghistory.org/av/crew](https://whalinghistory.org/av/crew/)), Mystic Seaport / New Bedford Whaling Museum / Nantucket Historical Association. Andrew White appears as Cooper on the *Sharon* 1841–1845 voyage (WRI [AE131401005](https://whalinghistory.org/wri/AE131401005)).
+- *Journal of the Sharon (Ship), 1841–1845*, kept by Third Mate Benjamin Clough, digitized at Internet Archive [nbw-1347](https://archive.org/details/nbw-1347).
 
 **Secondary sources**
 - *A Patchwork History of Tiverton, Rhode Island*, Tiverton Historical Society, 1976
 - Richard M. Bayles, *History of Newport County, Rhode Island*, 1888
+- Joan Druett, *In the Wake of Madness: The Murderous Voyage of the Whaleship Sharon*, Algonquin Books, 2003
 - General Society of Mayflower Descendants, *Mayflower Families Through Five Generations, Volume One: Francis Eaton, Samuel Fuller, William White*
 - *Toste Farm Corp. v. Hadbury, Inc.*, 70 F.3d 640 (1st Cir. 1995) and 798 A.2d 901 (R.I. 2002)
 
@@ -244,4 +349,13 @@ Full transcriptions of the listed deeds and wills are filed in [References/Deeds
 
 ---
 
-*This article was first compiled on 30 May 2026 by Cooper Liska-Smith from primary documents drawn from Tiverton Town Hall's Land Evidence and Probate Records, with research assistance from Claude (Anthropic), Jeanne Spencer (Tiverton Recording Clerk), Susan E. Anderson (Tiverton Historical Society), and the Rhode Island Historical Preservation & Heritage Commission.*
+*This article was first compiled on **30 May 2026** by Cooper Liska-Smith from primary documents drawn from Tiverton Town Hall's Land Evidence and Probate Records, with research assistance from Claude (Anthropic), Jeanne Spencer (Tiverton Recording Clerk), Susan E. Anderson (Tiverton Historical Society), and the Rhode Island Historical Preservation & Heritage Commission.*
+
+*Substantially revised on **9 June 2026** following three waves of Find a Grave research (18 memorials in the White-Hart-Tripp family network). Major findings of the revision:*
+- *The previously-inferred intermediate generation **Gideon S. White** is fully documented as **Gideon Soule White** (1783–1865), with wife **Hannah Gray White** (1786–1862, d/o William Gray Jr. + Peace Cook) and all ten of their children identified by name and dates.*
+- ***Peregrine⁶ had two wives** (Abigail Soule 1746–1804; Patience Soule Taber 1764–1841 m. 1804) — the "Abigail White 1746–1804" and "Patience White ~1764–184?" Hillside stones previously of uncertain identity are both his.*
+- ***Andrew White's cooper-on-the-Sharon role is externally documented** via his son Edgar Rodman White's Find a Grave bio citing Druett (2003), upgrading the previous AOWV crew-list match from candidate to attested fact.*
+- ***Christopher White** (1823–1895), previously framed as Andrew's "older brother" and as a distant Christopher line, is actually Andrew's **younger** brother and IS the 1894-95 contested-probate testator — substantially reframing "Beyond the main history."*
+- ***George P.W. Hart's middle initials = "Pardon White"**, not "Peregrine White" as the vault long assumed; he died 20 May 1971 (not 1971–81); his great-uncle Pardon White (Andrew's brother, 1817–1895) is the most likely namesake.*
+- ***Andrew White d. 9 February 1896** (not 20 January, a date erroneously inferred from A.P.'s 1923 death entry); **Louisa Parker White Hart** lived 1861–1940 (not 1893–95 as inferred from the January 1896 guardianship petition for her son George).*
+- *The Find a Grave network also surfaced a **Peace Cook** in Andrew White's maternal-grandmother generation — a potentially significant link back to the Cook family that owned 4398 before 1791, currently being chased in [Open Questions #30](Open%20Questions.md).*
