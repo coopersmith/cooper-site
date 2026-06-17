@@ -2,40 +2,69 @@
 @import 'cv';
 
 
-// Light mode colors
-$color-primary: rgba(0, 0, 0, 0.9);
-$color-text: rgba(0, 0, 0, 0.8);
-$color-subtext: rgba(0, 0, 0, 0.7);
-$color-border: rgba(0, 0, 0, 0.15);
-$color-box-background: rgba(0, 0, 0, 0.03);
+// Shared SCSS values (consumed by other partials, e.g. _photos.scss)
 $border-radius: 8px;
-$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
 :root {
+  // ── Typography tokens ──────────────────────────────────────────────
+  // Single source of truth for the type system. Inter is loaded in
+  // _includes/head.html at weights 400 / 500 / 600.
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  // Type scale
+  --text-caption: 14px; // h5/h6 eyebrow labels
+  --text-ui: 16px;      // nav, buttons, dense UI
+  --text-body: 18px;    // body copy
+  --text-lead: 19px;    // subtitle, h4, blockquote, lead-in text
+  --text-h3: 22px;
+  --text-h2: 26px;
+  --text-h1: 36px;
+
+  // Line heights
+  --leading-tight: 1.25;   // h1
+  --leading-heading: 1.3;  // h2 (and h1 on small screens)
+  --leading-snug: 1.4;     // h3
+  --leading-relaxed: 1.5;  // subtitle, h4, h5/h6
+  --leading-prose: 1.6;    // blockquotes, lists, compact body
+  --leading-body: 1.65;    // body copy
+
+  // Font weights (matches the weights loaded for Inter)
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  // Letter spacing
+  --tracking-tight: -0.02em;   // h1
+  --tracking-snug: -0.015em;   // h2
+  --tracking-normal: -0.01em;  // h3
+  --tracking-slight: -0.005em; // h4
+  --tracking-caps: 0.02em;     // h5/h6 uppercase labels
+
+  // ── Color tokens ───────────────────────────────────────────────────
   // Text colors
   --color-text-primary: rgba(0, 0, 0, 0.9);
   --color-text-secondary: rgba(0, 0, 0, 0.8);
   --color-text-tertiary: rgba(0, 0, 0, 0.7);
   --color-text-subtle: rgba(0, 0, 0, 0.6);
-  
+
   // Background colors
   --color-bg-primary: #FAFAFA;
   --color-bg-secondary: rgba(0, 0, 0, 0.03);
-  
+
   // Border colors
   --color-border: rgba(0, 0, 0, 0.15);
-  
+
   @media (prefers-color-scheme: dark) {
     // Text colors
     --color-text-primary: rgba(255, 255, 255, 0.9);
     --color-text-secondary: rgba(255, 255, 255, 0.8);
     --color-text-tertiary: rgba(255, 255, 255, 0.7);
     --color-text-subtle: rgba(255, 255, 255, 0.6);
-    
+
     // Background colors
     --color-bg-primary: #111;
     --color-bg-secondary: rgba(255, 255, 255, 0.03);
-    
+
     // Border colors
     --color-border: rgba(255, 255, 255, 0.15);
   }
@@ -44,12 +73,12 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica
 body {
   background-color: var(--color-bg-primary);
   box-sizing: content-box;
-  font-family: $font-family;
+  font-family: var(--font-sans);
   font-style: normal;
-  font-weight: 400;
+  font-weight: var(--weight-normal);
   color: var(--color-text-secondary);
-  font-size: 18px;
-  line-height: 1.65;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
   margin: 0 auto;
   padding: 4vh 6vw;
   overflow-x: hidden;
@@ -58,15 +87,14 @@ body {
   max-width: 720px;
 
   @media (max-width: 600px) {
-    font-size: 18px;
-    line-height: 1.6;
+    line-height: var(--leading-prose);
     padding: 3vh 5vw;
   }
 }
 
 p {
   margin: 1.2em 0;
-  
+
   + p {
     margin-top: 1.4em;
   }
@@ -86,9 +114,9 @@ p {
   text-decoration: none;
   border-radius: 4px;
   z-index: 1000;
-  font-size: 16px;
-  font-weight: 600;
-  
+  font-size: var(--text-ui);
+  font-weight: var(--weight-semibold);
+
   &:focus {
     position: fixed;
     left: 6px;
@@ -107,10 +135,6 @@ time {
   color: var(--color-text-tertiary);
   margin: 0 0 2em;
   font-size: 0.9em;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-tertiary);
-  }
 }
 
 footer {
@@ -118,10 +142,6 @@ footer {
   font-size: 0.8em;
   color: var(--color-text-tertiary);
   padding-top: 1em;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-tertiary);
-  }
 }
 
 img {
@@ -135,7 +155,7 @@ img {
   @media (prefers-color-scheme: dark) {
     opacity: 0.85;
     transition: opacity 0.2s ease;
-    
+
     &:hover {
       opacity: 1;
     }
@@ -147,16 +167,16 @@ img {
   display: flex;
   gap: 1rem;
   margin: 1rem 0;
-  
+
   img {
     width: 50%;
     margin: 0; // Override the default img margin
     max-height: none; // Override the default img max-height
   }
-  
+
   @media (max-width: 600px) {
     flex-direction: column;
-    
+
     img {
       width: 100%;
       margin: 0.5rem 0;
@@ -173,14 +193,11 @@ blockquote {
   background: transparent;
 
   p {
-    font-family: $font-family;
-    font-style: normal;
-    font-weight: 400;
     color: var(--color-text-secondary);
-    font-size: 19px;
-    line-height: 1.6;
+    font-size: var(--text-lead);
+    line-height: var(--leading-prose);
     margin: 0.6em 0;
-    
+
     + p {
       margin-top: 1.2em;
     }
@@ -193,17 +210,17 @@ blockquote {
     color: var(--color-text-tertiary);
     margin-top: 0.5em;
     text-align: right;
-    
+
     &:before {
       content: '';
     }
-    
+
     a {
       color: inherit;
       text-decoration: none;
       border-bottom: 1px dotted var(--color-text-tertiary);
       transition: border-bottom-color 0.2s ease;
-      
+
       &:hover {
         border-bottom-color: var(--color-text-secondary);
         color: var(--color-text-secondary);
@@ -222,145 +239,107 @@ hr {
   height: 1px;
   margin: 1.5em 0;
   background: var(--color-border);
-
-  @media (prefers-color-scheme: dark) {
-    background: var(--color-border);
-  }
 }
 
 h1 {
-  font-family: $font-family;
-  font-weight: 500;
-  font-size: 36px;
-  line-height: 1.25;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
   color: var(--color-text-primary);
   margin-bottom: 0.2em;
   margin-top: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
 
   @media (max-width: 600px) {
     font-size: 30px;
-    line-height: 1.3;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-primary);
+    line-height: var(--leading-heading);
   }
 }
 
 .subtitle {
-  font-family: $font-family;
-  font-size: 19px;
-  line-height: 1.5;
+  font-size: var(--text-lead);
+  line-height: var(--leading-relaxed);
   color: var(--color-text-subtle);
   margin-top: 0;
   margin-bottom: 0.3em;
-  font-weight: 400;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-subtle);
-  }
+  font-weight: var(--weight-normal);
 }
 
 h2 {
-  font-family: $font-family;
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
   color: var(--color-text-primary);
   margin-top: 2.2em;
   margin-bottom: 0.7em;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tracking-snug);
 
   @media (max-width: 600px) {
-    font-size: 22px;
+    font-size: var(--text-h3);
     margin-top: 1.8em;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-primary);
   }
 }
 
 h3 {
-  font-family: $font-family;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1.4;
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
   color: var(--color-text-primary);
   margin-top: 1.8em;
   margin-bottom: 0.5em;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-normal);
 
   @media (max-width: 600px) {
-    font-size: 19px;
+    font-size: var(--text-lead);
     margin-top: 1.6em;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-primary);
   }
 }
 
 h4 {
-  font-family: $font-family;
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   color: var(--color-text-secondary);
-  font-size: 19px;
-  line-height: 1.45;
+  font-size: var(--text-lead);
+  line-height: var(--leading-relaxed);
   margin-top: 1.6em;
   margin-bottom: 0.5em;
-  letter-spacing: -0.005em;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-secondary);
-  }
+  letter-spacing: var(--tracking-slight);
 }
 
 h5,
 h6 {
-  font-family: $font-family;
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   color: var(--color-text-tertiary);
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: var(--text-caption);
+  line-height: var(--leading-relaxed);
   margin-top: 1.4em;
   margin-bottom: 0.4em;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-tertiary);
-  }
+  letter-spacing: var(--tracking-caps);
 }
 
 ul, ol {
   margin: 1.4em 0;
   padding-left: 1.6em;
-  
+
   li {
     margin: 0.6em 0;
-    line-height: 1.6;
-    
+    line-height: var(--leading-prose);
+
     + li {
       margin-top: 0.8em;
     }
   }
-  
+
   ul, ol {
     margin: 0.8em 0;
   }
 }
 
 strong, b {
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
-  
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-primary);
-  }
 }
 
 em, i {
@@ -374,19 +353,15 @@ a {
   text-decoration-color: rgba(0, 0, 0, 0.3); /* Subtle underline */
   text-underline-offset: 2px; /* Spacing between text and underline */
   transition: text-decoration-color 0.2s ease;
-  
+
   @media (prefers-color-scheme: dark) {
     text-decoration-color: rgba(255, 255, 255, 0.3);
   }
-  
+
   &:hover {
     text-decoration-color: var(--color-text-secondary);
-
-    @media (prefers-color-scheme: dark) {
-      text-decoration-color: var(--color-text-secondary);
-    }
   }
-  
+
   &:after {
     content: none; /* Remove the arrow */
   }
@@ -406,34 +381,30 @@ a {
   display: flex; /* Arrange links in a row */
   gap: 1em; /* Add space between links */
   align-items: center; /* Align items vertically */
-  font-size: 16px;
+  font-size: var(--text-ui);
 }
 
 .nav a {
   text-decoration: none;
   color: var(--color-text-secondary); /* Adjust color for links */
   transition: color 0.3s;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-secondary);
-  }
 }
 
 .nav a:hover {
   color: #0066cc; /* Improved contrast for accessibility */
-  
+
   @media (prefers-color-scheme: dark) {
     color: #4da6ff; /* Better contrast for dark mode */
   }
 }
 
 .nav a b {
-  font-size: 18px; /* Slightly larger for the site title */
+  font-size: var(--text-body); /* Slightly larger for the site title */
 }
 
 nav {
   margin-bottom: 1.5em;
-  
+
   @media (max-width: 600px) {
     margin-bottom: 1.2em;
   }
@@ -474,22 +445,18 @@ nav {
 /* Year Styling */
 .two-column-grid h3 {
   grid-column: 1 / 2; /* Place the year in the left column */
-  font-size: 16px;
-  font-weight: 500;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-medium);
   margin: 0; /* Remove unnecessary spacing */
-  line-height: 1.6;
+  line-height: var(--leading-prose);
   color: var(--color-text-tertiary); /* Slightly muted color */
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-tertiary);
-  }
 }
 
 /* Destination Title Styling */
 .two-column-grid h2 {
   grid-column: 2 / 3; /* Place the destination title in the right column */
   font-size: 20px; /* Larger than the year */
-  font-weight: 600; /* Emphasize the destination name */
+  font-weight: var(--weight-semibold); /* Emphasize the destination name */
   margin: 0; /* Remove unnecessary spacing */
   line-height: 1.2;
 }
@@ -499,13 +466,9 @@ nav {
   grid-column: 2 / 3;
   margin: 0;
   padding: 0.0em 0;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--text-ui);
+  line-height: var(--leading-prose);
   color: var(--color-text-tertiary);
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-text-tertiary);
-  }
 }
 
 /* Horizontal Divider */
@@ -514,17 +477,13 @@ nav {
   border: none;
   border-top: .25px solid var(--color-border);
   margin: .2em 0; /* Adjust spacing around dividers */
-
-  @media (prefers-color-scheme: dark) {
-    border-top-color: var(--color-border);
-  }
 }
 
 .two-column-grid a {
   color: #0066cc;
   text-decoration: none;
-  font-weight: 500;
-  
+  font-weight: var(--weight-medium);
+
   @media (prefers-color-scheme: dark) {
     color: #4da6ff;
   }
@@ -567,7 +526,7 @@ code {
 
 table {
   width: 100%;
-  
+
   td, th {
     vertical-align: top;
     padding: 8px;
@@ -579,11 +538,11 @@ table {
   th:nth-child(1), td:nth-child(1) {
     width: 10%;
   }
-  
+
   th:nth-child(2), td:nth-child(2) {
     width: 60%;
   }
-  
+
   th:nth-child(3), td:nth-child(3) {
     width: 30%;
   }
@@ -594,7 +553,7 @@ table {
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   will-change: opacity, transform;
-  
+
   @media (prefers-reduced-motion: reduce) {
     transition: none;
     transform: none;
@@ -610,13 +569,13 @@ table {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  
+
   img {
     margin: 0;
     width: 100%;
     height: auto;
   }
-  
+
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
@@ -626,18 +585,18 @@ table {
 #highlights {
   .highlight {
     margin-bottom: 2em;
-    
+
     blockquote {
       margin: 0;
-      
+
       p {
         font-size: 20px;
-        line-height: 1.6;
+        line-height: var(--leading-prose);
         margin-bottom: 0.5em;
       }
-      
+
       cite {
-        font-size: 16px;
+        font-size: var(--text-ui);
         opacity: 0.8;
       }
     }
@@ -653,17 +612,16 @@ table {
   color: var(--color-text-secondary);
   cursor: pointer;
   font-family: inherit;
-  font-size: 16px;
+  font-size: var(--text-ui);
   transition: background-color 0.2s ease, border-color 0.2s ease;
-  
+
   &:hover {
     background: var(--color-border);
     border-color: var(--color-text-tertiary);
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 }
-
