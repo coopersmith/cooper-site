@@ -1,0 +1,220 @@
+---
+layout: page
+title: Ephemera
+permalink: /ephemera/
+description: A collection of ephemeral moments, scanned documents, and found objects.
+---
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.1/simple-lightbox.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+<div class="ephemera-intro">
+  <p>{{ page.description }}</p>
+</div>
+
+<div class="ephemera-grid">
+  {% if site.data.ephemera.items %}
+    {% for item in site.data.ephemera.items %}
+      <div class="ephemera-item" data-tags="{{ item.tags | join: ',' }}">
+        {% if item.attachments and item.attachments.size > 0 %}
+          {% assign attachment = item.attachments[0] %}
+          <div class="ephemera-image">
+            <a href="{{ attachment.url }}" title="{{ item.title }}">
+              {% if attachment.thumbnails and attachment.thumbnails.large %}
+                <img src="{{ attachment.thumbnails.large.url }}" alt="{{ item.title }}" loading="lazy">
+              {% else %}
+                <img src="{{ attachment.url }}" alt="{{ item.title }}" loading="lazy">
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+        
+        <div class="ephemera-content">
+          <h3 class="ephemera-title">{{ item.title }}</h3>
+          
+          {% if item.description and item.description != '' %}
+            <p class="ephemera-description">{{ item.description }}</p>
+          {% endif %}
+          
+          <div class="ephemera-meta">
+            {% if item.date %}
+              <span class="ephemera-date">{{ item.date | date: "%B %d, %Y" }}</span>
+            {% endif %}
+            
+            {% if item.venue and item.venue != '' %}
+              <span class="ephemera-venue">{{ item.venue }}</span>
+            {% endif %}
+            
+            {% if item.location and item.location != '' %}
+              <span class="ephemera-location">{{ item.location }}</span>
+            {% endif %}
+            
+            {% if item.country and item.country != '' %}
+              <span class="ephemera-country">{{ item.country }}</span>
+            {% endif %}
+          </div>
+          
+          {% if item.tags and item.tags.size > 0 %}
+            <div class="ephemera-tags">
+              {% for tag in item.tags %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="ephemera-empty">
+      <p>No ephemera items found. Make sure your Airtable is properly configured.</p>
+      <p><small>Last updated: {{ site.data.ephemera.last_updated | default: "Never" }}</small></p>
+    </div>
+  {% endif %}
+</div>
+
+{% if site.data.ephemera.count %}
+  <div class="ephemera-footer">
+    <p><small>{{ site.data.ephemera.count }} items • Last updated: {{ site.data.ephemera.last_updated }}</small></p>
+  </div>
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.1/simple-lightbox.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize lightbox for images
+    var lightbox = new SimpleLightbox('.ephemera-image a', {
+      captionsData: 'title',
+      captionDelay: 250
+    });
+  });
+</script>
+
+<style>
+.ephemera-intro {
+  margin-bottom: 2rem;
+  font-style: italic;
+  color: #666;
+}
+
+.ephemera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ephemera-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.ephemera-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ephemera-image {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.ephemera-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.ephemera-image:hover img {
+  transform: scale(1.05);
+}
+
+.ephemera-content {
+  padding: 1rem;
+}
+
+.ephemera-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.ephemera-description {
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.ephemera-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.ephemera-date:before {
+  content: "📅 ";
+}
+
+.ephemera-venue:before {
+  content: "🎵 ";
+}
+
+.ephemera-location:before {
+  content: "📍 ";
+}
+
+.ephemera-country:before {
+  content: "🌍 ";
+}
+
+.ephemera-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.tag {
+  background: #f0f0f0;
+  color: #666;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.ephemera-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.ephemera-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  color: #888;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .ephemera-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .ephemera-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+</style>
