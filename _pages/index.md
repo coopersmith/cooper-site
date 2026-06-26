@@ -15,6 +15,8 @@ When I'm in Rhode Island, I look after our 1754 farmhouse. I roast coffee in my 
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop). 
 
+I keep evergreen pages for [trips]({{ '/travels/' | relative_url }}), [concerts]({{ '/concerts/' | relative_url }}), and will add more topics over time.
+
 <div id="recently-played">
   <p>Loading recently played tracks...</p>
 </div>
