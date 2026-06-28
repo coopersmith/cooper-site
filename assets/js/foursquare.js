@@ -36,11 +36,16 @@ async function getLastCheckin() {
     const venueName = data.venue;
     const loc = data.location || {};
 
-    // Always show the city (falling back to state); prepend the neighborhood
-    // when Foursquare has one, e.g. "Greenwich Village, New York".
-    const city = loc.city || loc.state || '';
+    // Show the city (falling back to state); prepend the neighborhood when
+    // Foursquare has one, e.g. "Greenwich Village, New York".
+    const rawCity = loc.city || loc.state || '';
     let neighborhood = loc.neighborhood;
     if (Array.isArray(neighborhood)) neighborhood = neighborhood[0];
+
+    // Most check-ins are in NYC, where the neighborhood alone is enough — so
+    // drop the redundant "New York" when we have a neighborhood to show.
+    const isNYC = /^new york( city)?$/i.test(rawCity);
+    const city = isNYC && neighborhood ? '' : rawCity;
 
     const place = [neighborhood, city]
       .filter((part, i, parts) => part && parts.indexOf(part) === i)
