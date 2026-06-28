@@ -1,3 +1,48 @@
+// Foursquare's per-venue neighborhood tags are sparse, so fall back to
+// reverse-geocoding the coordinates via OpenStreetMap Nominatim — the same
+// source the photos plugin uses. Returns '' on any failure.
+// Nominatim sometimes appends " District" (e.g. "Chelsea District") where
+// Foursquare just says "Chelsea". Strip it — except for neighborhoods whose
+// real name actually ends in "District".
+const PROTECTED_DISTRICTS = new Set([
+  'garment district', 'theater district', 'theatre district',
+  'financial district', 'meatpacking district', 'flatiron district',
+  'flower district', 'diamond district', 'fashion district'
+]);
+
+function normalizeNeighborhood(name) {
+  if (!name) return name;
+  if (/ district$/i.test(name) && !PROTECTED_DISTRICTS.has(name.toLowerCase())) {
+    return name.replace(/ district$/i, '');
+  }
+  return name;
+}
+
+async function reverseGeocodeNeighborhood(lat, lng) {
+  if (lat == null || lng == null) return '';
+  try {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`;
+    const res = await fetch(url, {
+      // Nominatim requires a descriptive User-Agent with contact info.
+      headers: { 'User-Agent': 'coopersmith.nyc-checkin/1.0 (coopersmi@gmail.com)' }
+    });
+    if (!res.ok) return '';
+    const data = await res.json();
+    const a = data.address || {};
+    return normalizeNeighborhood(a.neighbourhood || a.suburb || a.quarter || a.city_district || '');
+  } catch (error) {
+    console.error('Reverse geocode error:', error);
+    return '';
+  }
+}
+
+// A Foursquare neighborhood tag is only trustworthy if it has an uppercase
+// letter — all-lowercase values are junk usernames (e.g. "berthaharvey").
+function usableNeighborhood(hood) {
+  if (Array.isArray(hood)) hood = hood[0];
+  return hood && /[A-Z]/.test(hood) ? hood : '';
+}
+
 export const handler = async () => {
   // The /users/self/checkins endpoint is personal data, so it requires a
   // user OAuth token (oauth_token=...), NOT the userless client_id/client_secret
@@ -35,6 +80,14 @@ export const handler = async () => {
     }
 
     const checkin = data.response.checkins.items[0];
+    const location = checkin.venue.location || {};
+
+    // Prefer Foursquare's tag; reverse-geocode only when it's missing or junk.
+    if (!usableNeighborhood(location.neighborhood)) {
+      const geoHood = await reverseGeocodeNeighborhood(location.lat, location.lng);
+      if (geoHood) location.neighborhood = geoHood;
+    }
+
     return {
       statusCode: 200,
       headers: {
@@ -45,7 +98,7 @@ export const handler = async () => {
       },
       body: JSON.stringify({
         venue: checkin.venue.name,
-        location: checkin.venue.location,
+        location: location,
         createdAt: checkin.createdAt
       })
     };
