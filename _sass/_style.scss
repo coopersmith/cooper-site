@@ -7,18 +7,20 @@ $border-radius: 8px;
 
 :root {
   // ── Typography tokens ──────────────────────────────────────────────
-  // Single source of truth for the type system. Inter is loaded in
-  // _includes/head.html at weights 400 / 500 / 600.
+  // Single source of truth for the type system. Inter (body/UI) and
+  // Fraunces (headings) are loaded in _includes/head.html — Inter at
+  // weights 400 / 500 / 600, Fraunces variable at 400 / 500 / 600.
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', 'Times', serif;
 
   // Type scale
   --text-caption: 14px; // h5/h6 eyebrow labels
   --text-ui: 16px;      // nav, buttons, dense UI
   --text-body: 18px;    // body copy
-  --text-lead: 19px;    // subtitle, h4, blockquote, lead-in text
-  --text-h3: 22px;
-  --text-h2: 26px;
-  --text-h1: 36px;
+  --text-lead: 20px;    // subtitle, h4, blockquote, lead-in text
+  --text-h3: 24px;
+  --text-h2: 30px;
+  --text-h1: 44px;
 
   // Line heights
   --leading-tight: 1.25;   // h1
@@ -41,32 +43,39 @@ $border-radius: 8px;
   --tracking-caps: 0.02em;     // h5/h6 uppercase labels
 
   // ── Color tokens ───────────────────────────────────────────────────
-  // Text colors
-  --color-text-primary: rgba(0, 0, 0, 0.9);
-  --color-text-secondary: rgba(0, 0, 0, 0.8);
-  --color-text-tertiary: rgba(0, 0, 0, 0.7);
-  --color-text-subtle: rgba(0, 0, 0, 0.6);
+  // Text colors — warm near-black ink so it sits on the paper-white bg
+  // rather than fighting it.
+  --color-text-primary: rgba(28, 25, 21, 0.94);
+  --color-text-secondary: rgba(28, 25, 21, 0.82);
+  --color-text-tertiary: rgba(28, 25, 21, 0.66);
+  --color-text-subtle: rgba(28, 25, 21, 0.55);
 
-  // Background colors
-  --color-bg-primary: #FAFAFA;
-  --color-bg-secondary: rgba(0, 0, 0, 0.03);
+  // Background colors — warm paper, not cool gray
+  --color-bg-primary: #FBF9F5;
+  --color-bg-secondary: rgba(28, 25, 21, 0.04);
 
   // Border colors
-  --color-border: rgba(0, 0, 0, 0.15);
+  --color-border: rgba(28, 25, 21, 0.14);
+
+  // Accent — warm clay, a nod to the barn / coffee side of things
+  --color-accent: #B0492E;
 
   @media (prefers-color-scheme: dark) {
     // Text colors
-    --color-text-primary: rgba(255, 255, 255, 0.9);
-    --color-text-secondary: rgba(255, 255, 255, 0.8);
-    --color-text-tertiary: rgba(255, 255, 255, 0.7);
-    --color-text-subtle: rgba(255, 255, 255, 0.6);
+    --color-text-primary: rgba(244, 240, 233, 0.92);
+    --color-text-secondary: rgba(244, 240, 233, 0.80);
+    --color-text-tertiary: rgba(244, 240, 233, 0.64);
+    --color-text-subtle: rgba(244, 240, 233, 0.52);
 
-    // Background colors
-    --color-bg-primary: #111;
-    --color-bg-secondary: rgba(255, 255, 255, 0.03);
+    // Background colors — warm near-black
+    --color-bg-primary: #14120E;
+    --color-bg-secondary: rgba(244, 240, 233, 0.04);
 
     // Border colors
-    --color-border: rgba(255, 255, 255, 0.15);
+    --color-border: rgba(244, 240, 233, 0.14);
+
+    // Accent — lifted for contrast on the dark bg
+    --color-accent: #E08763;
   }
 }
 
@@ -80,15 +89,17 @@ body {
   font-size: var(--text-body);
   line-height: var(--leading-body);
   margin: 0 auto;
-  padding: 4vh 6vw;
+  padding: 7vh 6vw;
   overflow-x: hidden;
   overflow-wrap: break-word;
   word-wrap: break-word;
   max-width: 720px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 600px) {
     line-height: var(--leading-prose);
-    padding: 3vh 5vw;
+    padding: 4vh 6vw;
   }
 }
 
@@ -242,16 +253,17 @@ hr {
 }
 
 h1 {
+  font-family: var(--font-serif);
   font-weight: var(--weight-medium);
   font-size: var(--text-h1);
   line-height: var(--leading-tight);
   color: var(--color-text-primary);
-  margin-bottom: 0.2em;
+  margin-bottom: 0.3em;
   margin-top: 0;
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: var(--tracking-normal);
 
   @media (max-width: 600px) {
-    font-size: 30px;
+    font-size: 34px;
     line-height: var(--leading-heading);
   }
 }
@@ -266,28 +278,30 @@ h1 {
 }
 
 h2 {
-  font-weight: var(--weight-semibold);
+  font-family: var(--font-serif);
+  font-weight: var(--weight-medium);
   font-size: var(--text-h2);
   line-height: var(--leading-heading);
   color: var(--color-text-primary);
-  margin-top: 2.2em;
+  margin-top: 2.4em;
   margin-bottom: 0.7em;
-  letter-spacing: var(--tracking-snug);
+  letter-spacing: var(--tracking-normal);
 
   @media (max-width: 600px) {
     font-size: var(--text-h3);
-    margin-top: 1.8em;
+    margin-top: 2em;
   }
 }
 
 h3 {
-  font-weight: var(--weight-semibold);
+  font-family: var(--font-serif);
+  font-weight: var(--weight-medium);
   font-size: var(--text-h3);
   line-height: var(--leading-snug);
   color: var(--color-text-primary);
-  margin-top: 1.8em;
+  margin-top: 1.9em;
   margin-bottom: 0.5em;
-  letter-spacing: var(--tracking-normal);
+  letter-spacing: var(--tracking-slight);
 
   @media (max-width: 600px) {
     font-size: var(--text-lead);
@@ -296,6 +310,7 @@ h3 {
 }
 
 h4 {
+  font-family: var(--font-serif);
   font-style: normal;
   font-weight: var(--weight-medium);
   color: var(--color-text-secondary);
@@ -350,16 +365,17 @@ em, i {
 a {
   color: inherit; /* Use text color */
   text-decoration: underline; /* Simple underline */
-  text-decoration-color: rgba(0, 0, 0, 0.3); /* Subtle underline */
-  text-underline-offset: 2px; /* Spacing between text and underline */
-  transition: text-decoration-color 0.2s ease;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(28, 25, 21, 0.22); /* Faint at rest */
+  text-underline-offset: 3px; /* A little more air under the text */
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
 
   @media (prefers-color-scheme: dark) {
-    text-decoration-color: rgba(255, 255, 255, 0.3);
+    text-decoration-color: rgba(244, 240, 233, 0.22);
   }
 
   &:hover {
-    text-decoration-color: var(--color-text-secondary);
+    text-decoration-color: var(--color-accent); /* Warm clay on hover */
   }
 
   &:after {
@@ -391,11 +407,7 @@ a {
 }
 
 .nav a:hover {
-  color: #0066cc; /* Improved contrast for accessibility */
-
-  @media (prefers-color-scheme: dark) {
-    color: #4da6ff; /* Better contrast for dark mode */
-  }
+  color: var(--color-accent);
 }
 
 .nav a b {
@@ -480,13 +492,9 @@ nav {
 }
 
 .two-column-grid a {
-  color: #0066cc;
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: var(--weight-medium);
-
-  @media (prefers-color-scheme: dark) {
-    color: #4da6ff;
-  }
 }
 
 .two-column-grid a:hover {
@@ -500,9 +508,10 @@ nav {
 }
 
 code {
-  background: #f5f5f5;
-  padding: 0.1em 0.2em;
+  background: var(--color-bg-secondary);
+  padding: 0.1em 0.3em;
   border-radius: 4px;
+  font-size: 0.9em;
 }
 
 .invalid-link {

@@ -7,9 +7,13 @@ permalink: /
 
 # Hey, I'm Cooper
 
+<div class="home-intro" markdown="1">
+
 I'm a product design leader splitting time between Brooklyn and Rhode Island's [Farm Coast](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html). By day I'm a Director of Product Design at [Asana](https://asana.com), leading our Align and Mobile organizations — after a decade-plus building products and teams at Lyft, Twitter, and Foursquare.
 
 Off the clock I look after a 1754 farmhouse, roast coffee in the barn as [Farm Coast Coffee](https://farmcoastcoffee.square.site), and I'm rarely without a camera — usually over on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop).
+
+</div>
 
 <section class="home-section">
   <p class="home-label">Recent notes</p>
@@ -51,7 +55,16 @@ Off the clock I look after a 1754 farmhouse, roast coffee in the barn as [Farm C
 <style>
   .wrapper { max-width: 46em; }
 
-  .home-section { margin-top: 2.8em; }
+  .home-intro {
+    font-size: var(--text-lead);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+    margin-top: 0.2em;
+  }
+
+  .home-intro p:first-child { margin-top: 0.6em; }
+
+  .home-section { margin-top: 3em; }
 
   .home-label {
     font-size: var(--text-caption);
@@ -95,7 +108,7 @@ Off the clock I look after a 1754 farmhouse, roast coffee in the barn as [Farm C
 
   .home-list a:hover {
     text-decoration: underline;
-    text-decoration-color: var(--color-text-tertiary);
+    text-decoration-color: var(--color-accent);
   }
 
   .home-list .desc {
