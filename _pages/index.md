@@ -40,6 +40,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     {% endunless %}
   {% endfor %}
 </ul>
+<p><a class="internal-link" href="{{ site.baseurl }}/tableofcontents/">See more →</a></p>
 <style>
   .wrapper {
     max-width: 46em;
