@@ -5,9 +5,12 @@
 // Mirror of the homepage place logic.
 function formatPlace(loc) {
   loc = loc || {};
-  const rawCity = loc.city || loc.state || '';
+  const rawCity = (loc.city || loc.state || '')
+    .replace(/^(Town|City|Township|Village|Borough) of /i, '');
+
   let neighborhood = loc.neighborhood;
   if (Array.isArray(neighborhood)) neighborhood = neighborhood[0];
+  if (!neighborhood || !/[A-Z]/.test(neighborhood)) neighborhood = '';
 
   const nycCities = [
     'new york', 'new york city', 'manhattan', 'brooklyn',

@@ -38,9 +38,15 @@ async function getLastCheckin() {
 
     // Show the city (falling back to state); prepend the neighborhood when
     // Foursquare has one, e.g. "Greenwich Village, New York".
-    const rawCity = loc.city || loc.state || '';
+    // Strip bureaucratic prefixes like "Town of Westport" -> "Westport".
+    const rawCity = (loc.city || loc.state || '')
+      .replace(/^(Town|City|Township|Village|Borough) of /i, '');
+
+    // Take the first neighborhood if it's an array, and reject all-lowercase
+    // junk — Foursquare sometimes returns usernames like "berthaharvey".
     let neighborhood = loc.neighborhood;
     if (Array.isArray(neighborhood)) neighborhood = neighborhood[0];
+    if (!neighborhood || !/[A-Z]/.test(neighborhood)) neighborhood = '';
 
     // Most check-ins are in NYC, where the neighborhood alone is enough — so
     // drop the redundant city for New York and its boroughs when we have a
