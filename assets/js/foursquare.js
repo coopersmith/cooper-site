@@ -35,10 +35,36 @@ async function getLastCheckin() {
     
     const venueName = data.venue;
     const loc = data.location || {};
-    const city = loc.city || loc.neighborhood || loc.state || '';
+
+    // Show the city (falling back to state); prepend the neighborhood when
+    // Foursquare has one, e.g. "Greenwich Village, New York".
+    // Strip bureaucratic prefixes like "Town of Westport" -> "Westport".
+    const rawCity = (loc.city || loc.state || '')
+      .replace(/^(Town|City|Township|Village|Borough) of /i, '');
+
+    // Take the first neighborhood if it's an array, and reject all-lowercase
+    // junk — Foursquare sometimes returns usernames like "berthaharvey".
+    let neighborhood = loc.neighborhood;
+    if (Array.isArray(neighborhood)) neighborhood = neighborhood[0];
+    if (!neighborhood || !/[A-Z]/.test(neighborhood)) neighborhood = '';
+
+    // Most check-ins are in NYC, where the neighborhood alone is enough — so
+    // drop the redundant city for New York and its boroughs when we have a
+    // neighborhood to show. Edit this list to taste.
+    const nycCities = [
+      'new york', 'new york city', 'manhattan', 'brooklyn',
+      'queens', 'bronx', 'the bronx', 'staten island'
+    ];
+    const isNYC = nycCities.includes(rawCity.trim().toLowerCase());
+    const city = isNYC && neighborhood ? '' : rawCity;
+
+    const place = [neighborhood, city]
+      .filter((part, i, parts) => part && parts.indexOf(part) === i)
+      .join(', ');
+
     const when = relativeTime(data.createdAt);
 
-    document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${city ? ` in ${city}` : ''} ${when}</p>`;
+    document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${place ? ` in ${place}` : ''} ${when}</p>`;
   } catch (error) {
     console.error('Error fetching check-in data:', error);
     // Fail quietly so the homepage never shows an error line.
