@@ -35,10 +35,20 @@ async function getLastCheckin() {
     
     const venueName = data.venue;
     const loc = data.location || {};
-    const city = loc.city || loc.neighborhood || loc.state || '';
+
+    // Always show the city (falling back to state); prepend the neighborhood
+    // when Foursquare has one, e.g. "Greenwich Village, New York".
+    const city = loc.city || loc.state || '';
+    let neighborhood = loc.neighborhood;
+    if (Array.isArray(neighborhood)) neighborhood = neighborhood[0];
+
+    const place = [neighborhood, city]
+      .filter((part, i, parts) => part && parts.indexOf(part) === i)
+      .join(', ');
+
     const when = relativeTime(data.createdAt);
 
-    document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${city ? ` in ${city}` : ''} ${when}</p>`;
+    document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${place ? ` in ${place}` : ''} ${when}</p>`;
   } catch (error) {
     console.error('Error fetching check-in data:', error);
     // Fail quietly so the homepage never shows an error line.
