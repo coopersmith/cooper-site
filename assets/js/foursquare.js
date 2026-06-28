@@ -43,8 +43,13 @@ async function getLastCheckin() {
     if (Array.isArray(neighborhood)) neighborhood = neighborhood[0];
 
     // Most check-ins are in NYC, where the neighborhood alone is enough — so
-    // drop the redundant "New York" when we have a neighborhood to show.
-    const isNYC = /^new york( city)?$/i.test(rawCity);
+    // drop the redundant city for New York and its boroughs when we have a
+    // neighborhood to show. Edit this list to taste.
+    const nycCities = [
+      'new york', 'new york city', 'manhattan', 'brooklyn',
+      'queens', 'bronx', 'the bronx', 'staten island'
+    ];
+    const isNYC = nycCities.includes(rawCity.trim().toLowerCase());
     const city = isNYC && neighborhood ? '' : rawCity;
 
     const place = [neighborhood, city]
