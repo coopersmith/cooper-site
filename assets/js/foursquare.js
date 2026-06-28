@@ -38,7 +38,7 @@ async function getLastCheckin() {
     const city = loc.city || loc.neighborhood || loc.state || '';
     const when = relativeTime(data.createdAt);
 
-    document.getElementById('last-checkin').innerHTML = `<p>last seen at ${venueName}${city ? ` in ${city}` : ''} ${when}</p>`;
+    document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${city ? ` in ${city}` : ''} ${when}</p>`;
   } catch (error) {
     console.error('Error fetching check-in data:', error);
     // Fail quietly so the homepage never shows an error line.
