@@ -19,9 +19,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
   <p>Loading recently played tracks...</p>
 </div>
 
-<!-- <div id="last-checkin">
-  <p>Loading last location...</p>
-</div> -->
+<div id="last-checkin"></div>
 
 <strong>My recently created notes</strong>
 
@@ -47,4 +45,4 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
 </style>
 
 <script src="{{ site.baseurl }}/assets/js/lastfm.js"></script>
-<!-- <script src="{{ site.baseurl }}/assets/js/foursquare.js"></script> -->
+<script src="{{ site.baseurl }}/assets/js/foursquare.js"></script>
