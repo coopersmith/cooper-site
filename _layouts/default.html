@@ -3,7 +3,6 @@
   {% include head.html %}
   <body class="{% if page.layout == 'photos_stream' or page.layout == 'photo' %}photo-page-body{% endif %}">
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <nav>{% include nav.html %}</nav>
     <div class="wrapper {% if page.layout == 'photos_stream' or page.layout == 'photo' %}photo-page-wrapper{% endif %}">
       <main id="main-content">{{ content }}</main>
       <footer>{% include footer.html %}</footer>

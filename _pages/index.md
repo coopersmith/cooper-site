@@ -32,6 +32,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
       {% endunless %}
     {% endfor %}
   </ul>
+  <p class="home-more"><a class="internal-link" href="{{ site.baseurl }}/tableofcontents/">See more →</a></p>
 </section>
 
 <section class="home-section">
@@ -50,6 +51,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
   <div id="recently-played">
     <p>Loading recently played tracks…</p>
   </div>
+  <div id="last-checkin"></div>
 </section>
 
 <style>
@@ -106,8 +108,23 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     color: var(--color-text-subtle);
   }
 
-  #recently-played p {
-    margin: 0;
+  .home-more {
+    margin: 1.1em 0 0;
+    font-size: var(--text-ui);
+  }
+
+  .home-more a {
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+  }
+
+  .home-more a:hover {
+    color: var(--color-text-primary);
+  }
+
+  #recently-played p,
+  #last-checkin p {
+    margin: 0 0 0.3em;
     color: var(--color-text-subtle);
   }
 
@@ -117,3 +134,4 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
 </style>
 
 <script src="{{ site.baseurl }}/assets/js/lastfm.js"></script>
+<script src="{{ site.baseurl }}/assets/js/foursquare.js"></script>

@@ -13,16 +13,19 @@ async function getLastCheckin() {
     }
     
     const venueName = data.venue;
-    const location = data.location.city || data.location.neighborhood || '';
+    const loc = data.location || {};
+    const location = loc.city || loc.neighborhood || loc.state || '';
     const checkinTime = new Date(data.createdAt * 1000).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric'
     });
-    
-    document.getElementById('last-checkin').innerHTML = `Last checked in at ${venueName}${location ? ` in ${location}` : ''} on ${checkinTime}`;
+
+    document.getElementById('last-checkin').innerHTML = `<p>Last checked in at ${venueName}${location ? ` in ${location}` : ''} on ${checkinTime}</p>`;
   } catch (error) {
     console.error('Error fetching check-in data:', error);
-    document.getElementById('last-checkin').innerHTML = 'Unable to load check-in data';
+    // Fail quietly so the homepage never shows an error line.
+    const el = document.getElementById('last-checkin');
+    if (el) el.innerHTML = '';
   }
 }
 
