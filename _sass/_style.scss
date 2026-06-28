@@ -557,6 +557,41 @@ table {
   }
 }
 
+.muted {
+  color: var(--color-text-tertiary);
+}
+
+/* Index views (slashpackaging-style lists): a collection rendered as a
+   posts-driven list. Used by /travels/, /concerts/, etc. */
+.index-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+
+  td {
+    padding: 0.55em 0;
+    border-bottom: 0.25px solid var(--color-border);
+    vertical-align: baseline;
+    line-height: var(--leading-prose);
+  }
+
+  // Reset the generic table column widths above for this 2-column layout.
+  td:nth-child(1) { width: auto; }
+  td:nth-child(2) { width: 1%; }
+
+  .index-title {
+    font-weight: var(--weight-medium);
+  }
+
+  .index-date {
+    text-align: right;
+    white-space: nowrap;
+    padding-left: 1.5em;
+    font-size: var(--text-ui);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
 .fade-in-section {
   opacity: 0;
   transform: translateY(20px);
