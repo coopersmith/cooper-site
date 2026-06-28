@@ -20,7 +20,7 @@ function fetchTopArtists() {
             const artistNames = artistData.map(artist => artist.name);
             const commaSeparatedArtists = artistNames.join(", ");
             
-            recentlyPlayedDiv.innerHTML = `<p>Recently I've been listening to a lot of ${commaSeparatedArtists}</p>`;
+            recentlyPlayedDiv.innerHTML = `<p>Recently I've been listening to a lot of ${commaSeparatedArtists}.</p>`;
             
             // After fetching top artists, get currently playing track
             fetchCurrentTrack();
@@ -51,9 +51,16 @@ function fetchCurrentTrack() {
                     const trackName = track.name;
                     const artistName = track.artist['#text'];
                     const trackUrl = track.url;
-                    
-                    // Add the currently playing info to the existing content
-                    recentlyPlayedDiv.innerHTML += `<p>Currently listening to <a href="${trackUrl}" target="_blank">${trackName}</a> by ${artistName}</p>`;
+
+                    // Append the now-playing info as a second sentence inside the
+                    // existing paragraph, so it reads inline rather than as its own line.
+                    const sentence = ` Currently listening to <a href="${trackUrl}" target="_blank" rel="noopener">${trackName}</a> by ${artistName}.`;
+                    const existing = recentlyPlayedDiv.querySelector('p');
+                    if (existing) {
+                        existing.innerHTML += sentence;
+                    } else {
+                        recentlyPlayedDiv.innerHTML = `<p>${sentence.trim()}</p>`;
+                    }
                 }
             }
         })
