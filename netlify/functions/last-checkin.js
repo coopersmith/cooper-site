@@ -1,6 +1,23 @@
 // Foursquare's per-venue neighborhood tags are sparse, so fall back to
 // reverse-geocoding the coordinates via OpenStreetMap Nominatim — the same
 // source the photos plugin uses. Returns '' on any failure.
+// Nominatim sometimes appends " District" (e.g. "Chelsea District") where
+// Foursquare just says "Chelsea". Strip it — except for neighborhoods whose
+// real name actually ends in "District".
+const PROTECTED_DISTRICTS = new Set([
+  'garment district', 'theater district', 'theatre district',
+  'financial district', 'meatpacking district', 'flatiron district',
+  'flower district', 'diamond district', 'fashion district'
+]);
+
+function normalizeNeighborhood(name) {
+  if (!name) return name;
+  if (/ district$/i.test(name) && !PROTECTED_DISTRICTS.has(name.toLowerCase())) {
+    return name.replace(/ district$/i, '');
+  }
+  return name;
+}
+
 async function reverseGeocodeNeighborhood(lat, lng) {
   if (lat == null || lng == null) return '';
   try {
@@ -12,7 +29,7 @@ async function reverseGeocodeNeighborhood(lat, lng) {
     if (!res.ok) return '';
     const data = await res.json();
     const a = data.address || {};
-    return a.neighbourhood || a.suburb || a.quarter || a.city_district || '';
+    return normalizeNeighborhood(a.neighbourhood || a.suburb || a.quarter || a.city_district || '');
   } catch (error) {
     console.error('Reverse geocode error:', error);
     return '';
