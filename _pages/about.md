@@ -6,17 +6,7 @@ permalink: /about
 
 # Cooper Smith
 
-
-## Elsewhere
-
-Instagram: @coopersmith
-Twitter: @coops
-Threads: @coopersmith
-Bluesky: [@coopersmith](https://bsky.app/profile/coopersmith.bsky.social)
-Glass:
-
-
-
+I'm a product design leader in Brooklyn and on Rhode Island's Farm Coast. This is the longer version of [the home page](/) — what I'm up to now, what I've done before, and where to find me.
 
 ## Now
 
@@ -36,6 +26,14 @@ Glass:
 - Completed the 18th grade at the School of Visual Arts, receiving my master's in Interaction Design [2010-2012]
 - Grown in Colorado [1985-2010]
 
-_Last updated 2024-11-24_
+## Elsewhere
+
+- [Instagram](https://www.instagram.com/coopersmith) — @coopersmith
+- [Glass](https://glass.photo/coop) — @coop
+- [Bluesky](https://bsky.app/profile/coopersmith.bsky.social) — @coopersmith
+- [Threads](https://www.threads.net/@coopersmith) — @coopersmith
+- [Twitter / X](https://twitter.com/coops) — @coops
+
+_Last updated 2026-06-28_
 
 Previous versions of this site can be found here: [V2](https://www.coopsmith.co/archive/v2/) | [V1](https://www.coopsmith.co/Archive/V1/)
