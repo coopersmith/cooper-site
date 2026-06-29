@@ -13,10 +13,10 @@ Everything I've been reading, watching, and listening to — in one place.
 
 <div class="media-toolbar">
   <div class="media-filters" role="group" aria-label="Filter by type">
-    <button type="button" class="media-chip is-active" data-filter="all">All</button>
-    <button type="button" class="media-chip media-chip--book" data-filter="book">Books</button>
-    <button type="button" class="media-chip media-chip--movie" data-filter="movie">Movies</button>
-    <button type="button" class="media-chip media-chip--album" data-filter="album">Albums</button>
+    <button type="button" class="tag is-active" data-filter="all">All</button>
+    <button type="button" class="tag" data-filter="book">Books</button>
+    <button type="button" class="tag" data-filter="movie">Movies</button>
+    <button type="button" class="tag" data-filter="album">Albums</button>
   </div>
   <div class="media-toggle" role="group" aria-label="View mode">
     <button type="button" class="media-view-btn is-active" data-view="list">List</button>
@@ -44,7 +44,7 @@ Everything I've been reading, watching, and listening to — in one place.
       <li class="media-row" data-type="{{ type | downcase }}">
         <a class="internal-link media-row-title" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a>
         <span class="media-row-meta">
-          <span class="media-type media-type--{{ type | downcase }}">{{ type }}</span>
+          <span class="tag">{{ type }}</span>
           {% if creator != '' %}<span class="media-creator">{{ creator }}</span>{% endif %}
           {% if e.year %}<span class="media-year">{{ e.year }}</span>{% endif %}
           {% if e.rating %}<span class="media-rating">★ {{ e.rating }}</span>{% endif %}
@@ -65,11 +65,11 @@ Everything I've been reading, watching, and listening to — in one place.
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
       <li class="media-card" data-type="{{ type | downcase }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title }}">
-          <span class="media-cover-wrap">
-            <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
-            <span class="media-type media-type--{{ type | downcase }} media-type--corner">{{ type }}</span>
+          <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
+          <span class="media-card-meta">
+            <span class="media-card-title">{{ clean_title }}</span>
+            <span class="tag">{{ type }}</span>
           </span>
-          <span class="media-card-title">{{ clean_title }}</span>
         </a>
       </li>
     {% endfor %}
@@ -80,13 +80,25 @@ Everything I've been reading, watching, and listening to — in one place.
 <style>
   .wrapper { max-width: 46em; }
 
-  /* Per-type accent colors */
-  #media-library, .media-toolbar {
-    --type-book: #2a9d8f;
-    --type-movie: #e76f51;
-    --type-album: #6a67ce;
-    --type-show: #e9c46a;
-    --type-media: var(--color-text-tertiary);
+  /* ---- Slash Packaging style tags ---- */
+  .tag {
+    display: inline-block;
+    border: 1px solid var(--color-border);
+    padding: 0.1em 0.55em 0.15em;
+    border-radius: 1em;
+    font-size: 0.75em;
+    line-height: 1.5;
+    color: var(--color-text-tertiary);
+    background: transparent;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  button.tag { font-family: inherit; cursor: pointer; }
+  button.tag:hover { color: var(--color-text-primary); border-color: var(--color-text-tertiary); }
+  button.tag.is-active {
+    color: var(--color-bg-primary);
+    background: var(--color-text-primary);
+    border-color: var(--color-text-primary);
   }
 
   .media-toolbar {
@@ -94,61 +106,24 @@ Everything I've been reading, watching, and listening to — in one place.
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.8em 1em;
+    gap: 0.7em 1em;
     margin: 2em 0 1.4em;
   }
-
   .media-filters { display: inline-flex; flex-wrap: wrap; gap: 0.4em; }
-
-  .media-chip {
-    appearance: none;
-    border: 1px solid var(--color-border, rgba(128,128,128,0.3));
-    background: transparent;
-    color: var(--color-text-tertiary);
-    font: inherit;
-    font-size: 0.82em;
-    padding: 0.25em 0.75em;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-  }
-  .media-chip:hover { color: var(--color-text-primary); }
-  .media-chip.is-active { background: var(--color-text-primary); color: var(--color-bg, #fff); border-color: var(--color-text-primary); }
-  .media-chip--book.is-active { background: var(--type-book); border-color: var(--type-book); color: #fff; }
-  .media-chip--movie.is-active { background: var(--type-movie); border-color: var(--type-movie); color: #fff; }
-  .media-chip--album.is-active { background: var(--type-album); border-color: var(--type-album); color: #fff; }
 
   .media-toggle {
     display: inline-flex;
-    border: 1px solid var(--color-border, rgba(128,128,128,0.3));
-    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    border-radius: 1em;
     overflow: hidden;
   }
   .media-view-btn {
     appearance: none; border: 0; background: transparent;
-    color: var(--color-text-tertiary); font: inherit; font-size: 0.82em;
-    padding: 0.3em 0.9em; cursor: pointer;
+    color: var(--color-text-tertiary); font: inherit; font-size: 0.78em;
+    padding: 0.3em 0.85em; cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
   }
-  .media-view-btn.is-active { background: var(--color-accent, #555); color: #fff; }
-
-  /* Type badge — prominent, color-coded */
-  .media-type {
-    display: inline-block;
-    font-size: 0.66em;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-caps);
-    font-weight: 700;
-    color: #fff;
-    background: var(--type-media);
-    border-radius: 4px;
-    padding: 0.18em 0.5em;
-    vertical-align: middle;
-  }
-  .media-type--book { background: var(--type-book); }
-  .media-type--movie { background: var(--type-movie); }
-  .media-type--album { background: var(--type-album); }
-  .media-type--show { background: var(--type-show); color: #3a2f00; }
+  .media-view-btn.is-active { background: var(--color-text-primary); color: var(--color-bg-primary); }
 
   .media-list, .media-grid { list-style: none; margin: 0; padding: 0; }
   #media-library.view-list .media-grid { display: none; }
@@ -159,7 +134,7 @@ Everything I've been reading, watching, and listening to — in one place.
   .media-row {
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5em 0.7em;
     padding: 0.6em 0;
-    border-bottom: 1px solid var(--color-border, rgba(128,128,128,0.12));
+    border-bottom: 1px solid var(--color-border);
   }
   .media-row-title {
     text-decoration: none; font-weight: var(--weight-medium);
@@ -167,7 +142,7 @@ Everything I've been reading, watching, and listening to — in one place.
   }
   .media-row-title:hover { text-decoration: underline; text-decoration-color: var(--color-accent); }
   .media-row-meta {
-    display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 0.7em;
+    display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 0.6em;
     font-size: 0.9em; color: var(--color-text-subtle);
   }
   .media-year { font-variant-numeric: tabular-nums; }
@@ -177,21 +152,24 @@ Everything I've been reading, watching, and listening to — in one place.
   .media-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1.4em 1.1em;
+    gap: 1.6em 1.1em;
   }
   .media-card a { display: block; text-decoration: none; color: var(--color-text-subtle); }
-  .media-cover-wrap { position: relative; display: block; }
   .media-cover {
     display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover;
-    border-radius: 4px; background: var(--color-border, rgba(128,128,128,0.12));
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18); transition: transform 0.15s ease;
+    border-radius: var(--border-radius, 4px); background: var(--color-bg-secondary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.16); transition: transform 0.15s ease;
   }
   .media-card a:hover .media-cover { transform: translateY(-3px); }
-  .media-type--corner { position: absolute; top: 0.4em; left: 0.4em; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
-  .media-card-title {
-    display: block; margin-top: 0.5em; font-size: 0.82em;
-    line-height: var(--leading-snug, 1.3); color: var(--color-text-subtle);
+  .media-card-meta {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 0.5em;
+    margin-top: 0.55em;
   }
+  .media-card-title {
+    font-size: 0.82em; line-height: var(--leading-snug, 1.3);
+    color: var(--color-text-subtle);
+  }
+  .media-card .tag { flex: none; }
 
   @media (max-width: 600px) {
     .media-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
@@ -203,7 +181,7 @@ Everything I've been reading, watching, and listening to — in one place.
     var lib = document.getElementById('media-library');
     if (!lib) return;
     var viewBtns = document.querySelectorAll('.media-view-btn');
-    var chips = document.querySelectorAll('.media-chip');
+    var chips = document.querySelectorAll('.media-filters .tag');
 
     function setView(view) {
       lib.classList.remove('view-list', 'view-covers');
