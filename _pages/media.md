@@ -26,7 +26,7 @@ Everything I've been reading, watching, and listening to — in one place.
 
 <div id="media-library" class="view-list">
 
-  <ul class="media-list">
+  <table class="index-table media-list">
     {% for e in entries %}
       {% assign type = 'Media' %}
       {% if e.path contains '/Books/' %}{% assign type = 'Book' %}
@@ -41,17 +41,15 @@ Everything I've been reading, watching, and listening to — in one place.
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <li class="media-row" data-type="{{ type | downcase }}">
-        <a class="internal-link media-row-title" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a>
-        <span class="media-row-meta">
-          <span class="tag">{{ type }}</span>
-          {% if creator != '' %}<span class="media-creator">{{ creator }}</span>{% endif %}
-          {% if e.year %}<span class="media-year">{{ e.year }}</span>{% endif %}
-          {% if e.rating %}<span class="media-rating">★ {{ e.rating }}</span>{% endif %}
-        </span>
-      </li>
+      <tr data-type="{{ type | downcase }}">
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a></td>
+        <td class="index-meta"><span class="tag">{{ type }}</span></td>
+        <td class="index-meta muted">{{ creator }}</td>
+        <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
+        <td class="index-date muted media-rating">{% if e.rating %}★ {{ e.rating }}{% endif %}</td>
+      </tr>
     {% endfor %}
-  </ul>
+  </table>
 
   <ul class="media-grid">
     {% for e in entries %}
@@ -106,28 +104,12 @@ Everything I've been reading, watching, and listening to — in one place.
   }
   .media-view-btn.is-active { background: var(--color-text-primary); color: var(--color-bg-primary); }
 
-  .media-list, .media-grid { list-style: none; margin: 0; padding: 0; }
+  .media-grid { list-style: none; margin: 0; padding: 0; }
+  /* List view is a shared .index-table; sit it right under the toolbar */
+  .media-list.index-table { margin: 0; }
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
-
-  /* ---- List view ---- */
-  .media-row {
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5em 0.7em;
-    padding: 0.6em 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .media-row-title {
-    text-decoration: none; font-weight: var(--weight-medium);
-    color: var(--color-text-primary);
-  }
-  .media-row-title:hover { text-decoration: underline; text-decoration-color: var(--color-accent); }
-  .media-row-meta {
-    display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 0.6em;
-    font-size: 0.9em; color: var(--color-text-subtle);
-  }
-  .media-year { font-variant-numeric: tabular-nums; }
-  .media-rating { color: var(--color-text-tertiary); }
 
   /* ---- Covers view ---- */
   .media-grid {
