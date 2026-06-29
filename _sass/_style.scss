@@ -575,21 +575,65 @@ table {
     line-height: var(--leading-prose);
   }
 
-  // Reset the generic table column widths above for this 2-column layout.
-  td:nth-child(1) { width: auto; }
-  td:nth-child(2) { width: 1%; }
-
+  // Class-based widths so the same table works with 2 columns
+  // (title · date, e.g. /travels/) or 3 (title · meta · date, e.g.
+  // /concerts/): the title greedily takes the row, the rest shrink.
   .index-title {
+    width: 100%;
     font-weight: var(--weight-medium);
   }
 
+  .index-meta {
+    white-space: nowrap;
+    padding-left: 1.5em;
+    font-size: var(--text-ui);
+  }
+
   .index-date {
+    width: 1%;
     text-align: right;
     white-space: nowrap;
     padding-left: 1.5em;
     font-size: var(--text-ui);
     font-variant-numeric: tabular-nums;
   }
+
+  @media (max-width: 600px) {
+    .index-meta { display: none; }
+  }
+}
+
+/* Slash Packaging–style tag: a minimal outlined pill, muted and
+   monochrome, built on the site's tokens. Shared across index/grid
+   views (media, concerts, travels). Works as <span>, <a>, or <button>. */
+.tag {
+  display: inline-block;
+  border: 1px solid var(--color-border);
+  padding: 0.1em 0.55em 0.15em;
+  border-radius: 1em;
+  font-size: 0.75em;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+a.tag:hover,
+button.tag:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-tertiary);
+}
+
+button.tag {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button.tag.is-active {
+  color: var(--color-bg-primary);
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
 }
 
 .fade-in-section {

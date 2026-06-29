@@ -80,26 +80,7 @@ Everything I've been reading, watching, and listening to — in one place.
 <style>
   .wrapper { max-width: 46em; }
 
-  /* ---- Slash Packaging style tags ---- */
-  .tag {
-    display: inline-block;
-    border: 1px solid var(--color-border);
-    padding: 0.1em 0.55em 0.15em;
-    border-radius: 1em;
-    font-size: 0.75em;
-    line-height: 1.5;
-    color: var(--color-text-tertiary);
-    background: transparent;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  button.tag { font-family: inherit; cursor: pointer; }
-  button.tag:hover { color: var(--color-text-primary); border-color: var(--color-text-tertiary); }
-  button.tag.is-active {
-    color: var(--color-bg-primary);
-    background: var(--color-text-primary);
-    border-color: var(--color-text-primary);
-  }
+  /* `.tag` is defined globally (Slash Packaging style) in _sass/_style.scss */
 
   .media-toolbar {
     display: flex;
