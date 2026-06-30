@@ -24,11 +24,11 @@ layout: default
 
 <article class="media-note">
   <div class="media-note-head">
+    <span class="tag media-note-type">{{ type }}</span>
     {%- if page.cover -%}
     <img class="media-note-cover" src="{{ page.cover }}" alt="Cover of {{ clean_title }}" loading="lazy">
     {%- endif -%}
     <div class="media-note-meta">
-      <span class="tag media-note-type">{{ type }}</span>
       <h1>{{ clean_title }}</h1>
       <dl class="media-facts">
         {%- if creator != '' -%}<dt>{{ creator_label }}</dt><dd>{{ creator }}</dd>{%- endif -%}
