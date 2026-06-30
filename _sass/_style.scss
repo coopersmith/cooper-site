@@ -645,11 +645,16 @@ button.tag.is-active {
 
 /* Individual media note (Books / Movies / Albums) — a richer header
    built from frontmatter instead of the generic note layout. */
+.media-note-type {
+  display: inline-block;
+  margin: 0 0 0.9em;
+}
+
 .media-note-head {
   display: flex;
   gap: 1.5em;
   align-items: flex-start;
-  margin: 0.5em 0 1.6em;
+  margin: 0 0 1.6em;
 }
 
 .media-note-cover {
@@ -664,8 +669,6 @@ button.tag.is-active {
 .media-note-meta { min-width: 0; }
 
 .media-note-meta h1 { margin: 0 0 0.4em; }
-
-.media-note-type { margin: 0.1em 0 1em; }
 
 .media-facts {
   display: grid;
