@@ -18,9 +18,19 @@ Everything I've been reading, watching, and listening to — in one place.
     <button type="button" class="tag" data-filter="movie">Movies</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
   </div>
-  <div class="media-toggle" role="group" aria-label="View mode">
-    <button type="button" class="media-view-btn is-active" data-view="list">List</button>
-    <button type="button" class="media-view-btn" data-view="covers">Covers</button>
+  <div class="media-toolbar-controls">
+    <span class="sort-control">
+      <label for="media-sort">Sort</label>
+      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tr, li">
+        <option value="date">Date</option>
+        <option value="az">A→Z</option>
+        <option value="rating">Rating</option>
+      </select>
+    </span>
+    <div class="media-toggle" role="group" aria-label="View mode">
+      <button type="button" class="media-view-btn is-active" data-view="list">List</button>
+      <button type="button" class="media-view-btn" data-view="covers">Covers</button>
+    </div>
   </div>
 </div>
 
@@ -41,7 +51,10 @@ Everything I've been reading, watching, and listening to — in one place.
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <tr data-type="{{ type | downcase }}">
+      {% assign sorttitle = clean_title | downcase | strip %}
+      {% assign sortdate = '' %}
+      {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
@@ -61,7 +74,10 @@ Everything I've been reading, watching, and listening to — in one place.
       {% endif %}
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
-      <li class="media-card" data-type="{{ type | downcase }}">
+      {% assign sorttitle = clean_title | downcase | strip %}
+      {% assign sortdate = '' %}
+      {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
           <span class="media-card-meta">
@@ -89,6 +105,7 @@ Everything I've been reading, watching, and listening to — in one place.
     margin: 2em 0 1.4em;
   }
   .media-filters { display: inline-flex; flex-wrap: wrap; gap: 0.4em; }
+  .media-toolbar-controls { display: inline-flex; align-items: center; gap: 0.9em; }
 
   .media-toggle {
     display: inline-flex;
@@ -168,3 +185,4 @@ Everything I've been reading, watching, and listening to — in one place.
     if (saved === 'covers' || saved === 'list') setView(saved);
   })();
 </script>
+<script src="{{ site.baseurl }}/assets/js/sortable.js"></script>
