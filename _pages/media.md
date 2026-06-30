@@ -46,7 +46,7 @@ Everything I've been reading, watching, and listening to — in one place.
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
         <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
-        <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign full = e.rating | divided_by: 2 -%}{%- assign half = e.rating | modulo: 2 -%}<span class="rating-stars" title="{{ e.rating }}/10" aria-label="{{ e.rating }} out of 10">{%- for i in (1..full) -%}★{%- endfor -%}{%- if half == 1 -%}½{%- endif -%}</span>{%- endif -%}</td>
+        <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ e.rating }}/7" aria-label="{{ e.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
   </table>
@@ -110,6 +110,8 @@ Everything I've been reading, watching, and listening to — in one place.
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
+
+  .rating-marks { letter-spacing: 0.12em; white-space: nowrap; font-size: 0.92em; }
 
   /* ---- Covers view ---- */
   .media-grid {
