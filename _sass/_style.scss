@@ -652,17 +652,9 @@ button.tag.is-active {
   margin: 0.5em 0 1.6em;
 }
 
-.media-note-cover-col {
+.media-note-cover {
   flex: none;
   width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7em;
-}
-
-.media-note-cover {
-  width: 100%;
   height: auto;
   border-radius: var(--border-radius, 4px);
   background: var(--color-bg-secondary);
@@ -671,7 +663,9 @@ button.tag.is-active {
 
 .media-note-meta { min-width: 0; }
 
-.media-note-meta h1 { margin: 0 0 0.5em; }
+.media-note-meta h1 { margin: 0 0 0.4em; }
+
+.media-note-type { margin: 0.1em 0 1em; }
 
 .media-facts {
   display: grid;
@@ -703,7 +697,7 @@ button.tag.is-active {
 
 @media (max-width: 600px) {
   .media-note-head { flex-direction: column; gap: 1.1em; }
-  .media-note-cover-col { width: 130px; }
+  .media-note-cover { width: 130px; }
 }
 
 .fade-in-section {
