@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+{%- assign type = 'Media' -%}
+{%- if page.path contains '/Books/' -%}{%- assign type = 'Book' -%}
+{%- elsif page.path contains '/Movies/' -%}{%- assign type = 'Movie' -%}
+{%- elsif page.path contains '/Albums/' -%}{%- assign type = 'Album' -%}
+{%- elsif page.path contains '/Shows/' or page.path contains '/TV/' -%}{%- assign type = 'Show' -%}
+{%- endif -%}
+{%- if page.type -%}{%- assign type = page.type -%}{%- endif -%}
+
+{%- assign clean_title = page.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' -%}
+
+{%- assign creator = '' -%}{%- assign creator_label = 'By' -%}
+{%- if page.author -%}{%- assign creator = page.author | join: ', ' -%}{%- assign creator_label = 'Author' -%}
+{%- elsif page.director -%}{%- assign creator = page.director | join: ', ' -%}{%- assign creator_label = 'Director' -%}
+{%- elsif page.artist -%}{%- assign creator = page.artist | join: ', ' -%}{%- assign creator_label = 'Artist' -%}
+{%- endif -%}
+{%- assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
+
+{%- assign genre = page.genre | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
+{%- assign cast = page.cast | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
+
+<article class="media-note">
+  <div class="media-note-head">
+    {%- if page.cover -%}
+    <img class="media-note-cover" src="{{ page.cover }}" alt="Cover of {{ clean_title }}" loading="lazy">
+    {%- endif -%}
+    <div class="media-note-meta">
+      <span class="tag">{{ type }}</span>
+      <h1>{{ clean_title }}</h1>
+      <dl class="media-facts">
+        {%- if creator != '' -%}<dt>{{ creator_label }}</dt><dd>{{ creator }}</dd>{%- endif -%}
+        {%- if page.year -%}<dt>Year</dt><dd>{{ page.year }}</dd>{%- endif -%}
+        {%- if genre != '' -%}<dt>Genre</dt><dd>{{ genre }}</dd>{%- endif -%}
+        {%- if page.runtime -%}<dt>Runtime</dt><dd>{{ page.runtime }}</dd>{%- endif -%}
+        {%- if page.pages -%}<dt>Pages</dt><dd>{{ page.pages }}</dd>{%- elsif page.length -%}<dt>Pages</dt><dd>{{ page.length }}</dd>{%- endif -%}
+        {%- if cast != '' -%}<dt>Cast</dt><dd>{{ cast }}</dd>{%- endif -%}
+        {%- if page.rating -%}
+        <dt>Rating</dt>
+        <dd>{%- assign filled = page.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.rating }}/7" aria-label="{{ page.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span></dd>
+        {%- endif -%}
+      </dl>
+    </div>
+  </div>
+
+  {%- if page.plot -%}<p class="media-note-plot">{{ page.plot }}</p>{%- endif -%}
+
+  <div id="notes-entry-container" class="media-note-body">
+    <content>
+      {{ content }}
+    </content>
+  </div>
+
+  <p class="media-note-back"><a class="internal-link" href="{{ site.baseurl }}/media/">← Media Diet</a></p>
+</article>

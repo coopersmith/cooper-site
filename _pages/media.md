@@ -111,8 +111,6 @@ Everything I've been reading, watching, and listening to — in one place.
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
 
-  .rating-marks { letter-spacing: 0.12em; white-space: nowrap; font-size: 0.92em; }
-
   /* ---- Covers view ---- */
   .media-grid {
     display: grid;
