@@ -46,7 +46,7 @@ Everything I've been reading, watching, and listening to — in one place.
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
         <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
-        <td class="index-date muted media-rating">{% if e.rating %}★ {{ e.rating }}{% endif %}</td>
+        <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign full = e.rating | divided_by: 2 -%}{%- assign half = e.rating | modulo: 2 -%}<span class="rating-stars" title="{{ e.rating }}/10" aria-label="{{ e.rating }} out of 10">{%- for i in (1..full) -%}★{%- endfor -%}{%- if half == 1 -%}½{%- endif -%}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
   </table>
