@@ -52,3 +52,9 @@ defaults:
       path: "_photos/**/*.md"
     values:
       layout: "photo"
+  # Media notes (Books / Movies / Albums) use a richer frontmatter-driven
+  # layout. Listed after the _notes rule so it takes precedence.
+  - scope:
+      path: "_notes/MediaDiet/**/*.md"
+    values:
+      layout: "media"
