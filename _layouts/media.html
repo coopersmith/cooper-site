@@ -23,12 +23,12 @@ layout: default
 {%- assign cast = page.cast | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
 
 <article class="media-note">
-  <span class="tag media-note-type">{{ type }}</span>
   <div class="media-note-head">
     {%- if page.cover -%}
     <img class="media-note-cover" src="{{ page.cover }}" alt="Cover of {{ clean_title }}" loading="lazy">
     {%- endif -%}
     <div class="media-note-meta">
+      <span class="tag media-note-type">{{ type }}</span>
       <h1>{{ clean_title }}</h1>
       <dl class="media-facts">
         {%- if creator != '' -%}<dt>{{ creator_label }}</dt><dd>{{ creator }}</dd>{%- endif -%}
