@@ -7,9 +7,10 @@ permalink: /media/
 
 # Media Diet
 
-Everything I've been reading, watching, and listening to — in one place.
+Everything I've been reading, watching, listening to, and seeing live — in one place.
 
 {% assign entries = site.notes | where_exp: "n", "n.cover" | where_exp: "n", "n.path contains 'MediaDiet/'" | sort: "created" | reverse %}
+{% assign concerts = site.notes | where_exp: "n", "n.tags contains 'concerts'" | sort: "Dates" | reverse %}
 
 <div class="media-toolbar">
   <div class="media-filters" role="group" aria-label="Filter by type">
@@ -17,11 +18,12 @@ Everything I've been reading, watching, and listening to — in one place.
     <button type="button" class="tag" data-filter="book">Books</button>
     <button type="button" class="tag" data-filter="movie">Movies</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
+    <button type="button" class="tag" data-filter="concert">Live</button>
   </div>
   <div class="media-toolbar-controls">
     <span class="sort-control">
       <label for="media-sort">Sort</label>
-      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tr, li">
+      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid, #media-library .media-live" data-sort-item="tr, li">
         <option value="date">Date</option>
         <option value="az">A→Z</option>
         <option value="rating">Rating</option>
@@ -89,6 +91,20 @@ Everything I've been reading, watching, and listening to — in one place.
     {% endfor %}
   </ul>
 
+  <table class="index-table media-live">
+    {% for c in concerts %}
+      {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
+      {% if artists == '' %}{% assign artists = c.title %}{% endif %}
+      {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
+      <tr data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}">
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
+        <td class="index-meta"><span class="tag">Live</span></td>
+        <td class="index-meta muted">{{ venue }}</td>
+        <td class="index-date muted">{{ c.Dates | date: "%b %Y" }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
 </div>
 
 <style>
@@ -128,6 +144,14 @@ Everything I've been reading, watching, and listening to — in one place.
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
 
+  /* Live (concerts) section: hidden until the Live filter is chosen, then
+     it replaces the cover-driven media views. */
+  .media-live.index-table { margin: 0; }
+  #media-library .media-live { display: none; }
+  #media-library.show-live .media-list,
+  #media-library.show-live .media-grid { display: none !important; }
+  #media-library.show-live .media-live { display: table; }
+
   /* ---- Covers view ---- */
   .media-grid {
     display: grid;
@@ -162,6 +186,7 @@ Everything I've been reading, watching, and listening to — in one place.
     if (!lib) return;
     var viewBtns = document.querySelectorAll('.media-view-btn');
     var chips = document.querySelectorAll('.media-filters .tag');
+    var viewToggle = document.querySelector('.media-toggle');
 
     function setView(view) {
       lib.classList.remove('view-list', 'view-covers');
@@ -171,8 +196,14 @@ Everything I've been reading, watching, and listening to — in one place.
     }
 
     function setFilter(type) {
-      lib.querySelectorAll('[data-type]').forEach(function (el) {
-        el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
+      var isLive = (type === 'concert');
+      lib.classList.toggle('show-live', isLive);
+      // The list/covers toggle is meaningless for the Live (concerts) list.
+      if (viewToggle) viewToggle.style.visibility = isLive ? 'hidden' : '';
+      // Only the cover-driven media items are filtered by type; the Live
+      // table is shown/hidden wholesale via the show-live class above.
+      lib.querySelectorAll('.media-list [data-type], .media-grid [data-type]').forEach(function (el) {
+        el.classList.toggle('is-hidden', !isLive && type !== 'all' && el.dataset.type !== type);
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
     }
