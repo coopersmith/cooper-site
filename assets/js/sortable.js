@@ -3,6 +3,8 @@
 //   data-sort-scope : CSS selector matching the container(s) to reorder
 //   data-sort-item  : selector for the sortable items within each container
 // Items expose data-title / data-date / data-rating for the sort keys.
+// data-ranking (optional) is Coop's hand-ordered favourites list (1 = best);
+// it rides on top of the rating sort so ranked items lead in rank order.
 (function () {
   function compare(key) {
     return function (a, b) {
@@ -10,6 +12,16 @@
         return (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
       }
       if (key === 'rating') {
+        // A hand-picked ranking (e.g. Coop's 100 movies) outranks the coarse
+        // 1–7 rating: ranked items sort first by rank, the rest fall back to
+        // rating, highest first.
+        var ra = parseInt(a.getAttribute('data-ranking'), 10);
+        var rb = parseInt(b.getAttribute('data-ranking'), 10);
+        var aRanked = !isNaN(ra);
+        var bRanked = !isNaN(rb);
+        if (aRanked && bRanked) return ra - rb;
+        if (aRanked) return -1;
+        if (bRanked) return 1;
         return (parseFloat(b.getAttribute('data-rating')) || 0) - (parseFloat(a.getAttribute('data-rating')) || 0);
       }
       // 'date' — newest first
