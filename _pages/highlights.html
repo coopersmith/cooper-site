@@ -15,6 +15,37 @@ permalink: /highlights
 let nextPageUrl = null;
 let isLoading = false;
 
+// Readwise highlight text arrives as Markdown (bold, italic, links). Render a
+// safe subset to HTML: escape everything first, then re-introduce only the
+// tags we generate ourselves.
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderMarkdown(text) {
+  if (!text) return '';
+  // Split on blank lines into paragraphs; single newlines become <br>.
+  return escapeHtml(text)
+    .split(/\n{2,}/)
+    .map(block => {
+      const html = block
+        // [label](http(s)://url) → anchor (only http/https to avoid js: URIs)
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+                 '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+        // **bold** (before single-* italic)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        // *italic*
+        .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+      return `<p>${html}</p>`;
+    })
+    .join('');
+}
+
 async function loadHighlights(pageUrl = null, append = false) {
   const container = document.getElementById('highlights');
   const loadMoreBtn = document.getElementById('load-more-btn');
@@ -130,7 +161,7 @@ async function loadHighlights(pageUrl = null, append = false) {
       
       item.innerHTML = `
         <blockquote>
-          <p>${h.text}</p>
+          ${renderMarkdown(h.text)}
           ${attributionHtml ? `<cite>— ${attributionHtml}</cite>` : ''}
         </blockquote>
       `;
