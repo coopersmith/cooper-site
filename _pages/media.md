@@ -23,7 +23,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   <div class="media-toolbar-controls">
     <span class="sort-control">
       <label for="media-sort">Sort</label>
-      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid, #media-library .media-live" data-sort-item="tr, li">
+      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tr, li">
         <option value="date">Date</option>
         <option value="az">A→Z</option>
         <option value="rating">Rating</option>
@@ -64,6 +64,18 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ e.rating }}/7" aria-label="{{ e.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
+    {% for c in concerts %}
+      {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
+      {% if artists == '' %}{% assign artists = c.title %}{% endif %}
+      {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
+      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
+        <td class="index-meta"><span class="tag">Live</span></td>
+        <td class="index-meta muted">{{ venue }}</td>
+        <td class="index-date muted">{{ c.Dates | date: "%Y" }}</td>
+        <td class="index-date muted"></td>
+      </tr>
+    {% endfor %}
   </table>
 
   <ul class="media-grid">
@@ -90,20 +102,6 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       </li>
     {% endfor %}
   </ul>
-
-  <table class="index-table media-live">
-    {% for c in concerts %}
-      {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      {% if artists == '' %}{% assign artists = c.title %}{% endif %}
-      {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <tr data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}">
-        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
-        <td class="index-meta"><span class="tag">Live</span></td>
-        <td class="index-meta muted">{{ venue }}</td>
-        <td class="index-date muted">{{ c.Dates | date: "%b %Y" }}</td>
-      </tr>
-    {% endfor %}
-  </table>
 
 </div>
 
@@ -144,14 +142,6 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
 
-  /* Live (concerts) section: hidden until the Live filter is chosen, then
-     it replaces the cover-driven media views. */
-  .media-live.index-table { margin: 0; }
-  #media-library .media-live { display: none; }
-  #media-library.show-live .media-list,
-  #media-library.show-live .media-grid { display: none !important; }
-  #media-library.show-live .media-live { display: table; }
-
   /* ---- Covers view ---- */
   .media-grid {
     display: grid;
@@ -188,22 +178,20 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var chips = document.querySelectorAll('.media-filters .tag');
     var viewToggle = document.querySelector('.media-toggle');
 
-    function setView(view) {
+    function setView(view, persist) {
       lib.classList.remove('view-list', 'view-covers');
       lib.classList.add('view-' + view);
       viewBtns.forEach(function (b) { b.classList.toggle('is-active', b.dataset.view === view); });
-      try { localStorage.setItem('mediaView', view); } catch (e) {}
+      if (persist !== false) { try { localStorage.setItem('mediaView', view); } catch (e) {} }
     }
 
     function setFilter(type) {
       var isLive = (type === 'concert');
-      lib.classList.toggle('show-live', isLive);
-      // The list/covers toggle is meaningless for the Live (concerts) list.
+      // Concerts have no cover art, so Live is list-only; hide the toggle.
+      if (isLive) setView('list', false);
       if (viewToggle) viewToggle.style.visibility = isLive ? 'hidden' : '';
-      // Only the cover-driven media items are filtered by type; the Live
-      // table is shown/hidden wholesale via the show-live class above.
-      lib.querySelectorAll('.media-list [data-type], .media-grid [data-type]').forEach(function (el) {
-        el.classList.toggle('is-hidden', !isLive && type !== 'all' && el.dataset.type !== type);
+      lib.querySelectorAll('[data-type]').forEach(function (el) {
+        el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
     }
