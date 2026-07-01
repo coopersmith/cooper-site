@@ -419,25 +419,60 @@ a {
   outline: none;
 }
 
-.nav {
-  display: flex; /* Arrange links in a row */
-  gap: 1em; /* Add space between links */
-  align-items: center; /* Align items vertically */
+/* Persistent site masthead — rendered on every page except the
+   full-bleed photo layouts (which keep their floating back arrow). */
+.site-nav {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5em 1.4em;
+  margin-bottom: 3.5em;
+  padding-bottom: 1.1em;
+  border-bottom: 1px solid var(--color-border);
   font-size: var(--text-ui);
 }
 
-.nav a {
+.site-nav__title {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
   text-decoration: none;
-  color: var(--color-text-secondary); /* Adjust color for links */
-  transition: color 0.3s;
+  margin-right: auto; /* push section links to the right */
 }
 
-.nav a:hover {
-  color: var(--color-accent);
+.site-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1em;
 }
 
-.nav a b {
-  font-size: var(--text-body); /* Slightly larger for the site title */
+.site-nav__link {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-nav__link:hover {
+  color: var(--color-text-primary);
+}
+
+.site-nav__link.is-active {
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+@media (max-width: 600px) {
+  .site-nav {
+    margin-bottom: 2.5em;
+    gap: 0.4em 1em;
+  }
+  .site-nav__title {
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 0.3em;
+  }
+  .site-nav__links {
+    gap: 0.9em;
+  }
 }
 
 nav {
