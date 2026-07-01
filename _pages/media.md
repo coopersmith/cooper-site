@@ -19,12 +19,14 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     <button type="button" class="tag" data-filter="movie">Movies</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
     <button type="button" class="tag" data-filter="concert">Live</button>
+    <button type="button" class="tag" data-filter="coops100">Coop&rsquo;s 100</button>
     <select class="sort-select media-filter-select" aria-label="Filter by type">
       <option value="all">All</option>
       <option value="book">Books</option>
       <option value="movie">Movies</option>
       <option value="album">Albums</option>
       <option value="concert">Live</option>
+      <option value="coops100">Coop&rsquo;s 100</option>
     </select>
   </div>
   <div class="media-toolbar-controls">
@@ -261,8 +263,9 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var chips = document.querySelectorAll('.media-filters .tag');
     var filterSelect = document.querySelector('.media-filter-select');
     var sortSelect = document.getElementById('media-sort');
+    var sortControl = document.querySelector('.sort-control');
 
-    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
+    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1, coops100: 1 };
     var VIEWS = { list: 1, covers: 1 };
     var SORTS = { date: 1, az: 1, rating: 1 };
 
@@ -276,8 +279,9 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       var params = new URLSearchParams();
       if (currentFilter !== 'all') params.set('type', currentFilter);
       if (currentView !== 'list') params.set('view', currentView);
+      // The ranked view fixes its own order, so don't persist a sort key for it.
       var sort = sortSelect ? sortSelect.value : 'date';
-      if (sort !== 'date') params.set('sort', sort);
+      if (currentFilter !== 'coops100' && sort !== 'date') params.set('sort', sort);
       var qs = params.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
     }
@@ -293,16 +297,25 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
     function setFilter(type) {
       currentFilter = type;
+      // "Coop's 100" is a curated view: show only movies that carry a
+      // hand-ranking and order them 1→N. Every other filter matches by type.
+      var ranked = type === 'coops100';
       lib.querySelectorAll('[data-type]').forEach(function (el) {
-        el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
+        var hide;
+        if (type === 'all') hide = false;
+        else if (ranked) hide = !(el.dataset.type === 'movie' && el.dataset.ranking);
+        else hide = el.dataset.type !== type;
+        el.classList.toggle('is-hidden', hide);
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
       if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
-      // The hand-ranking only leads the rating sort while viewing Movies, so
-      // Coop's 100 surface as a contiguous list without reordering other views.
+      // In the ranked view the order is fixed to the ranking, so drive the
+      // sort with a forced key and hide the (now moot) sort control.
+      if (sortControl) sortControl.classList.toggle('is-hidden', ranked);
       if (sortSelect) {
-        sortSelect.setAttribute('data-rank-active', type === 'movie' ? '1' : '0');
-        // Re-run the sort so ranking turns on/off as the filter changes.
+        if (ranked) sortSelect.setAttribute('data-force-sort', 'ranked');
+        else sortSelect.removeAttribute('data-force-sort');
+        // Re-run the sort so the ranked order applies / clears with the filter.
         sortSelect.dispatchEvent(new Event('change'));
       }
       updateUrl();
