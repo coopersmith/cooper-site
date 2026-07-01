@@ -1,0 +1,202 @@
+# Changelog entries, generated from merged pull requests by
+# scripts/generate_changelog.rb (each summary is a human-readable "what & why"
+# written by Claude). This file is committed so the site build never calls any
+# API. You can hand-edit any summary/title/category — the generator only adds
+# NEW merged PRs and leaves existing entries untouched.
+#
+# Fields: number, date (YYYY-MM-DD), title, category, summary, url
+# Categories: feature, fix, design, refactor, content, chore, polish
+---
+- number: 38
+  date: '2026-06-30'
+  title: Redesign the Media Diet as a merged library
+  category: feature
+  summary: >-
+    Rebuilt the Media Diet into a single library of everything I've read and
+    watched, with a List/Covers toggle that remembers your choice — the goal
+    was one home for all media that auto-includes any note with a cover image.
+  url: https://github.com/coopersmith/cooper-site/pull/38
+
+- number: 37
+  date: '2026-06-28'
+  title: Make the Travels page post-driven
+  category: refactor
+  summary: >-
+    Replaced a 230-line hand-maintained travels list with a dynamic index built
+    from notes tagged #travel, so adding a trip is now just writing a note —
+    matching the pattern the Concerts page already used.
+  url: https://github.com/coopersmith/cooper-site/pull/37
+
+- number: 36
+  date: '2026-06-28'
+  title: Refresh homepage links and add a Media Diet index
+  category: content
+  summary: >-
+    Tidied the homepage "Elsewhere" links (Photos became "Visual Diary") and
+    introduced a dedicated /media index, giving what I'm reading and watching a
+    proper front door.
+  url: https://github.com/coopersmith/cooper-site/pull/36
+
+- number: 35
+  date: '2026-06-28'
+  title: Reverse-geocode check-in neighborhoods
+  category: feature
+  summary: >-
+    Foursquare's neighborhood tags turned out to be sparse, so the check-in line
+    now fills the gaps by reverse-geocoding each spot's coordinates through
+    OpenStreetMap — all server-side and edge-cached, so it never slows the page.
+  url: https://github.com/coopersmith/cooper-site/pull/35
+
+- number: 34
+  date: '2026-06-28'
+  title: Show neighborhood alongside city in the last check-in
+  category: feature
+  summary: >-
+    Enriched the "last seen at" line to include the neighborhood when Foursquare
+    has one, so it reads "Greenwich Village, New York" — falling back to just the
+    city when it doesn't.
+  url: https://github.com/coopersmith/cooper-site/pull/34
+
+- number: 33
+  date: '2026-06-28'
+  title: Show the now-playing track inline
+  category: polish
+  summary: >-
+    Small fix to the homepage "Lately" line so the currently-playing track reads
+    as a second sentence in the same paragraph instead of dropping onto its own
+    line.
+  url: https://github.com/coopersmith/cooper-site/pull/33
+
+- number: 32
+  date: '2026-06-28'
+  title: Turn on the Foursquare last check-in
+  category: feature
+  summary: >-
+    Got the long-broken "last check-in" module working by switching to a user
+    OAuth token — the old client-credentials auth could never read personal
+    check-ins, which is why it had sat commented out.
+  url: https://github.com/coopersmith/cooper-site/pull/32
+
+- number: 31
+  date: '2026-06-28'
+  title: Add a "See more" link and drop the top nav
+  category: design
+  summary: >-
+    Added a "See more →" link under the recent notes and removed the top-level
+    navigation entirely, betting that the page itself is a better way to explore
+    the site than a menu bar.
+  url: https://github.com/coopersmith/cooper-site/pull/31
+
+- number: 30
+  date: '2026-06-28'
+  title: Redesign the home page as a scannable index
+  category: design
+  summary: >-
+    Reworked the home page from a wall of bio prose into a scannable index — a
+    tight two-line intro, a labeled recent-notes list, and an "Elsewhere"
+    directory — inspired by personal sites like jmduke.com and stephango.com.
+  url: https://github.com/coopersmith/cooper-site/pull/30
+
+- number: 29
+  date: '2026-06-20'
+  title: Track note creation dates
+  category: feature
+  summary: >-
+    Started recording when each note was first written — from frontmatter or its
+    first git commit — so the homepage and index can sort by creation date
+    rather than last edit, which better reflects when I actually made something.
+  url: https://github.com/coopersmith/cooper-site/pull/29
+
+- number: 28
+  date: '2026-06-17'
+  title: Move typography and color to design tokens
+  category: refactor
+  summary: >-
+    Migrated the stylesheet from scattered SCSS variables to a CSS
+    custom-property token system for type, color, and spacing, establishing a
+    single source of truth that makes future restyles far easier.
+  url: https://github.com/coopersmith/cooper-site/pull/28
+
+- number: 27
+  date: '2026-06-13'
+  title: Fix the real mobile page overflow
+  category: fix
+  summary: >-
+    Traced the actual mobile bug — the whole page rendered wider than the screen
+    — to a grid column with no width cap, and fixed it with minmax(0, 1fr) so
+    lines finally stop clipping off the right edge.
+  url: https://github.com/coopersmith/cooper-site/pull/27
+
+- number: 26
+  date: '2026-06-13'
+  title: First pass at mobile text overflow
+  category: fix
+  summary: >-
+    Added word-wrapping rules so long wikilinks and URLs stop pushing text past
+    the viewport, and bumped mobile body text to 17px for readability — a first
+    attempt that #27 later completed.
+  url: https://github.com/coopersmith/cooper-site/pull/26
+
+- number: 14
+  date: '2025-08-29'
+  title: Fix light/dark mode accessibility
+  category: fix
+  summary: >-
+    Improved accessibility in both color modes — raised low-contrast hover
+    colors, added skip links for keyboard users, and honored
+    prefers-reduced-motion so animations respect that setting.
+  url: https://github.com/coopersmith/cooper-site/pull/14
+
+- number: 12
+  date: '2025-08-29'
+  title: Another pass at typography
+  category: design
+  summary: >-
+    Refined the site's type styles for clearer hierarchy and better readability,
+    taking cues from a few reference sites I admire.
+  url: https://github.com/coopersmith/cooper-site/pull/12
+
+- number: 11
+  date: '2025-08-29'
+  title: Add attribution to highlights
+  category: content
+  summary: >-
+    Added source attribution to the quotes on the highlights page so each one
+    credits the book or article it came from.
+  url: https://github.com/coopersmith/cooper-site/pull/11
+
+- number: 10
+  date: '2025-08-13'
+  title: Add a Readwise highlights page
+  category: feature
+  summary: >-
+    Built a /highlights page that pulls my recent Readwise highlights, backed by
+    a Netlify function that proxies the Readwise API so the access token stays
+    server-side.
+  url: https://github.com/coopersmith/cooper-site/pull/10
+
+- number: 7
+  date: '2025-08-06'
+  title: Add a scrapbook gallery with lightbox
+  category: feature
+  summary: >-
+    Created a /scrapbook page that builds a responsive photo grid from images in
+    assets/scrapbook, with a SimpleLightbox click-to-zoom view.
+  url: https://github.com/coopersmith/cooper-site/pull/7
+
+- number: 6
+  date: '2025-08-06'
+  title: Document and ignore scrapbook assets
+  category: chore
+  summary: >-
+    Documented the scrapbook image folder with a README and told git to ignore
+    the images, keeping personal photos local instead of committed to the repo.
+  url: https://github.com/coopersmith/cooper-site/pull/6
+
+- number: 4
+  date: '2025-08-05'
+  title: Fix a spelling typo in Travels
+  category: fix
+  summary: >-
+    Corrected the spelling of Guerneville in the 2023 travels entry.
+  url: https://github.com/coopersmith/cooper-site/pull/4
