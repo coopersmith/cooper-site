@@ -275,32 +275,6 @@ h1 {
   font-weight: var(--weight-normal);
 }
 
-/* In-flow "back" pill for text pages (notes, concerts, etc.).
-   The full-bleed photo pages use the fixed .photo-back-button instead. */
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  margin-bottom: 1.8em;
-  padding: 0.4em 0.9em;
-  border: 1px solid var(--color-border);
-  border-radius: 2em;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-tertiary);
-  font-size: var(--text-ui);
-  font-weight: var(--weight-medium);
-  text-decoration: none;
-  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-}
-
-.back-button:hover {
-  color: var(--color-text-primary);
-  background: var(--color-bg-secondary);
-  border-color: var(--color-text-tertiary);
-  transform: translateX(-2px);
-  text-decoration: none;
-}
-
 h2 {
   font-family: var(--font-sans);
   font-weight: var(--weight-semibold);
