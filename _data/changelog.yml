@@ -7,6 +7,67 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 45
+  date: '2026-07-01'
+  title: Keep the homepage recent notes to garden notes
+  category: fix
+  summary: >-
+    Filtered Media Diet entries out of the homepage "Recent notes" list — the
+    redesign had reset their file dates, so they'd jumped to the top and crowded
+    out the actual garden notes.
+  url: https://github.com/coopersmith/cooper-site/pull/45
+
+- number: 44
+  date: '2026-07-01'
+  title: Bake Readwise book highlights into notes at build time
+  category: feature
+  summary: >-
+    Taught the build to pull a book's Readwise highlights straight into its note
+    from a plain Obsidian embed, so the highlights show up on the site while the
+    Obsidian vault stays pure, portable markdown with nothing Readwise-specific
+    committed.
+  url: https://github.com/coopersmith/cooper-site/pull/44
+
+- number: 42
+  date: '2026-07-01'
+  title: Add this changelog
+  category: feature
+  summary: >-
+    Added the changelog you're reading — a plain-English, month-grouped log of
+    what I've been building, written up from each merged pull request — and
+    wired the site's font to a single config source while I was at it.
+  url: https://github.com/coopersmith/cooper-site/pull/42
+
+- number: 41
+  date: '2026-07-01'
+  title: Render Markdown in Readwise highlights
+  category: fix
+  summary: >-
+    Made Readwise highlights render their Markdown — bold, italics, and links —
+    instead of showing literal asterisks and bracket syntax, escaping the HTML
+    first so nothing unsafe slips through.
+  url: https://github.com/coopersmith/cooper-site/pull/41
+
+- number: 40
+  date: '2026-07-01'
+  title: Fix white highlight cards in dark mode
+  category: fix
+  summary: >-
+    Fixed the highlights page rendering unreadable white cards in dark mode — the
+    entry class collided with the code-syntax highlighter's styling — by renaming
+    it so highlights inherit the site's own light/dark blockquote look.
+  url: https://github.com/coopersmith/cooper-site/pull/40
+
+- number: 39
+  date: '2026-07-01'
+  title: Explore folding Concerts into Media Diet
+  category: feature
+  summary: >-
+    An exploration of making Media Diet the home for concerts via a "Live" filter
+    that swaps in an Artist / Venue / Date table, left running alongside the
+    existing Concerts page so it's easy to keep or drop.
+  url: https://github.com/coopersmith/cooper-site/pull/39
+
 - number: 38
   date: '2026-06-30'
   title: Redesign the Media Diet as a merged library
