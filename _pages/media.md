@@ -61,13 +61,18 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% assign sorttitle = clean_title | downcase | strip %}
+      {%- comment -%} Display/sort by when it was consumed, not when it came out.
+        Books: end (finished). Movies/Albums: last. Albums: First Listen fallback.
+        No consumption date → blank, sorts to the bottom. {%- endcomment -%}
+      {% assign consumed = '' %}
+      {% if e.last and e.last != '' %}{% assign consumed = e.last %}{% elsif e.end and e.end != '' %}{% assign consumed = e.end %}{% elsif e['First Listen'] and e['First Listen'] != '' %}{% assign consumed = e['First Listen'] %}{% endif %}
       {% assign sortdate = '' %}
-      {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {% if consumed != '' %}{% assign sortdate = consumed | date: '%Y-%m-%d' %}{% endif %}
       <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
-        <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
+        <td class="index-date muted">{% if consumed != '' %}{{ consumed | date: '%b %Y' }}{% endif %}</td>
         <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ e.rating }}/7" aria-label="{{ e.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
@@ -79,7 +84,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
         <td class="index-meta"><span class="tag">Live</span></td>
         <td class="index-meta muted">{{ venue }}</td>
-        <td class="index-date muted">{{ c.Dates | date: "%Y" }}</td>
+        <td class="index-date muted">{{ c.Dates | date: "%b %Y" }}</td>
         <td class="index-date muted"></td>
       </tr>
     {% endfor %}
@@ -96,8 +101,10 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
       {% assign sorttitle = clean_title | downcase | strip %}
+      {% assign consumed = '' %}
+      {% if e.last and e.last != '' %}{% assign consumed = e.last %}{% elsif e.end and e.end != '' %}{% assign consumed = e.end %}{% elsif e['First Listen'] and e['First Listen'] != '' %}{% assign consumed = e['First Listen'] %}{% endif %}
       {% assign sortdate = '' %}
-      {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {% if consumed != '' %}{% assign sortdate = consumed | date: '%Y-%m-%d' %}{% endif %}
       <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
