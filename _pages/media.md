@@ -19,6 +19,13 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     <button type="button" class="tag" data-filter="movie">Movies</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
     <button type="button" class="tag" data-filter="concert">Live</button>
+    <select class="sort-select media-filter-select" aria-label="Filter by type">
+      <option value="all">All</option>
+      <option value="book">Books</option>
+      <option value="movie">Movies</option>
+      <option value="album">Albums</option>
+      <option value="concert">Live</option>
+    </select>
   </div>
   <div class="media-toolbar-controls">
     <span class="sort-control">
@@ -142,6 +149,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   }
   .media-filters { display: inline-flex; flex-wrap: wrap; gap: 0.4em; }
   .media-toolbar-controls { display: inline-flex; align-items: center; gap: 0.9em; }
+  .media-filter-select { display: none; }
 
   .media-toggle {
     display: inline-flex;
@@ -220,6 +228,9 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
   @media (max-width: 600px) {
     .media-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+    /* Filter chips wrap awkwardly on narrow screens — use a dropdown */
+    .media-filters .tag { display: none; }
+    .media-filter-select { display: inline-block; }
   }
 </style>
 
@@ -229,6 +240,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     if (!lib) return;
     var viewBtns = document.querySelectorAll('.media-view-btn');
     var chips = document.querySelectorAll('.media-filters .tag');
+    var filterSelect = document.querySelector('.media-filter-select');
 
     function setView(view, persist) {
       lib.classList.remove('view-list', 'view-covers');
@@ -242,10 +254,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
+      if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
     }
 
     viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
     chips.forEach(function (c) { c.addEventListener('click', function () { setFilter(c.dataset.filter); }); });
+    if (filterSelect) filterSelect.addEventListener('change', function () { setFilter(filterSelect.value); });
 
     var saved;
     try { saved = localStorage.getItem('mediaView'); } catch (e) {}
