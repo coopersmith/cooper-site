@@ -52,6 +52,10 @@ tags: [concerts]
 
 - **`bidirectional_links_generator.rb`** - Converts `[[wikilinks]]` to HTML, generates backlinks, creates `notes_graph.json` for visualization
 - **`photo_exif_generator.rb`** - Auto-creates `_photos/*.md` from images, extracts EXIF dates, reverse geocodes GPS coordinates via OpenStreetMap
+- **`readwise_transclusion.rb`** - Bakes Readwise book highlights into notes at build time. In a note, the native Obsidian embed `![[<Book Title> - Notes]]` is replaced with that book's highlights, fetched live from the Readwise API. Keeps the Obsidian vault pure markdown (no ids/frontmatter) and keeps Readwise notes out of the repo entirely.
+  - Requires `READWISE_TOKEN` in the build environment (same token as the `readwise-highlights` Netlify function; ensure it's exposed to builds, not just functions).
+  - Titles are matched to Readwise books ignoring case/emoji/punctuation. For titles that won't match cleanly, add `"Title": book_id` overrides in `_data/readwise_books.yml`.
+  - Fails gracefully: a missing token, no match, or an API error leaves an HTML comment and logs a warning — the build never breaks.
 
 ### Layouts
 
