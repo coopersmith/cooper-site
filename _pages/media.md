@@ -241,29 +241,72 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var viewBtns = document.querySelectorAll('.media-view-btn');
     var chips = document.querySelectorAll('.media-filters .tag');
     var filterSelect = document.querySelector('.media-filter-select');
+    var sortSelect = document.getElementById('media-sort');
+
+    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
+    var VIEWS = { list: 1, covers: 1 };
+    var SORTS = { date: 1, az: 1, rating: 1 };
+
+    var currentFilter = 'all';
+    var currentView = 'list';
+    var ready = false;
+
+    // Reflect filter + view + sort in the URL so a view can be linked/shared.
+    function updateUrl() {
+      if (!ready) return;
+      var params = new URLSearchParams();
+      if (currentFilter !== 'all') params.set('type', currentFilter);
+      if (currentView !== 'list') params.set('view', currentView);
+      var sort = sortSelect ? sortSelect.value : 'date';
+      if (sort !== 'date') params.set('sort', sort);
+      var qs = params.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
 
     function setView(view, persist) {
+      currentView = view;
       lib.classList.remove('view-list', 'view-covers');
       lib.classList.add('view-' + view);
       viewBtns.forEach(function (b) { b.classList.toggle('is-active', b.dataset.view === view); });
       if (persist !== false) { try { localStorage.setItem('mediaView', view); } catch (e) {} }
+      updateUrl();
     }
 
     function setFilter(type) {
+      currentFilter = type;
       lib.querySelectorAll('[data-type]').forEach(function (el) {
         el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
       if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
+      updateUrl();
     }
 
     viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
     chips.forEach(function (c) { c.addEventListener('click', function () { setFilter(c.dataset.filter); }); });
     if (filterSelect) filterSelect.addEventListener('change', function () { setFilter(filterSelect.value); });
+    if (sortSelect) sortSelect.addEventListener('change', updateUrl);
 
-    var saved;
-    try { saved = localStorage.getItem('mediaView'); } catch (e) {}
-    if (saved === 'covers' || saved === 'list') setView(saved);
+    // ---- Initial state: URL params take precedence, then saved view ----
+    var params = new URLSearchParams(location.search);
+    var urlType = params.get('type');
+    var urlView = params.get('view');
+    var urlSort = params.get('sort');
+
+    var initView = 'list';
+    if (urlView && VIEWS[urlView]) {
+      initView = urlView;
+    } else {
+      try { var saved = localStorage.getItem('mediaView'); if (VIEWS[saved]) initView = saved; } catch (e) {}
+    }
+    setView(initView, urlView ? false : true);
+
+    // Set the sort value before sortable.js runs its load-time sort.
+    if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
+
+    if (urlType && TYPES[urlType]) setFilter(urlType);
+
+    ready = true;
   })();
 </script>
 <script src="{{ site.baseurl }}/assets/js/sortable.js"></script>
