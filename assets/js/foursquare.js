@@ -65,12 +65,71 @@ async function getLastCheckin() {
     const when = relativeTime(data.createdAt);
 
     document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${place ? ` in ${place}` : ''} ${when}</p>`;
+
+    // Let the homepage intro reflect where I actually am right now.
+    applyLocationAwareness(data);
   } catch (error) {
     console.error('Error fetching check-in data:', error);
     // Fail quietly so the homepage never shows an error line.
     const el = document.getElementById('last-checkin');
     if (el) el.innerHTML = '';
   }
+}
+
+// Sort my most recent check-in into a place the homepage knows how to talk
+// about. Returns 'nyc', 'ri', or null (travelling / unknown — stay neutral).
+// Stale check-ins are treated as unknown so the page never confidently lies
+// about where I am when I've just gone a while without checking in.
+function classifyCheckin(data) {
+  if (!data || !data.createdAt) return null;
+
+  const STALE_AFTER_SECONDS = 2 * 24 * 60 * 60; // 2 days
+  const age = Date.now() / 1000 - data.createdAt;
+  if (age > STALE_AFTER_SECONDS) return null;
+
+  const loc = data.location || {};
+  const city = (loc.city || '')
+    .replace(/^(Town|City|Township|Village|Borough) of /i, '')
+    .trim()
+    .toLowerCase();
+  const state = (loc.state || '').trim().toLowerCase();
+
+  const nycCities = [
+    'new york', 'new york city', 'manhattan', 'brooklyn',
+    'queens', 'bronx', 'the bronx', 'staten island'
+  ];
+  if (nycCities.includes(city) || state === 'ny' || state === 'new york') {
+    return 'nyc';
+  }
+
+  // The Farm Coast straddles the RI/MA line, so accept all of Rhode Island
+  // plus the couple of Massachusetts border towns that are really part of it.
+  const farmCoastTowns = ['westport', 'adamsville'];
+  if (state === 'ri' || state === 'rhode island') return 'ri';
+  if (farmCoastTowns.includes(city)) return 'ri';
+
+  return null; // somewhere else — leave the neutral, both-paragraphs version
+}
+
+// Reorder the two intro paragraphs so wherever I currently am leads, and
+// rewrite that paragraph's opening clause into the present tense. No-ops
+// gracefully if the markup isn't present or the location is unknown.
+function applyLocationAwareness(data) {
+  const bucket = classifyCheckin(data);
+  if (!bucket) return;
+
+  const active = document.getElementById(bucket === 'nyc' ? 'intro-nyc' : 'intro-ri');
+  const other = document.getElementById(bucket === 'nyc' ? 'intro-ri' : 'intro-nyc');
+  if (!active || !other) return;
+
+  // Move the active paragraph ahead of the other one if it isn't already.
+  if (active.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_PRECEDING) {
+    active.parentNode.insertBefore(active, other);
+  }
+
+  // Swap "When I'm in X, I…" for a present-tense "I'm in X right now…".
+  const lead = active.querySelector('.loc-lead');
+  if (lead && lead.dataset.live) lead.textContent = lead.dataset.live;
 }
 
 // Call the function when the page loads
