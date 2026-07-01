@@ -76,10 +76,26 @@ async function getLastCheckin() {
   }
 }
 
-// Sort my most recent check-in into a place the homepage knows how to talk
-// about. Returns 'nyc', 'ri', or null (travelling / unknown — stay neutral).
-// Stale check-ins are treated as unknown so the page never confidently lies
-// about where I am when I've just gone a while without checking in.
+// Build a human place string for a check-in that's away from home, e.g.
+// "Rome, Italy" or "Denver, Colorado". Abroad we pair the city with the
+// country; in the US we pair it with the state. Returns '' if we can't
+// name anywhere useful.
+function travelPlace(loc) {
+  const city = (loc.city || '')
+    .replace(/^(Town|City|Township|Village|Borough) of /i, '')
+    .trim();
+  const cc = (loc.cc || '').toUpperCase();
+  const region = (cc === 'US' ? (loc.state || '') : (loc.country || '')).trim();
+
+  return [city, region]
+    .filter((part, i, parts) => part && parts.indexOf(part) === i)
+    .join(', ');
+}
+
+// Sort my most recent check-in into how the homepage should talk about it.
+// Returns { bucket: 'nyc' | 'ri' | 'travel', place? } or null. Stale check-ins
+// return null so the page falls back to neutral rather than confidently lying
+// about where I am after I've gone a while without checking in.
 function classifyCheckin(data) {
   if (!data || !data.createdAt) return null;
 
@@ -99,38 +115,57 @@ function classifyCheckin(data) {
     'queens', 'bronx', 'the bronx', 'staten island'
   ];
   if (nycCities.includes(city) || state === 'ny' || state === 'new york') {
-    return 'nyc';
+    return { bucket: 'nyc' };
   }
 
   // The Farm Coast straddles the RI/MA line and it's all basically the same
   // place, so treat both states as "Rhode Island" for the intro.
-  if (state === 'ri' || state === 'rhode island') return 'ri';
-  if (state === 'ma' || state === 'massachusetts') return 'ri';
+  if (state === 'ri' || state === 'rhode island' ||
+      state === 'ma' || state === 'massachusetts') {
+    return { bucket: 'ri' };
+  }
 
-  return null; // somewhere else — leave the neutral, both-paragraphs version
+  // A recent check-in anywhere else means I'm on the road.
+  return { bucket: 'travel', place: travelPlace(loc) };
 }
 
-// Reorder the two intro paragraphs so wherever I currently am leads, and
-// rewrite that paragraph's opening clause into the present tense. No-ops
-// gracefully if the markup isn't present or the location is unknown.
+// Reflect my most recent check-in in the intro: home check-ins reorder the
+// two paragraphs and swap the opening line to "I'm currently in…"; a check-in
+// away from home swaps in a travel line that points at Instagram. No-ops
+// gracefully if the markup is missing or the location is unknown.
 function applyLocationAwareness(data) {
-  const bucket = classifyCheckin(data);
-  if (!bucket) return;
+  const result = classifyCheckin(data);
+  if (!result) return;
 
+  const leadNeutral = document.getElementById('intro-lead-neutral');
+  if (!leadNeutral) return;
+
+  // On the road: nudge toward the Instagram feed instead of reordering the
+  // two home paragraphs (I'm in neither place right now).
+  if (result.bucket === 'travel') {
+    const leadTravel = document.getElementById('intro-lead-travel');
+    if (!leadTravel) return;
+    const placeEl = document.getElementById('travel-place');
+    if (placeEl) placeEl.textContent = result.place ? ` in ${result.place}` : '';
+    leadNeutral.classList.add('loc-alt');
+    leadTravel.classList.remove('loc-alt');
+    return;
+  }
+
+  const bucket = result.bucket;
+
+  // Move the paragraph for wherever I am ahead of the other one.
   const active = document.getElementById(bucket === 'nyc' ? 'intro-nyc' : 'intro-ri');
   const other = document.getElementById(bucket === 'nyc' ? 'intro-ri' : 'intro-nyc');
-  if (!active || !other) return;
-
-  // Move the active paragraph ahead of the other one if it isn't already.
-  if (active.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_PRECEDING) {
+  if (active && other &&
+      (active.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_PRECEDING)) {
     active.parentNode.insertBefore(active, other);
   }
 
   // Swap the neutral "I split my time between…" opening line for the
   // present-tense "I'm currently in…" variant that matches where I am.
-  const leadNeutral = document.getElementById('intro-lead-neutral');
   const leadActive = document.getElementById(bucket === 'nyc' ? 'intro-lead-nyc' : 'intro-lead-ri');
-  if (leadNeutral && leadActive) {
+  if (leadActive) {
     leadNeutral.classList.add('loc-alt');
     leadActive.classList.remove('loc-alt');
   }

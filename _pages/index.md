@@ -16,6 +16,9 @@ I'm currently in Brooklyn, NY, though I spend equal time on Rhode Island's [Farm
 I'm currently on Rhode Island's [Farm Coast](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html), though I spend equal time in Brooklyn, NY.
 {: #intro-lead-ri .loc-alt}
 
+I'm currently traveling<span id="travel-place"></span> — follow the adventures on [Instagram](https://www.instagram.com/coopersmith).
+{: #intro-lead-travel .loc-alt}
+
 When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design for our Align and Mobile organizations. I have over a decade of experience building products and teams at [[Lyft]], [[Twitter]], [[Foursquare]] and [[Asana]].
 {: #intro-nyc}
 
