@@ -101,6 +101,27 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         </a>
       </li>
     {% endfor %}
+    {% for c in concerts %}
+      {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
+      {% if artists == '' %}{% assign artists = c.title %}{% endif %}
+      {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
+      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
+        <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists }}">
+          {% if c.cover %}
+          <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
+          {% else %}
+          <span class="media-cover media-cover--gig">
+            <span class="gig-venue">{{ venue }}</span>
+            <span class="gig-year">{{ c.Dates | date: "%Y" }}</span>
+          </span>
+          {% endif %}
+          <span class="media-card-meta">
+            <span class="media-card-title">{{ artists }}</span>
+            <span class="tag">Live</span>
+          </span>
+        </a>
+      </li>
+    {% endfor %}
   </ul>
 
 </div>
@@ -155,6 +176,30 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     box-shadow: 0 2px 8px rgba(0,0,0,0.16); transition: transform 0.15s ease;
   }
   .media-card a:hover .media-cover { transform: translateY(-3px); }
+
+  /* Typographic fallback "cover" for concerts with no image */
+  .media-cover--gig {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.35em;
+    padding: 1em 0.9em;
+    border: 1px solid var(--color-border);
+    box-shadow: none;
+  }
+  .media-cover--gig .gig-venue {
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+    font-size: 0.92em;
+    line-height: var(--leading-snug, 1.3);
+  }
+  .media-cover--gig .gig-year {
+    color: var(--color-text-tertiary);
+    font-size: 0.82em;
+    font-variant-numeric: tabular-nums;
+  }
   .media-card-meta {
     display: flex; align-items: baseline; justify-content: space-between; gap: 0.5em;
     margin-top: 0.55em;
@@ -176,7 +221,6 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     if (!lib) return;
     var viewBtns = document.querySelectorAll('.media-view-btn');
     var chips = document.querySelectorAll('.media-filters .tag');
-    var viewToggle = document.querySelector('.media-toggle');
 
     function setView(view, persist) {
       lib.classList.remove('view-list', 'view-covers');
@@ -186,10 +230,6 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     }
 
     function setFilter(type) {
-      var isLive = (type === 'concert');
-      // Concerts have no cover art, so Live is list-only; hide the toggle.
-      if (isLive) setView('list', false);
-      if (viewToggle) viewToggle.style.visibility = isLive ? 'hidden' : '';
       lib.querySelectorAll('[data-type]').forEach(function (el) {
         el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
       });
