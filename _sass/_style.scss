@@ -394,12 +394,6 @@ a {
   outline: none;
 }
 
-/* Smooth cross-page fades in supporting browsers (progressive
-   enhancement — ignored where unsupported). */
-@view-transition {
-  navigation: auto;
-}
-
 /* Wordmark-only masthead — the single persistent affordance: go home.
    Full wayfinding lives in the footer nav. Suppressed on the full-bleed
    photo layouts, which keep their floating back arrow. */
