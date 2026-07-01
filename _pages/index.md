@@ -21,7 +21,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     {% assign all_notes = site.notes | sort: "created_at_timestamp" | reverse %}
     {% assign count = 0 %}
     {% for note in all_notes %}
-      {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' %}
+      {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' %}
         {% if count < 5 %}
           <li>
             <span class="date">{{ note.created_at | date: "%b %Y" }}</span>
@@ -32,7 +32,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
       {% endunless %}
     {% endfor %}
   </ul>
-  <p class="home-more"><a class="internal-link" href="{{ site.baseurl }}/tableofcontents/">See more →</a></p>
+  <p class="home-more"><a class="internal-link" href="{{ site.baseurl }}/notes/">See more →</a></p>
 </section>
 
 <section class="home-section">
