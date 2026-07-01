@@ -279,6 +279,13 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
       if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
+      // The hand-ranking only leads the rating sort while viewing Movies, so
+      // Coop's 100 surface as a contiguous list without reordering other views.
+      if (sortSelect) {
+        sortSelect.setAttribute('data-rank-active', type === 'movie' ? '1' : '0');
+        // Re-run the sort so ranking turns on/off as the filter changes.
+        sortSelect.dispatchEvent(new Event('change'));
+      }
       updateUrl();
     }
 
