@@ -147,10 +147,7 @@ time {
 }
 
 footer {
-  margin: 2em 0;
-  font-size: 0.8em;
   color: var(--color-text-tertiary);
-  padding-top: 1em;
 }
 
 img {
@@ -393,60 +390,73 @@ a {
   outline: none;
 }
 
-/* Persistent site masthead — rendered on every page except the
-   full-bleed photo layouts (which keep their floating back arrow). */
-.site-nav {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.5em 1.4em;
-  margin-bottom: 3.5em;
-  padding-bottom: 1.1em;
-  border-bottom: 1px solid var(--color-border);
+/* Smooth cross-page fades in supporting browsers (progressive
+   enhancement — ignored where unsupported). */
+@view-transition {
+  navigation: auto;
+}
+
+/* Wordmark-only masthead — the single persistent affordance: go home.
+   Full wayfinding lives in the footer nav. Suppressed on the full-bleed
+   photo layouts, which keep their floating back arrow. */
+.mast {
+  margin-bottom: 2.6em;
   font-size: var(--text-ui);
 }
 
-.site-nav__title {
+.mast__title {
   font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
   text-decoration: none;
-  margin-right: auto; /* push section links to the right */
 }
 
-.site-nav__links {
+.mast__title:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+  .mast {
+    margin-bottom: 2em;
+  }
+}
+
+/* Footer nav — the site map, out of the reading path. */
+.site-foot {
+  margin-top: 4em;
+  padding-top: 1.6em;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-ui);
+}
+
+.site-foot__links {
   display: flex;
   flex-wrap: wrap;
   gap: 1.1em;
+  margin-bottom: 0.9em;
 }
 
-.site-nav__link {
-  color: var(--color-text-tertiary);
+.site-foot__links a {
+  color: var(--color-text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.site-nav__link:hover {
+.site-foot__links a:hover {
   color: var(--color-text-primary);
 }
 
-.site-nav__link.is-active {
-  color: var(--color-text-primary);
-  font-weight: var(--weight-medium);
+.site-foot__meta {
+  color: var(--color-text-subtle);
+  font-size: var(--text-caption);
 }
 
-@media (max-width: 600px) {
-  .site-nav {
-    margin-bottom: 2.5em;
-    gap: 0.4em 1em;
-  }
-  .site-nav__title {
-    margin-right: 0;
-    width: 100%;
-    margin-bottom: 0.3em;
-  }
-  .site-nav__links {
-    gap: 0.9em;
-  }
+.site-foot__meta a {
+  color: var(--color-text-subtle);
+  text-decoration: none;
+}
+
+.site-foot__meta a:hover {
+  color: var(--color-text-secondary);
 }
 
 nav {
