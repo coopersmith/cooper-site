@@ -1,0 +1,15 @@
+# Optional overrides for the Readwise highlight baker
+# (_plugins/readwise_transclusion.rb).
+#
+# Most books resolve automatically: the plugin matches the title in
+# `![[<Title> - Notes]]` against your Readwise library, ignoring case, emoji,
+# and punctuation. Only add an entry here when a title WON'T match cleanly —
+# e.g. the Obsidian note and the Readwise book title differ in wording, or two
+# books share a normalized title and you need to pin the right one.
+#
+# Format:  "<Title exactly as it appears before ' - Notes'>": <readwise_book_id>
+# Find the id in the book's Readwise URL (readwise.io/bookreview/<id>) or API.
+#
+# Example:
+#   "Fleishman Is in Trouble": 12345678
+#   "Jurassic Park": 23456789
