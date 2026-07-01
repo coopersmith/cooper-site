@@ -21,7 +21,7 @@ In [[2024 Media Diet|2024]], I watched too much TV, and didn't read enough books
 | 📚     | It Was All a Dream: Biggie and the World That Made Him                                                 | Justin Tinsley                  |
 | 📚     | Our Country Friends                                                                                    | Gary Shteyngart                 |
 | 📖     | [[📚 The Sheltering Sky\|The Sheltering Sky]]                                                          | [[Paul Bowles]]                 |
-| 🎧     | [[Lorne - The Man Who Invented Saturday Night Live]]                                                   | [[Susan Morrison]]              |
+| 🎧     | [[Lorne The Man Who Invented Saturday Night Live]]                                                   | [[Susan Morrison]]              |
 | 📚     | [[Stupid TV, Be More Funny How the Golden Era of The Simpsons Changed Television—and America—Forever]] | [[Alan Siegel]]                 |
 | ✅      | [[The God of the Woods]]                                                                               | [[Liz Moore]]                   |
 | 📖     | [[📚 North Woods]]                                                                                     | [[Daniel Mason]]                |
