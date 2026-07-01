@@ -126,9 +126,14 @@ function applyLocationAwareness(data) {
     active.parentNode.insertBefore(active, other);
   }
 
-  // Swap "When I'm in X, I…" for a present-tense "I'm in X right now…".
-  const lead = active.querySelector('.loc-lead');
-  if (lead && lead.dataset.live) lead.textContent = lead.dataset.live;
+  // Swap the neutral "I split my time between…" opening line for the
+  // present-tense "I'm currently in…" variant that matches where I am.
+  const leadNeutral = document.getElementById('intro-lead-neutral');
+  const leadActive = document.getElementById(bucket === 'nyc' ? 'intro-lead-nyc' : 'intro-lead-ri');
+  if (leadNeutral && leadActive) {
+    leadNeutral.classList.add('loc-alt');
+    leadActive.classList.remove('loc-alt');
+  }
 }
 
 // Call the function when the page loads

@@ -7,12 +7,19 @@ permalink: /
 
 # Hey, I'm Cooper
 
-I split my time between Brooklyn, NY and Rhode Island's [Farm Coast.](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html) 
+I split my time between Brooklyn, NY and Rhode Island's [Farm Coast](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html).
+{: #intro-lead-neutral}
 
-<span class="loc-lead" data-live="I’m currently in New York, where I’m a Director of Product Design at Asana, leading design for our Align and Mobile organizations.">When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design for our Align and Mobile organizations.</span> I have over a decade of experience building products and teams at [[Lyft]], [[Twitter]], [[Foursquare]] and [[Asana]].
+I'm currently in Brooklyn, NY, though I spend equal time on Rhode Island's [Farm Coast](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html).
+{: #intro-lead-nyc .loc-alt}
+
+I'm currently on Rhode Island's [Farm Coast](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html), though I spend equal time in Brooklyn, NY.
+{: #intro-lead-ri .loc-alt}
+
+When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design for our Align and Mobile organizations. I have over a decade of experience building products and teams at [[Lyft]], [[Twitter]], [[Foursquare]] and [[Asana]].
 {: #intro-nyc}
 
-<span class="loc-lead" data-live="I’m currently in Rhode Island, looking after our 1754 farmhouse and working remotely for Asana.">When I'm in Rhode Island, I look after our 1754 farmhouse.</span> I roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
+When I'm in Rhode Island, I look after our 1754 farmhouse and work remotely for Asana. I roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
 {: #intro-ri}
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop). 
@@ -57,6 +64,11 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
 
 <style>
   .wrapper { max-width: 46em; }
+
+  /* Location-aware intro: the alternate lead lines stay hidden until the
+     check-in script reveals the one that matches where I currently am.
+     With no JS (or an unknown location) the neutral line is what shows. */
+  .loc-alt { display: none; }
 
   .home-section { margin-top: 3em; }
 
