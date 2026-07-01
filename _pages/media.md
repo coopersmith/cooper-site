@@ -111,12 +111,13 @@ Everything I've been reading, watching, listening to, and seeing live — in one
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
           {% else %}
           <span class="media-cover media-cover--gig">
+            <span class="gig-artist">{{ artists }}</span>
             <span class="gig-venue">{{ venue }}</span>
             <span class="gig-year">{{ c.Dates | date: "%Y" }}</span>
           </span>
           {% endif %}
           <span class="media-card-meta">
-            <span class="media-card-title">{{ artists }}</span>
+            {% if c.cover %}<span class="media-card-title">{{ artists }}</span>{% endif %}
             <span class="tag">Live</span>
           </span>
         </a>
@@ -179,25 +180,32 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
   /* Typographic fallback "cover" for concerts with no image */
   .media-cover--gig {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 0.35em;
-    padding: 1em 0.9em;
+    gap: 0.3em;
+    padding: 0.9em 0.8em;
     border: 1px solid var(--color-border);
     box-shadow: none;
+    overflow: hidden;
+  }
+  .media-cover--gig .gig-artist {
+    font-weight: var(--weight-medium);
+    color: var(--color-text-primary);
+    font-size: 0.92em;
+    line-height: var(--leading-snug, 1.25);
   }
   .media-cover--gig .gig-venue {
-    font-weight: var(--weight-medium);
-    color: var(--color-text-secondary);
-    font-size: 0.92em;
-    line-height: var(--leading-snug, 1.3);
+    color: var(--color-text-tertiary);
+    font-size: 0.8em;
+    line-height: var(--leading-snug, 1.25);
   }
   .media-cover--gig .gig-year {
     color: var(--color-text-tertiary);
-    font-size: 0.82em;
+    font-size: 0.78em;
     font-variant-numeric: tabular-nums;
   }
   .media-card-meta {
