@@ -168,6 +168,25 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   .media-grid { list-style: none; margin: 0; padding: 0; }
   /* List view is a shared .index-table; sit it right under the toolbar */
   .media-list.index-table { margin: 0; }
+
+  /* The media list carries more columns than the other index tables
+     (type · creator · year · rating). With auto table layout a long,
+     nowrap creator — e.g. a two-name director credit — stole width from
+     the title column and crushed long book titles to one word per line.
+     Pin the layout: the title takes the remainder, the secondary columns
+     are fixed, and an over-long creator/venue truncates with an ellipsis
+     rather than hogging the row. */
+  .media-list.index-table { table-layout: fixed; }
+  .media-list td { padding-left: 0.9em; }
+  .media-list .index-title { width: auto; padding-left: 0; }
+  .media-list td:nth-child(2) { width: 4.2em; }            /* type tag */
+  .media-list td:nth-child(3) {                            /* creator / venue */
+    width: 8.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .media-list td:nth-child(4) { width: 3em; }              /* year */
+  .media-list td:nth-child(5) { width: 7em; }              /* rating */
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
