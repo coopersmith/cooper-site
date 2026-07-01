@@ -9,10 +9,10 @@ permalink: /
 
 I split my time between Brooklyn, NY and Rhode Island's [Farm Coast.](https://www.nytimes.com/2023/10/09/travel/east-bay-rhode-island.html) 
 
-<span class="loc-lead" data-live="I’m in New York right now — I’m">When I'm in NYC, I'm</span> a Director of Product Design at Asana, where I lead design for our Align and Mobile organizations. I have over a decade of experience building products and teams at [[Lyft]], [[Twitter]], [[Foursquare]] and [[Asana]].
+<span class="loc-lead" data-live="I’m currently in New York, where I’m a Director of Product Design at Asana, leading design for our Align and Mobile organizations.">When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design for our Align and Mobile organizations.</span> I have over a decade of experience building products and teams at [[Lyft]], [[Twitter]], [[Foursquare]] and [[Asana]].
 {: #intro-nyc}
 
-<span class="loc-lead" data-live="I’m in Rhode Island right now, and I">When I'm in Rhode Island, I</span> look after our 1754 farmhouse. I roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
+<span class="loc-lead" data-live="I’m currently in Rhode Island, looking after our 1754 farmhouse and working remotely for Asana.">When I'm in Rhode Island, I look after our 1754 farmhouse.</span> I roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
 {: #intro-ri}
 
 I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop). 
