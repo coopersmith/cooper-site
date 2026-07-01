@@ -19,12 +19,14 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     <button type="button" class="tag" data-filter="movie">Movies</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
     <button type="button" class="tag" data-filter="concert">Live</button>
+    <button type="button" class="tag" data-filter="coops100">Coop&rsquo;s 100</button>
     <select class="sort-select media-filter-select" aria-label="Filter by type">
       <option value="all">All</option>
       <option value="book">Books</option>
       <option value="movie">Movies</option>
       <option value="album">Albums</option>
       <option value="concert">Live</option>
+      <option value="coops100">Coop&rsquo;s 100</option>
     </select>
   </div>
   <div class="media-toolbar-controls">
@@ -63,7 +65,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sorttitle = clean_title | downcase | strip %}
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
-      <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
+      <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
@@ -98,7 +100,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sorttitle = clean_title | downcase | strip %}
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
-      <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
+      <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
           <span class="media-card-meta">
@@ -168,6 +170,25 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   .media-grid { list-style: none; margin: 0; padding: 0; }
   /* List view is a shared .index-table; sit it right under the toolbar */
   .media-list.index-table { margin: 0; }
+
+  /* The media list carries more columns than the other index tables
+     (type · creator · year · rating). With auto table layout a long,
+     nowrap creator — e.g. a two-name director credit — stole width from
+     the title column and crushed long book titles to one word per line.
+     Pin the layout: the title takes the remainder, the secondary columns
+     are fixed, and an over-long creator/venue truncates with an ellipsis
+     rather than hogging the row. */
+  .media-list.index-table { table-layout: fixed; }
+  .media-list td { padding-left: 0.9em; }
+  .media-list .index-title { width: auto; padding-left: 0; }
+  .media-list td:nth-child(2) { width: 4.2em; }            /* type tag */
+  .media-list td:nth-child(3) {                            /* creator / venue */
+    width: 8.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .media-list td:nth-child(4) { width: 3em; }              /* year */
+  .media-list td:nth-child(5) { width: 7em; }              /* rating */
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
@@ -242,8 +263,9 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var chips = document.querySelectorAll('.media-filters .tag');
     var filterSelect = document.querySelector('.media-filter-select');
     var sortSelect = document.getElementById('media-sort');
+    var sortControl = document.querySelector('.sort-control');
 
-    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
+    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1, coops100: 1 };
     var VIEWS = { list: 1, covers: 1 };
     var SORTS = { date: 1, az: 1, rating: 1 };
 
@@ -257,8 +279,9 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       var params = new URLSearchParams();
       if (currentFilter !== 'all') params.set('type', currentFilter);
       if (currentView !== 'list') params.set('view', currentView);
+      // The ranked view fixes its own order, so don't persist a sort key for it.
       var sort = sortSelect ? sortSelect.value : 'date';
-      if (sort !== 'date') params.set('sort', sort);
+      if (currentFilter !== 'coops100' && sort !== 'date') params.set('sort', sort);
       var qs = params.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
     }
@@ -274,11 +297,27 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
     function setFilter(type) {
       currentFilter = type;
+      // "Coop's 100" is a curated view: show only movies that carry a
+      // hand-ranking and order them 1→N. Every other filter matches by type.
+      var ranked = type === 'coops100';
       lib.querySelectorAll('[data-type]').forEach(function (el) {
-        el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
+        var hide;
+        if (type === 'all') hide = false;
+        else if (ranked) hide = !(el.dataset.type === 'movie' && el.dataset.ranking);
+        else hide = el.dataset.type !== type;
+        el.classList.toggle('is-hidden', hide);
       });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
       if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
+      // In the ranked view the order is fixed to the ranking, so drive the
+      // sort with a forced key and hide the (now moot) sort control.
+      if (sortControl) sortControl.classList.toggle('is-hidden', ranked);
+      if (sortSelect) {
+        if (ranked) sortSelect.setAttribute('data-force-sort', 'ranked');
+        else sortSelect.removeAttribute('data-force-sort');
+        // Re-run the sort so the ranked order applies / clears with the filter.
+        sortSelect.dispatchEvent(new Event('change'));
+      }
       updateUrl();
     }
 
