@@ -29,15 +29,15 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       </select>
     </div>
     <div class="media-status-filters" role="group" aria-label="Filter by status">
-      <button type="button" class="tag is-active" data-status-filter="all">All</button>
-      <button type="button" class="tag" data-status-filter="finished">Finished</button>
+      <button type="button" class="tag is-active" data-status-filter="finished">Finished</button>
       <button type="button" class="tag" data-status-filter="current">Current</button>
       <button type="button" class="tag" data-status-filter="queue">Queue</button>
+      <button type="button" class="tag" data-status-filter="all">All</button>
       <select class="sort-select media-status-select" aria-label="Filter by status">
-        <option value="all">Any status</option>
-        <option value="finished">Finished</option>
+        <option value="finished" selected>Finished</option>
         <option value="current">Current</option>
         <option value="queue">Queue</option>
+        <option value="all">Any status</option>
       </select>
     </div>
   </div>
@@ -304,7 +304,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     };
 
     var currentFilter = 'all';
-    var currentStatus = 'all';
+    var currentStatus = 'finished';
     var currentView = 'list';
     var ready = false;
 
@@ -313,7 +313,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       if (!ready) return;
       var params = new URLSearchParams();
       if (currentFilter !== 'all') params.set('type', currentFilter);
-      if (currentStatus !== 'all') params.set('status', currentStatus);
+      // 'finished' is the default landing state, so it stays out of the URL.
+      if (currentStatus !== 'finished') params.set('status', currentStatus);
       if (currentView !== 'list') params.set('view', currentView);
       var sort = sortSelect ? sortSelect.value : 'date';
       if (sort !== 'date') params.set('sort', sort);
@@ -395,7 +396,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
 
     if (urlType && TYPES[urlType]) setFilter(urlType);
-    if (urlStatus && STATUSES[urlStatus]) setStatus(urlStatus);
+    // Default to the consumed ("finished") view; a URL param can override it.
+    setStatus(urlStatus && STATUSES[urlStatus] ? urlStatus : 'finished');
 
     ready = true;
   })();
