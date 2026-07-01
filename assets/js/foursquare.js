@@ -102,11 +102,10 @@ function classifyCheckin(data) {
     return 'nyc';
   }
 
-  // The Farm Coast straddles the RI/MA line, so accept all of Rhode Island
-  // plus the couple of Massachusetts border towns that are really part of it.
-  const farmCoastTowns = ['westport', 'adamsville'];
+  // The Farm Coast straddles the RI/MA line and it's all basically the same
+  // place, so treat both states as "Rhode Island" for the intro.
   if (state === 'ri' || state === 'rhode island') return 'ri';
-  if (farmCoastTowns.includes(city)) return 'ri';
+  if (state === 'ma' || state === 'massachusetts') return 'ri';
 
   return null; // somewhere else — leave the neutral, both-paragraphs version
 }
