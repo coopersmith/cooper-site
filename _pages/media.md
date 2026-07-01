@@ -13,19 +13,33 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 {% assign concerts = site.notes | where_exp: "n", "n.tags contains 'concerts'" | sort: "Dates" | reverse %}
 
 <div class="media-toolbar">
-  <div class="media-filters" role="group" aria-label="Filter by type">
-    <button type="button" class="tag is-active" data-filter="all">All</button>
-    <button type="button" class="tag" data-filter="book">Books</button>
-    <button type="button" class="tag" data-filter="movie">Movies</button>
-    <button type="button" class="tag" data-filter="album">Albums</button>
-    <button type="button" class="tag" data-filter="concert">Live</button>
-    <select class="sort-select media-filter-select" aria-label="Filter by type">
-      <option value="all">All</option>
-      <option value="book">Books</option>
-      <option value="movie">Movies</option>
-      <option value="album">Albums</option>
-      <option value="concert">Live</option>
-    </select>
+  <div class="media-filter-groups">
+    <div class="media-filters" role="group" aria-label="Filter by type">
+      <button type="button" class="tag is-active" data-filter="all">All</button>
+      <button type="button" class="tag" data-filter="book">Books</button>
+      <button type="button" class="tag" data-filter="movie">Movies</button>
+      <button type="button" class="tag" data-filter="album">Albums</button>
+      <button type="button" class="tag" data-filter="concert">Live</button>
+      <select class="sort-select media-filter-select" aria-label="Filter by type">
+        <option value="all">All</option>
+        <option value="book">Books</option>
+        <option value="movie">Movies</option>
+        <option value="album">Albums</option>
+        <option value="concert">Live</option>
+      </select>
+    </div>
+    <div class="media-status-filters" role="group" aria-label="Filter by status">
+      <button type="button" class="tag is-active" data-status-filter="all">All</button>
+      <button type="button" class="tag" data-status-filter="finished">Finished</button>
+      <button type="button" class="tag" data-status-filter="current">Current</button>
+      <button type="button" class="tag" data-status-filter="queue">Queue</button>
+      <select class="sort-select media-status-select" aria-label="Filter by status">
+        <option value="all">Any status</option>
+        <option value="finished">Finished</option>
+        <option value="current">Current</option>
+        <option value="queue">Queue</option>
+      </select>
+    </div>
   </div>
   <div class="media-toolbar-controls">
     <span class="sort-control">
@@ -63,7 +77,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sorttitle = clean_title | downcase | strip %}
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
-      <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
+      {% assign shelfval = e.shelf | join: ',' | downcase %}
+      {% assign status = 'finished' %}
+      {% if shelfval contains 'queue' or shelfval contains 'to-read' or shelfval contains 'want' %}{% assign status = 'queue' %}
+      {% elsif shelfval contains 'reading' or shelfval contains 'watching' or shelfval contains 'listening' %}{% assign status = 'current' %}
+      {% endif %}
+      <tr data-type="{{ type | downcase }}" data-status="{{ status }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
@@ -75,7 +94,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
+      <tr data-type="concert" data-status="finished" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
         <td class="index-meta"><span class="tag">Live</span></td>
         <td class="index-meta muted">{{ venue }}</td>
@@ -98,7 +117,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sorttitle = clean_title | downcase | strip %}
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
-      <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
+      {% assign shelfval = e.shelf | join: ',' | downcase %}
+      {% assign status = 'finished' %}
+      {% if shelfval contains 'queue' or shelfval contains 'to-read' or shelfval contains 'want' %}{% assign status = 'queue' %}
+      {% elsif shelfval contains 'reading' or shelfval contains 'watching' or shelfval contains 'listening' %}{% assign status = 'current' %}
+      {% endif %}
+      <li class="media-card" data-type="{{ type | downcase }}" data-status="{{ status }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
           <span class="media-card-meta">
@@ -112,7 +136,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
+      <li class="media-card" data-type="concert" data-status="finished" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
         <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists }}">
           {% if c.cover %}
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
@@ -147,9 +171,24 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     gap: 0.7em 1em;
     margin: 2em 0 1.4em;
   }
+  .media-filter-groups {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5em 0.9em;
+  }
   .media-filters { display: inline-flex; flex-wrap: wrap; gap: 0.4em; }
+  /* Status filters sit alongside the type filters, set off by a hairline divider */
+  .media-status-filters {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    padding-left: 0.9em;
+    border-left: 1px solid var(--color-border);
+  }
   .media-toolbar-controls { display: inline-flex; align-items: center; gap: 0.9em; }
-  .media-filter-select { display: none; }
+  .media-filter-select,
+  .media-status-select { display: none; }
 
   .media-toggle {
     display: inline-flex;
@@ -228,9 +267,13 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
   @media (max-width: 600px) {
     .media-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
-    /* Filter chips wrap awkwardly on narrow screens — use a dropdown */
-    .media-filters .tag { display: none; }
-    .media-filter-select { display: inline-block; }
+    /* Filter chips wrap awkwardly on narrow screens — use dropdowns */
+    .media-filters .tag,
+    .media-status-filters .tag { display: none; }
+    .media-filter-select,
+    .media-status-select { display: inline-block; }
+    /* Divider/padding make no sense once the chips collapse to selects */
+    .media-status-filters { padding-left: 0; border-left: 0; }
   }
 </style>
 
@@ -241,26 +284,63 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var viewBtns = document.querySelectorAll('.media-view-btn');
     var chips = document.querySelectorAll('.media-filters .tag');
     var filterSelect = document.querySelector('.media-filter-select');
+    var statusChips = document.querySelectorAll('.media-status-filters .tag');
+    var statusSelect = document.querySelector('.media-status-select');
     var sortSelect = document.getElementById('media-sort');
 
     var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
+    var STATUSES = { all: 1, finished: 1, current: 1, queue: 1 };
     var VIEWS = { list: 1, covers: 1 };
     var SORTS = { date: 1, az: 1, rating: 1 };
 
+    // The same three states read differently depending on the medium, so the
+    // status chips relabel themselves to match the selected type.
+    var STATUS_LABELS = {
+      all:     { finished: 'Finished', current: 'Current',   queue: 'Queue' },
+      book:    { finished: 'Read',     current: 'Reading',   queue: 'Queue' },
+      movie:   { finished: 'Watched',  current: 'Watching',  queue: 'Queue' },
+      album:   { finished: 'Listened', current: 'Listening', queue: 'Queue' },
+      concert: { finished: 'Attended', current: 'Current',   queue: 'Queue' }
+    };
+
     var currentFilter = 'all';
+    var currentStatus = 'all';
     var currentView = 'list';
     var ready = false;
 
-    // Reflect filter + view + sort in the URL so a view can be linked/shared.
+    // Reflect filter + status + view + sort in the URL so a view can be linked/shared.
     function updateUrl() {
       if (!ready) return;
       var params = new URLSearchParams();
       if (currentFilter !== 'all') params.set('type', currentFilter);
+      if (currentStatus !== 'all') params.set('status', currentStatus);
       if (currentView !== 'list') params.set('view', currentView);
       var sort = sortSelect ? sortSelect.value : 'date';
       if (sort !== 'date') params.set('sort', sort);
       var qs = params.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+
+    // An item is visible only when it satisfies BOTH the type and status filters.
+    function applyFilters() {
+      lib.querySelectorAll('[data-type]').forEach(function (el) {
+        var typeOk = currentFilter === 'all' || el.dataset.type === currentFilter;
+        var statusOk = currentStatus === 'all' || el.dataset.status === currentStatus;
+        el.classList.toggle('is-hidden', !(typeOk && statusOk));
+      });
+    }
+
+    function relabelStatus(type) {
+      var labels = STATUS_LABELS[type] || STATUS_LABELS.all;
+      statusChips.forEach(function (c) {
+        var key = c.dataset.statusFilter;
+        if (labels[key]) c.textContent = labels[key];
+      });
+      if (statusSelect) {
+        Array.prototype.forEach.call(statusSelect.options, function (o) {
+          if (labels[o.value]) o.textContent = labels[o.value];
+        });
+      }
     }
 
     function setView(view, persist) {
@@ -274,22 +354,32 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
     function setFilter(type) {
       currentFilter = type;
-      lib.querySelectorAll('[data-type]').forEach(function (el) {
-        el.classList.toggle('is-hidden', type !== 'all' && el.dataset.type !== type);
-      });
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
       if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
+      relabelStatus(type);
+      applyFilters();
+      updateUrl();
+    }
+
+    function setStatus(status) {
+      currentStatus = status;
+      statusChips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.statusFilter === status); });
+      if (statusSelect && statusSelect.value !== status) statusSelect.value = status;
+      applyFilters();
       updateUrl();
     }
 
     viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
     chips.forEach(function (c) { c.addEventListener('click', function () { setFilter(c.dataset.filter); }); });
     if (filterSelect) filterSelect.addEventListener('change', function () { setFilter(filterSelect.value); });
+    statusChips.forEach(function (c) { c.addEventListener('click', function () { setStatus(c.dataset.statusFilter); }); });
+    if (statusSelect) statusSelect.addEventListener('change', function () { setStatus(statusSelect.value); });
     if (sortSelect) sortSelect.addEventListener('change', updateUrl);
 
     // ---- Initial state: URL params take precedence, then saved view ----
     var params = new URLSearchParams(location.search);
     var urlType = params.get('type');
+    var urlStatus = params.get('status');
     var urlView = params.get('view');
     var urlSort = params.get('sort');
 
@@ -305,6 +395,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
 
     if (urlType && TYPES[urlType]) setFilter(urlType);
+    if (urlStatus && STATUSES[urlStatus]) setStatus(urlStatus);
 
     ready = true;
   })();
