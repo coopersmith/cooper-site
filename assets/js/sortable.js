@@ -30,6 +30,10 @@
       });
     }
     sel.addEventListener('change', apply);
+    // Apply the default sort on load so content merged from multiple
+    // sources (e.g. media + concerts) interleaves correctly rather than
+    // appearing in source order.
+    apply();
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('.sort-select'), wire);

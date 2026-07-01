@@ -630,6 +630,12 @@ table {
   cursor: pointer;
 }
 
+/* On narrow screens the dropdown is self-explanatory; drop the label to
+   save space (kept on wider screens where there's room). */
+@media (max-width: 600px) {
+  .sort-control label { display: none; }
+}
+
 /* Slash Packaging–style tag: a minimal outlined pill, muted and
    monochrome, built on the site's tokens. Shared across index/grid
    views (media, concerts, travels). Works as <span>, <a>, or <button>. */
