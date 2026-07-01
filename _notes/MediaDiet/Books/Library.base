@@ -1,0 +1,89 @@
+filters:
+  and:
+    - file.hasTag("books")
+    - '!file.name.contains("Template")'
+properties:
+  file.name:
+    displayName: Title
+  author:
+    displayName: Author
+  genre:
+    displayName: Genre
+  pages:
+    displayName: Pages
+  year:
+    displayName: Year
+  rating:
+    displayName: Rating
+  start:
+    displayName: Started
+  end:
+    displayName: Finished
+  shelf:
+    displayName: Shelf
+  cover:
+    displayName: Cover
+views:
+  - type: cards
+    name: Reading
+    filters:
+      and:
+        - shelf.contains("reading")
+    order:
+      - file.name
+      - author
+      - pages
+      - start
+    image: note.cover
+    imageAspectRatio: 1.65
+    imageFit: cover
+  - type: cards
+    name: Queue
+    filters:
+      and:
+        - shelf.contains("queue")
+    order:
+      - file.name
+      - author
+      - genre
+      - pages
+      - year
+    image: note.cover
+    imageAspectRatio: 1.65
+    imageFit: cover
+  - type: cards
+    name: Read
+    filters:
+      and:
+        - shelf.contains("read")
+    order:
+      - file.name
+      - author
+      - end
+      - rating
+      - pages
+    sort:
+      - property: end
+        direction: DESC
+      - property: rating
+        direction: ASC
+    image: note.cover
+    imageAspectRatio: 1.65
+    imageFit: cover
+  - type: cards
+    name: Favorites
+    filters:
+      and:
+        - rating>5
+    order:
+      - file.name
+      - author
+      - rating
+      - end
+      - genre
+    sort:
+      - property: rating
+        direction: DESC
+    image: note.cover
+    imageAspectRatio: 1.65
+    imageFit: cover
