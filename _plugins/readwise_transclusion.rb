@@ -16,20 +16,25 @@ require "uri"
 # specific (ids, plugins, frontmatter) is added to the vault, and the Readwise
 # notes themselves never need to live in this repo.
 #
-# On publish, this generator finds every `![[<Title> - Notes]]` embed, looks up
-# `<Title>` in your Readwise library via the API, fetches that book's
-# highlights, and replaces the embed with the highlights as markdown — so the
-# published page is self-contained, static HTML.
+# On publish, this generator finds every `![[<Title> - Notes]]` embed, matches
+# `<Title>` to a book in your Readwise library, and replaces the embed with
+# that book's highlights as markdown — so the published page is self-contained.
+#
+# The whole library (books + highlights) is pulled once per build via the
+# Readwise export endpoint, so a large media diet costs a handful of API calls
+# rather than one per book.
 #
 # Requirements:
 #   * ENV["READWISE_TOKEN"] available at build time (already set on Netlify for
 #     the readwise-highlights function; make sure it's exposed to builds too).
 #
-# Matching:
-#   * `<Title>` (the part before " - Notes") is matched to a Readwise book's
-#     title, normalized to ignore case, emoji, and punctuation.
-#   * For titles that won't match cleanly, add an override in
-#     _data/readwise_books.yml  ("Obsidian Title": readwise_book_id).
+# Matching (in order):
+#   1. an explicit override in _data/readwise_books.yml ("Title": book_id)
+#   2. exact title match, ignoring case / emoji / punctuation
+#   3. the main title before a ": "/" - " subtitle (so
+#      "Filterworld: How Algorithms Flattened Culture" resolves to Readwise's
+#      "Filterworld"). Skipped when a main title is shared by >1 book — add an
+#      override to disambiguate.
 #
 # Failure is always graceful: a missing token, no match, or an API error leaves
 # an HTML comment in place of the highlights and logs a warning — the build
@@ -40,9 +45,18 @@ require "uri"
 module ReadwiseTransclusion
   API_BASE = "https://readwise.io/api/v2"
 
-  # ![[Some Book - Notes]]  (whole-note embeds only; #headings / ^blocks and
-  # aliased embeds are intentionally left alone)
-  EMBED_PATTERN = /!\[\[([^\]|#\^]+?)\s*-\s*Notes\]\]/
+  # ![[Some Book - Notes]]  — whole-note embeds only. The `- Notes]]` anchor is
+  # what makes this specific: section/block embeds (`![[Book - Notes#Section]]`,
+  # `![[Book - Notes^ref]]`) don't end in `Notes]]`, so they're left alone. The
+  # captured title may itself contain `#` — real titles do, e.g.
+  # `![[Jurassic Park (Jurassic Park, #1) - Notes]]`.
+  EMBED_PATTERN = /!\[\[([^\]]+?)\s*-\s*Notes\]\]/
+
+  # Subtitle separators: ": ", " - ", " — ", " – " (spaced hyphen/dash only, so
+  # hyphenated words like "Chain-Gang All-Stars" are left intact).
+  SUBTITLE_SPLIT = /:\s|\s[-—–]\s/
+
+  AMBIGUOUS = :ambiguous
 
   class Generator < Jekyll::Generator
     priority :high
@@ -51,7 +65,7 @@ module ReadwiseTransclusion
     def generate(site)
       @token = ENV["READWISE_TOKEN"]
       @overrides = build_overrides(site.data["readwise_books"])
-      @books_by_title = nil # lazily fetched on first lookup
+      @library = nil # lazily fetched on first lookup
       @warned_no_token = false
 
       collection = site.collections["notes"]
@@ -66,8 +80,7 @@ module ReadwiseTransclusion
       return unless doc.content =~ EMBED_PATTERN
 
       doc.content = doc.content.gsub(EMBED_PATTERN) do
-        title = Regexp.last_match(1).strip
-        render(title, doc)
+        render(Regexp.last_match(1).strip, doc)
       end
     end
 
@@ -80,17 +93,10 @@ module ReadwiseTransclusion
         return placeholder("no READWISE_TOKEN at build time", title)
       end
 
-      book_id = resolve_book_id(title)
-      unless book_id
-        Jekyll.logger.warn "Readwise:", "no book match for #{title.inspect} (#{doc.relative_path})"
-        return placeholder("no Readwise book matched", title)
-      end
+      book = resolve_book(title, doc)
+      return placeholder("no Readwise book matched", title) unless book
 
-      highlights = fetch_highlights(book_id)
-      if highlights.nil?
-        Jekyll.logger.warn "Readwise:", "highlight fetch failed for #{title.inspect}"
-        return placeholder("Readwise fetch failed", title)
-      end
+      highlights = Array(book["highlights"]).sort_by { |h| h["location"] || Float::INFINITY }
       if highlights.empty?
         Jekyll.logger.info "Readwise:", "no highlights for #{title.inspect}"
         return placeholder("no highlights found", title)
@@ -100,52 +106,65 @@ module ReadwiseTransclusion
       format_highlights(highlights)
     end
 
-    # --- lookup -------------------------------------------------------------
+    # --- matching -----------------------------------------------------------
 
-    def resolve_book_id(title)
-      key = normalize(title)
-      return @overrides[key] if @overrides.key?(key)
+    def resolve_book(title, doc)
+      if (id = @overrides[normalize(title)])
+        book = library[:by_id][id]
+        return book if book
 
-      books_by_title[key]
+        Jekyll.logger.warn "Readwise:", "override book_id #{id} for #{title.inspect} not found in library"
+      end
+
+      return library[:by_full][normalize(title)] if library[:by_full].key?(normalize(title))
+
+      main = normalize(main_title(title))
+      match = library[:by_main][main]
+      return match if match && match != AMBIGUOUS
+
+      if match == AMBIGUOUS
+        Jekyll.logger.warn "Readwise:", "#{title.inspect} (#{doc.relative_path}) matches multiple books on " \
+                                        "#{main.inspect} — add an override in _data/readwise_books.yml"
+      end
+      nil
     end
 
-    def books_by_title
-      @books_by_title ||= begin
-        map = {}
-        each_book do |book|
-          next unless book["title"]
+    def library
+      @library ||= begin
+        by_full = {}
+        by_main = {}
+        by_id = {}
 
-          # First title wins on collision; overrides exist for disambiguation.
-          map[normalize(book["title"])] ||= book["id"]
+        each_export_book do |book|
+          id = book["user_book_id"]
+          title = book["title"]
+          next unless id && title && !title.to_s.strip.empty?
+
+          by_id[id] = book
+          by_full[normalize(title)] ||= book
+
+          main = normalize(main_title(title))
+          by_main[main] = by_main.key?(main) ? AMBIGUOUS : book
         end
-        map
+
+        Jekyll.logger.info "Readwise:", "loaded #{by_id.size} books from Readwise export"
+        { by_full: by_full, by_main: by_main, by_id: by_id }
       end
     end
 
-    # Walk the (paginated) list of all Readwise sources.
-    def each_book
-      url = "#{API_BASE}/books/?page_size=1000"
-      while url
+    # Walk the paginated Readwise export (every book with its highlights nested).
+    def each_export_book
+      cursor = nil
+      loop do
+        url = +"#{API_BASE}/export/?"
+        url << "pageCursor=#{URI.encode_www_form_component(cursor)}" if cursor
         data = api_get(url)
         break unless data
 
         Array(data["results"]).each { |book| yield book }
-        url = data["next"]
+        cursor = data["nextPageCursor"]
+        break if cursor.nil? || cursor.to_s.empty?
       end
-    end
-
-    def fetch_highlights(book_id)
-      highlights = []
-      url = "#{API_BASE}/highlights/?book_id=#{book_id}&page_size=1000"
-      while url
-        data = api_get(url)
-        return nil unless data
-
-        highlights.concat(Array(data["results"]))
-        url = data["next"]
-      end
-      # Preserve reading order; highlights without a location sort last.
-      highlights.sort_by { |h| h["location"] || Float::INFINITY }
     end
 
     # --- formatting ---------------------------------------------------------
@@ -157,7 +176,6 @@ module ReadwiseTransclusion
         parts << "*#{note}*" unless note.empty?
         parts.join("\n\n")
       end
-      # Blank lines around the block keep markdown parsing clean.
       "\n#{blocks.join("\n\n")}\n"
     end
 
@@ -171,10 +189,19 @@ module ReadwiseTransclusion
 
     # --- helpers ------------------------------------------------------------
 
-    # Lowercase, strip anything that isn't a letter/number, collapse spaces.
+    # Lowercase, drop anything that isn't a letter/number, collapse spaces.
     # "🦖 Jurassic Park" and "Jurassic Park!" both normalize to "jurassic park".
     def normalize(str)
       str.to_s.downcase.gsub(/[^a-z0-9]+/, " ").strip
+    end
+
+    # The core title: drop a trailing "(Series, #1)" parenthetical (Goodreads-
+    # style, absent from Readwise), then the part before a ": "/" - " subtitle.
+    # "Jurassic Park (Jurassic Park, #1)" -> "Jurassic Park"
+    # "Filterworld: How Algorithms Flattened Culture" -> "Filterworld"
+    def main_title(title)
+      core = title.to_s.sub(/\s*\([^)]*\)\s*\z/, "")
+      core.split(SUBTITLE_SPLIT, 2).first.to_s.strip
     end
 
     def build_overrides(data)
@@ -191,7 +218,7 @@ module ReadwiseTransclusion
       request["Authorization"] = "Token #{@token}"
 
       response = Net::HTTP.start(uri.host, uri.port, use_ssl: true,
-                                 open_timeout: 10, read_timeout: 30) do |http|
+                                 open_timeout: 10, read_timeout: 60) do |http|
         http.request(request)
       end
 
@@ -200,7 +227,8 @@ module ReadwiseTransclusion
         JSON.parse(response.body)
       when Net::HTTPTooManyRequests
         retry_after = response["Retry-After"].to_i
-        if attempt <= 3 && retry_after.between?(1, 60)
+        if attempt <= 5 && retry_after.between?(1, 60)
+          Jekyll.logger.info "Readwise:", "rate limited, retrying in #{retry_after}s"
           sleep(retry_after)
           api_get(url, attempt: attempt + 1)
         end
