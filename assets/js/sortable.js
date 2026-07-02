@@ -4,9 +4,8 @@
 //   data-sort-item  : selector for the sortable items within each container
 // Items expose data-title / data-date / data-rating for the sort keys.
 // data-ranking (optional) is a hand-ordered favourites list (1 = best); the
-// 'ranked' key orders by it (1→N, unranked to the back). A <select> may set
-// data-force-sort to override its own value — the media page uses this to pin
-// the ranked order while the "Coop's 100" filter is active.
+// 'ranked' key orders by it (1→N, unranked to the back) — used by the media
+// page's movies-only "Coop's 100" sort.
 (function () {
   function compare(key) {
     return function (a, b) {
@@ -35,7 +34,7 @@
 
   function wire(sel) {
     function apply() {
-      var key = sel.getAttribute('data-force-sort') || sel.value;
+      var key = sel.value;
       var containers = document.querySelectorAll(sel.getAttribute('data-sort-scope'));
       Array.prototype.forEach.call(containers, function (container) {
         var items = Array.prototype.slice.call(container.querySelectorAll(sel.getAttribute('data-sort-item')));

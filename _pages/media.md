@@ -19,14 +19,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     <button type="button" class="tag" data-filter="movie">Movies</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
     <button type="button" class="tag" data-filter="concert">Live</button>
-    <button type="button" class="tag" data-filter="coops100">Coop&rsquo;s 100</button>
     <select class="sort-select media-filter-select" aria-label="Filter by type">
       <option value="all">All</option>
       <option value="book">Books</option>
       <option value="movie">Movies</option>
       <option value="album">Albums</option>
       <option value="concert">Live</option>
-      <option value="coops100">Coop&rsquo;s 100</option>
     </select>
   </div>
   <div class="media-toolbar-controls">
@@ -36,6 +34,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <option value="date">Date</option>
         <option value="az">A→Z</option>
         <option value="rating">Rating</option>
+        <option value="ranked" hidden>Coop&rsquo;s 100</option>
       </select>
     </span>
     <div class="media-toggle" role="group" aria-label="View mode">
@@ -263,11 +262,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var chips = document.querySelectorAll('.media-filters .tag');
     var filterSelect = document.querySelector('.media-filter-select');
     var sortSelect = document.getElementById('media-sort');
-    var sortControl = document.querySelector('.sort-control');
 
-    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1, coops100: 1 };
+    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
     var VIEWS = { list: 1, covers: 1 };
-    var SORTS = { date: 1, az: 1, rating: 1 };
+    // 'ranked' (Coop's 100) is a movies-only sort that also subsets to ranked
+    // titles — see syncSortOption() / applyVisibility().
+    var SORTS = { date: 1, az: 1, rating: 1, ranked: 1 };
 
     var currentFilter = 'all';
     var currentView = 'list';
@@ -279,9 +279,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       var params = new URLSearchParams();
       if (currentFilter !== 'all') params.set('type', currentFilter);
       if (currentView !== 'list') params.set('view', currentView);
-      // The ranked view fixes its own order, so don't persist a sort key for it.
       var sort = sortSelect ? sortSelect.value : 'date';
-      if (currentFilter !== 'coops100' && sort !== 'date') params.set('sort', sort);
+      if (sort !== 'date') params.set('sort', sort);
       var qs = params.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
     }
@@ -295,36 +294,50 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       updateUrl();
     }
 
-    function setFilter(type) {
-      currentFilter = type;
-      // "Coop's 100" is a curated view: show only movies that carry a
-      // hand-ranking and order them 1→N. Every other filter matches by type.
-      var ranked = type === 'coops100';
+    // "Coop's 100" (sort value 'ranked') only makes sense for movies, so its
+    // option is revealed only under the Movies filter. Returns true if it had
+    // to reset the sort because we left Movies while ranked was selected.
+    function syncSortOption() {
+      if (!sortSelect) return false;
+      var opt = sortSelect.querySelector('option[value="ranked"]');
+      if (!opt) return false;
+      var allow = currentFilter === 'movie';
+      opt.hidden = !allow;
+      opt.disabled = !allow;
+      if (!allow && sortSelect.value === 'ranked') {
+        sortSelect.value = 'date';
+        return true;
+      }
+      return false;
+    }
+
+    // Show/hide items for the current filter. The ranked sort doubles as a
+    // filter: it keeps only movies that carry a hand-ranking.
+    function applyVisibility() {
+      var ranked = sortSelect && sortSelect.value === 'ranked';
       lib.querySelectorAll('[data-type]').forEach(function (el) {
-        var hide;
-        if (type === 'all') hide = false;
-        else if (ranked) hide = !(el.dataset.type === 'movie' && el.dataset.ranking);
-        else hide = el.dataset.type !== type;
+        var hide = currentFilter !== 'all' && el.dataset.type !== currentFilter;
+        if (!hide && ranked && !(el.dataset.type === 'movie' && el.dataset.ranking)) hide = true;
         el.classList.toggle('is-hidden', hide);
       });
+    }
+
+    function setFilter(type) {
+      currentFilter = type;
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.filter === type); });
       if (filterSelect && filterSelect.value !== type) filterSelect.value = type;
-      // In the ranked view the order is fixed to the ranking, so drive the
-      // sort with a forced key and hide the (now moot) sort control.
-      if (sortControl) sortControl.classList.toggle('is-hidden', ranked);
-      if (sortSelect) {
-        if (ranked) sortSelect.setAttribute('data-force-sort', 'ranked');
-        else sortSelect.removeAttribute('data-force-sort');
-        // Re-run the sort so the ranked order applies / clears with the filter.
-        sortSelect.dispatchEvent(new Event('change'));
-      }
+      var sortReset = syncSortOption();
+      applyVisibility();
+      // If leaving Movies forced the sort back to Date, re-run the ordering.
+      if (sortReset && sortSelect) sortSelect.dispatchEvent(new Event('change'));
       updateUrl();
     }
 
     viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
     chips.forEach(function (c) { c.addEventListener('click', function () { setFilter(c.dataset.filter); }); });
     if (filterSelect) filterSelect.addEventListener('change', function () { setFilter(filterSelect.value); });
-    if (sortSelect) sortSelect.addEventListener('change', updateUrl);
+    // Re-apply visibility on sort change so the ranked sort subsets/unsubsets.
+    if (sortSelect) sortSelect.addEventListener('change', function () { applyVisibility(); updateUrl(); });
 
     // ---- Initial state: URL params take precedence, then saved view ----
     var params = new URLSearchParams(location.search);
@@ -344,6 +357,11 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
 
     if (urlType && TYPES[urlType]) setFilter(urlType);
+
+    // Reconcile the ranked option + visibility for the restored state (e.g. a
+    // ?sort=ranked link, or a Movies deep link) before sortable.js sorts.
+    syncSortOption();
+    applyVisibility();
 
     ready = true;
   })();
