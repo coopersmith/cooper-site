@@ -57,7 +57,7 @@ tags: [concerts]
   - The whole library is pulled once per build via the Readwise **export** endpoint (a few paginated calls), not one request per book — safe for a large media diet.
   - Matching: exact title (ignoring case/emoji/punctuation), then the main title before a `": "`/`" - "` subtitle and any trailing `(Series, #1)` parenthetical (so `Filterworld: How Algorithms…` resolves to Readwise's `Filterworld`). Ambiguous main titles are skipped, not guessed. Add `"Title": book_id` overrides in `_data/readwise_books.yml` for stragglers.
   - One book per URL: notes slug on filename (`/:slug`), so two files for the same book (e.g. `Foo - Bar.md` and `Foo Bar.md`) collide — keep a single note per book.
-  - Fails gracefully: a missing token, no match, or an API error leaves an HTML comment and logs a warning — the build never breaks.
+  - Fails gracefully: a missing token, no match, or an API error drops the embed *and* its introducing `## Notes` heading (so books with no highlights leave no empty section) and logs a warning to the build output — the build never breaks.
 
 ### Layouts
 
