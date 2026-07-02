@@ -99,12 +99,18 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sorttitle = clean_title | downcase | strip %}
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {% assign creator = '' %}
+      {% if e.author %}{% assign creator = e.author | join: ', ' %}
+      {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
+      {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
+      {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}">
-        <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title }}">
+        <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
-          <span class="media-card-meta">
-            <span class="media-card-title">{{ clean_title }}</span>
-            <span class="tag">{{ type }}</span>
+          <span class="media-card-info">
+            <span class="mci-title">{{ clean_title }}</span>
+            {% if creator != '' %}<span class="mci-sub">{{ creator }}</span>{% endif %}
+            <span class="mci-foot"><span class="tag">{{ type }}</span>{% if e.year %}<span class="mci-year">{{ e.year }}</span>{% endif %}{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="mci-rating" title="{{ e.rating }}/7">{%- for i in (1..filled) -%}◆{%- endfor -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</span>
           </span>
         </a>
       </li>
@@ -114,9 +120,14 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
-        <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists }}">
+        <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists | escape }}">
           {% if c.cover %}
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
+          <span class="media-card-info">
+            <span class="mci-title">{{ artists }}</span>
+            {% if venue != '' %}<span class="mci-sub">{{ venue }}</span>{% endif %}
+            <span class="mci-foot"><span class="tag">Live</span><span class="mci-year">{{ c.Dates | date: "%Y" }}</span></span>
+          </span>
           {% else %}
           <span class="media-cover media-cover--gig">
             <span class="gig-artist">{{ artists }}</span>
@@ -124,10 +135,6 @@ Everything I've been reading, watching, listening to, and seeing live — in one
             <span class="gig-year">{{ c.Dates | date: "%Y" }}</span>
           </span>
           {% endif %}
-          <span class="media-card-meta">
-            {% if c.cover %}<span class="media-card-title">{{ artists }}</span>{% endif %}
-            <span class="tag">Live</span>
-          </span>
         </a>
       </li>
     {% endfor %}
@@ -203,18 +210,24 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   .is-hidden { display: none !important; }
 
   /* ---- Covers view ---- */
+  /* A clean wall of covers: no meta below the artwork. Details live in a
+     card that fades in on hover / keyboard focus (see .media-card-info). */
   .media-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1.6em 1.1em;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    gap: 1em 0.9em;
   }
-  .media-card a { display: block; text-decoration: none; color: var(--color-text-subtle); }
+  .media-card a {
+    position: relative; display: block; text-decoration: none;
+    color: var(--color-text-subtle); transition: transform 0.15s ease;
+  }
+  .media-card a:hover { transform: translateY(-3px); }
   .media-cover {
     display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover;
     border-radius: var(--border-radius, 4px); background: var(--color-bg-secondary);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.16); transition: transform 0.15s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.16); transition: box-shadow 0.15s ease;
   }
-  .media-card a:hover .media-cover { transform: translateY(-3px); }
+  .media-card a:hover .media-cover { box-shadow: 0 8px 20px rgba(0,0,0,0.28); }
 
   /* Typographic fallback "cover" for concerts with no image */
   .media-cover--gig {
@@ -246,20 +259,41 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     font-size: 0.78em;
     font-variant-numeric: tabular-nums;
   }
-  .media-card-meta {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 0.5em;
-    margin-top: 0.55em;
+  /* Hover metadata card, laid over the artwork */
+  .media-card-info {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    gap: 0.15em;
+    padding: 0.7em 0.65em;
+    border-radius: var(--border-radius, 4px);
+    background: linear-gradient(to top,
+      rgba(12,13,16,0.94) 0%, rgba(12,13,16,0.82) 38%,
+      rgba(12,13,16,0.18) 78%, rgba(12,13,16,0) 100%);
+    color: #fff;
+    opacity: 0; transition: opacity 0.18s ease;
+    pointer-events: none;
   }
-  .media-card-title {
-    font-size: 0.82em; line-height: var(--leading-snug, 1.3);
-    color: var(--color-text-subtle);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .media-card a:hover .media-card-info,
+  .media-card a:focus-visible .media-card-info { opacity: 1; }
+  .mci-title {
+    font-size: 0.8em; font-weight: var(--weight-semibold, 600); line-height: 1.25;
+    display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden;
   }
-  .media-card .tag { flex: none; }
+  .mci-sub {
+    font-size: 0.72em; line-height: 1.3; color: rgba(255,255,255,0.75);
+    display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .mci-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0.3em 0.45em;
+    margin-top: 0.4em; font-size: 0.7em; color: rgba(255,255,255,0.72);
+    font-variant-numeric: tabular-nums;
+  }
+  .media-card-info .tag {
+    color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.35);
+  }
+  .mci-rating { letter-spacing: 0.03em; color: #fff; white-space: nowrap; }
 
   @media (max-width: 600px) {
     .media-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
