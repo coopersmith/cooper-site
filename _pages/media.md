@@ -65,7 +65,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
       <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}">
-        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}">{{ clean_title }}</a></td>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
         <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
@@ -180,6 +180,16 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   .media-list.index-table { table-layout: fixed; }
   .media-list td { padding-left: 0.9em; }
   .media-list .index-title { width: auto; padding-left: 0; }
+  /* Some titles run book-jacket long ("Boom Town: The Fantastical Saga…").
+     Clamp the display to two lines with an ellipsis so one entry can't
+     balloon its row; the full title stays on hover and on the entry page. */
+  .media-list .index-title a {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .media-list td:nth-child(2) { width: 4.2em; }            /* type tag */
   .media-list td:nth-child(3) {                            /* creator / venue */
     width: 8.5em;
@@ -243,6 +253,11 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   .media-card-title {
     font-size: 0.82em; line-height: var(--leading-snug, 1.3);
     color: var(--color-text-subtle);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .media-card .tag { flex: none; }
 
