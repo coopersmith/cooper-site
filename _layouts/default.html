@@ -4,8 +4,9 @@
   <body class="{% if page.layout == 'photos_stream' or page.layout == 'photo' %}photo-page-body{% endif %}">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="wrapper {% if page.layout == 'photos_stream' or page.layout == 'photo' %}photo-page-wrapper{% endif %}">
+      {% unless page.layout == 'photos_stream' or page.layout == 'photo' %}{% include nav.html %}{% endunless %}
       <main id="main-content">{{ content }}</main>
-      <footer>{% include footer.html %}</footer>
+      {% unless page.layout == 'photos_stream' or page.layout == 'photo' %}<footer>{% include footer.html %}</footer>{% endunless %}
     </div>
 
     {% include link-previews.html wrapperQuerySelector="content" %}

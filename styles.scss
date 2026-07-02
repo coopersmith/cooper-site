@@ -1,6 +1,10 @@
 ---
 ---
 
+// Font name comes from _config.yml (site.font.name) so the token, the
+// Google Fonts load, and the colophon all share one source of truth.
+$font-name: "{{ site.font.name }}";
+
 @import "../_sass/normalize";
 @import "../_sass/code";
 @import "../_sass/style";
