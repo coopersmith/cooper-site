@@ -45,12 +45,20 @@ require "uri"
 module ReadwiseTransclusion
   API_BASE = "https://readwise.io/api/v2"
 
-  # ![[Some Book - Notes]]  — whole-note embeds only. The `- Notes]]` anchor is
-  # what makes this specific: section/block embeds (`![[Book - Notes#Section]]`,
-  # `![[Book - Notes^ref]]`) don't end in `Notes]]`, so they're left alone. The
-  # captured title may itself contain `#` — real titles do, e.g.
-  # `![[Jurassic Park (Jurassic Park, #1) - Notes]]`.
-  EMBED_PATTERN = /!\[\[([^\]]+?)\s*-\s*Notes\]\]/
+  # An optional introducing heading (e.g. "## Notes") followed by the embed.
+  #
+  #   group 1 (lead)    : start-of-string or the newline before the block
+  #   group 2 (heading) : optional "## Heading\n\n" that exists only to intro
+  #                       the embed — captured so it can be dropped alongside
+  #                       the embed when there's nothing to bake (no empty
+  #                       section left behind). Only matches when the embed
+  #                       immediately follows the heading's blank line.
+  #   group 3 (title)   : the embedded note title
+  #
+  # Whole-note embeds only. The `- Notes]]` anchor keeps section/block embeds
+  # (`![[Book - Notes#Section]]`, `![[Book - Notes^ref]]`) out. The title may
+  # contain `#` — real ones do, e.g. `![[Jurassic Park (Jurassic Park, #1) - Notes]]`.
+  EMBED_BLOCK = /(\A|\n)?([ \t]*[#]{1,6}[ \t]*[^\n]*\n\s*\n)?[ \t]*!\[\[([^\]]+?)\s*-\s*Notes\]\][ \t]*/
 
   # Subtitle separators: ": ", " - ", " — ", " – " (spaced hyphen/dash only, so
   # hyphenated words like "Chain-Gang All-Stars" are left intact).
@@ -77,29 +85,46 @@ module ReadwiseTransclusion
     private
 
     def bake(doc)
-      return unless doc.content =~ EMBED_PATTERN
+      return unless doc.content.include?("- Notes]]")
 
-      doc.content = doc.content.gsub(EMBED_PATTERN) do
-        render(Regexp.last_match(1).strip, doc)
+      doc.content = doc.content.gsub(EMBED_BLOCK) do
+        lead = Regexp.last_match(1).to_s
+        heading = Regexp.last_match(2).to_s
+        title = Regexp.last_match(3).strip
+
+        highlights = render(title, doc)
+        if highlights
+          "#{lead}#{heading}#{highlights}"
+        else
+          # Nothing to bake — drop the introducing heading too, so a book with
+          # no Readwise highlights doesn't leave an empty "## Notes" section.
+          lead
+        end
       end
     end
 
+    # Returns the highlights as markdown, or nil when there's nothing to show
+    # (no token, no matching book, or no highlights). Diagnostics go to the
+    # build log rather than an on-page comment.
     def render(title, doc)
       unless @token
         unless @warned_no_token
           Jekyll.logger.warn "Readwise:", "READWISE_TOKEN not set — leaving embeds unresolved"
           @warned_no_token = true
         end
-        return placeholder("no READWISE_TOKEN at build time", title)
+        return nil
       end
 
       book = resolve_book(title, doc)
-      return placeholder("no Readwise book matched", title) unless book
+      unless book
+        Jekyll.logger.warn "Readwise:", "no book match for #{title.inspect} (#{doc.relative_path})"
+        return nil
+      end
 
       highlights = Array(book["highlights"]).sort_by { |h| h["location"] || Float::INFINITY }
       if highlights.empty?
         Jekyll.logger.info "Readwise:", "no highlights for #{title.inspect}"
-        return placeholder("no highlights found", title)
+        return nil
       end
 
       Jekyll.logger.info "Readwise:", "baked #{highlights.size} highlight(s) for #{title.inspect}"
@@ -181,10 +206,6 @@ module ReadwiseTransclusion
 
     def blockquote(text)
       text.to_s.strip.split("\n").map { |line| "> #{line}".rstrip }.join("\n")
-    end
-
-    def placeholder(reason, title)
-      "<!-- readwise: #{reason} for \"#{title}\" -->"
     end
 
     # --- helpers ------------------------------------------------------------
