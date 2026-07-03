@@ -19,7 +19,7 @@ function relativeTime(unixSeconds) {
   return ago(years, 'year');
 }
 
-async function getLastCheckin() {
+async function getLastCheckin(forced) {
   try {
     const response = await fetch('/.netlify/functions/last-checkin');
     
@@ -66,8 +66,9 @@ async function getLastCheckin() {
 
     document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${place ? ` in ${place}` : ''} ${when}</p>`;
 
-    // Let the homepage intro reflect where I actually am right now.
-    applyLocationAwareness(data);
+    // Let the homepage intro reflect where I actually am right now — unless a
+    // ?loc= override is pinning a specific state for testing.
+    if (!forced) applyLocationAwareness(data);
   } catch (error) {
     console.error('Error fetching check-in data:', error);
     // Fail quietly so the homepage never shows an error line.
@@ -129,12 +130,12 @@ function classifyCheckin(data) {
   return { bucket: 'travel', place: travelPlace(loc) };
 }
 
-// Reflect my most recent check-in in the intro: home check-ins reorder the
-// two paragraphs and swap the opening line to "I'm currently in…"; a check-in
-// away from home swaps in a travel line that points at Instagram. No-ops
-// gracefully if the markup is missing or the location is unknown.
-function applyLocationAwareness(data) {
-  const result = classifyCheckin(data);
+// Apply a resolved location state to the intro markup: home states reorder
+// the two paragraphs and swap the opening line to "I'm currently in…"; the
+// travel state swaps in a line that points at Instagram. Anything else (or a
+// null result) leaves the neutral, both-paragraphs version untouched. No-ops
+// gracefully if the expected markup isn't on the page.
+function applyIntroLocation(result) {
   if (!result) return;
 
   const leadNeutral = document.getElementById('intro-lead-neutral');
@@ -152,6 +153,8 @@ function applyLocationAwareness(data) {
     return;
   }
 
+  // Only the two home buckets touch the paragraphs; everything else stays neutral.
+  if (result.bucket !== 'nyc' && result.bucket !== 'ri') return;
   const bucket = result.bucket;
 
   // Move the paragraph for wherever I am ahead of the other one.
@@ -171,5 +174,32 @@ function applyLocationAwareness(data) {
   }
 }
 
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', getLastCheckin);
+// Reflect my most recent check-in in the intro.
+function applyLocationAwareness(data) {
+  applyIntroLocation(classifyCheckin(data));
+}
+
+// Debug hook: a `?loc=` query param pins the intro to a given state so every
+// variant can be previewed on demand without waiting to actually be there.
+// Values: nyc | ri | travel | neutral. Travel takes an optional `?place=`,
+// e.g. ?loc=travel&place=Rome,%20Italy. See _dev/location-debug.md.
+function readForcedState() {
+  const params = new URLSearchParams(window.location.search);
+  const loc = (params.get('loc') || '').trim().toLowerCase();
+
+  if (loc === 'nyc' || loc === 'ri') return { bucket: loc };
+  if (loc === 'travel') {
+    return { bucket: 'travel', place: (params.get('place') || 'Lisbon, Portugal').trim() };
+  }
+  if (loc === 'neutral' || loc === 'home') return { bucket: 'neutral' };
+  return null;
+}
+
+// Call the function when the page loads.
+document.addEventListener('DOMContentLoaded', function () {
+  const forced = readForcedState();
+  if (forced) applyIntroLocation(forced);
+  // Still fetch the real check-in for the "Last seen" line; only let it drive
+  // the intro when nothing is pinning it.
+  getLastCheckin(forced);
+});
