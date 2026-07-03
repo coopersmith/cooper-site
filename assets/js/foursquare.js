@@ -19,7 +19,7 @@ function relativeTime(unixSeconds) {
   return ago(years, 'year');
 }
 
-async function getLastCheckin() {
+async function getLastCheckin(forced) {
   try {
     const response = await fetch('/.netlify/functions/last-checkin');
     
@@ -65,6 +65,10 @@ async function getLastCheckin() {
     const when = relativeTime(data.createdAt);
 
     document.getElementById('last-checkin').innerHTML = `<p>Last seen at ${venueName}${place ? ` in ${place}` : ''} ${when}</p>`;
+
+    // Let the homepage intro reflect where I actually am right now — unless a
+    // ?loc= override is pinning a specific state for testing.
+    if (!forced) applyLocationAwareness(data);
   } catch (error) {
     console.error('Error fetching check-in data:', error);
     // Fail quietly so the homepage never shows an error line.
@@ -73,5 +77,129 @@ async function getLastCheckin() {
   }
 }
 
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', getLastCheckin);
+// Build a human place string for a check-in that's away from home, e.g.
+// "Rome, Italy" or "Denver, Colorado". Abroad we pair the city with the
+// country; in the US we pair it with the state. Returns '' if we can't
+// name anywhere useful.
+function travelPlace(loc) {
+  const city = (loc.city || '')
+    .replace(/^(Town|City|Township|Village|Borough) of /i, '')
+    .trim();
+  const cc = (loc.cc || '').toUpperCase();
+  const region = (cc === 'US' ? (loc.state || '') : (loc.country || '')).trim();
+
+  return [city, region]
+    .filter((part, i, parts) => part && parts.indexOf(part) === i)
+    .join(', ');
+}
+
+// Sort my most recent check-in into how the homepage should talk about it.
+// Returns { bucket: 'nyc' | 'ri' | 'travel', place? } or null. Stale check-ins
+// return null so the page falls back to neutral rather than confidently lying
+// about where I am after I've gone a while without checking in.
+function classifyCheckin(data) {
+  if (!data || !data.createdAt) return null;
+
+  const STALE_AFTER_SECONDS = 2 * 24 * 60 * 60; // 2 days
+  const age = Date.now() / 1000 - data.createdAt;
+  if (age > STALE_AFTER_SECONDS) return null;
+
+  const loc = data.location || {};
+  const city = (loc.city || '')
+    .replace(/^(Town|City|Township|Village|Borough) of /i, '')
+    .trim()
+    .toLowerCase();
+  const state = (loc.state || '').trim().toLowerCase();
+
+  const nycCities = [
+    'new york', 'new york city', 'manhattan', 'brooklyn',
+    'queens', 'bronx', 'the bronx', 'staten island'
+  ];
+  if (nycCities.includes(city) || state === 'ny' || state === 'new york') {
+    return { bucket: 'nyc' };
+  }
+
+  // The Farm Coast straddles the RI/MA line and it's all basically the same
+  // place, so treat both states as "Rhode Island" for the intro.
+  if (state === 'ri' || state === 'rhode island' ||
+      state === 'ma' || state === 'massachusetts') {
+    return { bucket: 'ri' };
+  }
+
+  // A recent check-in anywhere else means I'm on the road.
+  return { bucket: 'travel', place: travelPlace(loc) };
+}
+
+// Apply a resolved location state to the intro markup: home states reorder
+// the two paragraphs and swap the opening line to "I'm currently in…"; the
+// travel state swaps in a line that points at Instagram. Anything else (or a
+// null result) leaves the neutral, both-paragraphs version untouched. No-ops
+// gracefully if the expected markup isn't on the page.
+function applyIntroLocation(result) {
+  if (!result) return;
+
+  const leadNeutral = document.getElementById('intro-lead-neutral');
+  if (!leadNeutral) return;
+
+  // On the road: nudge toward the Instagram feed instead of reordering the
+  // two home paragraphs (I'm in neither place right now).
+  if (result.bucket === 'travel') {
+    const leadTravel = document.getElementById('intro-lead-travel');
+    if (!leadTravel) return;
+    const placeEl = document.getElementById('travel-place');
+    if (placeEl) placeEl.textContent = result.place ? ` in ${result.place}` : '';
+    leadNeutral.classList.add('loc-alt');
+    leadTravel.classList.remove('loc-alt');
+    return;
+  }
+
+  // Only the two home buckets touch the paragraphs; everything else stays neutral.
+  if (result.bucket !== 'nyc' && result.bucket !== 'ri') return;
+  const bucket = result.bucket;
+
+  // Move the paragraph for wherever I am ahead of the other one.
+  const active = document.getElementById(bucket === 'nyc' ? 'intro-nyc' : 'intro-ri');
+  const other = document.getElementById(bucket === 'nyc' ? 'intro-ri' : 'intro-nyc');
+  if (active && other &&
+      (active.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_PRECEDING)) {
+    active.parentNode.insertBefore(active, other);
+  }
+
+  // Swap the neutral "I split my time between…" opening line for the
+  // present-tense "I'm currently in…" variant that matches where I am.
+  const leadActive = document.getElementById(bucket === 'nyc' ? 'intro-lead-nyc' : 'intro-lead-ri');
+  if (leadActive) {
+    leadNeutral.classList.add('loc-alt');
+    leadActive.classList.remove('loc-alt');
+  }
+}
+
+// Reflect my most recent check-in in the intro.
+function applyLocationAwareness(data) {
+  applyIntroLocation(classifyCheckin(data));
+}
+
+// Debug hook: a `?loc=` query param pins the intro to a given state so every
+// variant can be previewed on demand without waiting to actually be there.
+// Values: nyc | ri | travel | neutral. Travel takes an optional `?place=`,
+// e.g. ?loc=travel&place=Rome,%20Italy. See _dev/location-debug.md.
+function readForcedState() {
+  const params = new URLSearchParams(window.location.search);
+  const loc = (params.get('loc') || '').trim().toLowerCase();
+
+  if (loc === 'nyc' || loc === 'ri') return { bucket: loc };
+  if (loc === 'travel') {
+    return { bucket: 'travel', place: (params.get('place') || 'Lisbon, Portugal').trim() };
+  }
+  if (loc === 'neutral' || loc === 'home') return { bucket: 'neutral' };
+  return null;
+}
+
+// Call the function when the page loads.
+document.addEventListener('DOMContentLoaded', function () {
+  const forced = readForcedState();
+  if (forced) applyIntroLocation(forced);
+  // Still fetch the real check-in for the "Last seen" line; only let it drive
+  // the intro when nothing is pinning it.
+  getLastCheckin(forced);
+});
