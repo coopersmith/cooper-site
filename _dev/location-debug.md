@@ -41,5 +41,5 @@ Production (`https://coopersmith.nyc`) — same params:
 - Without any param, the intro uses the live check-in:
   - NY state / NYC boroughs → NYC
   - Rhode Island or Massachusetts → Farm Coast
-  - anywhere else, checked in within the last 2 days → travelling
-  - stale (older than 2 days) or unknown → neutral
+  - anywhere else, checked in within the last week → travelling
+  - stale (older than 1 week) or unknown → neutral
