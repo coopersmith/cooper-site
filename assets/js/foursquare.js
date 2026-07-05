@@ -100,7 +100,7 @@ function travelPlace(loc) {
 function classifyCheckin(data) {
   if (!data || !data.createdAt) return null;
 
-  const STALE_AFTER_SECONDS = 2 * 24 * 60 * 60; // 2 days
+  const STALE_AFTER_SECONDS = 7 * 24 * 60 * 60; // 1 week
   const age = Date.now() / 1000 - data.createdAt;
   if (age > STALE_AFTER_SECONDS) return null;
 
