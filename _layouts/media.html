@@ -22,6 +22,12 @@ layout: default
 {%- assign genre = page.genre | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
 {%- assign cast = page.cast | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
 
+{%- comment -%}"Completed" date: when it was read/watched/heard — books use
+`end`, movies/albums `last`. Shown only when set; unread items and pre-tracking
+entries simply have no Completed fact. `created` (date added) is never used.{%- endcomment -%}
+{%- assign finished = nil -%}
+{%- if page.end -%}{%- assign finished = page.end -%}{%- elsif page.last -%}{%- assign finished = page.last -%}{%- endif -%}
+
 <article class="media-note">
   <div class="media-note-head">
     <span class="tag media-note-type">{{ type }}</span>
@@ -33,6 +39,7 @@ layout: default
       <dl class="media-facts">
         {%- if creator != '' -%}<dt>{{ creator_label }}</dt><dd>{{ creator }}</dd>{%- endif -%}
         {%- if page.year -%}<dt>Year</dt><dd>{{ page.year }}</dd>{%- endif -%}
+        {%- if finished -%}<dt>Completed</dt><dd>{{ finished | date: "%B %-d, %Y" }}</dd>{%- endif -%}
         {%- if genre != '' -%}<dt>Genre</dt><dd>{{ genre }}</dd>{%- endif -%}
         {%- if page.runtime -%}<dt>Runtime</dt><dd>{{ page.runtime }}</dd>{%- endif -%}
         {%- if page.pages -%}<dt>Pages</dt><dd>{{ page.pages }}</dd>{%- elsif page.length -%}<dt>Pages</dt><dd>{{ page.length }}</dd>{%- endif -%}
