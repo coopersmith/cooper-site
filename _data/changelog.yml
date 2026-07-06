@@ -7,6 +7,96 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 56
+  date: '2026-07-05'
+  title: Keep the location-aware intro on my home state longer
+  category: polish
+  summary: >-
+    Widened the "last checked in" freshness window from 2 days to a week, so a
+    normal quiet stretch at home no longer flips the location-aware homepage
+    intro back to its neutral line.
+  url: https://github.com/coopersmith/cooper-site/pull/56
+
+- number: 43
+  date: '2026-07-03'
+  title: Make the homepage intro location-aware
+  category: feature
+  summary: >-
+    Made the homepage intro reflect where I actually am — it reorders and
+    rewrites the opening paragraph from my latest Foursquare check-in to lead
+    with New York, Rhode Island, or travel, with a plain fallback when there's
+    no JavaScript.
+  url: https://github.com/coopersmith/cooper-site/pull/43
+
+- number: 54
+  date: '2026-07-02'
+  title: Hide the Notes heading on books with no highlights
+  category: fix
+  summary: >-
+    Stopped book notes with no Readwise highlights from showing a bare, empty
+    "Notes" heading — the build now drops the heading too when there's nothing to
+    fill it, and logs its diagnostics instead of leaving comments in the page.
+  url: https://github.com/coopersmith/cooper-site/pull/54
+
+- number: 52
+  date: '2026-07-02'
+  title: Fix Readwise highlight baking across the full library
+  category: fix
+  summary: >-
+    Fixed several books (Filterworld among them) that quietly stopped pulling in
+    their Readwise highlights after the full library sync, tracing it to URL slug
+    collisions and subtitle-vs-title mismatches between the notes and Readwise.
+  url: https://github.com/coopersmith/cooper-site/pull/52
+
+- number: 51
+  date: '2026-07-01'
+  title: Match the footer nav to the homepage links
+  category: design
+  summary: >-
+    Aligned the footer navigation with the homepage "Elsewhere" list — dropped
+    Concerts, and renamed Photos to Visual Diary and Media to Media Diet — so the
+    two sets of links tell the same story.
+  url: https://github.com/coopersmith/cooper-site/pull/51
+
+- number: 49
+  date: '2026-07-01'
+  title: Revert the cross-page navigation fade
+  category: polish
+  summary: >-
+    Undid the page-to-page cross-fade added in the navigation rethink; clicking
+    between pages is instant again.
+  url: https://github.com/coopersmith/cooper-site/pull/49
+
+- number: 48
+  date: '2026-07-01'
+  title: Add a Notes landing page for the digital garden
+  category: feature
+  summary: >-
+    Gave the "Notes" nav a real home — a /notes page with a sortable (Date / A→Z)
+    index of the garden, scoped to exclude Concerts, Media, and Travel so each
+    nav item is its own distinct bucket.
+  url: https://github.com/coopersmith/cooper-site/pull/48
+
+- number: 47
+  date: '2026-07-01'
+  title: Make the changelog maintain itself
+  category: feature
+  summary: >-
+    Brought the changelog up to date and set it to keep itself current, via a
+    GitHub Action that summarizes newly-merged PRs, and moved its link off the
+    homepage into the footer and colophon.
+  url: https://github.com/coopersmith/cooper-site/pull/47
+
+- number: 46
+  date: '2026-07-01'
+  title: Rethink site navigation
+  category: design
+  summary: >-
+    Rebuilt navigation around a minimal, content-first model — a wordmark-only
+    header that links home, with the real nav in the footer — and fixed the
+    homepage "Elsewhere" links that were wrongly opening in new tabs.
+  url: https://github.com/coopersmith/cooper-site/pull/46
+
 - number: 45
   date: '2026-07-01'
   title: Keep the homepage recent notes to garden notes
