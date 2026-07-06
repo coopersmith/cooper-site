@@ -74,10 +74,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
       {% assign shelfval = e.shelf | downcase | strip %}
-      {% assign statusbucket = '' %}
-      {% if shelfval == 'watched' or shelfval == 'read' or shelfval == 'listened' or shelfval == 'finished' or shelfval == 'done' or shelfval == 'played' or shelfval == 'seen' %}{% assign statusbucket = 'finished' %}
-      {% elsif shelfval == 'watching' or shelfval == 'reading' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' %}{% assign statusbucket = 'active' %}
-      {% elsif shelfval == 'want' or shelfval == 'queue' or shelfval == 'queued' or shelfval == 'backlog' or shelfval == 'to-watch' or shelfval == 'to-read' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' %}{% assign statusbucket = 'queue' %}{% endif %}
+      {%- comment -%}The media diet is a log of consumed media, so default to
+      finished; only an explicit in-progress or want-to shelf value moves an
+      item out of Finished. This keeps untagged entries (most books) in Finished.{%- endcomment -%}
+      {% assign statusbucket = 'finished' %}
+      {% if shelfval == 'watching' or shelfval == 'reading' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
+      {% elsif shelfval == 'want' or shelfval == 'queue' or shelfval == 'queued' or shelfval == 'backlog' or shelfval == 'to-watch' or shelfval == 'to-read' or shelfval == 'to watch' or shelfval == 'to read' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' %}{% assign statusbucket = 'queue' %}{% endif %}
       <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
@@ -119,10 +121,12 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% assign shelfval = e.shelf | downcase | strip %}
-      {% assign statusbucket = '' %}
-      {% if shelfval == 'watched' or shelfval == 'read' or shelfval == 'listened' or shelfval == 'finished' or shelfval == 'done' or shelfval == 'played' or shelfval == 'seen' %}{% assign statusbucket = 'finished' %}
-      {% elsif shelfval == 'watching' or shelfval == 'reading' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' %}{% assign statusbucket = 'active' %}
-      {% elsif shelfval == 'want' or shelfval == 'queue' or shelfval == 'queued' or shelfval == 'backlog' or shelfval == 'to-watch' or shelfval == 'to-read' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' %}{% assign statusbucket = 'queue' %}{% endif %}
+      {%- comment -%}The media diet is a log of consumed media, so default to
+      finished; only an explicit in-progress or want-to shelf value moves an
+      item out of Finished. This keeps untagged entries (most books) in Finished.{%- endcomment -%}
+      {% assign statusbucket = 'finished' %}
+      {% if shelfval == 'watching' or shelfval == 'reading' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
+      {% elsif shelfval == 'want' or shelfval == 'queue' or shelfval == 'queued' or shelfval == 'backlog' or shelfval == 'to-watch' or shelfval == 'to-read' or shelfval == 'to watch' or shelfval == 'to read' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' %}{% assign statusbucket = 'queue' %}{% endif %}
       <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
