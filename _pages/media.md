@@ -96,7 +96,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
         <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
-        <td class="index-date muted media-rating">{%- if e.rating -%}<span class="rating-num" aria-label="{{ e.rating }} out of 7">{{ e.rating }}<span class="rating-num-scale">/7</span></span>{%- endif -%}</td>
+        <td class="index-date muted media-rating">{%- if e.rating -%}<span class="rating-num" aria-label="{{ e.rating }} out of 7">{{ e.rating }}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
     {% for c in concerts %}
@@ -253,13 +253,9 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   .media-list td:nth-child(5) { width: 3.6em; }            /* rating */
 
   /* Rating as a plain number instead of the ◆◇ marks: far more legible at
-     a glance and a fraction of the width. The "/7" scale stays as a muted
-     hint so the number reads unambiguously. */
+     a glance and a fraction of the width. The "Rating" heading carries the
+     scale, so the cell is just the number. */
   .media-rating .rating-num { font-variant-numeric: tabular-nums; }
-  .media-rating .rating-num-scale {
-    color: var(--color-text-tertiary);
-    font-size: 0.82em;
-  }
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
