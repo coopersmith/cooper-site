@@ -39,7 +39,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     </span>
     <span class="sort-control">
       <label for="media-sort">Sort</label>
-      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tr, li">
+      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tbody tr, li">
         <option value="date">Date</option>
         <option value="az">A→Z</option>
         <option value="rating">Rating</option>
@@ -56,6 +56,16 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 <div id="media-library" class="view-list">
 
   <table class="index-table media-list">
+    <thead>
+      <tr>
+        <th class="index-title">Title</th>
+        <th class="index-meta">Type</th>
+        <th class="index-meta">By</th>
+        <th class="index-date">Year</th>
+        <th class="index-date">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
     {% for e in entries %}
       {% assign type = 'Media' %}
       {% if e.path contains '/Books/' %}{% assign type = 'Book' %}
@@ -86,7 +96,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
         <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
-        <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ e.rating }}/7" aria-label="{{ e.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</td>
+        <td class="index-date muted media-rating">{%- if e.rating -%}<span class="rating-num" aria-label="{{ e.rating }} out of 7">{{ e.rating }}<span class="rating-num-scale">/7</span></span>{%- endif -%}</td>
       </tr>
     {% endfor %}
     {% for c in concerts %}
@@ -101,6 +111,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <td class="index-date muted"></td>
       </tr>
     {% endfor %}
+    </tbody>
   </table>
 
   <ul class="media-grid">
@@ -215,6 +226,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
      are fixed, and an over-long creator/venue truncates with an ellipsis
      rather than hogging the row. */
   .media-list.index-table { table-layout: fixed; }
+  .media-list th,
   .media-list td { padding-left: 0.9em; }
   .media-list .index-title { width: auto; padding-left: 0; }
   /* Some titles run book-jacket long ("Boom Town: The Fantastical Saga…").
@@ -227,14 +239,27 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .media-list th:nth-child(2),
   .media-list td:nth-child(2) { width: 4.2em; }            /* type tag */
+  .media-list th:nth-child(3),
   .media-list td:nth-child(3) {                            /* creator / venue */
     width: 8.5em;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .media-list th:nth-child(4),
   .media-list td:nth-child(4) { width: 3em; }              /* year */
-  .media-list td:nth-child(5) { width: 7em; }              /* rating */
+  .media-list th:nth-child(5),
+  .media-list td:nth-child(5) { width: 3.6em; }            /* rating */
+
+  /* Rating as a plain number instead of the ◆◇ marks: far more legible at
+     a glance and a fraction of the width. The "/7" scale stays as a muted
+     hint so the number reads unambiguously. */
+  .media-rating .rating-num { font-variant-numeric: tabular-nums; }
+  .media-rating .rating-num-scale {
+    color: var(--color-text-tertiary);
+    font-size: 0.82em;
+  }
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }

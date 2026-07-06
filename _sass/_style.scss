@@ -618,6 +618,24 @@ table {
     line-height: var(--leading-prose);
   }
 
+  // Optional column headings (used on /media/). Kept quiet — a muted,
+  // UI-sized label with a slightly firmer rule beneath it — so it orients
+  // without competing with the content. padding-left is deliberately left to
+  // the per-column rules so header cells line up with the body cells.
+  thead th {
+    padding-top: 0.2em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: baseline;
+    text-align: left;
+    font-size: var(--text-ui);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-tertiary);
+  }
+  // Right-align date/rating headers to sit over their tabular columns
+  // (overrides the default `text-align: left` above).
+  thead th.index-date { text-align: right; }
+
   // Class-based widths so the same table works with 2 columns
   // (title · date, e.g. /travels/) or 3 (title · meta · date, e.g.
   // /concerts/): the title greedily takes the row, the rest shrink.
