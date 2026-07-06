@@ -39,6 +39,16 @@ LIMIT      = ENV['CHANGELOG_LIMIT']&.to_i
 DATA_PATH  = File.expand_path('../_data/changelog.yml', __dir__)
 CATEGORIES = %w[feature fix design refactor content chore polish].freeze
 
+# A PR whose changed files are ALL within this set is just the changelog
+# maintaining itself (a manual sync, a tweak to the generator or workflow).
+# Those are skipped so the log never documents its own machinery. A PR that
+# also touches anything outside this set is summarized as normal.
+SKIP_PATHS = [
+  '_data/changelog.yml',
+  'scripts/generate_changelog.rb',
+  '.github/workflows/update-changelog.yml'
+].freeze
+
 GH_TOKEN   = ENV['GITHUB_TOKEN']
 AI_KEY     = ENV['ANTHROPIC_API_KEY']
 
@@ -141,16 +151,26 @@ def merged_pull_requests
   prs
 end
 
-def diffstat_for(number)
-  files = gh_get("/repos/#{REPO}/pulls/#{number}/files", per_page: 100)
+def pr_files(number)
+  gh_get("/repos/#{REPO}/pulls/#{number}/files", per_page: 100)
+rescue StandardError
+  []
+end
+
+def diffstat_from(files)
   {
     count: files.size,
     files: files.map { |f| f['filename'] }.first(12),
     additions: files.sum { |f| f['additions'].to_i },
     deletions: files.sum { |f| f['deletions'].to_i }
   }
-rescue StandardError
-  { count: 0, files: [], additions: 0, deletions: 0 }
+end
+
+# True only when the PR changed something AND every changed file is changelog
+# plumbing. Returns false on an empty/failed file list so we never skip by
+# accident — better to summarize an ambiguous PR than to silently drop it.
+def changelog_plumbing_only?(files)
+  !files.empty? && files.all? { |f| SKIP_PATHS.include?(f['filename']) }
 end
 
 # --- serialize back to a clean, diff-friendly YAML file --------------------
@@ -218,14 +238,34 @@ if todo.empty?
   exit 0
 end
 
+# Fetch each candidate's files (GitHub only — no API key needed) and drop the
+# ones that are just changelog plumbing before spending anything on summaries.
+work = []
+skipped = 0
+todo.each do |pr|
+  files = pr_files(pr['number'])
+  if changelog_plumbing_only?(files)
+    skipped += 1
+    puts "  ##{pr['number']} skipped (changelog plumbing only)"
+  else
+    work << [pr, files]
+  end
+end
+puts "Skipped #{skipped} changelog-plumbing PR#{skipped == 1 ? '' : 's'}." if skipped.positive?
+
+if work.empty?
+  puts 'Nothing new to summarize. Up to date.'
+  exit 0
+end
+
 abort 'ANTHROPIC_API_KEY is required to summarize new PRs.' if AI_KEY.nil? || AI_KEY.empty?
 
-puts "Summarizing #{todo.size} PR#{todo.size == 1 ? '' : 's'}..."
+puts "Summarizing #{work.size} PR#{work.size == 1 ? '' : 's'}..."
 by_number = existing.each_with_object({}) { |e, h| h[e['number']] = e }
 
-todo.each do |pr|
+work.each do |pr, files|
   print "  ##{pr['number']} #{pr['title'][0, 50]}... "
-  entry = anthropic_summary(pr, diffstat_for(pr['number']))
+  entry = anthropic_summary(pr, diffstat_from(files))
   next unless entry
 
   by_number[entry['number']] = entry
