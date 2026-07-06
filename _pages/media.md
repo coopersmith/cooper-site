@@ -336,6 +336,13 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var sortSelect = document.getElementById('media-sort');
     var statusSelect = document.getElementById('media-status');
 
+    // The "Coop's 100" option is detached from the DOM when we're not scoped to
+    // Movies (see syncSortOption). It starts out `hidden` for the no-JS case;
+    // once JS owns it, presence in the <select> — not the attribute — controls
+    // visibility, so drop the attribute up front.
+    var rankedOpt = sortSelect ? sortSelect.querySelector('option[value="ranked"]') : null;
+    if (rankedOpt) rankedOpt.removeAttribute('hidden');
+
     var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
     var VIEWS = { list: 1, covers: 1 };
     // 'ranked' (Coop's 100) is a movies-only sort that also subsets to ranked
@@ -372,18 +379,24 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     }
 
     // "Coop's 100" (sort value 'ranked') only makes sense for movies, so its
-    // option is revealed only under the Movies filter. Returns true if it had
-    // to reset the sort because we left Movies while ranked was selected.
+    // option is present in the dropdown only under the Movies filter. We remove
+    // the node entirely rather than toggling `hidden`/`disabled`: browsers don't
+    // reliably honour `hidden` on <option>, which left it lingering as a
+    // confusing greyed-out entry. Returns true if it had to reset the sort
+    // because we left Movies while ranked was selected.
     function syncSortOption() {
-      if (!sortSelect) return false;
-      var opt = sortSelect.querySelector('option[value="ranked"]');
-      if (!opt) return false;
+      if (!sortSelect || !rankedOpt) return false;
       var allow = currentFilter === 'movie';
-      opt.hidden = !allow;
-      opt.disabled = !allow;
-      if (!allow && sortSelect.value === 'ranked') {
-        sortSelect.value = 'date';
-        return true;
+      var present = rankedOpt.parentNode === sortSelect;
+      if (allow && !present) {
+        sortSelect.appendChild(rankedOpt);
+      } else if (!allow && present) {
+        var wasSelected = sortSelect.value === 'ranked';
+        sortSelect.removeChild(rankedOpt);
+        if (wasSelected) {
+          sortSelect.value = 'date';
+          return true;
+        }
       }
       return false;
     }
