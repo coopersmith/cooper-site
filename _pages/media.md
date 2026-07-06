@@ -184,12 +184,17 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
   .media-toggle {
     display: inline-flex;
+    /* Fixed width + equal-flex halves so "List" and "Covers" occupy the
+       same width despite their different label lengths (the shorter label
+       just centres in its half). */
+    width: 10em;
     border: 1px solid var(--color-border);
     border-radius: 1em;
     overflow: hidden;
   }
   .media-view-btn {
     appearance: none; border: 0; background: transparent;
+    flex: 1 1 0; text-align: center;
     color: var(--color-text-tertiary); font: inherit; font-size: 0.78em;
     padding: 0.3em 0.85em; cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
