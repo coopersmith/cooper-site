@@ -3,11 +3,26 @@
 //   data-sort-scope : CSS selector matching the container(s) to reorder
 //   data-sort-item  : selector for the sortable items within each container
 // Items expose data-title / data-date / data-rating for the sort keys.
+// data-ranking (optional) is a hand-ordered favourites list (1 = best); the
+// 'ranked' key orders by it (1→N, unranked to the back) — used by the media
+// page's movies-only "Coop's 100" sort.
 (function () {
   function compare(key) {
     return function (a, b) {
       if (key === 'az') {
         return (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
+      }
+      if (key === 'ranked') {
+        // Hand-ranked order, 1 = best. Unranked items fall to the back,
+        // ordered by their rating.
+        var ra = parseInt(a.getAttribute('data-ranking'), 10);
+        var rb = parseInt(b.getAttribute('data-ranking'), 10);
+        var aRanked = !isNaN(ra);
+        var bRanked = !isNaN(rb);
+        if (aRanked && bRanked) return ra - rb;
+        if (aRanked) return -1;
+        if (bRanked) return 1;
+        return (parseFloat(b.getAttribute('data-rating')) || 0) - (parseFloat(a.getAttribute('data-rating')) || 0);
       }
       if (key === 'rating') {
         return (parseFloat(b.getAttribute('data-rating')) || 0) - (parseFloat(a.getAttribute('data-rating')) || 0);
