@@ -30,7 +30,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   <div class="media-toolbar-controls">
     <span class="sort-control">
       <label for="media-status">Status</label>
-      <select id="media-status">
+      <select id="media-status" class="sort-select">
         <option value="all">All</option>
         <option value="queue">Queue</option>
         <option value="active">Active</option>
