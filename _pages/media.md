@@ -29,6 +29,15 @@ Everything I've been reading, watching, listening to, and seeing live — in one
   </div>
   <div class="media-toolbar-controls">
     <span class="sort-control">
+      <label for="media-status">Status</label>
+      <select id="media-status">
+        <option value="all">All</option>
+        <option value="queue">Queue</option>
+        <option value="active">Active</option>
+        <option value="finished">Finished</option>
+      </select>
+    </span>
+    <span class="sort-control">
       <label for="media-sort">Sort</label>
       <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tr, li">
         <option value="date">Date</option>
@@ -64,7 +73,15 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign sorttitle = clean_title | downcase | strip %}
       {% assign sortdate = '' %}
       {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
-      <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}">
+      {%- comment -%}shelf is a scalar for some collections (movies: "watched")
+      and a YAML list for others (books: ["read"]/["queue"]); join reads both.
+      Map to a status bucket; anything not explicitly in-progress or want-to
+      (incl. read/watched/listened and untagged) falls through to finished.{%- endcomment -%}
+      {% assign shelfval = e.shelf | join: ' ' | downcase | strip %}
+      {% assign statusbucket = 'finished' %}
+      {% if shelfval contains 'reading' or shelfval == 'watching' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
+      {% elsif shelfval == 'queue' or shelfval == 'queued' or shelfval == 'want' or shelfval == 'backlog' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' or shelfval == 'to-watch' or shelfval == 'to watch' or shelfval contains 'to-read' or shelfval contains 'to read' or shelfval contains 'want to read' %}{% assign statusbucket = 'queue' %}{% endif %}
+      <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
@@ -76,7 +93,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
+      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
         <td class="index-meta"><span class="tag">Live</span></td>
         <td class="index-meta muted">{{ venue }}</td>
@@ -104,7 +121,15 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}">
+      {%- comment -%}shelf is a scalar for some collections (movies: "watched")
+      and a YAML list for others (books: ["read"]/["queue"]); join reads both.
+      Map to a status bucket; anything not explicitly in-progress or want-to
+      (incl. read/watched/listened and untagged) falls through to finished.{%- endcomment -%}
+      {% assign shelfval = e.shelf | join: ' ' | downcase | strip %}
+      {% assign statusbucket = 'finished' %}
+      {% if shelfval contains 'reading' or shelfval == 'watching' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
+      {% elsif shelfval == 'queue' or shelfval == 'queued' or shelfval == 'want' or shelfval == 'backlog' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' or shelfval == 'to-watch' or shelfval == 'to watch' or shelfval contains 'to-read' or shelfval contains 'to read' or shelfval contains 'want to read' %}{% assign statusbucket = 'queue' %}{% endif %}
+      <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
         <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
           <span class="media-card-info">
@@ -119,7 +144,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0">
+      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
         <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists | escape }}">
           {% if c.cover %}
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
@@ -311,12 +336,15 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var chips = document.querySelectorAll('.media-filters .tag');
     var filterSelect = document.querySelector('.media-filter-select');
     var sortSelect = document.getElementById('media-sort');
+    var statusSelect = document.getElementById('media-status');
 
     var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
     var VIEWS = { list: 1, covers: 1 };
     // 'ranked' (Coop's 100) is a movies-only sort that also subsets to ranked
     // titles — see syncSortOption() / applyVisibility().
     var SORTS = { date: 1, az: 1, rating: 1, ranked: 1 };
+    // Reading status, from each item's normalized data-shelf bucket.
+    var STATUSES = { all: 1, queue: 1, active: 1, finished: 1 };
 
     var currentFilter = 'all';
     var currentView = 'list';
@@ -330,6 +358,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       if (currentView !== 'list') params.set('view', currentView);
       var sort = sortSelect ? sortSelect.value : 'date';
       if (sort !== 'date') params.set('sort', sort);
+      var status = statusSelect ? statusSelect.value : 'all';
+      if (status !== 'all') params.set('status', status);
       var qs = params.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
     }
@@ -360,13 +390,15 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       return false;
     }
 
-    // Show/hide items for the current filter. The ranked sort doubles as a
-    // filter: it keeps only movies that carry a hand-ranking.
+    // Show/hide items for the current type + status filters. The ranked sort
+    // doubles as a filter: it keeps only movies that carry a hand-ranking.
     function applyVisibility() {
       var ranked = sortSelect && sortSelect.value === 'ranked';
+      var status = statusSelect ? statusSelect.value : 'all';
       lib.querySelectorAll('[data-type]').forEach(function (el) {
         var hide = currentFilter !== 'all' && el.dataset.type !== currentFilter;
         if (!hide && ranked && !(el.dataset.type === 'movie' && el.dataset.ranking)) hide = true;
+        if (!hide && status !== 'all' && el.dataset.shelf !== status) hide = true;
         el.classList.toggle('is-hidden', hide);
       });
     }
@@ -387,12 +419,14 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     if (filterSelect) filterSelect.addEventListener('change', function () { setFilter(filterSelect.value); });
     // Re-apply visibility on sort change so the ranked sort subsets/unsubsets.
     if (sortSelect) sortSelect.addEventListener('change', function () { applyVisibility(); updateUrl(); });
+    if (statusSelect) statusSelect.addEventListener('change', function () { applyVisibility(); updateUrl(); });
 
     // ---- Initial state: URL params take precedence, then saved view ----
     var params = new URLSearchParams(location.search);
     var urlType = params.get('type');
     var urlView = params.get('view');
     var urlSort = params.get('sort');
+    var urlStatus = params.get('status');
 
     var initView = 'list';
     if (urlView && VIEWS[urlView]) {
@@ -404,6 +438,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 
     // Set the sort value before sortable.js runs its load-time sort.
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
+
+    if (statusSelect && urlStatus && STATUSES[urlStatus]) statusSelect.value = urlStatus;
 
     if (urlType && TYPES[urlType]) setFilter(urlType);
 
