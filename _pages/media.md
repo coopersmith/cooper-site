@@ -17,12 +17,14 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     <button type="button" class="tag is-active" data-filter="all">All</button>
     <button type="button" class="tag" data-filter="book">Books</button>
     <button type="button" class="tag" data-filter="movie">Movies</button>
+    <button type="button" class="tag" data-filter="show">TV</button>
     <button type="button" class="tag" data-filter="album">Albums</button>
     <button type="button" class="tag" data-filter="concert">Live</button>
     <select class="sort-select media-filter-select" aria-label="Filter by type">
       <option value="all">All</option>
       <option value="book">Books</option>
       <option value="movie">Movies</option>
+      <option value="show">TV</option>
       <option value="album">Albums</option>
       <option value="concert">Live</option>
     </select>
@@ -78,7 +80,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
-      {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
+      {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}
+      {% elsif e.creator %}{% assign creator = e.creator | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% assign sorttitle = clean_title | downcase | strip %}
       {%- comment -%}The Completed column shows only when I finished something —
@@ -145,7 +148,8 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
-      {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
+      {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}
+      {% elsif e.creator %}{% assign creator = e.creator | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {%- comment -%}shelf is a scalar for some collections (movies: "watched")
       and a YAML list for others (books: ["read"]/["queue"]); join reads both.
@@ -161,7 +165,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
           <span class="media-card-info">
             <span class="mci-title">{{ clean_title }}</span>
             {% if creator != '' %}<span class="mci-sub">{{ creator }}</span>{% endif %}
-            <span class="mci-foot"><span class="tag">{{ type }}</span>{% if e.year %}<span class="mci-year">{{ e.year }}</span>{% endif %}{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="mci-rating" title="{{ e.rating }}/7">{%- for i in (1..filled) -%}◆{%- endfor -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</span>
+            <span class="mci-foot"><span class="tag">{{ type }}</span>{% if e.year %}<span class="mci-year">{{ e.year }}</span>{% endif %}{%- if e.rating -%}{%- assign filled = e.rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="mci-rating" title="{{ e.rating }}/7">{%- for i in (1..filled) -%}◆{%- endfor -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</span>
           </span>
         </a>
       </li>
@@ -435,7 +439,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     var rankedOpt = sortSelect ? sortSelect.querySelector('option[value="ranked"]') : null;
     if (rankedOpt) rankedOpt.removeAttribute('hidden');
 
-    var TYPES = { all: 1, book: 1, movie: 1, album: 1, concert: 1 };
+    var TYPES = { all: 1, book: 1, movie: 1, show: 1, album: 1, concert: 1 };
     var VIEWS = { list: 1, covers: 1 };
     // 'ranked' (Coop's 100) is a movies-only sort that also subsets to ranked
     // titles — see syncSortOption() / applyVisibility().
