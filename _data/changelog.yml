@@ -7,9 +7,41 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 59
+  date: '2026-07-06'
+  title: "Cleaned up Media Diet page controls"
+  category: fix
+  summary: >-
+    Fixed a few rough edges on the Media Diet page: the "Coop's 100" sort option
+    now only shows up when viewing Movies instead of lingering greyed-out
+    elsewhere, the Status dropdown finally matches the site's styled look, and
+    the List/Covers toggle buttons are now evenly sized.
+  url: https://github.com/coopersmith/cooper-site/pull/59
+
+- number: 57
+  date: '2026-07-06'
+  title: "Fixed misfiled books in media status list"
+  category: fix
+  summary: >-
+    Books marked as 'want to read' were incorrectly showing up as finished
+    because the filter couldn't read their format. Now it correctly sorts books,
+    movies, and albums into finished, active, or queue.
+  url: https://github.com/coopersmith/cooper-site/pull/57
+
+- number: 55
+  date: '2026-07-06'
+  title: "Filter your media by status"
+  category: feature
+  summary: >-
+    The media page now lets you sort what's queued up, in progress, or finished
+    — perfect for spotting what to watch or read next. It works together with
+    the existing type filters and Coop's 100 sort, and you can even link
+    directly to a specific view.
+  url: https://github.com/coopersmith/cooper-site/pull/55
+
 - number: 56
   date: '2026-07-05'
-  title: Keep the location-aware intro on my home state longer
+  title: "Keep the location-aware intro on my home state longer"
   category: polish
   summary: >-
     Widened the "last checked in" freshness window from 2 days to a week, so a
@@ -19,7 +51,7 @@
 
 - number: 43
   date: '2026-07-03'
-  title: Make the homepage intro location-aware
+  title: "Make the homepage intro location-aware"
   category: feature
   summary: >-
     Made the homepage intro reflect where I actually am — it reorders and
@@ -30,37 +62,49 @@
 
 - number: 54
   date: '2026-07-02'
-  title: Hide the Notes heading on books with no highlights
+  title: "Hide the Notes heading on books with no highlights"
   category: fix
   summary: >-
     Stopped book notes with no Readwise highlights from showing a bare, empty
-    "Notes" heading — the build now drops the heading too when there's nothing to
-    fill it, and logs its diagnostics instead of leaving comments in the page.
+    "Notes" heading — the build now drops the heading too when there's nothing
+    to fill it, and logs its diagnostics instead of leaving comments in the
+    page.
   url: https://github.com/coopersmith/cooper-site/pull/54
 
 - number: 52
   date: '2026-07-02'
-  title: Fix Readwise highlight baking across the full library
+  title: "Fix Readwise highlight baking across the full library"
   category: fix
   summary: >-
     Fixed several books (Filterworld among them) that quietly stopped pulling in
-    their Readwise highlights after the full library sync, tracing it to URL slug
-    collisions and subtitle-vs-title mismatches between the notes and Readwise.
+    their Readwise highlights after the full library sync, tracing it to URL
+    slug collisions and subtitle-vs-title mismatches between the notes and
+    Readwise.
   url: https://github.com/coopersmith/cooper-site/pull/52
+
+- number: 50
+  date: '2026-07-02'
+  title: "Coop's 100 movies now sort right into the media page"
+  category: feature
+  summary: >-
+    Filter to movies and sort by rating, and the hand-picked top 100 float to
+    the top in proper rank order, with everything else still sorted normally
+    underneath.
+  url: https://github.com/coopersmith/cooper-site/pull/50
 
 - number: 51
   date: '2026-07-01'
-  title: Match the footer nav to the homepage links
+  title: "Match the footer nav to the homepage links"
   category: design
   summary: >-
     Aligned the footer navigation with the homepage "Elsewhere" list — dropped
-    Concerts, and renamed Photos to Visual Diary and Media to Media Diet — so the
-    two sets of links tell the same story.
+    Concerts, and renamed Photos to Visual Diary and Media to Media Diet — so
+    the two sets of links tell the same story.
   url: https://github.com/coopersmith/cooper-site/pull/51
 
 - number: 49
   date: '2026-07-01'
-  title: Revert the cross-page navigation fade
+  title: "Revert the cross-page navigation fade"
   category: polish
   summary: >-
     Undid the page-to-page cross-fade added in the navigation rethink; clicking
@@ -69,17 +113,17 @@
 
 - number: 48
   date: '2026-07-01'
-  title: Add a Notes landing page for the digital garden
+  title: "Add a Notes landing page for the digital garden"
   category: feature
   summary: >-
-    Gave the "Notes" nav a real home — a /notes page with a sortable (Date / A→Z)
-    index of the garden, scoped to exclude Concerts, Media, and Travel so each
-    nav item is its own distinct bucket.
+    Gave the "Notes" nav a real home — a /notes page with a sortable (Date /
+    A→Z) index of the garden, scoped to exclude Concerts, Media, and Travel so
+    each nav item is its own distinct bucket.
   url: https://github.com/coopersmith/cooper-site/pull/48
 
 - number: 47
   date: '2026-07-01'
-  title: Make the changelog maintain itself
+  title: "Make the changelog maintain itself"
   category: feature
   summary: >-
     Brought the changelog up to date and set it to keep itself current, via a
@@ -89,7 +133,7 @@
 
 - number: 46
   date: '2026-07-01'
-  title: Rethink site navigation
+  title: "Rethink site navigation"
   category: design
   summary: >-
     Rebuilt navigation around a minimal, content-first model — a wordmark-only
@@ -99,7 +143,7 @@
 
 - number: 45
   date: '2026-07-01'
-  title: Keep the homepage recent notes to garden notes
+  title: "Keep the homepage recent notes to garden notes"
   category: fix
   summary: >-
     Filtered Media Diet entries out of the homepage "Recent notes" list — the
@@ -109,7 +153,7 @@
 
 - number: 44
   date: '2026-07-01'
-  title: Bake Readwise book highlights into notes at build time
+  title: "Bake Readwise book highlights into notes at build time"
   category: feature
   summary: >-
     Taught the build to pull a book's Readwise highlights straight into its note
@@ -120,7 +164,7 @@
 
 - number: 42
   date: '2026-07-01'
-  title: Add this changelog
+  title: "Add this changelog"
   category: feature
   summary: >-
     Added the changelog you're reading — a plain-English, month-grouped log of
@@ -130,7 +174,7 @@
 
 - number: 41
   date: '2026-07-01'
-  title: Render Markdown in Readwise highlights
+  title: "Render Markdown in Readwise highlights"
   category: fix
   summary: >-
     Made Readwise highlights render their Markdown — bold, italics, and links —
@@ -140,37 +184,37 @@
 
 - number: 40
   date: '2026-07-01'
-  title: Fix white highlight cards in dark mode
+  title: "Fix white highlight cards in dark mode"
   category: fix
   summary: >-
-    Fixed the highlights page rendering unreadable white cards in dark mode — the
-    entry class collided with the code-syntax highlighter's styling — by renaming
-    it so highlights inherit the site's own light/dark blockquote look.
+    Fixed the highlights page rendering unreadable white cards in dark mode —
+    the entry class collided with the code-syntax highlighter's styling — by
+    renaming it so highlights inherit the site's own light/dark blockquote look.
   url: https://github.com/coopersmith/cooper-site/pull/40
 
 - number: 39
   date: '2026-07-01'
-  title: Explore folding Concerts into Media Diet
+  title: "Explore folding Concerts into Media Diet"
   category: feature
   summary: >-
-    An exploration of making Media Diet the home for concerts via a "Live" filter
-    that swaps in an Artist / Venue / Date table, left running alongside the
-    existing Concerts page so it's easy to keep or drop.
+    An exploration of making Media Diet the home for concerts via a "Live"
+    filter that swaps in an Artist / Venue / Date table, left running alongside
+    the existing Concerts page so it's easy to keep or drop.
   url: https://github.com/coopersmith/cooper-site/pull/39
 
 - number: 38
   date: '2026-06-30'
-  title: Redesign the Media Diet as a merged library
+  title: "Redesign the Media Diet as a merged library"
   category: feature
   summary: >-
     Rebuilt the Media Diet into a single library of everything I've read and
-    watched, with a List/Covers toggle that remembers your choice — the goal
-    was one home for all media that auto-includes any note with a cover image.
+    watched, with a List/Covers toggle that remembers your choice — the goal was
+    one home for all media that auto-includes any note with a cover image.
   url: https://github.com/coopersmith/cooper-site/pull/38
 
 - number: 37
   date: '2026-06-28'
-  title: Make the Travels page post-driven
+  title: "Make the Travels page post-driven"
   category: refactor
   summary: >-
     Replaced a 230-line hand-maintained travels list with a dynamic index built
@@ -180,7 +224,7 @@
 
 - number: 36
   date: '2026-06-28'
-  title: Refresh homepage links and add a Media Diet index
+  title: "Refresh homepage links and add a Media Diet index"
   category: content
   summary: >-
     Tidied the homepage "Elsewhere" links (Photos became "Visual Diary") and
@@ -190,7 +234,7 @@
 
 - number: 35
   date: '2026-06-28'
-  title: Reverse-geocode check-in neighborhoods
+  title: "Reverse-geocode check-in neighborhoods"
   category: feature
   summary: >-
     Foursquare's neighborhood tags turned out to be sparse, so the check-in line
@@ -200,17 +244,17 @@
 
 - number: 34
   date: '2026-06-28'
-  title: Show neighborhood alongside city in the last check-in
+  title: "Show neighborhood alongside city in the last check-in"
   category: feature
   summary: >-
     Enriched the "last seen at" line to include the neighborhood when Foursquare
-    has one, so it reads "Greenwich Village, New York" — falling back to just the
-    city when it doesn't.
+    has one, so it reads "Greenwich Village, New York" — falling back to just
+    the city when it doesn't.
   url: https://github.com/coopersmith/cooper-site/pull/34
 
 - number: 33
   date: '2026-06-28'
-  title: Show the now-playing track inline
+  title: "Show the now-playing track inline"
   category: polish
   summary: >-
     Small fix to the homepage "Lately" line so the currently-playing track reads
@@ -220,7 +264,7 @@
 
 - number: 32
   date: '2026-06-28'
-  title: Turn on the Foursquare last check-in
+  title: "Turn on the Foursquare last check-in"
   category: feature
   summary: >-
     Got the long-broken "last check-in" module working by switching to a user
@@ -230,7 +274,7 @@
 
 - number: 31
   date: '2026-06-28'
-  title: Add a "See more" link and drop the top nav
+  title: "Add a \"See more\" link and drop the top nav"
   category: design
   summary: >-
     Added a "See more →" link under the recent notes and removed the top-level
@@ -240,7 +284,7 @@
 
 - number: 30
   date: '2026-06-28'
-  title: Redesign the home page as a scannable index
+  title: "Redesign the home page as a scannable index"
   category: design
   summary: >-
     Reworked the home page from a wall of bio prose into a scannable index — a
@@ -250,7 +294,7 @@
 
 - number: 29
   date: '2026-06-20'
-  title: Track note creation dates
+  title: "Track note creation dates"
   category: feature
   summary: >-
     Started recording when each note was first written — from frontmatter or its
@@ -260,7 +304,7 @@
 
 - number: 28
   date: '2026-06-17'
-  title: Move typography and color to design tokens
+  title: "Move typography and color to design tokens"
   category: refactor
   summary: >-
     Migrated the stylesheet from scattered SCSS variables to a CSS
@@ -270,7 +314,7 @@
 
 - number: 27
   date: '2026-06-13'
-  title: Fix the real mobile page overflow
+  title: "Fix the real mobile page overflow"
   category: fix
   summary: >-
     Traced the actual mobile bug — the whole page rendered wider than the screen
@@ -280,7 +324,7 @@
 
 - number: 26
   date: '2026-06-13'
-  title: First pass at mobile text overflow
+  title: "First pass at mobile text overflow"
   category: fix
   summary: >-
     Added word-wrapping rules so long wikilinks and URLs stop pushing text past
@@ -290,7 +334,7 @@
 
 - number: 14
   date: '2025-08-29'
-  title: Fix light/dark mode accessibility
+  title: "Fix light/dark mode accessibility"
   category: fix
   summary: >-
     Improved accessibility in both color modes — raised low-contrast hover
@@ -300,7 +344,7 @@
 
 - number: 12
   date: '2025-08-29'
-  title: Another pass at typography
+  title: "Another pass at typography"
   category: design
   summary: >-
     Refined the site's type styles for clearer hierarchy and better readability,
@@ -309,7 +353,7 @@
 
 - number: 11
   date: '2025-08-29'
-  title: Add attribution to highlights
+  title: "Add attribution to highlights"
   category: content
   summary: >-
     Added source attribution to the quotes on the highlights page so each one
@@ -318,7 +362,7 @@
 
 - number: 10
   date: '2025-08-13'
-  title: Add a Readwise highlights page
+  title: "Add a Readwise highlights page"
   category: feature
   summary: >-
     Built a /highlights page that pulls my recent Readwise highlights, backed by
@@ -328,7 +372,7 @@
 
 - number: 7
   date: '2025-08-06'
-  title: Add a scrapbook gallery with lightbox
+  title: "Add a scrapbook gallery with lightbox"
   category: feature
   summary: >-
     Created a /scrapbook page that builds a responsive photo grid from images in
@@ -337,7 +381,7 @@
 
 - number: 6
   date: '2025-08-06'
-  title: Document and ignore scrapbook assets
+  title: "Document and ignore scrapbook assets"
   category: chore
   summary: >-
     Documented the scrapbook image folder with a README and told git to ignore
@@ -346,8 +390,9 @@
 
 - number: 4
   date: '2025-08-05'
-  title: Fix a spelling typo in Travels
+  title: "Fix a spelling typo in Travels"
   category: fix
   summary: >-
     Corrected the spelling of Guerneville in the 2023 travels entry.
   url: https://github.com/coopersmith/cooper-site/pull/4
+
