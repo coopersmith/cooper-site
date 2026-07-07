@@ -11,6 +11,7 @@ tags:
   - concerts
 categories:
   - "[[Concerts]]"
+cover: https://images.squarespace-cdn.com/content/v1/60f03ba6f5c79e1c6d5ead3e/1719526842968-LSBZYDBNT5GM16SJEUB7/DSCF8332.jpg
 ---
 
 ### Setlist

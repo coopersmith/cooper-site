@@ -14,4 +14,5 @@ categories:
   - "[[Concerts]]"
 Openers:
   - "[[DJ Mustard]]"
+cover: https://www.gillettestadium.com/wp-content/uploads/2024/12/kendrick_1200x800.png
 ---
