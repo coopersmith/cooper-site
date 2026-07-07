@@ -51,16 +51,16 @@ A list of my 100 favorite movies.
 | **36**  | [[The Wolf of Wall Street]]                                          | 2013 |
 | **37**  | [[The Empire Strikes Back]]                                          | 1980 |
 | **38**  | [[The Usual Suspects]]                                               | 1995 |
-| **39**  | Hell or High Water                                                   | 2016 |
-| **40**  | The French Connection                                                | 1971 |
-| **41**  | L.A. Confidential                                                    | 1997 |
-| **42**  | Taxi Driver                                                          | 1976 |
-| **43**  | Die Hard                                                             | 1988 |
-| **44**  | Arrival                                                              | 2016 |
+| **39**  | [[Hell or High Water]]                                               | 2016 |
+| **40**  | [[The French Connection]]                                            | 1971 |
+| **41**  | [[L.A. Confidential (1997)]]                                         | 1997 |
+| **42**  | [[Taxi Driver]]                                                      | 1976 |
+| **43**  | [[Die Hard]]                                                         | 1988 |
+| **44**  | [[Arrival]]                                                          | 2016 |
 | **45**  | Tombstone                                                            | 1993 |
 | **46**  | Everything Everywhere All at Once                                    | 2022 |
 | **47**  | Apocalypse Now                                                       | 1979 |
-| **48**  | The Holdovers                                                        | 2023 |
+| **48**  | [[The Holdovers]]                                                    | 2023 |
 | **49**  | Do the Right Thing                                                   | 1989 |
 | **50**  | One Flew Over the Cuckoo's Nest                                      | 1975 |
 | **51**  | The Shining                                                          | 1980 |
