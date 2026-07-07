@@ -366,6 +366,55 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     /* Filter chips wrap awkwardly on narrow screens — use a dropdown */
     .media-filters .tag { display: none; }
     .media-filter-select { display: inline-block; }
+
+    /* ---- List view: on a phone the fixed 5-column table crushes the
+       title into a sliver while year + rating hug the far edge. Stack each
+       row instead: title on its own full-width line, then author/venue
+       (left) and rating (right) beneath it. ---- */
+    #media-library .media-list,
+    #media-library .media-list tbody,
+    #media-library .media-list tr,
+    #media-library .media-list td { display: block; }
+
+    #media-library .media-list tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "title  title"
+        "author rating";
+      column-gap: 0.8em;
+      row-gap: 0.1em;
+      padding: 0.7em 0;
+      border-bottom: 0.25px solid var(--color-border);
+    }
+    #media-library .media-list td { padding: 0; border: 0; width: auto; }
+
+    #media-library .media-list .index-title { grid-area: title; }
+    /* Drop the redundant type tag and the year — both are low-value here:
+       the type duplicates the filter, the year lives on the entry page. */
+    #media-library .media-list .index-meta:not(.muted),
+    #media-library .media-list .index-date.muted:not(.media-rating) { display: none; }
+    /* Bring author/venue back and let it fill the line instead of
+       collapsing to a sliver (grid items don't stretch these <td>s). */
+    #media-library .media-list .index-meta.muted {
+      grid-area: author;
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding-left: 0;
+      overflow: visible;
+      white-space: normal;
+      text-overflow: clip;
+      color: var(--color-text-tertiary);
+    }
+    #media-library .media-list .index-date.media-rating {
+      grid-area: rating;
+      display: block;
+      width: auto;
+      padding-left: 0;
+      text-align: right;
+      white-space: nowrap;
+    }
   }
 </style>
 
