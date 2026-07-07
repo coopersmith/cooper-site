@@ -7,6 +7,26 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 53
+  date: '2026-07-07'
+  title: "Cleaner media list on phones"
+  category: design
+  summary: >-
+    Long titles and cramped columns made the media list hard to read on small
+    screens, so rows now stack neatly with the title on top and author plus
+    rating below, while desktop stays exactly the same.
+  url: https://github.com/coopersmith/cooper-site/pull/53
+
+- number: 61
+  date: '2026-07-06'
+  title: "Cleaner ratings and headers on the media list"
+  category: polish
+  summary: >-
+    The media list now shows ratings as a simple number like 6/7 instead of a
+    wide row of diamonds, and the table finally has column headers (Title, Type,
+    By, Year, Rating) so it's easier to scan.
+  url: https://github.com/coopersmith/cooper-site/pull/61
+
 - number: 59
   date: '2026-07-06'
   title: "Cleaned up Media Diet page controls"
