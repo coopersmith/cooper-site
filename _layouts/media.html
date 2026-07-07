@@ -16,6 +16,7 @@ layout: default
 {%- if page.author -%}{%- assign creator = page.author | join: ', ' -%}{%- assign creator_label = 'Author' -%}
 {%- elsif page.director -%}{%- assign creator = page.director | join: ', ' -%}{%- assign creator_label = 'Director' -%}
 {%- elsif page.artist -%}{%- assign creator = page.artist | join: ', ' -%}{%- assign creator_label = 'Artist' -%}
+{%- elsif page.creator -%}{%- assign creator = page.creator | join: ', ' -%}{%- assign creator_label = 'Creator' -%}
 {%- endif -%}
 {%- assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip -%}
 
@@ -46,7 +47,7 @@ entries simply have no Completed fact. `created` (date added) is never used.{%- 
         {%- if cast != '' -%}<dt>Cast</dt><dd>{{ cast }}</dd>{%- endif -%}
         {%- if page.rating -%}
         <dt>Rating</dt>
-        <dd>{%- assign filled = page.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.rating }}/7" aria-label="{{ page.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span></dd>
+        <dd>{%- assign filled = page.rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.rating }}/7" aria-label="{{ page.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span></dd>
         {%- endif -%}
       </dl>
     </div>
