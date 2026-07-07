@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 62
+  date: '2026-07-07'
+  title: "TV shows now fully supported in Media Diet"
+  category: feature
+  summary: >-
+    You can now filter by TV shows, see showrunners credited properly, and the
+    site handles ratings more reliably so one odd entry can't break the whole
+    page.
+  url: https://github.com/coopersmith/cooper-site/pull/62
+
 - number: 53
   date: '2026-07-07'
   title: "Cleaner media list on phones"
