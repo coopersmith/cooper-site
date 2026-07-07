@@ -39,7 +39,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     </span>
     <span class="sort-control">
       <label for="media-sort">Sort</label>
-      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tr, li">
+      <select id="media-sort" class="sort-select" data-sort-scope="#media-library .media-list, #media-library .media-grid" data-sort-item="tbody tr, li">
         <option value="date">Date</option>
         <option value="az">A→Z</option>
         <option value="rating">Rating</option>
@@ -56,6 +56,16 @@ Everything I've been reading, watching, listening to, and seeing live — in one
 <div id="media-library" class="view-list">
 
   <table class="index-table media-list">
+    <thead>
+      <tr>
+        <th class="index-title">Title</th>
+        <th class="index-meta">Type</th>
+        <th class="index-meta">By</th>
+        <th class="index-date">Completed</th>
+        <th class="index-date">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
     {% for e in entries %}
       {% assign type = 'Media' %}
       {% if e.path contains '/Books/' %}{% assign type = 'Book' %}
@@ -71,8 +81,18 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% assign sorttitle = clean_title | downcase | strip %}
-      {% assign sortdate = '' %}
-      {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {%- comment -%}The Completed column shows only when I finished something —
+      books store it in `end`, movies/albums in `last` (concerts use the gig
+      date, below). Anything not finished shows nothing here. The sort key is
+      tier-prefixed so the date sort runs "completed first, then the rest":
+      completed items (2) order by finish date, everything else (1) sorts
+      silently by date added (`created`) so recent additions lead the tail, and
+      truly dateless items ('') sink to the very bottom. `created`/`year` are
+      never shown as a completion date.{%- endcomment -%}
+      {% assign finished = nil %}
+      {% if e.end %}{% assign finished = e.end %}{% elsif e.last %}{% assign finished = e.last %}{% endif %}
+      {% assign datedisp = '' %}{% assign sortdate = '' %}
+      {% if finished %}{% assign datedisp = finished | date: '%b %Y' %}{% assign sortdate = finished | date: '%Y-%m-%d' | prepend: '2 ' %}{% elsif e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' | prepend: '1 ' %}{% endif %}
       {%- comment -%}shelf is a scalar for some collections (movies: "watched")
       and a YAML list for others (books: ["read"]/["queue"]); join reads both.
       Map to a status bucket; anything not explicitly in-progress or want-to
@@ -85,22 +105,23 @@ Everything I've been reading, watching, listening to, and seeing live — in one
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">{{ clean_title }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
-        <td class="index-date muted">{% if e.year %}{{ e.year }}{% endif %}</td>
-        <td class="index-date muted media-rating">{%- if e.rating -%}{%- assign filled = e.rating -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ e.rating }}/7" aria-label="{{ e.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</td>
+        <td class="index-date muted">{{ datedisp }}</td>
+        <td class="index-date muted media-rating">{%- if e.rating -%}<span class="rating-num" aria-label="{{ e.rating }} out of 7">{{ e.rating }}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
     {% for c in concerts %}
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
+      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' | prepend: '2 ' }}" data-rating="0" data-shelf="finished">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
         <td class="index-meta"><span class="tag">Live</span></td>
         <td class="index-meta muted">{{ venue }}</td>
-        <td class="index-date muted">{{ c.Dates | date: "%Y" }}</td>
+        <td class="index-date muted">{{ c.Dates | date: "%b %Y" }}</td>
         <td class="index-date muted"></td>
       </tr>
     {% endfor %}
+    </tbody>
   </table>
 
   <ul class="media-grid">
@@ -114,8 +135,13 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
       {% assign sorttitle = clean_title | downcase | strip %}
+      {%- comment -%}Same tier-prefixed sort key as the list view (finished by
+      finish date, else by added date, else bottom) so both views share one
+      order.{%- endcomment -%}
+      {% assign finished = nil %}
+      {% if e.end %}{% assign finished = e.end %}{% elsif e.last %}{% assign finished = e.last %}{% endif %}
       {% assign sortdate = '' %}
-      {% if e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' %}{% elsif e.last %}{% assign sortdate = e.last | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' | prepend: '2 ' %}{% elsif e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' | prepend: '1 ' %}{% endif %}
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
@@ -144,7 +170,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
+      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' | prepend: '2 ' }}" data-rating="0" data-shelf="finished">
         <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists | escape }}">
           {% if c.cover %}
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
@@ -215,6 +241,7 @@ Everything I've been reading, watching, listening to, and seeing live — in one
      are fixed, and an over-long creator/venue truncates with an ellipsis
      rather than hogging the row. */
   .media-list.index-table { table-layout: fixed; }
+  .media-list th,
   .media-list td { padding-left: 0.9em; }
   .media-list .index-title { width: auto; padding-left: 0; }
   /* Some titles run book-jacket long ("Boom Town: The Fantastical Saga…").
@@ -227,14 +254,23 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .media-list th:nth-child(2),
   .media-list td:nth-child(2) { width: 4.2em; }            /* type tag */
+  .media-list th:nth-child(3),
   .media-list td:nth-child(3) {                            /* creator / venue */
     width: 8.5em;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .media-list td:nth-child(4) { width: 3em; }              /* year */
-  .media-list td:nth-child(5) { width: 7em; }              /* rating */
+  .media-list th:nth-child(4),
+  .media-list td:nth-child(4) { width: 5.6em; }            /* completed date */
+  .media-list th:nth-child(5),
+  .media-list td:nth-child(5) { width: 3.6em; }            /* rating */
+
+  /* Rating as a plain number instead of the ◆◇ marks: far more legible at
+     a glance and a fraction of the width. The "Rating" heading carries the
+     scale, so the cell is just the number. */
+  .media-rating .rating-num { font-variant-numeric: tabular-nums; }
   #media-library.view-list .media-grid { display: none; }
   #media-library.view-covers .media-list { display: none; }
   .is-hidden { display: none !important; }
@@ -330,6 +366,55 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     /* Filter chips wrap awkwardly on narrow screens — use a dropdown */
     .media-filters .tag { display: none; }
     .media-filter-select { display: inline-block; }
+
+    /* ---- List view: on a phone the fixed 5-column table crushes the
+       title into a sliver while year + rating hug the far edge. Stack each
+       row instead: title on its own full-width line, then author/venue
+       (left) and rating (right) beneath it. ---- */
+    #media-library .media-list,
+    #media-library .media-list tbody,
+    #media-library .media-list tr,
+    #media-library .media-list td { display: block; }
+
+    #media-library .media-list tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "title  title"
+        "author rating";
+      column-gap: 0.8em;
+      row-gap: 0.1em;
+      padding: 0.7em 0;
+      border-bottom: 0.25px solid var(--color-border);
+    }
+    #media-library .media-list td { padding: 0; border: 0; width: auto; }
+
+    #media-library .media-list .index-title { grid-area: title; }
+    /* Drop the redundant type tag and the year — both are low-value here:
+       the type duplicates the filter, the year lives on the entry page. */
+    #media-library .media-list .index-meta:not(.muted),
+    #media-library .media-list .index-date.muted:not(.media-rating) { display: none; }
+    /* Bring author/venue back and let it fill the line instead of
+       collapsing to a sliver (grid items don't stretch these <td>s). */
+    #media-library .media-list .index-meta.muted {
+      grid-area: author;
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding-left: 0;
+      overflow: visible;
+      white-space: normal;
+      text-overflow: clip;
+      color: var(--color-text-tertiary);
+    }
+    #media-library .media-list .index-date.media-rating {
+      grid-area: rating;
+      display: block;
+      width: auto;
+      padding-left: 0;
+      text-align: right;
+      white-space: nowrap;
+    }
   }
 </style>
 
