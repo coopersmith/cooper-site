@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "json"
-require "uri"
-
 # Bakes Readwise book highlights into notes at BUILD time.
 #
 # Your Obsidian vault stays pure markdown: you write the native transclusion
@@ -43,8 +39,6 @@ require "uri"
 # Runs at :high priority so it executes before BidirectionalLinksGenerator,
 # letting any wikilinks inside the fetched highlights resolve normally.
 module ReadwiseTransclusion
-  API_BASE = "https://readwise.io/api/v2"
-
   # An optional introducing heading (e.g. "## Notes") followed by the embed.
   #
   #   group 1 (lead)    : start-of-string or the newline before the block
@@ -71,9 +65,10 @@ module ReadwiseTransclusion
     safe false # needs network access at build time
 
     def generate(site)
+      @site = site
       @token = ENV["READWISE_TOKEN"]
       @overrides = build_overrides(site.data["readwise_books"])
-      @library = nil # lazily fetched on first lookup
+      @library = nil # lazily indexed on first lookup
       @warned_no_token = false
 
       collection = site.collections["notes"]
@@ -154,13 +149,16 @@ module ReadwiseTransclusion
       nil
     end
 
+    # Build the title -> book lookup indexes from the shared library pull
+    # (Readwise.export memoizes the fetch, so this is free after the first
+    # feature touches it).
     def library
       @library ||= begin
         by_full = {}
         by_main = {}
         by_id = {}
 
-        each_export_book do |book|
+        Readwise.export(@site, @token).each do |book|
           id = book["user_book_id"]
           title = book["title"]
           next unless id && title && !title.to_s.strip.empty?
@@ -172,23 +170,7 @@ module ReadwiseTransclusion
           by_main[main] = by_main.key?(main) ? AMBIGUOUS : book
         end
 
-        Jekyll.logger.info "Readwise:", "loaded #{by_id.size} books from Readwise export"
         { by_full: by_full, by_main: by_main, by_id: by_id }
-      end
-    end
-
-    # Walk the paginated Readwise export (every book with its highlights nested).
-    def each_export_book
-      cursor = nil
-      loop do
-        url = +"#{API_BASE}/export/?"
-        url << "pageCursor=#{URI.encode_www_form_component(cursor)}" if cursor
-        data = api_get(url)
-        break unless data
-
-        Array(data["results"]).each { |book| yield book }
-        cursor = data["nextPageCursor"]
-        break if cursor.nil? || cursor.to_s.empty?
       end
     end
 
@@ -231,32 +213,6 @@ module ReadwiseTransclusion
 
       data.each { |title, id| overrides[normalize(title)] = id }
       overrides
-    end
-
-    def api_get(url, attempt: 1)
-      uri = URI(url)
-      request = Net::HTTP::Get.new(uri)
-      request["Authorization"] = "Token #{@token}"
-
-      response = Net::HTTP.start(uri.host, uri.port, use_ssl: true,
-                                 open_timeout: 10, read_timeout: 60) do |http|
-        http.request(request)
-      end
-
-      case response
-      when Net::HTTPSuccess
-        JSON.parse(response.body)
-      when Net::HTTPTooManyRequests
-        retry_after = response["Retry-After"].to_i
-        if attempt <= 5 && retry_after.between?(1, 60)
-          Jekyll.logger.info "Readwise:", "rate limited, retrying in #{retry_after}s"
-          sleep(retry_after)
-          api_get(url, attempt: attempt + 1)
-        end
-      end
-    rescue StandardError => e
-      Jekyll.logger.warn "Readwise:", "API error (#{url}): #{e.message}"
-      nil
     end
   end
 end
