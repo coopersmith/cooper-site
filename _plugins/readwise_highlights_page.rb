@@ -39,9 +39,14 @@ module ReadwiseHighlightsPage
   MAX_TAGS = 16
   MIN_TAG_COUNT = 5
 
-  # Reader/workflow tags that describe triage state, not subject matter. They're
-  # never offered as filters.
-  TAG_STOPLIST = %w[discard shortlist later archive new feed inbox untagged].freeze
+  # Tags never offered as filters: Reader/workflow tags that describe triage
+  # state rather than subject matter, plus a few topical tags deliberately kept
+  # off the page. Compared with separators/case stripped (see `stopword?`), so
+  # "datingapps", "dating-apps", and "datingApps" all match one entry.
+  TAG_STOPLIST = %w[
+    discard shortlist later archive new feed inbox untagged
+    hinge datingapps
+  ].freeze
 
   OUTPUT_SUBDIR = File.join("assets", "highlights")
 
@@ -125,7 +130,7 @@ module ReadwiseHighlightsPage
     rows.each { |r| r["_tags"].each { |name| counts[name] += 1 } }
 
     ranked = counts
-             .reject { |name, count| TAG_STOPLIST.include?(name) || count < MIN_TAG_COUNT }
+             .reject { |name, count| stopword?(name) || count < MIN_TAG_COUNT }
              .sort_by { |name, count| [-count, name] }
              .first(MAX_TAGS)
 
@@ -133,6 +138,13 @@ module ReadwiseHighlightsPage
     ranked.map do |name, count|
       { name: name, slug: unique_slug(slugify(name), used), count: count }
     end
+  end
+
+  # True when a tag is on the stoplist, comparing with case and separators
+  # stripped so "datingApps"/"dating-apps"/"datingapps" all match.
+  def self.stopword?(name)
+    key = name.gsub(/[^a-z0-9]+/, "")
+    TAG_STOPLIST.include?(key)
   end
 
   def self.slugify(name)
