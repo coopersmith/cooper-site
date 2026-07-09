@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 63
+  date: '2026-07-09'
+  title: "Commonplace page now loads instantly"
+  category: fix
+  summary: >-
+    The highlights page (now called Commonplace) used to take ~10 seconds to
+    load because it fetched book details one at a time. It's now built ahead of
+    time into a static file, so it loads instantly and is linked from the
+    homepage and footer for easy discovery.
+  url: https://github.com/coopersmith/cooper-site/pull/63
+
 - number: 62
   date: '2026-07-07'
   title: "TV shows now fully supported in Media Diet"
