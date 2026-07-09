@@ -7,21 +7,33 @@ permalink: /highlights
 <h1>Commonplace</h1>
 <p class="subtitle">Passages I've marked while reading, newest first.</p>
 
+<div id="highlights-filter" class="highlights-filter" role="group" aria-label="Filter highlights by tag"></div>
+
 <div id="highlights"></div>
-<div id="load-more-container" style="text-align: center; margin-top: 2em;">
-  <button id="load-more-btn" style="display: none;">Load More Highlights</button>
-</div>
+
+<p id="highlights-status" class="highlights-status" aria-live="polite"></p>
+<div id="scroll-sentinel" aria-hidden="true"></div>
 
 <script>
 // Highlights are baked into static, paginated JSON at build time
-// (_plugins/readwise_highlights_page.rb), so there are no runtime API calls —
-// each "page" is just the next file on the CDN.
+// (_plugins/readwise_highlights_page.rb): a default "all" stream plus one
+// stream per featured tag, described by index.json. So there are no runtime API
+// calls — filtering just loads a different set of static files, and scrolling
+// pages the current stream in via an IntersectionObserver.
+const container = document.getElementById('highlights');
+const filterBar = document.getElementById('highlights-filter');
+const statusEl = document.getElementById('highlights-status');
+const sentinel = document.getElementById('scroll-sentinel');
+
+let tags = [];        // [{name, slug, count, url}]
+let allUrl = '/assets/highlights/all/page-1.json';
+let currentSlug = null; // null = "All"
 let nextPageUrl = null;
 let isLoading = false;
 
-// Readwise highlight text arrives as Markdown (bold, italic, links). Render a
-// safe subset to HTML: escape everything first, then re-introduce only the
-// tags we generate ourselves.
+// --- Markdown (safe subset) ------------------------------------------------
+// Readwise highlight text arrives as Markdown. Escape everything first, then
+// re-introduce only the tags we generate ourselves.
 function escapeHtml(str) {
   return str
     .replace(/&/g, '&amp;')
@@ -32,17 +44,13 @@ function escapeHtml(str) {
 
 function renderMarkdown(text) {
   if (!text) return '';
-  // Split on blank lines into paragraphs; single newlines become <br>.
   return escapeHtml(text)
     .split(/\n{2,}/)
     .map(block => {
       const html = block
-        // [label](http(s)://url) → anchor (only http/https to avoid js: URIs)
         .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
                  '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-        // **bold** (before single-* italic)
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-        // *italic*
         .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
         .replace(/\n/g, '<br>');
       return `<p>${html}</p>`;
@@ -59,69 +67,145 @@ function renderAttribution(h) {
   return `<cite>— ${inner}</cite>`;
 }
 
-async function loadHighlights(pageUrl = null, append = false) {
-  const container = document.getElementById('highlights');
-  const loadMoreBtn = document.getElementById('load-more-btn');
+function appendHighlight(h) {
+  const item = document.createElement('div');
+  item.className = 'book-highlight';
+  item.innerHTML = `<blockquote>${renderMarkdown(h.text)}${renderAttribution(h)}</blockquote>`;
+  container.appendChild(item);
+}
 
-  if (isLoading) return;
-  isLoading = true;
+// --- Filter bar ------------------------------------------------------------
+function buildFilterBar() {
+  filterBar.innerHTML = '';
+  filterBar.appendChild(makeChip('All', null));
+  tags.forEach(t => filterBar.appendChild(makeChip(t.name, t.slug, t.count)));
+  updateActiveChip();
+}
 
-  if (!append) {
-    container.innerHTML = '';
-    loadMoreBtn.style.display = 'none';
+function makeChip(label, slug, count) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'tag';
+  btn.dataset.slug = slug === null ? '' : slug;
+  btn.textContent = label;
+  if (count != null) {
+    const c = document.createElement('span');
+    c.className = 'tag-count';
+    c.textContent = count;
+    btn.appendChild(document.createTextNode(' '));
+    btn.appendChild(c);
   }
+  btn.addEventListener('click', () => selectTag(slug));
+  return btn;
+}
+
+function updateActiveChip() {
+  const active = currentSlug || '';
+  filterBar.querySelectorAll('button.tag').forEach(btn => {
+    const on = btn.dataset.slug === active;
+    btn.classList.toggle('is-active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+
+function firstPageUrlFor(slug) {
+  if (!slug) return allUrl;
+  const tag = tags.find(t => t.slug === slug);
+  return tag ? tag.url : allUrl;
+}
+
+function selectTag(slug) {
+  if (slug === currentSlug) return;
+  currentSlug = slug || null;
+  location.hash = currentSlug ? currentSlug : '';
+  startStream();
+}
+
+// --- Streaming (load + infinite scroll) ------------------------------------
+function startStream() {
+  container.innerHTML = '';
+  nextPageUrl = firstPageUrlFor(currentSlug);
+  isLoading = false;
+  updateActiveChip();
+  loadNext();
+}
+
+async function loadNext() {
+  if (isLoading || !nextPageUrl) return;
+  const url = nextPageUrl;
+  isLoading = true;
+  setStatus('Loading…');
 
   try {
-    const url = pageUrl || '/assets/highlights/page-1.json';
-    const response = await fetch(url);
-    if (!response.ok) {
-      if (!append) container.textContent = `Error loading highlights: ${response.status}`;
-      return;
-    }
-
-    const data = await response.json();
-    const highlights = data.highlights || [];
-    nextPageUrl = data.nextPageUrl;
-
-    if (!Array.isArray(highlights) || highlights.length === 0) {
-      if (!append) container.textContent = 'No highlights found.';
-      return;
-    }
-
-    highlights.forEach(h => {
-      const item = document.createElement('div');
-      item.className = 'book-highlight';
-      item.innerHTML = `
-        <blockquote>
-          ${renderMarkdown(h.text)}
-          ${renderAttribution(h)}
-        </blockquote>
-      `;
-      container.appendChild(item);
-    });
-
-    loadMoreBtn.style.display = nextPageUrl ? 'inline-block' : 'none';
-  } catch (error) {
-    console.error('Failed to load highlights:', error);
-    if (!append) container.textContent = 'Failed to load highlights.';
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    nextPageUrl = data.nextPageUrl || null;
+    (data.highlights || []).forEach(appendHighlight);
+    setStatus(container.children.length === 0 ? 'No highlights found.' : '');
+  } catch (err) {
+    console.error('Failed to load highlights:', err);
+    nextPageUrl = null;
+    if (container.children.length === 0) setStatus('Failed to load highlights.');
   } finally {
     isLoading = false;
   }
+
+  // Keep filling while the sentinel is still within reach (short pages / tall
+  // viewports) and there's more to load.
+  if (nextPageUrl && sentinelNear()) loadNext();
 }
 
-document.getElementById('load-more-btn').addEventListener('click', () => {
-  if (nextPageUrl && !isLoading) {
-    const btn = document.getElementById('load-more-btn');
-    btn.textContent = 'Loading...';
-    btn.disabled = true;
+function sentinelNear() {
+  const rect = sentinel.getBoundingClientRect();
+  return rect.top <= window.innerHeight + 800;
+}
 
-    loadHighlights(nextPageUrl, true).finally(() => {
-      btn.textContent = 'Load More Highlights';
-      btn.disabled = false;
-    });
+function setStatus(text) {
+  statusEl.textContent = text;
+}
+
+// Auto-load the next page ~800px before the sentinel scrolls into view.
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    if (entries.some(e => e.isIntersecting)) loadNext();
+  }, { rootMargin: '800px 0px' });
+  io.observe(sentinel);
+} else {
+  // Fallback for the rare browser without IntersectionObserver.
+  window.addEventListener('scroll', () => { if (sentinelNear()) loadNext(); }, { passive: true });
+}
+
+// Reflect the URL hash (e.g. /highlights#design) so filtered views are shareable
+// and the back button works.
+function slugFromHash() {
+  const raw = decodeURIComponent(location.hash.replace(/^#/, '')).trim();
+  if (!raw || raw === 'all') return null;
+  return tags.some(t => t.slug === raw) ? raw : null;
+}
+
+window.addEventListener('hashchange', () => {
+  const slug = slugFromHash();
+  if (slug !== currentSlug) {
+    currentSlug = slug;
+    startStream();
   }
 });
 
-// Initial load
-loadHighlights();
+// --- Boot ------------------------------------------------------------------
+(async function init() {
+  try {
+    const res = await fetch('/assets/highlights/index.json');
+    if (res.ok) {
+      const index = await res.json();
+      tags = Array.isArray(index.tags) ? index.tags : [];
+      allUrl = index.allUrl || allUrl;
+    }
+  } catch (err) {
+    console.error('Failed to load highlights index:', err);
+  }
+  buildFilterBar();
+  currentSlug = slugFromHash();
+  startStream();
+})();
 </script>
