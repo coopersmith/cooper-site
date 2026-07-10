@@ -335,31 +335,6 @@ function render(data, win) {
     listHtml("Top tracks", data.tracks, "track");
 }
 
-// Placeholder that mirrors the real report's structure (stats + three lists of
-// TOP_N fixed-height rows) so the first paint reserves the final height and the
-// content doesn't jump when data arrives.
-function skeletonHtml() {
-  const row = `<div class="lr-row lr-row--skel">
-      <span class="lr-row__rank"></span>
-      <span class="lr-art lr-skel"></span>
-      <span class="lr-row__body"><span class="lr-skel lr-skel--line"></span></span>
-    </div>`;
-  const rows = row.repeat(TOP_N);
-  const section = (title) =>
-    `<section class="lr-list"><h2>${title}</h2><div class="lr-rows">${rows}</div></section>`;
-  const stat = `<div class="lr-stat">
-      <span class="lr-stat__n lr-skel lr-skel--stat"></span>
-      <span class="lr-stat__l"></span>
-    </div>`;
-  const stats = `<div class="lr-stats">${stat.repeat(3)}</div>`;
-  return (
-    stats +
-    section("Top artists") +
-    section("Top albums") +
-    section("Top tracks")
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Controller
 // ---------------------------------------------------------------------------
@@ -385,9 +360,9 @@ async function show(id) {
   const token = ++reqToken;
   status.textContent = "Loading…";
   out.setAttribute("aria-busy", "true");
-  // First load: show a skeleton so the region reserves its height. On later
-  // toggles keep the current report visible until the new one is ready.
-  if (!out.dataset.loaded) out.innerHTML = skeletonHtml();
+  // First load leaves the static skeleton (baked into the HTML) in place so the
+  // height stays reserved; later toggles keep the current report visible until
+  // the new one is ready. Either way nothing collapses, so nothing jumps.
   try {
     const data = await loadWindow(win);
     if (token !== reqToken) return; // a newer toggle won
