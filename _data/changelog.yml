@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 65
+  date: '2026-07-10'
+  title: "Fixed fade-in animation for Media Diet covers"
+  category: fix
+  summary: >-
+    Cover thumbnails on the Media Diet page now gently fade and rise into view
+    as you scroll, fixing a bug where switching to Covers view showed them all
+    at once with no animation.
+  url: https://github.com/coopersmith/cooper-site/pull/65
+
 - number: 64
   date: '2026-07-10'
   title: "Every tag on the Commonplace page can now be linked to"
