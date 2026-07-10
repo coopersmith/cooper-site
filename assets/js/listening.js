@@ -72,10 +72,19 @@ function api(method, params) {
   });
 }
 
-// Pull the biggest available image URL from Last.fm's image array.
+// Last.fm's grey-star default image, served whenever real art is missing.
+// It shows up for basically every artist (Last.fm dropped artist imagery in
+// ~2019 over a licensing dispute) and most tracks, so we treat it as "no image"
+// and fall back to a letter tile instead.
+const PLACEHOLDER_IMG = "2a96cbd8b46e442fc41c2b86b821562f";
+
+// Pull the biggest real image URL from Last.fm's image array (ignoring the
+// grey-star placeholder).
 function pickImage(images) {
   if (!Array.isArray(images)) return "";
-  const sized = images.filter((i) => i["#text"]);
+  const sized = images.filter(
+    (i) => i["#text"] && !i["#text"].includes(PLACEHOLDER_IMG)
+  );
   return sized.length ? sized[sized.length - 1]["#text"] : "";
 }
 
@@ -116,6 +125,53 @@ function trackItem(t, i) {
   };
 }
 
+// Last.fm has no usable artist images, so tracks borrow their album's cover
+// art via track.getInfo. The top-level image on getTop/weekly tracks is the
+// grey-star placeholder, so we always look this up. Mutates item.image.
+async function fillTrackArt(item) {
+  if (!item.sub) return item;
+  try {
+    const d = await api("track.getinfo", {
+      artist: item.sub,
+      track: item.name,
+      autocorrect: 1,
+    });
+    const img = pickImage(d.track && d.track.album && d.track.album.image);
+    if (img) item.image = img;
+  } catch (_) {
+    /* leave the letter-tile fallback in place */
+  }
+  return item;
+}
+
+// Weekly (per-year) album charts omit artwork, so fetch it via album.getInfo.
+// getTopAlbums already includes real covers, so skip items that have one.
+async function fillAlbumArt(item) {
+  if (item.image || !item.sub) return item;
+  try {
+    const d = await api("album.getinfo", {
+      artist: item.sub,
+      album: item.name,
+      autocorrect: 1,
+    });
+    const img = pickImage(d.album && d.album.image);
+    if (img) item.image = img;
+  } catch (_) {
+    /* leave the letter-tile fallback in place */
+  }
+  return item;
+}
+
+// Enrich the displayed tracks/albums with cover art in parallel (one extra
+// round-trip). Artists intentionally keep their letter tiles.
+async function fillArtwork(data) {
+  await Promise.all([
+    ...data.tracks.map(fillTrackArt),
+    ...data.albums.map(fillAlbumArt),
+  ]);
+  return data;
+}
+
 // Fetch a full window's worth of data. Returns
 // { artists, albums, tracks, totalScrobbles, uniqueArtists }.
 async function loadWindow(win) {
@@ -130,13 +186,13 @@ async function loadWindow(win) {
       api("user.gettoptracks", { period: win.period, limit: TOP_N }),
       api("user.getrecenttracks", { from: totalFrom, to: totalTo, limit: 1 }),
     ]);
-    return {
+    return fillArtwork({
       artists: (artists.topartists.artist || []).map(artistItem),
       albums: (albums.topalbums.album || []).map(albumItem),
       tracks: (tracks.toptracks.track || []).map(trackItem),
       totalScrobbles: Number(recent.recenttracks["@attr"]?.total || 0),
       uniqueArtists: Number(artists.topartists["@attr"]?.total || 0),
-    };
+    });
   }
 
   // Fixed date range — weekly chart methods accept from/to.
@@ -147,13 +203,13 @@ async function loadWindow(win) {
     api("user.getrecenttracks", { from: totalFrom, to: totalTo, limit: 1 }),
   ]);
   const artistList = artists.weeklyartistchart.artist || [];
-  return {
+  return fillArtwork({
     artists: artistList.slice(0, TOP_N).map(artistItem),
     albums: (albums.weeklyalbumchart.album || []).slice(0, TOP_N).map(albumItem),
     tracks: (tracks.weeklytrackchart.track || []).slice(0, TOP_N).map(trackItem),
     totalScrobbles: Number(recent.recenttracks["@attr"]?.total || 0),
     uniqueArtists: artistList.length,
-  };
+  });
 }
 
 // ---------------------------------------------------------------------------
