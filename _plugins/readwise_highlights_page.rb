@@ -34,10 +34,15 @@ require "fileutils"
 module ReadwiseHighlightsPage
   PAGE_SIZE = 50
 
-  # Feature at most this many tags as filters, and only tags used at least this
-  # often — enough to be a real theme, not a one-off.
+  # Feature at most this many tags as filter chips, and only tags used at least
+  # this often — enough to be a real theme, not a one-off.
   MAX_TAGS = 16
   MIN_TAG_COUNT = 5
+
+  # Every tag used at least this often gets its own baked stream, so any tag URL
+  # (e.g. /highlights#watches) resolves — not just the featured chips. Set to 1
+  # to make literally every tag deep-linkable.
+  MIN_LINK_COUNT = 1
 
   # Tags never offered as filters: Reader/workflow tags that describe triage
   # state rather than subject matter, plus a few topical tags deliberately kept
@@ -57,23 +62,26 @@ module ReadwiseHighlightsPage
     end
 
     rows = token ? flatten(Readwise.export(site, token)) : []
-    tags = featured_tags(rows)
+    all_tags = ranked_tags(rows)                                        # every linkable tag
+    featured = all_tags.select { |t| t[:count] >= MIN_TAG_COUNT }.first(MAX_TAGS)
 
     root = File.join(site.dest, OUTPUT_SUBDIR)
     FileUtils.rm_rf(root)
     FileUtils.mkdir_p(root)
 
-    # Default stream + one stream per featured tag.
+    # Default stream + one stream per linkable tag, so any tag URL resolves —
+    # even the tags that aren't featured as chips.
     write_view(File.join(root, "all"), "/assets/highlights/all", rows)
-    tags.each do |tag|
+    all_tags.each do |tag|
       tagged = rows.select { |r| r["_tags"].include?(tag[:name]) }
       write_view(File.join(root, "tag", tag[:slug]), "/assets/highlights/tag/#{tag[:slug]}", tagged)
     end
 
-    write_index(root, rows, tags)
+    write_index(root, rows, featured, all_tags)
 
     Jekyll.logger.info "Readwise:",
-                       "baked #{rows.size} highlight(s) and #{tags.size} tag filter(s) into /highlights"
+                       "baked #{rows.size} highlight(s), #{all_tags.size} linkable tag(s) " \
+                       "(#{featured.size} featured) into /highlights"
   end
 
   # One flat, newest-first list of render-ready highlights. Each book in the
@@ -123,16 +131,17 @@ module ReadwiseHighlightsPage
       .uniq
   end
 
-  # The most-used topical tags, ranked by count (ties broken alphabetically),
-  # each with a URL-safe slug. Workflow tags and rare tags are dropped.
-  def self.featured_tags(rows)
+  # Every linkable tag, ranked by count (ties broken alphabetically), each with
+  # a globally-unique URL-safe slug. Suppressed (stoplist) tags and tags below
+  # MIN_LINK_COUNT are dropped. The featured chips are just the high-count head
+  # of this list, so their slugs are assigned consistently here.
+  def self.ranked_tags(rows)
     counts = Hash.new(0)
     rows.each { |r| r["_tags"].each { |name| counts[name] += 1 } }
 
     ranked = counts
-             .reject { |name, count| stopword?(name) || count < MIN_TAG_COUNT }
+             .reject { |name, count| stopword?(name) || count < MIN_LINK_COUNT }
              .sort_by { |name, count| [-count, name] }
-             .first(MAX_TAGS)
 
     used = {}
     ranked.map do |name, count|
@@ -200,11 +209,12 @@ module ReadwiseHighlightsPage
     { "text" => row["text"], "attribution" => row["attribution"], "url" => row["url"] }
   end
 
-  def self.write_index(root, rows, tags)
+  def self.write_index(root, rows, featured, all_tags)
     index = {
       "total" => rows.size,
       "allUrl" => "/assets/highlights/all/page-1.json",
-      "tags" => tags.map do |tag|
+      # Featured tags become the filter chips.
+      "tags" => featured.map do |tag|
         {
           "name" => tag[:name],
           "slug" => tag[:slug],
@@ -212,6 +222,9 @@ module ReadwiseHighlightsPage
           "url" => "/assets/highlights/tag/#{tag[:slug]}/page-1.json",
         }
       end,
+      # slug => name for every linkable tag, so the page can validate an
+      # arbitrary tag URL and label it even when it isn't a featured chip.
+      "allTags" => all_tags.each_with_object({}) { |tag, h| h[tag[:slug]] = tag[:name] },
     }
     File.write(File.join(root, "index.json"), JSON.generate(index))
   end

@@ -25,7 +25,8 @@ const filterBar = document.getElementById('highlights-filter');
 const statusEl = document.getElementById('highlights-status');
 const sentinel = document.getElementById('scroll-sentinel');
 
-let tags = [];        // [{name, slug, count, url}]
+let tags = [];        // featured chips: [{name, slug, count, url}]
+let allTags = {};     // every linkable tag: { slug: name }
 let allUrl = '/assets/highlights/all/page-1.json';
 let currentSlug = null; // null = "All"
 let nextPageUrl = null;
@@ -75,10 +76,16 @@ function appendHighlight(h) {
 }
 
 // --- Filter bar ------------------------------------------------------------
-function buildFilterBar() {
+function renderChips() {
   filterBar.innerHTML = '';
   filterBar.appendChild(makeChip('All', null));
+  const featuredSlugs = new Set(tags.map(t => t.slug));
   tags.forEach(t => filterBar.appendChild(makeChip(t.name, t.slug, t.count)));
+  // A deep-linked tag that isn't one of the featured chips still gets a chip,
+  // so the active filter is visible and clearable.
+  if (currentSlug && !featuredSlugs.has(currentSlug)) {
+    filterBar.appendChild(makeChip(allTags[currentSlug] || currentSlug, currentSlug));
+  }
   updateActiveChip();
 }
 
@@ -110,8 +117,8 @@ function updateActiveChip() {
 
 function firstPageUrlFor(slug) {
   if (!slug) return allUrl;
-  const tag = tags.find(t => t.slug === slug);
-  return tag ? tag.url : allUrl;
+  const featured = tags.find(t => t.slug === slug);
+  return featured ? featured.url : `/assets/highlights/tag/${slug}/page-1.json`;
 }
 
 function selectTag(slug) {
@@ -126,7 +133,7 @@ function startStream() {
   container.innerHTML = '';
   nextPageUrl = firstPageUrlFor(currentSlug);
   isLoading = false;
-  updateActiveChip();
+  renderChips();
   loadNext();
 }
 
@@ -177,11 +184,18 @@ if ('IntersectionObserver' in window) {
 }
 
 // Reflect the URL hash (e.g. /highlights#design) so filtered views are shareable
-// and the back button works.
+// and the back button works. Any real tag resolves — not just the featured
+// chips — as long as its slug matches a baked stream. Must mirror the plugin's
+// slugify so "#Watches" and "#anthropic/claude" land on the right stream.
+function slugify(raw) {
+  return raw.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
 function slugFromHash() {
   const raw = decodeURIComponent(location.hash.replace(/^#/, '')).trim();
   if (!raw || raw === 'all') return null;
-  return tags.some(t => t.slug === raw) ? raw : null;
+  const slug = slugify(raw);
+  return allTags[slug] ? slug : null; // unknown tag → fall back to All
 }
 
 window.addEventListener('hashchange', () => {
@@ -199,12 +213,12 @@ window.addEventListener('hashchange', () => {
     if (res.ok) {
       const index = await res.json();
       tags = Array.isArray(index.tags) ? index.tags : [];
+      allTags = index.allTags || {};
       allUrl = index.allUrl || allUrl;
     }
   } catch (err) {
     console.error('Failed to load highlights index:', err);
   }
-  buildFilterBar();
   currentSlug = slugFromHash();
   startStream();
 })();
