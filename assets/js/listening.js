@@ -15,7 +15,7 @@
 const API_KEY = "c45fbeb0d318aac9d7698d798b639811";
 const USERNAME = "coopersmith";
 const API = "https://ws.audioscrobbler.com/2.0/";
-const TOP_N = 8;            // how many artists/albums/tracks to show
+const TOP_N = 10;          // how many artists/albums/tracks to show
 const FIRST_YEAR = 2021;   // earliest year to offer a report for
 
 // ---------------------------------------------------------------------------
