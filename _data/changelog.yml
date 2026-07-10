@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 66
+  date: '2026-07-10'
+  title: "New listening report page"
+  category: feature
+  summary: >-
+    Added a /listening page that shows your top artists, albums, and tracks over
+    rolling windows like 7 or 30 days, or by specific year, complete with cover
+    art and play counts pulled straight from Last.fm.
+  url: https://github.com/coopersmith/cooper-site/pull/66
+
 - number: 65
   date: '2026-07-10'
   title: "Fixed fade-in animation for Media Diet covers"
