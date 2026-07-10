@@ -287,6 +287,27 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
     gap: 1em 0.9em;
   }
+  /* Subtle fade-and-rise as covers scroll into view — mirrors the sitewide
+     text reveal (.fade-in-section). The class is added by JS, so with no JS
+     the covers render fully visible. */
+  .media-card.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  .media-card.reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .media-card.reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
   .media-card a {
     position: relative; display: block; text-decoration: none;
     color: var(--color-text-subtle); transition: transform 0.15s ease;
@@ -556,6 +577,38 @@ Everything I've been reading, watching, listening to, and seeing live — in one
     applyVisibility();
 
     ready = true;
+  })();
+
+  // ---- Scroll reveal for cover thumbnails ----
+  // Fade the cards in as they enter the viewport, matching the sitewide text
+  // animation. This runs independently of the load-time view: cards start
+  // hidden only after the class is applied here, so they reveal whether Covers
+  // is the initial view or you switch to it later. Cards hidden by a filter
+  // (display:none) never intersect, so they stay ready and reveal when shown.
+  (function () {
+    var lib = document.getElementById('media-library');
+    if (!lib || !('IntersectionObserver' in window)) return;
+    var cards = lib.querySelectorAll('.media-card');
+    if (!cards.length) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach(function (c) { c.classList.add('reveal-on-scroll', 'is-revealed'); });
+      return;
+    }
+
+    var revealObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    cards.forEach(function (c) {
+      c.classList.add('reveal-on-scroll');
+      revealObserver.observe(c);
+    });
   })();
 </script>
 <script src="{{ site.baseurl }}/assets/js/sortable.js"></script>
