@@ -2,8 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
-  // Include all heading levels explicitly
-  const contentElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, img, ul, ol, hr');
+  // Include all heading levels explicitly. Skip anything inside the Media Diet
+  // covers grid: those thumbnails start life in a hidden (display:none) grid
+  // when List view loads first, which would make this observer mark them
+  // "already visible" before they're ever shown. The media page runs its own
+  // scroll-reveal for cards so they animate regardless of which view loads.
+  const contentElements = Array.prototype.filter.call(
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, img, ul, ol, hr'),
+    el => !el.closest('.media-grid')
+  );
   
   const fadeInOptions = {
     threshold: 0.2,
