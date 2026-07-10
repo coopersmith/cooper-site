@@ -78,6 +78,32 @@ function api(method, params) {
 // and fall back to a letter tile instead.
 const PLACEHOLDER_IMG = "2a96cbd8b46e442fc41c2b86b821562f";
 
+// Deezer (used only for artist photos, which Last.fm's API doesn't expose)
+// sends no CORS headers, so we reach it with JSONP: inject a <script> with a
+// unique callback and resolve when Deezer calls it back.
+let jsonpSeq = 0;
+function jsonp(baseUrl) {
+  return new Promise((resolve, reject) => {
+    const cb = `__lr_jsonp_${jsonpSeq++}`;
+    const script = document.createElement("script");
+    let settled = false;
+    const finish = (fn, arg) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+      fn(arg);
+    };
+    const timer = setTimeout(() => finish(reject, new Error("jsonp timeout")), 6000);
+    window[cb] = (data) => finish(resolve, data);
+    script.onerror = () => finish(reject, new Error("jsonp error"));
+    const sep = baseUrl.includes("?") ? "&" : "?";
+    script.src = `${baseUrl}${sep}output=jsonp&callback=${cb}`;
+    document.head.appendChild(script);
+  });
+}
+
 // Pull the biggest real image URL from Last.fm's image array (ignoring the
 // grey-star placeholder).
 function pickImage(images) {
@@ -162,14 +188,51 @@ async function fillAlbumArt(item) {
   return item;
 }
 
-// Enrich the displayed tracks/albums with cover art in parallel (one extra
-// round-trip). Artists intentionally keep their letter tiles.
-async function fillArtwork(data) {
-  await Promise.all([
-    ...data.tracks.map(fillTrackArt),
-    ...data.albums.map(fillAlbumArt),
-  ]);
-  return data;
+// Last.fm's API can't return artist photos, so look them up on Deezer (free,
+// no auth) by name. Best-match search; a miss keeps the letter tile.
+async function fillArtistArt(item) {
+  try {
+    const d = await jsonp(
+      `https://api.deezer.com/search/artist?limit=1&q=${encodeURIComponent(item.name)}`
+    );
+    const hit = d && d.data && d.data[0];
+    if (hit && hit.name && hit.picture_big) item.image = hit.picture_big;
+  } catch (_) {
+    /* leave the letter-tile fallback in place */
+  }
+  return item;
+}
+
+// Kick off every artwork lookup and paint each cover into the DOM as it
+// resolves, so the list is interactive immediately and art streams in. `token`
+// pins the request: if the user has toggled to another window, paints are
+// dropped rather than landing on the wrong list.
+function enrichArtwork(data, token) {
+  const run = (items, key, fill) =>
+    items.forEach((item, i) =>
+      fill(item).then(() => paintArt(`art-${key}-${i}`, item, token))
+    );
+  run(data.artists, "artist", fillArtistArt);
+  run(data.albums, "album", fillAlbumArt);
+  run(data.tracks, "track", fillTrackArt);
+}
+
+// Swap a letter tile for the real cover once it's known.
+function paintArt(id, item, token) {
+  if (token !== reqToken || !item.image) return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.tagName === "IMG") {
+    el.src = item.image;
+    return;
+  }
+  const img = new Image();
+  img.className = "lr-art";
+  img.id = id;
+  img.loading = "lazy";
+  img.alt = "";
+  img.src = item.image;
+  el.replaceWith(img);
 }
 
 // Fetch a full window's worth of data. Returns
@@ -186,13 +249,13 @@ async function loadWindow(win) {
       api("user.gettoptracks", { period: win.period, limit: TOP_N }),
       api("user.getrecenttracks", { from: totalFrom, to: totalTo, limit: 1 }),
     ]);
-    return fillArtwork({
+    return {
       artists: (artists.topartists.artist || []).map(artistItem),
       albums: (albums.topalbums.album || []).map(albumItem),
       tracks: (tracks.toptracks.track || []).map(trackItem),
       totalScrobbles: Number(recent.recenttracks["@attr"]?.total || 0),
       uniqueArtists: Number(artists.topartists["@attr"]?.total || 0),
-    });
+    };
   }
 
   // Fixed date range — weekly chart methods accept from/to.
@@ -203,13 +266,13 @@ async function loadWindow(win) {
     api("user.getrecenttracks", { from: totalFrom, to: totalTo, limit: 1 }),
   ]);
   const artistList = artists.weeklyartistchart.artist || [];
-  return fillArtwork({
+  return {
     artists: artistList.slice(0, TOP_N).map(artistItem),
     albums: (albums.weeklyalbumchart.album || []).slice(0, TOP_N).map(albumItem),
     tracks: (tracks.weeklytrackchart.track || []).slice(0, TOP_N).map(trackItem),
     totalScrobbles: Number(recent.recenttracks["@attr"]?.total || 0),
     uniqueArtists: artistList.length,
-  });
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -224,22 +287,23 @@ function esc(s) {
     .replace(/"/g, "&quot;");
 }
 
-function artHtml(item) {
+// `id` lets enrichArtwork() find this slot later and swap in the real cover.
+function artHtml(item, id) {
   if (item.image) {
-    return `<img class="lr-art" src="${esc(item.image)}" alt="" loading="lazy">`;
+    return `<img class="lr-art" id="${id}" src="${esc(item.image)}" alt="" loading="lazy">`;
   }
   const initial = (item.name || "?").trim().charAt(0).toUpperCase();
-  return `<span class="lr-art lr-art--empty" aria-hidden="true">${esc(initial)}</span>`;
+  return `<span class="lr-art lr-art--empty" id="${id}" aria-hidden="true">${esc(initial)}</span>`;
 }
 
-function rowHtml(item) {
+function rowHtml(item, artId) {
   const sub = item.sub ? `<span class="lr-row__sub">${esc(item.sub)}</span>` : "";
   const plays = item.plays
     ? `<span class="lr-row__plays">${num(item.plays)} plays</span>`
     : "";
   const inner = `
     <span class="lr-row__rank">${item.rank}</span>
-    ${artHtml(item)}
+    ${artHtml(item, artId)}
     <span class="lr-row__body">
       <span class="lr-row__name">${esc(item.name)}</span>
       ${sub}
@@ -250,13 +314,15 @@ function rowHtml(item) {
     : `<div class="lr-row">${inner}</div>`;
 }
 
-function listHtml(title, items) {
+// `key` namespaces each row's art id (e.g. art-album-3) to match paintArt().
+function listHtml(title, items, key) {
   if (!items.length) {
     return `<section class="lr-list"><h2>${esc(title)}</h2>
       <p class="lr-empty">Nothing here for this window.</p></section>`;
   }
+  const rows = items.map((item, i) => rowHtml(item, `art-${key}-${i}`)).join("");
   return `<section class="lr-list"><h2>${esc(title)}</h2>
-    <div class="lr-rows">${items.map(rowHtml).join("")}</div></section>`;
+    <div class="lr-rows">${rows}</div></section>`;
 }
 
 function statsHtml(data, win) {
@@ -282,9 +348,9 @@ function render(data, win) {
   const out = document.getElementById("lr-report");
   out.innerHTML =
     statsHtml(data, win) +
-    listHtml("Top artists", data.artists) +
-    listHtml("Top albums", data.albums) +
-    listHtml("Top tracks", data.tracks);
+    listHtml("Top artists", data.artists, "artist") +
+    listHtml("Top albums", data.albums, "album") +
+    listHtml("Top tracks", data.tracks, "track");
 }
 
 // ---------------------------------------------------------------------------
@@ -315,8 +381,9 @@ async function show(id) {
   try {
     const data = await loadWindow(win);
     if (token !== reqToken) return; // a newer toggle won
-    render(data, win);
+    render(data, win); // paint the list immediately (letter tiles)
     status.textContent = "";
+    enrichArtwork(data, token); // covers stream in as they resolve
   } catch (err) {
     if (token !== reqToken) return;
     console.error(err);
