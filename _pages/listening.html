@@ -29,11 +29,30 @@ permalink: /listening
     border-left: 1px solid var(--color-border);
   }
 
+  /* Fixed height so the "Loading…" text appearing/clearing never shifts the
+     content below it. */
   .lr-status {
-    min-height: 1.2em;
+    height: 1.4em;
     margin: 0.75em 0;
     color: var(--color-text-tertiary);
     font-size: 0.85em;
+  }
+
+  /* Skeleton placeholders shown on first load (mirrors the real layout). */
+  .lr-skel {
+    background: var(--color-bg-secondary);
+    border-radius: 4px;
+    animation: lr-pulse 1.3s ease-in-out infinite;
+  }
+  .lr-skel--line { display: inline-block; width: 42%; height: 0.9em; }
+  .lr-skel--stat { display: inline-block; width: 2.2em; height: 1.4em; }
+  .lr-row--skel { pointer-events: none; }
+  @keyframes lr-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lr-skel { animation: none; }
   }
 
   .lr-stats {

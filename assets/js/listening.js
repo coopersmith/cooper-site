@@ -78,32 +78,6 @@ function api(method, params) {
 // and fall back to a letter tile instead.
 const PLACEHOLDER_IMG = "2a96cbd8b46e442fc41c2b86b821562f";
 
-// Deezer (used only for artist photos, which Last.fm's API doesn't expose)
-// sends no CORS headers, so we reach it with JSONP: inject a <script> with a
-// unique callback and resolve when Deezer calls it back.
-let jsonpSeq = 0;
-function jsonp(baseUrl) {
-  return new Promise((resolve, reject) => {
-    const cb = `__lr_jsonp_${jsonpSeq++}`;
-    const script = document.createElement("script");
-    let settled = false;
-    const finish = (fn, arg) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      delete window[cb];
-      script.remove();
-      fn(arg);
-    };
-    const timer = setTimeout(() => finish(reject, new Error("jsonp timeout")), 6000);
-    window[cb] = (data) => finish(resolve, data);
-    script.onerror = () => finish(reject, new Error("jsonp error"));
-    const sep = baseUrl.includes("?") ? "&" : "?";
-    script.src = `${baseUrl}${sep}output=jsonp&callback=${cb}`;
-    document.head.appendChild(script);
-  });
-}
-
 // Pull the biggest real image URL from Last.fm's image array (ignoring the
 // grey-star placeholder).
 function pickImage(images) {
@@ -188,15 +162,23 @@ async function fillAlbumArt(item) {
   return item;
 }
 
-// Last.fm's API can't return artist photos, so look them up on Deezer (free,
-// no auth) by name. Best-match search; a miss keeps the letter tile.
+// Last.fm's API can't return artist photos, so pull the lead image from the
+// artist's Wikipedia page. Wikipedia's REST API is CORS-enabled (plain fetch,
+// same as the Last.fm calls — no injected <script>, which ad blockers often
+// strip), needs no auth, and follows redirects for near-miss titles. A
+// disambiguation page, an imageless page, or a miss keeps the letter tile.
 async function fillArtistArt(item) {
   try {
-    const d = await jsonp(
-      `https://api.deezer.com/search/artist?limit=1&q=${encodeURIComponent(item.name)}`
+    const res = await fetch(
+      "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+        encodeURIComponent(item.name) +
+        "?redirect=true"
     );
-    const hit = d && d.data && d.data[0];
-    if (hit && hit.name && hit.picture_big) item.image = hit.picture_big;
+    if (!res.ok) return item;
+    const d = await res.json();
+    if (d.type !== "disambiguation" && d.thumbnail && d.thumbnail.source) {
+      item.image = d.thumbnail.source;
+    }
   } catch (_) {
     /* leave the letter-tile fallback in place */
   }
@@ -353,6 +335,31 @@ function render(data, win) {
     listHtml("Top tracks", data.tracks, "track");
 }
 
+// Placeholder that mirrors the real report's structure (stats + three lists of
+// TOP_N fixed-height rows) so the first paint reserves the final height and the
+// content doesn't jump when data arrives.
+function skeletonHtml() {
+  const row = `<div class="lr-row lr-row--skel">
+      <span class="lr-row__rank"></span>
+      <span class="lr-art lr-skel"></span>
+      <span class="lr-row__body"><span class="lr-skel lr-skel--line"></span></span>
+    </div>`;
+  const rows = row.repeat(TOP_N);
+  const section = (title) =>
+    `<section class="lr-list"><h2>${title}</h2><div class="lr-rows">${rows}</div></section>`;
+  const stat = `<div class="lr-stat">
+      <span class="lr-stat__n lr-skel lr-skel--stat"></span>
+      <span class="lr-stat__l"></span>
+    </div>`;
+  const stats = `<div class="lr-stats">${stat.repeat(3)}</div>`;
+  return (
+    stats +
+    section("Top artists") +
+    section("Top albums") +
+    section("Top tracks")
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Controller
 // ---------------------------------------------------------------------------
@@ -378,10 +385,14 @@ async function show(id) {
   const token = ++reqToken;
   status.textContent = "Loading…";
   out.setAttribute("aria-busy", "true");
+  // First load: show a skeleton so the region reserves its height. On later
+  // toggles keep the current report visible until the new one is ready.
+  if (!out.dataset.loaded) out.innerHTML = skeletonHtml();
   try {
     const data = await loadWindow(win);
     if (token !== reqToken) return; // a newer toggle won
     render(data, win); // paint the list immediately (letter tiles)
+    out.dataset.loaded = "1";
     status.textContent = "";
     enrichArtwork(data, token); // covers stream in as they resolve
   } catch (err) {
