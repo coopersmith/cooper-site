@@ -1,0 +1,135 @@
+---
+layout: page
+title: Listening
+permalink: /listening
+---
+
+<h1>Listening</h1>
+<p class="subtitle">What I've had on rotation, pulled live from Last.fm. Pick a window.</p>
+
+<div id="lr-toggle" class="lr-toggle" aria-label="Choose a time window"></div>
+
+<p id="lr-status" class="lr-status" aria-live="polite"></p>
+<div id="lr-report" aria-busy="false"></div>
+
+<style>
+  .lr-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25em;
+    margin: 1.25em 0 0.5em;
+  }
+  .lr-toggle-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+  .lr-toggle-group + .lr-toggle-group {
+    padding-left: 1.25em;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .lr-status {
+    min-height: 1.2em;
+    margin: 0.75em 0;
+    color: var(--color-text-tertiary);
+    font-size: 0.85em;
+  }
+
+  .lr-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75em;
+    margin: 0.5em 0 2em;
+  }
+  .lr-stat { display: flex; flex-direction: column; }
+  .lr-stat__n {
+    font-size: 1.9em;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .lr-stat__l {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-tertiary);
+    margin-top: 0.2em;
+  }
+
+  .lr-list { margin: 0 0 2.25em; }
+  .lr-list h2 {
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-tertiary);
+    margin: 0 0 0.75em;
+  }
+  .lr-rows { display: flex; flex-direction: column; }
+
+  .lr-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85em;
+    padding: 0.5em 0;
+    border-top: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+  }
+  .lr-row:first-child { border-top: none; }
+  a.lr-row:hover .lr-row__name { text-decoration: underline; }
+
+  .lr-row__rank {
+    width: 1.4em;
+    flex: none;
+    text-align: right;
+    font-size: 0.8em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-subtle);
+  }
+  .lr-art {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 4px;
+    object-fit: cover;
+    background: var(--color-bg-secondary);
+  }
+  .lr-art--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+  .lr-row__body { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .lr-row__name {
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .lr-row__sub {
+    font-size: 0.8em;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .lr-row__plays {
+    flex: none;
+    font-size: 0.78em;
+    color: var(--color-text-tertiary);
+    font-variant-numeric: tabular-nums;
+  }
+  .lr-empty { color: var(--color-text-tertiary); font-size: 0.9em; }
+
+  @media (max-width: 480px) {
+    .lr-toggle-group + .lr-toggle-group { padding-left: 0; border-left: none; }
+    .lr-stat__n { font-size: 1.6em; }
+  }
+</style>
+
+<script src="{{ site.baseurl }}/assets/js/listening.js"></script>
