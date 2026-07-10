@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 64
+  date: '2026-07-10'
+  title: "Every tag on the Commonplace page can now be linked to"
+  category: feature
+  summary: >-
+    Links like /highlights#watches now work for any tag, not just the ones shown
+    as filter buttons, so you can share or bookmark a specific topic and it'll
+    load correctly instead of quietly showing everything.
+  url: https://github.com/coopersmith/cooper-site/pull/64
+
 - number: 63
   date: '2026-07-09'
   title: "Commonplace page now loads instantly"
