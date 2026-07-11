@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 67
+  date: '2026-07-11'
+  title: "Smoother links to the listening report"
+  category: polish
+  summary: >-
+    Tidied up how the music-listening report is linked from the site: the
+    homepage now gets a subtle 'See more →' right after the music line, the
+    footer's separate link is gone, and the Media Diet page points to it from
+    the intro text instead.
+  url: https://github.com/coopersmith/cooper-site/pull/67
+
 - number: 66
   date: '2026-07-10'
   title: "New listening report page"
