@@ -7,7 +7,7 @@ permalink: /media/
 
 # Media Diet
 
-Everything I've been reading, watching, listening to, and seeing live — in one place.
+Everything I've been reading, watching, listening to, and seeing live. For a more detailed view into music, see my [last.fm listening report]({{ site.baseurl }}/listening){: .internal-link}.
 
 {% assign entries = site.notes | where_exp: "n", "n.cover" | where_exp: "n", "n.path contains 'MediaDiet/'" | sort: "created" | reverse %}
 {% assign concerts = site.notes | where_exp: "n", "n.tags contains 'concerts'" | sort: "Dates" | reverse %}

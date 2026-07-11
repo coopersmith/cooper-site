@@ -45,7 +45,7 @@ function fetchCurrentTrack() {
         .then(data => {
             if (data.recenttracks && data.recenttracks.track && data.recenttracks.track.length > 0) {
                 const track = data.recenttracks.track[0];
-                
+
                 // Check if the track is currently playing
                 if (track['@attr'] && track['@attr'].nowplaying === 'true') {
                     const trackName = track.name;
@@ -63,11 +63,26 @@ function fetchCurrentTrack() {
                     }
                 }
             }
+            // "See more" goes last, after the now-playing sentence if there is one.
+            appendSeeMore();
         })
         .catch(error => {
             console.error("Error fetching current track from Last.fm:", error);
+            // The artists sentence still loaded, so keep the link.
+            appendSeeMore();
         });
 }
 
+// Append a "See more" link to the fuller /listening report as the final piece
+// of the "Lately" music line. Guarded so it's only ever added once.
+function appendSeeMore() {
+    const recentlyPlayedDiv = document.getElementById("recently-played");
+    const paragraph = recentlyPlayedDiv.querySelector('p');
+    if (!paragraph || paragraph.querySelector('.recently-see-more')) {
+        return;
+    }
+    paragraph.innerHTML += ` <a class="recently-see-more" href="/listening">See more &rarr;</a>`;
+}
+
 // Call the function when the page loads
-document.addEventListener('DOMContentLoaded', fetchTopArtists); 
+document.addEventListener('DOMContentLoaded', fetchTopArtists);

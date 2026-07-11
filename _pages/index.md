@@ -63,7 +63,6 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
   <div id="recently-played">
     <p>Loading recently played tracks…</p>
   </div>
-  <p class="home-more"><a class="internal-link" href="{{ site.baseurl }}/listening">See what I've been listening to →</a></p>
   <div id="last-checkin"></div>
 </section>
 
