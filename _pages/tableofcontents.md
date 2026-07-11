@@ -18,8 +18,3 @@ permalink: /tableofcontents/
     </li>
   {% endfor %}
 </ul>
-<style>
-  .wrapper {
-    max-width: 46em;
-  }
-</style>

@@ -22,16 +22,3 @@ description: A small gallery of images from my scrapbook.
     var lightbox = new SimpleLightbox('.gallery a');
   });
 </script>
-
-<style>
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-}
-.gallery img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-</style>

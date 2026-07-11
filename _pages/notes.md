@@ -30,7 +30,3 @@ permalink: /notes/
 </table>
 
 <script src="{{ site.baseurl }}/assets/js/sortable.js"></script>
-
-<style>
-  .wrapper { max-width: 46em; }
-</style>
