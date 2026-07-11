@@ -14,7 +14,3 @@
   to = "https://coopersmith.nyc/photos/:splat"
   status = 301
   force = true
-
-# Alternative: If you want photos subdomain to show only photos (no redirect)
-# You can use context-based builds or create a separate site
-# For now, the redirect above will send photos subdomain to /photos/ path
