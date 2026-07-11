@@ -12,9 +12,9 @@
 // call (limit=1) — its `@attr.total` is the exact count for the range without
 // paging through every scrobble.
 
-const API_KEY = "c45fbeb0d318aac9d7698d798b639811";
-const USERNAME = "coopersmith";
-const API = "https://ws.audioscrobbler.com/2.0/";
+// Account details + request plumbing live in the shared client (lastfm-api.js).
+const { api } = LASTFM;
+
 const TOP_N = 10;          // how many artists/albums/tracks to show
 const FIRST_YEAR = 2021;   // earliest year to offer a report for
 
@@ -56,21 +56,6 @@ const YEARS = yearWindows();
 // ---------------------------------------------------------------------------
 // API helpers
 // ---------------------------------------------------------------------------
-
-function api(method, params) {
-  const url = new URL(API);
-  url.search = new URLSearchParams({
-    method,
-    user: USERNAME,
-    api_key: API_KEY,
-    format: "json",
-    ...params,
-  }).toString();
-  return fetch(url).then((r) => {
-    if (!r.ok) throw new Error(`Last.fm ${method} → ${r.status}`);
-    return r.json();
-  });
-}
 
 // Last.fm's grey-star default image, served whenever real art is missing.
 // It shows up for basically every artist (Last.fm dropped artist imagery in

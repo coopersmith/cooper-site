@@ -66,5 +66,6 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
   <div id="last-checkin"></div>
 </section>
 
-<script src="{{ site.baseurl }}/assets/js/lastfm.js"></script>
+<script src="{{ site.baseurl }}/assets/js/lastfm-api.js"></script>
+<script src="{{ site.baseurl }}/assets/js/home-lately.js"></script>
 <script src="{{ site.baseurl }}/assets/js/foursquare.js"></script>
