@@ -69,7 +69,7 @@ tags: [concerts]
 
 ### Styling
 
-SCSS in `_sass/_style.scss`. Supports light/dark mode via CSS custom properties (`--color-*`).
+All CSS lives in `_sass/` and compiles through `styles.scss` — pages don't carry inline `<style>` blocks. `_style.scss` holds the global tokens and base styles; page- or feature-specific styles go in their own partial (`_home.scss`, `_media.scss`, `_changelog.scss`, `_listening.scss`, `_scrapbook.scss`, `_photos.scss`, `_cv.scss`), imported after the globals in `styles.scss` so overrides don't need `!important`. Supports light/dark mode via CSS custom properties (`--color-*`). Note: `body` caps content width at 720px, so `.wrapper` max-width overrides above that are no-ops.
 
 ## Wikilink Syntax
 

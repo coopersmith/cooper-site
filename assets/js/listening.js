@@ -12,11 +12,18 @@
 // call (limit=1) — its `@attr.total` is the exact count for the range without
 // paging through every scrobble.
 
-const API_KEY = "c45fbeb0d318aac9d7698d798b639811";
-const USERNAME = "coopersmith";
-const API = "https://ws.audioscrobbler.com/2.0/";
+// Account details + request plumbing live in the shared client (lastfm-api.js).
+const { api } = LASTFM;
+
 const TOP_N = 10;          // how many artists/albums/tracks to show
 const FIRST_YEAR = 2021;   // earliest year to offer a report for
+
+// Last.fm's weekly-chart methods (used for the year windows) return at most
+// 1000 entries. A returned length of exactly this many means "1000 or more"
+// distinct artists, not an exact count — so we show it as "1,000+" rather
+// than pretending it's precise. (Rolling windows use getTopArtists, whose
+// @attr.total is an accurate, uncapped count.)
+const WEEKLY_CHART_CAP = 1000;
 
 // ---------------------------------------------------------------------------
 // Window definitions
@@ -56,21 +63,6 @@ const YEARS = yearWindows();
 // ---------------------------------------------------------------------------
 // API helpers
 // ---------------------------------------------------------------------------
-
-function api(method, params) {
-  const url = new URL(API);
-  url.search = new URLSearchParams({
-    method,
-    user: USERNAME,
-    api_key: API_KEY,
-    format: "json",
-    ...params,
-  }).toString();
-  return fetch(url).then((r) => {
-    if (!r.ok) throw new Error(`Last.fm ${method} → ${r.status}`);
-    return r.json();
-  });
-}
 
 // Last.fm's grey-star default image, served whenever real art is missing.
 // It shows up for basically every artist (Last.fm dropped artist imagery in
@@ -237,6 +229,7 @@ async function loadWindow(win) {
       tracks: (tracks.toptracks.track || []).map(trackItem),
       totalScrobbles: Number(recent.recenttracks["@attr"]?.total || 0),
       uniqueArtists: Number(artists.topartists["@attr"]?.total || 0),
+      uniqueArtistsCapped: false, // getTopArtists' total is exact/uncapped
     };
   }
 
@@ -248,12 +241,20 @@ async function loadWindow(win) {
     api("user.getrecenttracks", { from: totalFrom, to: totalTo, limit: 1 }),
   ]);
   const artistList = artists.weeklyartistchart.artist || [];
+  // Prefer the chart's own reported total when Last.fm supplies one (accurate
+  // and uncapped); otherwise fall back to the returned length, which saturates
+  // at WEEKLY_CHART_CAP. Only the fallback-at-cap case is flagged as capped.
+  const reportedTotal = Number(artists.weeklyartistchart["@attr"]?.total || 0);
+  const uniqueArtists = Math.max(reportedTotal, artistList.length);
+  const uniqueArtistsCapped =
+    reportedTotal <= artistList.length && artistList.length >= WEEKLY_CHART_CAP;
   return {
     artists: artistList.slice(0, TOP_N).map(artistItem),
     albums: (albums.weeklyalbumchart.album || []).slice(0, TOP_N).map(albumItem),
     tracks: (tracks.weeklytrackchart.track || []).slice(0, TOP_N).map(trackItem),
     totalScrobbles: Number(recent.recenttracks["@attr"]?.total || 0),
-    uniqueArtists: artistList.length,
+    uniqueArtists,
+    uniqueArtistsCapped,
   };
 }
 
@@ -313,9 +314,14 @@ function statsHtml(data, win) {
       ? win.days
       : Math.max(1, Math.round((win.to - win.from) / 86400));
   const perDay = data.totalScrobbles ? Math.round(data.totalScrobbles / days) : 0;
+  // A capped year count is a lower bound (the weekly chart truncates at 1000),
+  // so present it as "1,000+" rather than an exact figure.
+  const artistCount = data.uniqueArtistsCapped
+    ? `${num(data.uniqueArtists)}+`
+    : num(data.uniqueArtists);
   const stats = [
     [num(data.totalScrobbles), "scrobbles"],
-    [num(data.uniqueArtists), "artists"],
+    [artistCount, "artists"],
     [num(perDay), "per day"],
   ];
   return `<div class="lr-stats">${stats

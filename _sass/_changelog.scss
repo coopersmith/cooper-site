@@ -1,0 +1,75 @@
+// Changelog page (_pages/changelog.md).
+
+.changelog { margin-top: 2.5em; }
+
+.cl-group { margin-top: 2.6em; }
+.cl-group:first-child { margin-top: 1.6em; }
+
+.cl-month {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-text-tertiary);
+  font-weight: var(--weight-medium);
+  margin: 0 0 1.1em;
+  padding-bottom: 0.5em;
+  border-bottom: 0.25px solid var(--color-border);
+}
+
+.cl-list { list-style: none; margin: 0; padding: 0; }
+.cl-entry + .cl-entry { margin-top: 1.5em; }
+
+.cl-line { display: flex; gap: 1em; align-items: baseline; }
+
+.cl-date {
+  flex: 0 0 auto;
+  min-width: 3.6em;
+  color: var(--color-text-tertiary);
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.05em;
+}
+
+.cl-body { flex: 1 1 auto; min-width: 0; }
+
+.cl-title {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.cl-summary {
+  display: block;
+  margin-top: 0.3em;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.cl-tag {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0.08em 0.5em;
+  border-radius: 999px;
+  font-size: 0.68em;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  font-weight: var(--weight-medium);
+  vertical-align: 0.12em;
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-secondary);
+  border: 0.5px solid var(--color-border);
+}
+
+.cl-link {
+  display: inline-block;
+  margin-top: 0.35em;
+  font-size: 0.82em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+}
+.cl-link:hover { color: var(--color-text-primary); }
+
+@media (max-width: 600px) {
+  .cl-line { display: block; }
+  .cl-date { display: block; min-width: 0; margin-bottom: 0.25em; }
+}

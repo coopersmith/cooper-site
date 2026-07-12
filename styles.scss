@@ -9,3 +9,12 @@ $font-name: "{{ site.font.name }}";
 @import "../_sass/code";
 @import "../_sass/style";
 @import "../_sass/photos";
+
+// Page-specific partials (one per page, loaded after the globals so
+// same-specificity overrides keep working the way the old inline
+// <style> blocks did).
+@import "../_sass/home";
+@import "../_sass/media";
+@import "../_sass/changelog";
+@import "../_sass/listening";
+@import "../_sass/scrapbook";
