@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 68
+  date: '2026-07-12'
+  title: "Spring cleaning under the hood"
+  category: refactor
+  summary: >-
+    Cleared out old leftover code, duplicate files, and messy inline styles,
+    moving everything into tidy stylesheets. Nothing should look different, but
+    the site is now easier to maintain and less fragile behind the scenes.
+  url: https://github.com/coopersmith/cooper-site/pull/68
+
 - number: 67
   date: '2026-07-11'
   title: "Smoother links to the listening report"
