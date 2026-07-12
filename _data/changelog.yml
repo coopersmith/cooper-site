@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 69
+  date: '2026-07-12'
+  title: "Started a backlog for photo page improvements"
+  category: chore
+  summary: >-
+    Added a running list of planned upgrades for the photos page, like
+    faster-loading images and smoother scrolling, so future work has a clear
+    roadmap. This is just planning notes—nothing on the site changed yet.
+  url: https://github.com/coopersmith/cooper-site/pull/69
+
 - number: 68
   date: '2026-07-12'
   title: "Spring cleaning under the hood"
