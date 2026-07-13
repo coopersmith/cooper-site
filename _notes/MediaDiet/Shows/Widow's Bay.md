@@ -4,13 +4,20 @@ categories:
 genre:
   - "[[Thriller]]"
   - "[[Mystery Thriller]]"
-year: 2026
+creator: []
 cast: []
 rating:
-created: 2026-06-01
+cover: "https://image.tmdb.org/t/p/w500/vKq8XEJKxQTHd2Bm5zZMFPUrke7.jpg"
+year: 2026
+aired: "2026-04-28 to 2026-06-16"
 last: 2026-06-18
+shelf: watching
 tags:
   - shows
+  - MediaDiet/2026
   - references
-cover: https://resizing.flixster.com/FBLr2H6SulNALtamrstRyoLPGnc=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvMDZlZTNiYzItYTY4Yy00ZmZmLWJmNzktOTk4NGFjMGJkZTE0LnBuZw==
 ---
+
+## Episodes
+
+![[Shows.base#Episodes]]

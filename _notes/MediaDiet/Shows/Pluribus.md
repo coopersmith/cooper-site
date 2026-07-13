@@ -6,13 +6,18 @@ genre:
 creator:
   - "[[Vince Gilligan]]"
 cast:
-  - "[[Rhee Seehorn]]"
+  - "[[Rhea Seehorn]]"
 rating: 5
-cover: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjQ0VXNXa561yPxHaL4VKE7TYOxlTpJ4BorX1paS8EcGPDCRX_ulKPQQU1OpA9kEd1yOV84Q&s=10
+cover: "https://image.tmdb.org/t/p/w500/z7Nga7Q9IGFWs5OEduY2gGFxnX3.jpg"
 year: 2025
+aired: "2025-11-06 to 2025-12-23"
 last: 2025-12-30
 shelf: watched
 tags:
   - shows
   - MediaDiet/2025
 ---
+
+## Episodes
+
+![[Shows.base#Episodes]]
