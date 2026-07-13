@@ -45,7 +45,10 @@ entries simply have no Completed fact. `created` (date added) is never used.{%- 
       <dl class="media-facts">
         {%- if page.tv_kind == 'season' and page.series_url -%}<dt>Series</dt><dd><a class="internal-link" href="{{ site.baseurl }}{{ page.series_url }}">{{ page.series_title | default: 'Series' }}</a></dd>{%- endif -%}
         {%- if creator != '' -%}<dt>{{ creator_label }}</dt><dd>{{ creator }}</dd>{%- endif -%}
-        {%- if page.tv_kind == 'series' and page.aired -%}<dt>Aired</dt><dd>{{ page.aired }}</dd>{%- elsif page.year -%}<dt>Year</dt><dd>{{ page.year }}</dd>{%- endif -%}
+        {%- comment -%}TV notes (series/season/standalone) show the human `aired`
+        run when they have one; everything else — and any TV note without it —
+        shows the release `year`.{%- endcomment -%}
+        {%- if page.tv_kind and page.aired -%}<dt>Aired</dt><dd>{{ page.aired }}</dd>{%- elsif page.year -%}<dt>Year</dt><dd>{{ page.year }}</dd>{%- endif -%}
         {%- if finished -%}<dt>Completed</dt><dd>{{ finished | date: "%B %-d, %Y" }}</dd>{%- endif -%}
         {%- if genre != '' -%}<dt>Genre</dt><dd>{{ genre }}</dd>{%- endif -%}
         {%- if page.runtime -%}<dt>Runtime</dt><dd>{{ page.runtime }}</dd>{%- endif -%}
