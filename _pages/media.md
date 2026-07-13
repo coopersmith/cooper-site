@@ -9,7 +9,11 @@ permalink: /media/
 
 Everything I've been reading, watching, listening to, and seeing live. For a more detailed view into music, see my [last.fm listening report]({{ site.baseurl }}/listening){: .internal-link}.
 
-{% assign entries = site.notes | where_exp: "n", "n.cover" | where_exp: "n", "n.path contains 'MediaDiet/'" | sort: "created" | reverse %}
+{%- comment -%}TV is modelled season-by-season: a season/standalone is a diet
+entry, but a series is context only (no rating, no watch date) and is flagged
+`hide_from_diet` by the tv_shows plugin — as are abandoned (`dnf`) shows. Keep
+both out of the library.{%- endcomment -%}
+{% assign entries = site.notes | where_exp: "n", "n.cover" | where_exp: "n", "n.path contains 'MediaDiet/'" | where_exp: "n", "n.hide_from_diet != true" | sort: "created" | reverse %}
 {% assign concerts = site.notes | where_exp: "n", "n.tags contains 'concerts'" | sort: "Dates" | reverse %}
 
 <div class="media-toolbar">
@@ -77,13 +81,17 @@ Everything I've been reading, watching, listening to, and seeing live. For a mor
       {% endif %}
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
+      {%- comment -%}TV seasons render as "Series — Season N" (the plugin's
+      display_title), not their raw filename ("Hacks s03"); everything else
+      falls back to its cleaned title.{%- endcomment -%}
+      {% assign disp = e.display_title | default: clean_title %}
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
       {% elsif e.artist %}{% assign creator = e.artist | join: ', ' %}
       {% elsif e.creator %}{% assign creator = e.creator | join: ', ' %}{% endif %}
       {% assign creator = creator | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      {% assign sorttitle = clean_title | downcase | strip %}
+      {% assign sorttitle = disp | downcase | strip %}
       {%- comment -%}The Completed column shows only when I finished something —
       books store it in `end`, movies/albums in `last` (concerts use the gig
       date, below). Anything not finished shows nothing here. The sort key is
@@ -105,7 +113,7 @@ Everything I've been reading, watching, listening to, and seeing live. For a mor
       {% if shelfval contains 'reading' or shelfval == 'watching' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
       {% elsif shelfval == 'queue' or shelfval == 'queued' or shelfval == 'want' or shelfval == 'backlog' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' or shelfval == 'to-watch' or shelfval == 'to watch' or shelfval contains 'to-read' or shelfval contains 'to read' or shelfval contains 'want to read' %}{% assign statusbucket = 'queue' %}{% endif %}
       <tr data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
-        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">{{ clean_title }}</a></td>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ disp | escape }}">{{ disp }}</a></td>
         <td class="index-meta"><span class="tag">{{ type }}</span></td>
         <td class="index-meta muted">{{ creator }}</td>
         <td class="index-date muted">{{ datedisp }}</td>
@@ -137,7 +145,8 @@ Everything I've been reading, watching, listening to, and seeing live. For a mor
       {% endif %}
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
-      {% assign sorttitle = clean_title | downcase | strip %}
+      {% assign disp = e.display_title | default: clean_title %}
+      {% assign sorttitle = disp | downcase | strip %}
       {%- comment -%}Same tier-prefixed sort key as the list view (finished by
       finish date, else by added date, else bottom) so both views share one
       order.{%- endcomment -%}
@@ -160,10 +169,10 @@ Everything I've been reading, watching, listening to, and seeing live. For a mor
       {% if shelfval contains 'reading' or shelfval == 'watching' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
       {% elsif shelfval == 'queue' or shelfval == 'queued' or shelfval == 'want' or shelfval == 'backlog' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' or shelfval == 'to-watch' or shelfval == 'to watch' or shelfval contains 'to-read' or shelfval contains 'to read' or shelfval contains 'want to read' %}{% assign statusbucket = 'queue' %}{% endif %}
       <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
-        <a href="{{ site.baseurl }}{{ e.url }}" title="{{ clean_title | escape }}">
-          <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ clean_title }}" loading="lazy" />
+        <a href="{{ site.baseurl }}{{ e.url }}" title="{{ disp | escape }}">
+          <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ disp }}" loading="lazy" />
           <span class="media-card-info">
-            <span class="mci-title">{{ clean_title }}</span>
+            <span class="mci-title">{{ disp }}</span>
             {% if creator != '' %}<span class="mci-sub">{{ creator }}</span>{% endif %}
             <span class="mci-foot"><span class="tag">{{ type }}</span>{% if e.year %}<span class="mci-year">{{ e.year }}</span>{% endif %}{%- if e.rating -%}{%- assign filled = e.rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="mci-rating" title="{{ e.rating }}/7">{%- for i in (1..filled) -%}◆{%- endfor -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span>{%- endif -%}</span>
           </span>
