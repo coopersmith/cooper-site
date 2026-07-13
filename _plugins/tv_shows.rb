@@ -49,9 +49,6 @@ class TvShowsGenerator < Jekyll::Generator
   # rewrite the `![[…]]` embeds into stray `!text` before we can remove them.
   priority :high
 
-  # Shows live under MediaDiet/Shows in the common case, but the publish vault
-  # sometimes files one in MediaDiet root — so a note counts as a show if it's
-  # in that folder OR carries the `shows` tag. Either signal alone suffices.
   SHOWS_PATH = "MediaDiet/Shows"
 
   # A `## Seasons` / `## Episodes` heading (optional) immediately followed by a
@@ -63,14 +60,8 @@ class TvShowsGenerator < Jekyll::Generator
   }x
 
   def generate(site)
-    shows = site.collections["notes"].docs.select do |d|
-      d.path.include?(SHOWS_PATH) || Array(d.data["tags"]).map(&:to_s).include?("shows")
-    end
+    shows = site.collections["notes"].docs.select { |d| d.path.include?(SHOWS_PATH) }
     return if shows.empty?
-
-    # Type is normally derived from the folder (…/Shows/…); set it explicitly so
-    # a show filed outside that folder still reads as "Show" everywhere.
-    shows.each { |doc| doc.data["type"] ||= "Show" }
 
     # Classify first (it reads the `.base` embed), then strip the embeds — the
     # database views mean nothing off Obsidian.
