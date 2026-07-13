@@ -25,7 +25,7 @@ This is a Jekyll-based digital garden/personal website with Obsidian-style wikil
 
 ### Collections
 
-- **`_notes/`** - Main content collection (digital garden notes). Supports `[[wikilinks]]` syntax for internal linking.
+- **`_notes/`** - Main content collection (digital garden notes). Supports `[[wikilinks]]` syntax for internal linking. **⚠️ Do not edit files in `_notes/` directly in this repo — they are a build-time mirror.** Notes are authored in Obsidian and live in the private `coopersmith/coops-site-publish` repo; that repo's `sync-to-site` GitHub Action copies them into `_notes/` on every publish, so any direct edit here is overwritten on the next sync. To change a note, edit it in `coops-site-publish`.
 - **`_photos/`** - Photo entries auto-generated from `assets/photos/` images via EXIF extraction.
 - **`_pages/`** - Static pages (about, travels, concerts, etc.)
 
