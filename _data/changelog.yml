@@ -7,6 +7,18 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 71
+  date: '2026-07-13'
+  title: "TV shows now tracked season by season"
+  category: feature
+  summary: >-
+    The media library used to treat every show as one flat entry, which meant
+    whole series showed up rating-less and season titles looked like raw
+    filenames. Now each season is its own record with its own rating, while the
+    series itself just gives context — plus some broken text left over from old
+    notes is now cleaned up automatically.
+  url: https://github.com/coopersmith/cooper-site/pull/71
+
 - number: 70
   date: '2026-07-13'
   title: "Clarified how notes get published"
