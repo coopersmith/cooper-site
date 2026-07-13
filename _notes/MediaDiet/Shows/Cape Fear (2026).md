@@ -21,8 +21,6 @@ tags:
   - Apple/appletv
   - MediaDiet/2026
 ---
-Apple TV psychological thriller miniseries. Adaptation of John D. MacDonald's *The Executioners*, following the 1962 and 1991 films. Javier Bardem as Max Cady, released after seventeen years; Amy Adams and Patrick Wilson as the Bowdens. Premiered June 5, 2026; weekly through July 31.
-
 ## Episodes
 
 ![[references/Shows/Shows.base#Episodes]]
