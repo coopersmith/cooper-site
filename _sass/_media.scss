@@ -140,6 +140,26 @@
 }
 .media-card a:hover .media-cover { box-shadow: 0 8px 20px rgba(0,0,0,0.28); }
 
+/* Albums are square, not portrait like posters/jackets. Keep the same cell
+   width so the wall stays on grid, but make the artwork a square centred in a
+   portrait-height slot — so an album row lines up top/bottom with its
+   movie/book/show neighbours instead of floating short. The <a> becomes the
+   portrait container; the image and its hover-info overlay are both squares
+   centred inside it. */
+.media-card[data-type="album"] > a {
+  display: flex;
+  align-items: center;
+  aspect-ratio: 2 / 3;
+}
+.media-card[data-type="album"] .media-cover { aspect-ratio: 1 / 1; }
+/* A square centred in a 2:3 box leaves a 1/6-height band top and bottom;
+   inset the hover overlay by exactly that so its gradient hugs the artwork
+   rather than the empty letterbox above/below it. */
+.media-card[data-type="album"] .media-card-info {
+  top: 16.6667%;
+  bottom: 16.6667%;
+}
+
 /* Typographic fallback "cover" for concerts with no image */
 .media-cover--gig {
   box-sizing: border-box;
