@@ -79,6 +79,26 @@
 #media-library.view-covers .media-list { display: none; }
 .is-hidden { display: none !important; }
 
+/* A series page's rating is the build-time average of its seasons; label it
+   so it doesn't read as a single stored score. */
+.media-avg-note {
+  color: var(--color-text-tertiary);
+  font-size: 0.85em;
+  margin-left: 0.35em;
+  white-space: nowrap;
+}
+
+/* The seasons-watched table on a series page. Rides on .index-table; just
+   size the columns and give it room below the header block. */
+.media-seasons { margin-top: 1.8em; }
+.media-seasons th:nth-child(2),
+.media-seasons td:nth-child(2) { width: 5em; }          /* released year */
+.media-seasons th:nth-child(3),
+.media-seasons td:nth-child(3) { width: 6em; }          /* watched */
+.media-seasons th:nth-child(4),
+.media-seasons td:nth-child(4) { width: 3.6em; }        /* rating */
+.media-seasons .rating-num { font-variant-numeric: tabular-nums; }
+
 /* ---- Covers view ---- */
 /* A clean wall of covers: no meta below the artwork. Details live in a
    card that fades in on hover / keyboard focus (see .media-card-info). */

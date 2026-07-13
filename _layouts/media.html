@@ -11,6 +11,11 @@ layout: default
 {%- if page.type -%}{%- assign type = page.type -%}{%- endif -%}
 
 {%- assign clean_title = page.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' -%}
+{%- comment -%}TV: a series is a context page (creator/cast/run-years + a table
+of the seasons watched, rated by their build-time average); a season shows as
+"Series — Season N" and links back up. Standalones and non-TV read straight
+through. display_title is set by the tv_shows plugin.{%- endcomment -%}
+{%- assign heading = page.display_title | default: clean_title -%}
 
 {%- assign creator = '' -%}{%- assign creator_label = 'By' -%}
 {%- if page.author -%}{%- assign creator = page.author | join: ', ' -%}{%- assign creator_label = 'Author' -%}
@@ -33,25 +38,59 @@ entries simply have no Completed fact. `created` (date added) is never used.{%- 
   <div class="media-note-head">
     <span class="tag media-note-type">{{ type }}</span>
     {%- if page.cover -%}
-    <img class="media-note-cover" src="{{ page.cover }}" alt="Cover of {{ clean_title }}" loading="lazy">
+    <img class="media-note-cover" src="{{ page.cover }}" alt="Cover of {{ heading }}" loading="lazy">
     {%- endif -%}
     <div class="media-note-meta">
-      <h1>{{ clean_title }}</h1>
+      <h1>{{ heading }}</h1>
       <dl class="media-facts">
+        {%- if page.tv_kind == 'season' and page.series_url -%}<dt>Series</dt><dd><a class="internal-link" href="{{ site.baseurl }}{{ page.series_url }}">{{ page.series_title | default: 'Series' }}</a></dd>{%- endif -%}
         {%- if creator != '' -%}<dt>{{ creator_label }}</dt><dd>{{ creator }}</dd>{%- endif -%}
-        {%- if page.year -%}<dt>Year</dt><dd>{{ page.year }}</dd>{%- endif -%}
+        {%- if page.tv_kind == 'series' and page.aired -%}<dt>Aired</dt><dd>{{ page.aired }}</dd>{%- elsif page.year -%}<dt>Year</dt><dd>{{ page.year }}</dd>{%- endif -%}
         {%- if finished -%}<dt>Completed</dt><dd>{{ finished | date: "%B %-d, %Y" }}</dd>{%- endif -%}
         {%- if genre != '' -%}<dt>Genre</dt><dd>{{ genre }}</dd>{%- endif -%}
         {%- if page.runtime -%}<dt>Runtime</dt><dd>{{ page.runtime }}</dd>{%- endif -%}
         {%- if page.pages -%}<dt>Pages</dt><dd>{{ page.pages }}</dd>{%- elsif page.length -%}<dt>Pages</dt><dd>{{ page.length }}</dd>{%- endif -%}
         {%- if cast != '' -%}<dt>Cast</dt><dd>{{ cast }}</dd>{%- endif -%}
-        {%- if page.rating -%}
+        {%- comment -%}Series carry no rating of their own — show the build-time
+        average of the seasons watched. Seasons/standalones show their own.{%- endcomment -%}
+        {%- if page.tv_kind == 'series' -%}
+          {%- if page.avg_rating -%}
+        <dt>Rating</dt>
+        <dd>{%- assign filled = page.avg_rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.avg_rating_exact }}/7 average" aria-label="{{ page.avg_rating_exact }} out of 7 average">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span> <span class="media-avg-note">avg of {{ page.seasons | size }} seasons</span></dd>
+          {%- endif -%}
+        {%- elsif page.rating -%}
         <dt>Rating</dt>
         <dd>{%- assign filled = page.rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.rating }}/7" aria-label="{{ page.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span></dd>
         {%- endif -%}
       </dl>
     </div>
   </div>
+
+  {%- comment -%}Series page: the seasons watched, each with its own rating.
+  Undated seasons (watched years ago, no honest date) show "—" so a blank reads
+  as unknown, not missing.{%- endcomment -%}
+  {%- if page.tv_kind == 'series' and page.seasons and page.seasons != empty -%}
+  <table class="index-table media-seasons">
+    <thead>
+      <tr>
+        <th class="index-title">Season</th>
+        <th class="index-meta">Released</th>
+        <th class="index-date">Watched</th>
+        <th class="index-date">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for s in page.seasons -%}
+      <tr>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ s.url }}">Season {{ s.season }}</a></td>
+        <td class="index-meta muted">{{ s.year }}</td>
+        <td class="index-date muted">{%- if s.last -%}{{ s.last | date: "%b %Y" }}{%- else -%}—{%- endif -%}</td>
+        <td class="index-date muted media-rating">{%- if s.rating -%}<span class="rating-num" aria-label="{{ s.rating }} out of 7">{{ s.rating }}</span>{%- else -%}—{%- endif -%}</td>
+      </tr>
+    {%- endfor -%}
+    </tbody>
+  </table>
+  {%- endif -%}
 
   {%- if page.plot -%}<p class="media-note-plot">{{ page.plot }}</p>{%- endif -%}
 
