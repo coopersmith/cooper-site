@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 70
+  date: '2026-07-13'
+  title: "Clarified how notes get published"
+  category: chore
+  summary: >-
+    Added a small internal note explaining that the notes folder here is just a
+    mirror synced from another private system, so future edits go to the right
+    place instead of being overwritten.
+  url: https://github.com/coopersmith/cooper-site/pull/70
+
 - number: 69
   date: '2026-07-12'
   title: "Started a backlog for photo page improvements"
