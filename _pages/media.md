@@ -94,16 +94,17 @@ both out of the library.{%- endcomment -%}
       {% assign sorttitle = disp | downcase | strip %}
       {%- comment -%}The Completed column shows only when I finished something —
       books store it in `end`, movies/albums in `last` (concerts use the gig
-      date, below). Anything not finished shows nothing here. The sort key is
-      tier-prefixed so the date sort runs "completed first, then the rest":
-      completed items (2) order by finish date, everything else (1) sorts
-      silently by date added (`created`) so recent additions lead the tail, and
-      truly dateless items ('') sink to the very bottom. `created`/`year` are
-      never shown as a completion date.{%- endcomment -%}
+      date, below). Anything not finished shows nothing here. The date sort is a
+      single reverse-chronological stream keyed on the watch/consume date
+      (`end`/`last`); entries with no watch date fall back to the release `year`
+      (as `YYYY-00-00`) so they interleave under their release year. Entries with
+      neither ('') sink to the bottom. The release year is a fallback sort key
+      only — it's never shown as a completion date.{%- endcomment -%}
       {% assign finished = nil %}
       {% if e.end %}{% assign finished = e.end %}{% elsif e.last %}{% assign finished = e.last %}{% endif %}
-      {% assign datedisp = '' %}{% assign sortdate = '' %}
-      {% if finished %}{% assign datedisp = finished | date: '%b %Y' %}{% assign sortdate = finished | date: '%Y-%m-%d' | prepend: '2 ' %}{% elsif e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' | prepend: '1 ' %}{% endif %}
+      {% assign datedisp = '' %}{% if finished %}{% assign datedisp = finished | date: '%b %Y' %}{% endif %}
+      {% assign sortdate = '' %}
+      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
       {%- comment -%}shelf is a scalar for some collections (movies: "watched")
       and a YAML list for others (books: ["read"]/["queue"]); join reads both.
       Map to a status bucket; anything not explicitly in-progress or want-to
@@ -124,7 +125,9 @@ both out of the library.{%- endcomment -%}
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' | prepend: '2 ' }}" data-rating="0" data-shelf="finished">
+      {%- comment -%}A concert's gig date is its watch/consume date, so key on it
+      directly — same reverse-chronological stream as the media rows.{%- endcomment -%}
+      <tr data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ artists }}</a></td>
         <td class="index-meta"><span class="tag">Live</span></td>
         <td class="index-meta muted">{{ venue }}</td>
@@ -147,13 +150,14 @@ both out of the library.{%- endcomment -%}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
       {% assign disp = e.display_title | default: clean_title %}
       {% assign sorttitle = disp | downcase | strip %}
-      {%- comment -%}Same tier-prefixed sort key as the list view (finished by
-      finish date, else by added date, else bottom) so both views share one
+      {%- comment -%}Same sort key as the list view: watch/consume date
+      (`end`/`last`), falling back to the release `year` (as `YYYY-00-00`) when
+      there's no watch date, so both views share one reverse-chronological
       order.{%- endcomment -%}
       {% assign finished = nil %}
       {% if e.end %}{% assign finished = e.end %}{% elsif e.last %}{% assign finished = e.last %}{% endif %}
       {% assign sortdate = '' %}
-      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' | prepend: '2 ' %}{% elsif e.created %}{% assign sortdate = e.created | date: '%Y-%m-%d' | prepend: '1 ' %}{% endif %}
+      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
@@ -183,7 +187,7 @@ both out of the library.{%- endcomment -%}
       {% assign artists = c.Artists | join: ', ' | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
-      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' | prepend: '2 ' }}" data-rating="0" data-shelf="finished">
+      <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
         <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists | escape }}">
           {% if c.cover %}
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
