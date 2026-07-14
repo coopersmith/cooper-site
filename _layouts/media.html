@@ -13,7 +13,7 @@ layout: default
 {%- assign clean_title = page.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' -%}
 {%- comment -%}TV: a series is a context page (creator/cast/run-years + a table
 of the seasons watched, rated by their build-time average); a season shows as
-"Series — Season N" and links back up. Standalones and non-TV read straight
+"Series Season N" and links back up. Standalones and non-TV read straight
 through. display_title is set by the tv_shows plugin.{%- endcomment -%}
 {%- assign heading = page.display_title | default: clean_title | titlecase -%}
 

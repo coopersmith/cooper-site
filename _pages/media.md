@@ -81,7 +81,7 @@ both out of the library.{%- endcomment -%}
       {% endif %}
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
-      {%- comment -%}TV seasons render as "Series — Season N" (the plugin's
+      {%- comment -%}TV seasons render as "Series Season N" (the plugin's
       display_title), not their raw filename ("Hacks s03"); everything else
       falls back to its cleaned title.{%- endcomment -%}
       {% assign disp = e.display_title | default: clean_title | titlecase %}

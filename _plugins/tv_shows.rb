@@ -15,7 +15,7 @@ require "set"
 #   * Standalone — a season with no parent (a miniseries, or a show tracked as
 #                  a single unit). Same shape as a season, minus the `show`.
 #
-# You didn't watch "Hacks", you watched "Hacks — Season 3" and gave it a 6, so
+# You didn't watch "Hacks", you watched "Hacks Season 3" and gave it a 6, so
 # the season/standalone is what shows up in the library; the series is only
 # ever a container.
 #
@@ -24,7 +24,7 @@ require "set"
 # two things the vault deliberately never stores: the average of its seasons'
 # ratings and the ordered list of seasons its page tables. It also:
 #
-#   * gives a season a display title ("Hacks — Season 3") in place of its raw
+#   * gives a season a display title ("Hacks Season 3") in place of its raw
 #     filename title ("Hacks s03"),
 #   * falls a season's missing poster back to its series' poster,
 #   * lends the series' creator/cast to its seasons for the library's "By"
@@ -190,7 +190,7 @@ class TvShowsGenerator < Jekyll::Generator
     num = doc.data["season"]
     return clean_title(doc) if blank?(series)
     return series.to_s if blank?(num)
-    "#{series} — Season #{num}"
+    "#{series} Season #{num}"
   end
 
   def clean_title(doc)
