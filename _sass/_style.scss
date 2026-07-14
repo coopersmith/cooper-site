@@ -81,6 +81,15 @@ $font-name: 'Hanken Grotesk' !default;
   }
 }
 
+// On mobile the scroll container is the root <html> element, not <body>, so
+// clipping horizontal overflow on <body> alone doesn't stop the viewport from
+// panning sideways during a vertical scroll. Clip it on <html> too so any
+// element that pokes past the edge (negative-margin code blocks, the notes
+// graph, wide embeds) can't produce a stray horizontal scroll.
+html {
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--color-bg-primary);
   box-sizing: content-box;
