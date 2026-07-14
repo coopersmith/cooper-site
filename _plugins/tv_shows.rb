@@ -161,11 +161,16 @@ class TvShowsGenerator < Jekyll::Generator
     !blank?(Array(doc.data["show"]).first)
   end
 
-  # The parent series' name from a season's `show: [[Title]]` link.
+  # The parent series' name from a season's `show: [[Title]]` link. Obsidian
+  # links can carry a folder path and/or a display alias — `[[A/B/The Bear]]` or
+  # `[[The Bear|Bear]]` — so prefer the alias, else the target's basename, so a
+  # vault-relative path never leaks into the rendered season title.
   def parent_title(doc)
     raw = Array(doc.data["show"]).first
     return nil if blank?(raw)
-    raw.to_s.gsub(/\[\[|\]\]/, "").split("|").first.strip
+    inner = raw.to_s.gsub(/\[\[|\]\]/, "").strip
+    target, display = inner.split("|", 2)
+    (blank?(display) ? target.to_s.split("/").last : display).to_s.strip
   end
 
   def parent_key(doc)

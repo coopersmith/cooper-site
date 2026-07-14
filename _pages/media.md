@@ -84,7 +84,7 @@ both out of the library.{%- endcomment -%}
       {%- comment -%}TV seasons render as "Series — Season N" (the plugin's
       display_title), not their raw filename ("Hacks s03"); everything else
       falls back to its cleaned title.{%- endcomment -%}
-      {% assign disp = e.display_title | default: clean_title %}
+      {% assign disp = e.display_title | default: clean_title | titlecase %}
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
@@ -145,7 +145,7 @@ both out of the library.{%- endcomment -%}
       {% endif %}
       {% if e.type %}{% assign type = e.type %}{% endif %}
       {% assign clean_title = e.title | replace: '📚 ', '' | replace: '🎬 ', '' | replace: '📺 ', '' | replace: '🦖 ', '' %}
-      {% assign disp = e.display_title | default: clean_title %}
+      {% assign disp = e.display_title | default: clean_title | titlecase %}
       {% assign sorttitle = disp | downcase | strip %}
       {%- comment -%}Same tier-prefixed sort key as the list view (finished by
       finish date, else by added date, else bottom) so both views share one
