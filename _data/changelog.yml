@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 73
+  date: '2026-07-14'
+  title: "Fixed sideways scrolling glitch on mobile"
+  category: fix
+  summary: >-
+    Some pages could sneakily shift sideways while scrolling on phones, thanks
+    to a few elements peeking past the edge. That's now locked down, so
+    scrolling stays smooth and vertical only.
+  url: https://github.com/coopersmith/cooper-site/pull/73
+
 - number: 71
   date: '2026-07-13'
   title: "TV shows now tracked season by season"
