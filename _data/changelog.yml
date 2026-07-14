@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 75
+  date: '2026-07-14'
+  title: "Media diet dates now sort more sensibly"
+  category: fix
+  summary: >-
+    The Media Diet's "Date" view now sorts by when you actually watched or read
+    something, falling back to release year only when there's no real date—so
+    entries line up in a true timeline instead of clustering by when they were
+    added.
+  url: https://github.com/coopersmith/cooper-site/pull/75
+
 - number: 73
   date: '2026-07-14'
   title: "Fixed sideways scrolling glitch on mobile"
