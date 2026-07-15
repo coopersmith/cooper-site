@@ -33,7 +33,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     {% assign all_notes = site.notes | sort: "created_at_timestamp" | reverse %}
     {% assign count = 0 %}
     {% for note in all_notes %}
-      {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' %}
+      {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' or note.path contains 'FoodDrink' %}
         {% if count < 5 %}
           <li>
             <span class="date">{{ note.created_at | date: "%b %Y" }}</span>
@@ -53,6 +53,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     <li><a class="internal-link" href="{{ site.baseurl }}/travels/">Travels</a> <span class="desc">— adventures around the world.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/photos/">Visual Diary</a> <span class="desc">— my life through my lens.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/media/">Media Diet</a> <span class="desc">— what I'm reading, watching, and listening to.</span></li>
+    <li><a class="internal-link" href="{{ site.baseurl }}/cocktails/">Cocktails</a> <span class="desc">— a database of drinks and the cabinet behind them.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/highlights">Commonplace</a> <span class="desc">— passages I've marked while reading.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/about">About</a> <span class="desc">— the longer version, and where to find me.</span></li>
   </ul>

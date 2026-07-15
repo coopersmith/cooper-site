@@ -67,3 +67,14 @@ defaults:
       path: "_notes/MediaDiet/**/*.md"
     values:
       layout: "media"
+  # Cocktail database: cocktails and cabinet bottles get frontmatter-driven
+  # layouts (with the cocktail<->cabinet pivot baked by cocktail_cabinet.rb).
+  # Listed after the _notes rule so they take precedence.
+  - scope:
+      path: "_notes/FoodDrink/Cocktails/**/*.md"
+    values:
+      layout: "cocktail"
+  - scope:
+      path: "_notes/FoodDrink/Cabinet/**/*.md"
+    values:
+      layout: "cabinet"
