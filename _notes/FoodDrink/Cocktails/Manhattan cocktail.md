@@ -4,9 +4,9 @@ categories:
 type:
   - "[[Manhattan cocktail]]"
 ingredients:
-  - "[[Rye whiskey]]"
-  - "[[Sweet Vermouth]]"
   - "[[Angostura Bitters]]"
+  - "[[coops-site-publish/FoodDrink/Cabinet/Rye whiskey|Rye whiskey]]"
+  - "[[coops-site-publish/FoodDrink/Cabinet/Sweet Vermouth|Sweet Vermouth]]"
 author:
 url:
 image:
@@ -16,7 +16,7 @@ last:
 tags:
   - cocktails
 ---
-The classic. A whiskey-forward stirred cocktail that gave its name to a whole family of drinks (the [[references/FoodDrink/Cocktails/Brooklyn]], [[Black Manhattan]], [[Red Hook]], [[Brooklyn Ferry]], [[The Erin]]).
+The classic. A whiskey-forward stirred cocktail that gave its name to a whole family of drinks (the [[Brooklyn (cocktail)|Brooklyn (cocktail)]], [[Black Manhattan]], [[Red Hook]], [[Brooklyn Ferry]], [[The Erin]]).
 
 ## Ingredients
 
