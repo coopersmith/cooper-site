@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 74
+  date: '2026-07-16'
+  title: "Media titles now display correctly capitalized"
+  category: fix
+  summary: >-
+    Movie, show, and album entries in the Media Diet were showing up in odd
+    lowercase-ish casing while books looked fine. Now titles render in proper
+    title case, with acronyms, roman numerals, and hyphenated names like X-Men
+    kept intact.
+  url: https://github.com/coopersmith/cooper-site/pull/74
+
 - number: 75
   date: '2026-07-14'
   title: "Media diet dates now sort more sensibly"
