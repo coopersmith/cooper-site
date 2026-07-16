@@ -1,8 +1,7 @@
 ---
 categories:
   - "[[Shows]]"
-show:
-  - "[[coops-site-publish/MediaDiet/Shows/The Bear]]"
+show: "[[coops-site-publish/MediaDiet/Shows/The Bear]]"
 season: 1
 genre: []
 cast: []
