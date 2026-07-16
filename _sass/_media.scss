@@ -140,6 +140,16 @@
 }
 .media-card a:hover .media-cover { box-shadow: 0 8px 20px rgba(0,0,0,0.28); }
 
+/* Albums are square, not portrait like posters/jackets. Keep the same cell
+   width, but let the square artwork size its own (shorter) row rather than
+   reserving a portrait-height slot — so an all-album view packs tight with no
+   letterboxing. When an album shares a grid row with taller neighbours,
+   centre it vertically in the track so it still lines up cleanly. The <a>
+   wraps the square image, so its hover-info overlay stays square with no
+   extra rules. */
+.media-card[data-type="album"] { align-self: center; }
+.media-card[data-type="album"] .media-cover { aspect-ratio: 1 / 1; }
+
 /* Typographic fallback "cover" for concerts with no image */
 .media-cover--gig {
   box-sizing: border-box;
