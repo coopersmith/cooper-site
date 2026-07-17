@@ -173,7 +173,7 @@ both out of the library.{%- endcomment -%}
       {% if shelfval contains 'reading' or shelfval == 'watching' or shelfval == 'listening' or shelfval == 'playing' or shelfval == 'current' or shelfval == 'in progress' or shelfval == 'in-progress' %}{% assign statusbucket = 'active' %}
       {% elsif shelfval == 'queue' or shelfval == 'queued' or shelfval == 'want' or shelfval == 'backlog' or shelfval == 'unread' or shelfval == 'wishlist' or shelfval == 'watchlist' or shelfval == 'to-watch' or shelfval == 'to watch' or shelfval contains 'to-read' or shelfval contains 'to read' or shelfval contains 'want to read' %}{% assign statusbucket = 'queue' %}{% endif %}
       <li class="media-card" data-type="{{ type | downcase }}" data-title="{{ sorttitle | escape }}" data-date="{{ sortdate }}" data-rating="{{ e.rating | default: 0 }}" data-ranking="{{ e.ranking }}" data-shelf="{{ statusbucket }}">
-        <a href="{{ site.baseurl }}{{ e.url }}" title="{{ disp | escape }}">
+        <a class="internal-link" href="{{ site.baseurl }}{{ e.url }}" title="{{ disp | escape }}">
           <img class="media-cover" src="{{ e.cover }}" alt="Cover of {{ disp }}" loading="lazy" />
           <span class="media-card-info">
             <span class="mci-title">{{ disp }}</span>
@@ -188,7 +188,7 @@ both out of the library.{%- endcomment -%}
       {% if artists == '' %}{% assign artists = c.title %}{% endif %}
       {% assign venue = c.Venue | replace: '[', '' | replace: ']', '' | replace: '  ', ' ' | strip %}
       <li class="media-card" data-type="concert" data-title="{{ artists | downcase | escape }}" data-date="{{ c.Dates | date: '%Y-%m-%d' }}" data-rating="0" data-shelf="finished">
-        <a href="{{ site.baseurl }}{{ c.url }}" title="{{ artists | escape }}">
+        <a class="internal-link" href="{{ site.baseurl }}{{ c.url }}" title="{{ artists | escape }}">
           {% if c.cover %}
           <img class="media-cover" src="{{ c.cover }}" alt="{{ artists }} at {{ venue }}" loading="lazy" />
           <span class="media-card-info">
