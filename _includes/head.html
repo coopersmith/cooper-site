@@ -4,6 +4,9 @@
 
   <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
 
+  <!-- OpenFeed photo feed autodiscovery (https://openfeed.photo/setup/) -->
+  <link rel="alternate" type="application/feed+json" title="{{ site.author.name }} — Photos" href="{{ site.url }}/photo/feed.json" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.title }}{% endif %}">

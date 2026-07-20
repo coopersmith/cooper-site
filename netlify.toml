@@ -14,3 +14,9 @@
   to = "https://coopersmith.nyc/photos/:splat"
   status = 301
   force = true
+
+# Serve the OpenFeed photo feed as JSON Feed (https://openfeed.photo/setup/).
+[[headers]]
+  for = "/photo/feed.json"
+  [headers.values]
+    Content-Type = "application/feed+json; charset=utf-8"

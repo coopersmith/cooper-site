@@ -3,6 +3,18 @@ description: Cooper Smith's digital garden
 url: "https://coopersmith.nyc"  # Your production URL
 author:
   name: Cooper Smith
+  # Absolute homepage + avatar used by the OpenFeed photo feed (see
+  # _plugins/photo_feed_generator.rb). avatar is REQUIRED by OpenFeed — drop a
+  # square image at assets/avatar.jpg (or point this at any absolute URL).
+  url: "https://coopersmith.nyc"
+  avatar: /assets/avatar.jpg
+
+# OpenFeed photo feed — https://openfeed.photo/setup/
+# `ring` must stay exactly "openfeed-demo". `creator` is a PERMANENT handle:
+# pick it once and never change it (it's your stable identity in the ring).
+photoring:
+  ring: openfeed-demo
+  creator: coopersmith
 
 # Typeface — single source of truth for the font. Drives the Google Fonts
 # load (_includes/head.html), the --font-sans token (styles.scss), and the
