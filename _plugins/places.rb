@@ -26,17 +26,27 @@ require "set"
 #   place_kind   'venue' | 'destination'
 #   place_type   the venue's category, wikilink noise removed
 #                ("Bars + Cocktails", "Restaurants")
-#   place_city   the destination you'd say you're going to — the *last* entry
-#                of the `loc` chain ("New York City", "Vienna") after
-#                skipping region-level entries (REGIONS below): some chains
-#                run past the city to a state or country ([Providence,
-#                Rhode Island]), and "pick where you're going" means
-#                Providence, not Rhode Island. The vault orders `loc`
-#                inside-out (neighborhood first), so the last non-region
-#                entry is the city.
-#   place_area   the neighborhood — the *first* `loc` entry, when it differs
-#                from the city ("Cobble Hill"). Nil for venues located
-#                directly in their city.
+#   place_city   the destination you'd say you're going to ("New York City",
+#                "Vienna", "Providence").
+#   place_area   the neighborhood within it ("Cobble Hill"), when there is
+#                one.
+#
+# City/area resolution can't trust the `loc` chain's order — real chains
+# arrive as [Cobble Hill, NYC], [NYC, Cobble Hill], [Brooklyn, Cobble Hill]
+# (no city at all), and [Providence, Rhode Island] (running past the city to
+# a state). So, after dropping region-level entries (REGIONS below):
+#
+#   1. If an entry has a destination note whose own `loc` names a city-level
+#      parent (Cobble Hill → New York City), it's a neighborhood: area =
+#      entry, city = that parent — found even when the chain never mentions
+#      the city itself.
+#   2. Else if an entry has a destination note with no city-level parent
+#      (Vienna → [Austria], all regions), that entry is the city.
+#   3. Else fall back to the inside-out convention: city = last entry,
+#      area = first (when they differ).
+#
+# So the destination notes are the ontology, and publishing one (e.g. a
+# Providence note) upgrades every venue that references it.
 #   place_lat / place_lng
 #                coordinates as floats, nil when the note has no (parsable)
 #                `location` — such venues list but don't pin, by design.
@@ -94,28 +104,27 @@ class PlacesGenerator < Jekyll::Generator
     places = site.collections["notes"].docs.select { |d| d.relative_path.include?(PLACES_PATH) }
     return if places.empty?
 
-    destinations = []
-    venues = []
+    places.each { |doc| strip_base_embeds(doc) }
+    destinations, venues = places.partition { |doc| destination?(doc) }
 
-    places.each do |doc|
-      strip_base_embeds(doc)
+    # The destination notes double as the place ontology: a note whose own
+    # `loc` names a city-level (non-region) parent is a neighborhood of that
+    # city; one whose parents are all regions is a city itself.
+    dest_parent = {}
+    destinations.each do |dest|
+      dest.data["place_kind"] = "destination"
+      dest.data["place_city"] = dest.data["title"].to_s
+      parents = non_region_locs(dest)
+      dest_parent[dest.data["title"].to_s.downcase] = parents.first
+    end
 
-      if destination?(doc)
-        doc.data["place_kind"] = "destination"
-        doc.data["place_city"] = doc.data["title"].to_s
-        destinations << doc
-        next
-      end
-      venues << doc
-
+    venues.each do |doc|
       doc.data["place_kind"] = "venue"
       doc.data["place_type"] = normalize_link(Array(doc.data["type"]).first)
 
-      locs = Array(doc.data["loc"]).map { |l| normalize_link(l) }.reject { |l| blank?(l) }
-      cities = locs.reject { |l| REGIONS.include?(l.downcase) }
-      city = cities.last || locs.last
+      city, area = resolve_city_area(doc, dest_parent)
       doc.data["place_city"] = city
-      doc.data["place_area"] = locs.first if locs.size > 1 && locs.first != city && !REGIONS.include?(locs.first.downcase)
+      doc.data["place_area"] = area
 
       lat, lng = coords(doc)
       doc.data["place_lat"] = lat
@@ -137,6 +146,35 @@ class PlacesGenerator < Jekyll::Generator
 
   def destination?(doc)
     Array(doc.data["type"]).any? { |t| normalize_link(t).casecmp?("Cities") }
+  end
+
+  def non_region_locs(doc)
+    Array(doc.data["loc"])
+      .map { |l| normalize_link(l) }
+      .reject { |l| blank?(l) || REGIONS.include?(l.downcase) }
+  end
+
+  # See the resolution rules in the class comment. `dest_parent` maps a
+  # destination note's downcased title to its city-level parent (nil when the
+  # destination is itself a city).
+  def resolve_city_area(doc, dest_parent)
+    entries = non_region_locs(doc)
+    if entries.empty?
+      # A chain of nothing but regions: better a state-level destination
+      # than none at all.
+      fallback = Array(doc.data["loc"]).map { |l| normalize_link(l) }.reject { |l| blank?(l) }
+      return [fallback.last, nil]
+    end
+
+    entries.each do |entry|
+      parent = dest_parent[entry.downcase]
+      return [parent, entry] if parent
+    end
+
+    city = entries.find { |entry| dest_parent.key?(entry.downcase) }
+    city ||= entries.last
+    area = entries.first if entries.size > 1 && entries.first != city
+    [city, area]
   end
 
   # `location` is a YAML list of strings — ["40.68…", "-73.99…"]. Anything
