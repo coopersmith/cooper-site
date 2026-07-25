@@ -53,6 +53,19 @@ module ReadwiseHighlightsPage
     hinge datingapps
   ].freeze
 
+  # Tags always shown as filter chips, even when they're used fewer than
+  # MIN_TAG_COUNT times (or ranked below the MAX_TAGS cutoff). Use this to
+  # surface a tag that matters more than its raw count suggests — e.g. one
+  # mostly applied at the document level in Readwise, so few *highlights* carry
+  # it directly. Matched with case/separators stripped (see `pinned?`), so
+  # "songlyrics", "song-lyrics", and "songLyrics" all pin the same tag. A pinned
+  # tag still needs at least one highlight tagged with it to have a baked stream;
+  # if none do, it's silently skipped. Pinned chips join the featured list in the
+  # same count order as everything else, so a low-use pin lands at the bottom.
+  PINNED_TAGS = %w[
+    songlyrics
+  ].freeze
+
   OUTPUT_SUBDIR = File.join("assets", "highlights")
 
   def self.emit(site)
@@ -63,7 +76,14 @@ module ReadwiseHighlightsPage
 
     rows = token ? flatten(Readwise.export(site, token)) : []
     all_tags = ranked_tags(rows)                                        # every linkable tag
+    # The most-used tags become chips (capped at MAX_TAGS), then any pinned tag
+    # is force-included even if it fell below the cut. Both slices come from the
+    # count-sorted all_tags, so appending the pins keeps the whole bar in count
+    # order — a low-use pin naturally lands at the end. uniq drops a pin that
+    # already ranked into the head on its own.
     featured = all_tags.select { |t| t[:count] >= MIN_TAG_COUNT }.first(MAX_TAGS)
+    featured += all_tags.select { |t| pinned?(t[:name]) }
+    featured.uniq! { |t| t[:slug] }
 
     root = File.join(site.dest, OUTPUT_SUBDIR)
     FileUtils.rm_rf(root)
@@ -154,6 +174,13 @@ module ReadwiseHighlightsPage
   def self.stopword?(name)
     key = name.gsub(/[^a-z0-9]+/, "")
     TAG_STOPLIST.include?(key)
+  end
+
+  # True when a tag is pinned as an always-on chip, compared with case and
+  # separators stripped so "songLyrics"/"song-lyrics"/"songlyrics" all match.
+  def self.pinned?(name)
+    key = name.gsub(/[^a-z0-9]+/, "")
+    PINNED_TAGS.map { |t| t.gsub(/[^a-z0-9]+/, "") }.include?(key)
   end
 
   def self.slugify(name)
