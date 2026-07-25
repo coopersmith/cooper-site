@@ -20,7 +20,7 @@ permalink: /notes/
 {% assign all_notes = site.notes | sort: "created_at_timestamp" | reverse %}
 <table class="index-table">
   {% for note in all_notes %}
-    {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' %}
+    {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' or note.path contains 'FoodDrink' %}
   <tr data-title="{{ note.title | downcase | escape }}" data-date="{{ note.created_at | date: '%Y-%m-%d' }}">
     <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ note.url }}">{{ note.title }}</a></td>
     <td class="index-date muted">{{ note.created_at | date: "%b %Y" }}</td>
