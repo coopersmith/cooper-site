@@ -17,6 +17,7 @@ year: 2024
 scoreGr: 3.59
 rating: 2
 cover: https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1699934842i/202102018.jpg
+plot: "Two lifelong friends emerge from their annual hunting trip in rural Maine to find their country ravaged by violence and chaos due to a civil war sparked by secessionist sentiments, and must confront their past while trying to find a way home."
 isbn: "9780593801628"
 language: English
 created: 2025-06-30
@@ -29,8 +30,6 @@ shelf:
   - read
 highlights: ""
 ---
-In *Burn*, two lifelong friends, Jess and Storey, emerge from their annual hunting trip in rural Maine to find their country ravaged by violence and chaos due to a civil war sparked by secessionist sentiments. As they navigate a dystopian landscape filled with destruction, they must confront their past and the changing dynamics of their friendship while trying to find a way home.
-
 ## Notes
 
 ![[Burn - Notes]]

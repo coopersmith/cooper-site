@@ -27,4 +27,3 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**A Real Pain (2024)** is a comedy-drama directed by **Jesse Eisenberg**. The film follows mismatched cousins **David** and **Benji** as they reunite for a tour through Poland to honor their beloved grandmother. Their journey takes an unexpected turn when old tensions resurface against the backdrop of their family history. The primary cast includes **Jesse Eisenberg**, **Kieran Culkin**, **Will Sharpe**, **Jennifer Grey**, and **Kurt Egyiawan**.

@@ -27,4 +27,3 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Queer (2024)** is directed by **Luca Guadagnino** and set in 1950s Mexico City. The story follows **William Lee**, an American expat in his late forties, who leads a solitary life within a small American community. His life takes a turn with the arrival of **Eugene Allerton**, a young student, which prompts William to seek a meaningful connection for the first time. The film features a notable cast including **Daniel Craig**, **Drew Starkey**, **Jason Schwartzman**, and **Lesley Manville**.

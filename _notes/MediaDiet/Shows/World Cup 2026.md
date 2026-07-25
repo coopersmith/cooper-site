@@ -15,8 +15,6 @@ tags:
   - shows
   - MediaDiet/2026
 ---
-Hosted by USA, Canada and Mexico. All three co-hosts eliminated in the knockouts — Canada by Morocco, Mexico by England, USA by Belgium.
-
 ## Episodes
 
 ![[references/Shows/Shows.base#Episodes]]

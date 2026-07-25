@@ -27,4 +27,3 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Emilia Pérez (2024)** is a thriller-drama directed by Jacques Audiard. The story follows Rita, an underrated lawyer working for a large law firm that prioritizes getting criminals out of jail over delivering justice. She gets hired by the leader of a criminal organization, leading her down a complex path of moral dilemmas and dangerous interactions. The film features a diverse cast including Karla Sofía Gascón, Zoe Saldaña, Selena Gomez, Adriana Paz, and Edgar Ramírez.

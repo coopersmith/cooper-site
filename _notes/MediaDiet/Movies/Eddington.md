@@ -28,4 +28,3 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-*Eddington (2025)* is a gripping drama directed by Ari Aster, set against the backdrop of a tense standoff between a sheriff and a mayor in a small New Mexico town during May 2020. This film explores themes of community division and societal unrest, making it a poignant reflection on recent events. You should watch this movie if you're in the mood for an intense, thought-provoking experience that challenges your perceptions of morality and authority. It’s ideal for viewers who appreciate layered narratives and are ready for an emotional rollercoaster that leaves you contemplating long after the credits roll.

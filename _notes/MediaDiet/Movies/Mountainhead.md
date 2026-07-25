@@ -27,4 +27,3 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Mountainhead (2025)** is a film directed by **Jesse Armstrong**. The story revolves around a group of billionaire friends who come together amidst a rolling international crisis. The film features a talented cast including **Steve Carell**, **Jason Schwartzman**, **Cory Michael Smith**, **Ramy Youssef**, and **Hadley Robinson**. It blends elements of drama and comedy, exploring the lives of powerful individuals and their interactions during turbulent times.

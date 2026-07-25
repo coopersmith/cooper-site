@@ -28,8 +28,6 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Mission: Impossible II (2000)**, directed by **John Woo**, follows agent **Ethan Hunt** (played by **Tom Cruise**) as he teams up with computer genius **Luther Stickell** (**Ving Rhames**) and a beautiful thief, **Nyah Nordoff-Hall** (**Thandiwe Newton**), to stop a rogue former IMF agent, **Sean Ambrose** (**Dougray Scott**). The plot centers around a genetically engineered biological weapon known as **Chimera**, which threatens to unleash an international crisis. Set across stunning locations in **Australia** and **Spain**, this action-packed sequel is filled with intense stunts and a race against time.
-
 ## My Review
 
 I'm beginning to realize that the reason I never got past the first few MI movies ([[Mission Impossible]]) in the franchise was because of the nonstop use of masks. Was anybody surprised by any of these "big reveals" at the time?

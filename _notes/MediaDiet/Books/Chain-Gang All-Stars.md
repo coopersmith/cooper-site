@@ -28,8 +28,6 @@ shelf:
   - read
 highlights: "[[Chain Gang All Stars]]"
 ---
-Welcome to Chain-Gang All-Stars - the highly popular, highly controversial profit-raising program inside America's private prison system. Harkening back to the time of gladiators, but watched by millions of live-stream subscribers, prisoners compete for the ultimate prize: their freedom.Loretta Thurwar and Hamara 'Hurricane Staxxx' Stacker, teammates and lovers, are the fan favourites. If all goes well, Thurwar will be free in just a few matches, a fact she carries as heavily as her lethal hammer. But will the price be simply too high?
-
 ### Goodreads Review
 
 Not an easy read. But incredibly powerful. Highly recommend
