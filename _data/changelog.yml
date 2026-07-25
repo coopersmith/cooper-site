@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 78
+  date: '2026-07-25'
+  title: "Pin important tags on the highlights filter bar"
+  category: feature
+  summary: >-
+    Some tags matter even if they're rarely used, so certain tags can now be
+    pinned to always show up as filter chips on the highlights page, no matter
+    how few highlights they have.
+  url: https://github.com/coopersmith/cooper-site/pull/78
+
 - number: 77
   date: '2026-07-18'
   title: "Radio listens now show up as \"currently playing\""
