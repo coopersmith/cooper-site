@@ -3,6 +3,14 @@
   publish = "_site"
   functions = "netlify/functions"
 
+# Jekyll defaults JEKYLL_ENV to "development" and Netlify does not set it, so it
+# has to be set explicitly here. Scoped to the production context on purpose:
+# deploy previews and branch deploys stay "development" and therefore skip the
+# Google Analytics tag (see _includes/analytics.html), keeping preview traffic
+# out of the production property.
+[context.production.environment]
+  JEKYLL_ENV = "production"
+
 # Subdomain configuration for photos.coopersmith.nyc
 # Note: You'll need to configure the subdomain in Netlify dashboard:
 # 1. Go to Site settings > Domain management

@@ -19,6 +19,17 @@ bundle exec jekyll serve
 
 The site deploys to Netlify automatically. Production URL: https://coopersmith.nyc
 
+### Analytics
+
+Google Analytics 4. The measurement ID lives in `_config.yml` (`google_analytics`)
+— not hardcoded in markup — and `_includes/analytics.html` emits the gtag snippet
+only when `jekyll.environment == "production"` *and* that key is set. Jekyll
+defaults `JEKYLL_ENV` to `development` and Netlify does not set it, so
+`netlify.toml` sets it under `[context.production.environment]`. Consequence:
+`jekyll serve`, branch deploys, and deploy previews all build as `development`
+and ship no tag, keeping non-production traffic out of the property. Clearing
+`google_analytics` disables analytics everywhere.
+
 ## Architecture
 
 This is a Jekyll-based digital garden/personal website with Obsidian-style wikilink support.

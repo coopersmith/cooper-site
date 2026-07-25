@@ -4,6 +4,13 @@ url: "https://coopersmith.nyc"  # Your production URL
 author:
   name: Cooper Smith
 
+# Google Analytics 4 measurement ID. Read by _includes/analytics.html, which
+# only emits the tag on production builds (JEKYLL_ENV=production, set for the
+# production context in netlify.toml) — so `jekyll serve` and Netlify deploy
+# previews don't report into the production property. Leave blank to disable
+# analytics entirely.
+google_analytics: G-JZRC3BJ9FN
+
 # Typeface — single source of truth for the font. Drives the Google Fonts
 # load (_includes/head.html), the --font-sans token (styles.scss), and the
 # colophon label, so they can never drift apart.
