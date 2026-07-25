@@ -7,8 +7,8 @@ categories:
 type:
   - "[[Bars + Cocktails]]"
 loc:
-  - "[[coops-site-publish/Places/Cobble Hill]]"
   - "[[New York City]]"
+  - "[[coops-site-publish/Places/Cobble Hill|Cobble Hill]]"
 location:
   - "40.6902937"
   - "-73.9962886"
