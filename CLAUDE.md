@@ -21,14 +21,17 @@ The site deploys to Netlify automatically. Production URL: https://coopersmith.n
 
 ### Analytics
 
-Google Analytics 4. The measurement ID lives in `_config.yml` (`google_analytics`)
-— not hardcoded in markup — and `_includes/analytics.html` emits the gtag snippet
-only when `jekyll.environment == "production"` *and* that key is set. Jekyll
+`_includes/analytics.html` holds every analytics tag. Each provider has its own
+key in `_config.yml` and renders only when that key is set, so providers can run
+side by side or be removed by blanking the key — `google_analytics` (GA4
+measurement ID) and `goatcounter` (site code, i.e. the subdomain part of
+`<code>.goatcounter.com`, not the full URL). IDs live in config, never hardcoded
+in markup. Nothing renders unless `jekyll.environment == "production"`. Jekyll
 defaults `JEKYLL_ENV` to `development` and Netlify does not set it, so
 `netlify.toml` sets it under `[context.production.environment]`. Consequence:
 `jekyll serve`, branch deploys, and deploy previews all build as `development`
-and ship no tag, keeping non-production traffic out of the property. Clearing
-`google_analytics` disables analytics everywhere.
+and ship no tag, keeping non-production traffic out of the property. Blanking
+every provider key disables analytics entirely.
 
 ## Architecture
 

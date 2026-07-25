@@ -11,6 +11,12 @@ author:
 # analytics entirely.
 google_analytics: G-JZRC3BJ9FN
 
+# GoatCounter site code — the subdomain part of <code>.goatcounter.com, not the
+# full URL. Blank means the tag is not emitted at all, so this stays inert until
+# an account exists. Runs alongside google_analytics; either can be cleared
+# independently.
+goatcounter:
+
 # Typeface — single source of truth for the font. Drives the Google Fonts
 # load (_includes/head.html), the --font-sans token (styles.scss), and the
 # colophon label, so they can never drift apart.
