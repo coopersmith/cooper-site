@@ -48,10 +48,13 @@ tags: [concerts]
 
 **Photos** are auto-generated - drop images in `assets/photos/` and the `photo_exif_generator.rb` plugin creates markdown files with EXIF date and geocoded location.
 
+**Places** (`_notes/Places/`) are venue recommendations plus the destinations that contain them, one note apiece, all synced from Obsidian. A venue's frontmatter carries `type` (`[[Restaurants]]`, `[[Bars + Cocktails]]`…), a `loc` chain of destination wikilinks ordered inside-out (neighborhood first, city last), `location` ([lat, lng] as strings), `rating` (7-point), visit stats (`visit_count`/`first_visit`/`last_visit`), `scoreGoogle`, and a Google Maps `source` URL; a destination note has `type: [[Cities]]`. The `/places/` page (`_pages/places.md`) renders every venue as a destination/type-filterable list (Media Diet-style toolbar) with a toggleable Leaflet map view (vendored `assets/vendor/leaflet/`, CARTO Positron/Dark Matter raster tiles following `prefers-color-scheme`); the table rows are the single source of truth — markers, popups, and the map's fit are driven off their data attributes. Venues without `location` coords list but don't pin, by design. Deep links: `?dest=<city-or-neighborhood-slug>`, `?type=`, `?view=map`, `?sort=`, and `?focus=<venue-slug>` (opens that venue's popup). Individual notes use the `place` layout (facts header + "See it on my map").
+
 ### Custom Plugins (`_plugins/`)
 
 - **`bidirectional_links_generator.rb`** - Converts `[[wikilinks]]` to HTML, generates backlinks, creates `notes_graph.json` for visualization
 - **`photo_exif_generator.rb`** - Auto-creates `_photos/*.md` from images, extracts EXIF dates, reverse geocodes GPS coordinates via OpenStreetMap
+- **`places.rb`** - Distils each `_notes/Places` note's vault frontmatter into flat `place_*` fields (kind, type, city = last `loc` entry, area = first, float coords, Google Maps URL) for the `/places/` page and `place` layout, and strips the Obsidian `![[….base#…]]` embeds plus their introducing headings (same treatment `tv_shows.rb` gives Shows)
 - **`readwise.rb`** - Shared Readwise client. Pulls the whole library (books + nested highlights) once per build via the Readwise **export** endpoint (a few paginated calls, not one request per book) and memoizes it on `site.data`, so both Readwise features below share a single fetch. Requires `READWISE_TOKEN` in the build environment (ensure it's exposed to builds, not just Netlify functions).
 - **`readwise_transclusion.rb`** - Bakes Readwise book highlights into notes at build time. In a note, the native Obsidian embed `![[<Book Title> - Notes]]` is replaced with that book's highlights. Keeps the Obsidian vault pure markdown (no ids/frontmatter) and keeps Readwise notes out of the repo entirely.
   - Matching: exact title (ignoring case/emoji/punctuation), then the main title before a `": "`/`" - "` subtitle and any trailing `(Series, #1)` parenthetical (so `Filterworld: How Algorithms…` resolves to Readwise's `Filterworld`). Ambiguous main titles are skipped, not guessed. Add `"Title": book_id` overrides in `_data/readwise_books.yml` for stragglers.
@@ -64,12 +67,13 @@ tags: [concerts]
 - `default.html` - Base layout with nav/footer
 - `note.html` - Digital garden notes with backlinks
 - `concert.html` - Concert entries with artist/venue/date display
+- `place.html` - Places notes: venues get a facts header (where/rating/visits/Google/map link), destinations a lighter header with a link to their filtered `/places/` view
 - `photo.html` / `photos_stream.html` - Photo gallery
 - `two-column.html` - Year/content grid (used for travels)
 
 ### Styling
 
-All CSS lives in `_sass/` and compiles through `styles.scss` — pages don't carry inline `<style>` blocks. `_style.scss` holds the global tokens and base styles; page- or feature-specific styles go in their own partial (`_home.scss`, `_media.scss`, `_changelog.scss`, `_listening.scss`, `_scrapbook.scss`, `_photos.scss`, `_cv.scss`), imported after the globals in `styles.scss` so overrides don't need `!important`. Supports light/dark mode via CSS custom properties (`--color-*`). Note: `body` caps content width at 720px, so `.wrapper` max-width overrides above that are no-ops.
+All CSS lives in `_sass/` and compiles through `styles.scss` — pages don't carry inline `<style>` blocks. `_style.scss` holds the global tokens and base styles; page- or feature-specific styles go in their own partial (`_home.scss`, `_media.scss`, `_places.scss`, `_changelog.scss`, `_listening.scss`, `_scrapbook.scss`, `_photos.scss`, `_cv.scss`), imported after the globals in `styles.scss` so overrides don't need `!important`. Supports light/dark mode via CSS custom properties (`--color-*`). Note: `body` caps content width at 720px, so `.wrapper` max-width overrides above that are no-ops.
 
 ## Wikilink Syntax
 

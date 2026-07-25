@@ -67,3 +67,9 @@ defaults:
       path: "_notes/MediaDiet/**/*.md"
     values:
       layout: "media"
+  # Places notes (venues + destinations) likewise get a frontmatter-driven
+  # layout (rating, visits, map link).
+  - scope:
+      path: "_notes/Places/**/*.md"
+    values:
+      layout: "place"
