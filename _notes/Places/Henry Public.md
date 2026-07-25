@@ -10,8 +10,8 @@ loc:
   - "[[coops-site-publish/Places/Cobble Hill]]"
   - "[[New York City]]"
 location:
-  - "40.6894982"
-  - "-73.9998692"
+  - "40.6902937"
+  - "-73.9962886"
 rating: 7
 created: 2012-05-26
 last: 2025-11-14
@@ -23,7 +23,6 @@ scoreGoogle: 4.4
 description: Hip Cobble Hill pub serving grass-fed burgers, salads, sandwiches & sophisticated cocktails.
 foursquare:
   - https://app.foursquare.com/v/henry-public/4ab6d694f964a520407920e3
-  - https://app.foursquare.com/v/4ab6d694f964a520407920e3
 ---
 Probably one of the best burgers in NYC. Great cocktails.
 

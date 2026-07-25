@@ -13,10 +13,12 @@ tags:
   - restaurants
 foursquare:
   - https://app.foursquare.com/v/skopik--lohn/4b75a420f964a52043192ee3
-  - https://app.foursquare.com/v/4b75a420f964a52043192ee3
 visit_count: 1
 first_visit: 2025-11-21
 last_visit: 2025-11-21
+location:
+  - "48.22010449781645"
+  - "16.376392431243296"
 ---
 ## [[2025-11-21]] 
 

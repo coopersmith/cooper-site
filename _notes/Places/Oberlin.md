@@ -10,8 +10,8 @@ loc:
   - "[[Providence]]"
   - "[[Rhode Island]]"
 location:
-  - "41.8225071"
-  - "-71.4156601"
+  - "41.8225031"
+  - "-71.4130798"
 rating: 6
 created: 2021-12-11
 last: 2025-03-08
