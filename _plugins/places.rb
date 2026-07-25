@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "set"
+
 # Places model.
 #
 # The Obsidian vault keeps every place — venues and the destinations that
@@ -24,10 +26,14 @@
 #   place_kind   'venue' | 'destination'
 #   place_type   the venue's category, wikilink noise removed
 #                ("Bars + Cocktails", "Restaurants")
-#   place_city   the top-level destination — the *last* entry of the `loc`
-#                chain ("New York City", "Vienna"). The vault orders `loc`
-#                inside-out (neighborhood first, city last), so the last entry
-#                is the place you'd say you're going to.
+#   place_city   the destination you'd say you're going to — the *last* entry
+#                of the `loc` chain ("New York City", "Vienna") after
+#                skipping region-level entries (REGIONS below): some chains
+#                run past the city to a state or country ([Providence,
+#                Rhode Island]), and "pick where you're going" means
+#                Providence, not Rhode Island. The vault orders `loc`
+#                inside-out (neighborhood first), so the last non-region
+#                entry is the city.
 #   place_area   the neighborhood — the *first* `loc` entry, when it differs
 #                from the city ("Cobble Hill"). Nil for venues located
 #                directly in their city.
@@ -53,6 +59,31 @@ class PlacesGenerator < Jekyll::Generator
     [ \t]*!\[\[[^\]]*\.base[^\]]*\]\][ \t]*\r?\n?
   }x
 
+  # Region-level `loc` entries — never "the place you're going to". US states
+  # plus the countries the vault's destination notes roll up to. A chain that
+  # is *only* regions (a venue filed straight under a state) falls back to its
+  # last entry rather than nothing.
+  REGIONS = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+    "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+    "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+    "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+    "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+    "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+    "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+    "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    "United States", "USA",
+    "Argentina", "Australia", "Austria", "Belgium", "Brazil", "Canada",
+    "Chile", "China", "Colombia", "Costa Rica", "Croatia", "Cuba",
+    "Czech Republic", "Denmark", "England", "France", "Germany", "Greece",
+    "Hungary", "Iceland", "India", "Indonesia", "Ireland", "Israel", "Italy",
+    "Jamaica", "Japan", "Kenya", "Mexico", "Morocco", "Netherlands",
+    "New Zealand", "Norway", "Peru", "Poland", "Portugal", "Scotland",
+    "Singapore", "South Africa", "South Korea", "Spain", "Sweden",
+    "Switzerland", "Thailand", "Turkey", "United Kingdom", "UK", "Vietnam",
+  ].map(&:downcase).to_set.freeze
+
   def generate(site)
     places = site.collections["notes"].docs.select { |d| d.relative_path.include?(PLACES_PATH) }
     return if places.empty?
@@ -70,8 +101,10 @@ class PlacesGenerator < Jekyll::Generator
       doc.data["place_type"] = normalize_link(Array(doc.data["type"]).first)
 
       locs = Array(doc.data["loc"]).map { |l| normalize_link(l) }.reject { |l| blank?(l) }
-      doc.data["place_city"] = locs.last
-      doc.data["place_area"] = locs.first if locs.size > 1 && locs.first != locs.last
+      cities = locs.reject { |l| REGIONS.include?(l.downcase) }
+      city = cities.last || locs.last
+      doc.data["place_city"] = city
+      doc.data["place_area"] = locs.first if locs.size > 1 && locs.first != city && !REGIONS.include?(locs.first.downcase)
 
       lat, lng = coords(doc)
       doc.data["place_lat"] = lat

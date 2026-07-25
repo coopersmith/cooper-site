@@ -110,11 +110,15 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
 
 </div>
 
-{%- comment -%}Leaflet 1.9.4, vendored (assets/vendor/leaflet) rather than
-CDN-loaded so the page has one fewer third-party dependency; only the CARTO
-basemap tiles are fetched cross-origin.{%- endcomment -%}
+{%- comment -%}Leaflet 1.9.4 + Leaflet.markercluster 1.5.3, vendored
+(assets/vendor/leaflet) rather than CDN-loaded so the page has one fewer
+third-party dependency; only the CARTO basemap tiles are fetched
+cross-origin. Cluster badges are styled in _sass/_places.scss (the plugin's
+Default.css is deliberately not shipped).{%- endcomment -%}
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/MarkerCluster.css" />
 <script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.js"></script>
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.markercluster.js"></script>
 
 <script>
   (function () {
@@ -148,6 +152,7 @@ basemap tiles are fetched cross-origin.{%- endcomment -%}
     // the data (coords, popup facts) and filters drive both views at once.
     var map = null;
     var tiles = null;
+    var pins = null; // the cluster group (or the map itself if the plugin is missing)
     var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     function tileUrl() {
@@ -207,6 +212,28 @@ basemap tiles are fetched cross-origin.{%- endcomment -%}
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
       }).addTo(map);
 
+      // Overlapping pins (same block, or the same building — hi, Gift Horse
+      // and Oberlin) roll up into a count badge that zooms in on click and
+      // fans out (spiderfies) at max zoom. Falls back to plain markers if the
+      // cluster plugin didn't load.
+      if (typeof L.markerClusterGroup === 'function') {
+        pins = L.markerClusterGroup({
+          maxClusterRadius: 44,
+          showCoverageOnHover: false,
+          iconCreateFunction: function (cluster) {
+            var n = cluster.getChildCount();
+            return L.divIcon({
+              html: '<span>' + n + '</span>',
+              className: 'places-cluster',
+              iconSize: L.point(30, 30)
+            });
+          }
+        });
+        map.addLayer(pins);
+      } else {
+        pins = map;
+      }
+
       var style = markerStyle();
       rows.forEach(function (row) {
         var lat = parseFloat(row.dataset.lat);
@@ -238,10 +265,10 @@ basemap tiles are fetched cross-origin.{%- endcomment -%}
           return;
         }
         if (visible) {
-          row._marker.addTo(map);
+          pins.addLayer(row._marker);
           shown.push(row._marker.getLatLng());
         } else {
-          map.removeLayer(row._marker);
+          pins.removeLayer(row._marker);
         }
       });
       if (mapNote) {
@@ -262,8 +289,14 @@ basemap tiles are fetched cross-origin.{%- endcomment -%}
         });
       }
       if (focused) {
-        map.setView(focused.getLatLng(), 16);
-        focused.openPopup();
+        // The focused marker may be swallowed by a cluster; let the plugin
+        // unfold down to it (spiderfying if it shares a spot) before opening.
+        if (pins !== map && pins.zoomToShowLayer) {
+          pins.zoomToShowLayer(focused, function () { focused.openPopup(); });
+        } else {
+          map.setView(focused.getLatLng(), 16);
+          focused.openPopup();
+        }
       } else if (shown.length) {
         map.fitBounds(L.latLngBounds(shown), { padding: [40, 40], maxZoom: 15 });
       }
