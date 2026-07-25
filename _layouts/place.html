@@ -9,10 +9,19 @@ venues just like a city does.{%- endcomment -%}
 {%- assign dest_slug = page.place_city | default: page.title | slugify -%}
 
 {%- if page.place_kind == 'destination' -%}
+{%- comment -%}The destination's venues (matched by the places.rb plugin —
+city match for a city page, area match for a neighborhood page). They feed
+both the mini-map (rows are the marker source, same as /places/) and the
+index table under the prose.{%- endcomment -%}
+{%- assign dest_venues = page.place_venues -%}
+{%- assign pinned = dest_venues | where_exp: "v", "v.place_lat" -%}
 <article class="place-note">
   <span class="tag place-note-type">Destination</span>
   <h1>{{ heading }}</h1>
-  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">All my places in {{ heading }} →</a></p>
+
+  {%- if pinned.size > 0 -%}
+  <div id="place-map" aria-label="Map of my places in {{ heading }}"></div>
+  {%- endif -%}
 
   <div id="notes-entry-container" class="place-note-body">
     <content>
@@ -20,8 +29,47 @@ venues just like a city does.{%- endcomment -%}
     </content>
   </div>
 
+  {%- if dest_venues.size > 0 -%}
+  <h2 class="place-mini-title">My places here</h2>
+  <table class="index-table places-mini">
+    <thead>
+      <tr>
+        <th class="index-title">Name</th>
+        <th class="index-meta">Type</th>
+        <th class="index-date" title="Out of 7">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for v in dest_venues -%}
+      <tr {% include place-row-attrs.html v=v %}>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}">{{ v.title | titlecase }}</a></td>
+        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
+      </tr>
+    {%- endfor -%}
+    </tbody>
+  </table>
+  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">Filter &amp; map all my places in {{ heading }} →</a></p>
+  {%- endif -%}
+
   <p class="place-note-back"><a class="internal-link" href="{{ site.baseurl }}/places/">← Places</a></p>
 </article>
+
+{%- if pinned.size > 0 -%}
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/MarkerCluster.css" />
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.js"></script>
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.markercluster.js"></script>
+<script src="{{ site.baseurl }}/assets/js/places-map.js"></script>
+<script>
+  (function () {
+    var el = document.getElementById('place-map');
+    if (!el || !window.PlacesMap) return;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.places-mini tbody tr'));
+    PlacesMap.create(el, rows, {}).sync();
+  })();
+</script>
+{%- endif -%}
 
 {%- else -%}
 <article class="place-note">

@@ -42,7 +42,13 @@ require "set"
 #                `location` — such venues list but don't pin, by design.
 #   place_gmaps  the Google Maps URL from `source`, when present.
 #
-# Destinations get place_kind + place_city (their own title), nothing else.
+# Destinations get place_kind + place_city (their own title) plus
+# place_venues: the venue docs whose city or area is this destination, for
+# the place layout's mini-map and index table. Matching is done here, case-
+# insensitively, because it can't safely happen in Liquid: title_case.rb
+# sentence-cases note titles ("Cobble hill") while a venue's city/area keeps
+# the wikilink's casing ("Cobble Hill"), so a template string compare
+# silently misses multi-word destinations.
 class PlacesGenerator < Jekyll::Generator
   # Ahead of BidirectionalLinksGenerator (:normal), which would otherwise
   # rewrite the `![[…]]` embeds into stray `!text` before we can remove them.
@@ -88,14 +94,19 @@ class PlacesGenerator < Jekyll::Generator
     places = site.collections["notes"].docs.select { |d| d.relative_path.include?(PLACES_PATH) }
     return if places.empty?
 
+    destinations = []
+    venues = []
+
     places.each do |doc|
       strip_base_embeds(doc)
 
       if destination?(doc)
         doc.data["place_kind"] = "destination"
         doc.data["place_city"] = doc.data["title"].to_s
+        destinations << doc
         next
       end
+      venues << doc
 
       doc.data["place_kind"] = "venue"
       doc.data["place_type"] = normalize_link(Array(doc.data["type"]).first)
@@ -112,6 +123,13 @@ class PlacesGenerator < Jekyll::Generator
 
       source = doc.data["source"].to_s
       doc.data["place_gmaps"] = source if source.start_with?("http")
+    end
+
+    destinations.each do |dest|
+      key = dest.data["title"].to_s.downcase
+      dest.data["place_venues"] = venues.select do |v|
+        v.data["place_city"].to_s.downcase == key || v.data["place_area"].to_s.downcase == key
+      end.sort_by { |v| v.data["title"].to_s.downcase }
     end
   end
 

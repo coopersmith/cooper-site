@@ -79,20 +79,7 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
     {% for v in venues %}
       {% assign disp = v.title | titlecase %}
       {% assign where = v.place_area | default: v.place_city %}
-      <tr data-dest="{{ v.place_city | slugify }}"
-          data-area="{{ v.place_area | slugify }}"
-          data-type="{{ v.place_type | slugify }}"
-          data-slug="{{ v.title | slugify }}"
-          data-title="{{ disp | downcase | escape }}"
-          data-rating="{{ v.rating | default: 0 }}"
-          data-visits="{{ v.visit_count | default: 0 }}"
-          data-date="{% if v.last_visit %}{{ v.last_visit | date: '%Y-%m-%d' }}{% endif %}"
-          data-lat="{{ v.place_lat }}"
-          data-lng="{{ v.place_lng }}"
-          data-typename="{{ v.place_type | escape }}"
-          data-where="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | escape }}"
-          data-desc="{{ v.description | default: '' | strip | escape }}"
-          data-url="{{ site.baseurl }}{{ v.url }}">
+      <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}" title="{{ disp | escape }}">{{ disp }}</a></td>
         <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
         <td class="index-meta muted" title="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | escape }}">{{ where }}</td>
@@ -119,6 +106,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/MarkerCluster.css" />
 <script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.js"></script>
 <script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.markercluster.js"></script>
+<script src="{{ site.baseurl }}/assets/js/places-map.js"></script>
 
 <script>
   (function () {
@@ -146,159 +134,33 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     var currentView = 'list';
     var ready = false;
 
-    // ---- Map (Leaflet + CARTO's Positron/Dark Matter raster tiles) ----
+    // ---- Map ----
     // Built lazily on the first switch to Map view so the list stays as light
-    // as every other index page. Markers mirror the table rows: the row *is*
-    // the data (coords, popup facts) and filters drive both views at once.
-    var map = null;
-    var tiles = null;
-    var pins = null; // the cluster group (or the map itself if the plugin is missing)
-    var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    function tileUrl() {
-      var flavor = darkQuery.matches ? 'dark_all' : 'light_all';
-      return 'https://{s}.basemaps.cartocdn.com/' + flavor + '/{z}/{x}/{y}{r}.png';
-    }
-
-    function markerStyle() {
-      var css = getComputedStyle(document.documentElement);
-      return {
-        radius: 7,
-        weight: 1.5,
-        color: css.getPropertyValue('--color-bg-primary').trim() || '#fff',
-        fillColor: css.getPropertyValue('--color-accent').trim() || '#121316',
-        fillOpacity: 0.92
-      };
-    }
-
-    function diamonds(n) {
-      n = Math.max(0, Math.min(7, parseInt(n, 10) || 0));
-      return '◆'.repeat(n) + '◇'.repeat(7 - n);
-    }
-
-    function popupHtml(row) {
-      var d = row.dataset;
-      var name = row.querySelector('.index-title a');
-      var html = '<a class="pp-name internal-link" href="' + d.url + '">' + (name ? name.textContent : '') + '</a>';
-      var sub = [];
-      if (d.typename) sub.push(d.typename);
-      if (d.where) sub.push(d.where);
-      if (sub.length) html += '<span class="pp-sub">' + sub.join(' · ') + '</span>';
-      var facts = [];
-      if (parseInt(d.rating, 10) > 0) facts.push('<span class="pp-rating" title="' + d.rating + '/7">' + diamonds(d.rating) + '</span>');
-      var visits = parseInt(d.visits, 10) || 0;
-      if (visits > 1) facts.push(visits + ' visits');
-      else if (visits === 1) facts.push('1 visit');
-      if (facts.length) html += '<span class="pp-facts">' + facts.join(' · ') + '</span>';
-      if (d.desc) html += '<span class="pp-desc">' + d.desc + '</span>';
-      return '<div class="places-popup">' + html + '</div>';
-    }
+    // as every other index page. The Leaflet setup itself (tiles, clustering,
+    // popups, the near-me control) lives in assets/js/places-map.js, shared
+    // with the destination mini-maps; the table rows stay the single source
+    // the markers are built from.
+    var mapView = null;
 
     function initMap() {
-      if (map) return true;
-      if (typeof L === 'undefined') {
+      if (mapView) return true;
+      if (!window.PlacesMap) {
         var el = document.getElementById('places-map');
         if (el) el.innerHTML = '<p class="muted places-map-fallback">The map couldn’t load — the list above has everything.</p>';
         return false;
       }
-      // Wheel zoom only after the map is clicked, so scrolling the page past
-      // a full-width map doesn't hijack into a zoom.
-      map = L.map('places-map', { scrollWheelZoom: false, worldCopyJump: true });
-      map.on('focus click', function () { map.scrollWheelZoom.enable(); });
-      map.on('mouseout', function () { map.scrollWheelZoom.disable(); });
-
-      tiles = L.tileLayer(tileUrl(), {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-      }).addTo(map);
-
-      // Overlapping pins (same block, or the same building — hi, Gift Horse
-      // and Oberlin) roll up into a count badge that zooms in on click and
-      // fans out (spiderfies) at max zoom. Falls back to plain markers if the
-      // cluster plugin didn't load.
-      if (typeof L.markerClusterGroup === 'function') {
-        pins = L.markerClusterGroup({
-          maxClusterRadius: 44,
-          showCoverageOnHover: false,
-          iconCreateFunction: function (cluster) {
-            var n = cluster.getChildCount();
-            return L.divIcon({
-              html: '<span>' + n + '</span>',
-              className: 'places-cluster',
-              iconSize: L.point(30, 30)
-            });
-          }
-        });
-        map.addLayer(pins);
-      } else {
-        pins = map;
-      }
-
-      var style = markerStyle();
-      rows.forEach(function (row) {
-        var lat = parseFloat(row.dataset.lat);
-        var lng = parseFloat(row.dataset.lng);
-        if (isNaN(lat) || isNaN(lng)) return;
-        row._marker = L.circleMarker([lat, lng], style).bindPopup(popupHtml(row));
-      });
-
-      // Re-skin tiles + markers if the OS theme flips while the page is open.
-      var onTheme = function () {
-        tiles.setUrl(tileUrl());
-        var s = markerStyle();
-        rows.forEach(function (row) { if (row._marker) row._marker.setStyle(s); });
-      };
-      if (darkQuery.addEventListener) darkQuery.addEventListener('change', onTheme);
-
-      map.setView([20, 0], 2); // placeholder; syncMarkers fits to the pins
+      mapView = PlacesMap.create(document.getElementById('places-map'), rows, { locate: true });
       return true;
     }
 
     function syncMarkers(focusSlug) {
-      if (!map) return;
-      var shown = [];
-      var unpinned = 0;
-      rows.forEach(function (row) {
-        var visible = !row.classList.contains('is-hidden');
-        if (!row._marker) {
-          if (visible) unpinned++;
-          return;
-        }
-        if (visible) {
-          pins.addLayer(row._marker);
-          shown.push(row._marker.getLatLng());
-        } else {
-          pins.removeLayer(row._marker);
-        }
-      });
+      if (!mapView) return;
+      var res = mapView.sync(focusSlug);
       if (mapNote) {
-        mapNote.hidden = unpinned === 0;
-        mapNote.textContent = unpinned === 1
+        mapNote.hidden = res.unpinned === 0;
+        mapNote.textContent = res.unpinned === 1
           ? '1 place here has no pin yet — it’s in the list view.'
-          : unpinned + ' places here have no pins yet — they’re in the list view.';
-      }
-
-      var focused = null;
-      if (focusSlug) {
-        rows.some(function (row) {
-          if (row.dataset.slug === focusSlug && row._marker && !row.classList.contains('is-hidden')) {
-            focused = row._marker;
-            return true;
-          }
-          return false;
-        });
-      }
-      if (focused) {
-        // The focused marker may be swallowed by a cluster; let the plugin
-        // unfold down to it (spiderfying if it shares a spot) before opening.
-        if (pins !== map && pins.zoomToShowLayer) {
-          pins.zoomToShowLayer(focused, function () { focused.openPopup(); });
-        } else {
-          map.setView(focused.getLatLng(), 16);
-          focused.openPopup();
-        }
-      } else if (shown.length) {
-        map.fitBounds(L.latLngBounds(shown), { padding: [40, 40], maxZoom: 15 });
+          : res.unpinned + ' places here have no pins yet — they’re in the list view.';
       }
     }
 
@@ -332,7 +194,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       lib.classList.add('view-' + view);
       viewBtns.forEach(function (b) { b.classList.toggle('is-active', b.dataset.view === view); });
       if (view === 'map' && initMap()) {
-        map.invalidateSize();
+        mapView.map.invalidateSize();
         syncMarkers(focusSlug);
       }
       if (persist !== false) { try { localStorage.setItem('placesView', view); } catch (e) {} }
