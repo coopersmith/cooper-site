@@ -33,7 +33,7 @@ I'm rarely without a camera, and share my adventures on [Instagram](https://www.
     {% assign all_notes = site.notes | sort: "created_at_timestamp" | reverse %}
     {% assign count = 0 %}
     {% for note in all_notes %}
-      {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' %}
+      {% unless note.path contains 'Concerts' or note.path contains 'MediaDiet' or note.path contains 'Travel' or note.path contains 'Places/' %}
         {% if count < 5 %}
           <li>
             <span class="date">{{ note.created_at | date: "%b %Y" }}</span>

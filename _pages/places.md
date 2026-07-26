@@ -60,7 +60,21 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
       <button type="button" class="media-view-btn is-active" data-view="list">List</button>
       <button type="button" class="media-view-btn" data-view="map">Map</button>
     </div>
+    <button type="button" class="tag places-export-btn" id="places-export-btn" aria-controls="places-export" aria-expanded="false">Export</button>
   </div>
+</div>
+
+<div id="places-export" class="places-export" role="region" aria-label="Export this view" hidden>
+  <div class="places-export-head">
+    <strong id="places-export-title">Coop&rsquo;s Guide</strong>
+    <span class="places-export-count" id="places-export-count"></span>
+  </div>
+  <textarea id="places-export-text" rows="12" readonly spellcheck="false" aria-label="Trip-planning prompt"></textarea>
+  <div class="places-export-actions">
+    <button type="button" class="tag" id="places-export-copy">Copy prompt</button>
+    <button type="button" class="tag" id="places-export-kml">Download .kml for Google My Maps</button>
+  </div>
+  <p class="muted places-export-hint">The prompt takes this view to ChatGPT, Claude, or wherever you plan trips. The .kml imports at <a href="https://mymaps.google.com">Google My Maps</a> (Create a map → Import) and opens in Google Earth &amp; friends.</p>
 </div>
 
 <div id="places-library" class="view-list">
@@ -175,6 +189,165 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       if (sort !== 'rating') params.set('sort', sort);
       var qs = params.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+      refreshExport();
+    }
+
+    // ---- Export: take the current filtered view with you ----
+    // Two takeaways, both named from the active filters ("Coop's Guide to
+    // Bars + Cocktails in Cobble Hill"): a copyable trip-planning prompt for
+    // whatever LLM the visitor uses, and a .kml of the pinned venues that
+    // imports into Google My Maps / Google Earth. Built entirely from the
+    // visible table rows, so it always matches what's on screen.
+    var exportBtn = document.getElementById('places-export-btn');
+    var exportPanel = document.getElementById('places-export');
+    var exportTitle = document.getElementById('places-export-title');
+    var exportCount = document.getElementById('places-export-count');
+    var exportText = document.getElementById('places-export-text');
+    var exportCopy = document.getElementById('places-export-copy');
+    var exportKml = document.getElementById('places-export-kml');
+
+    function visibleRows() {
+      // Query the live DOM (not the load-time `rows` array) so the export
+      // follows the current sort order too.
+      return Array.prototype.slice.call(lib.querySelectorAll('.places-list tbody tr:not(.is-hidden)'));
+    }
+
+    function rowName(row) {
+      var a = row.querySelector('.index-title a');
+      return a ? a.textContent.trim() : '';
+    }
+
+    function destLabel() {
+      if (currentDest === 'all') return null;
+      var chip = document.querySelector('.media-filters .tag[data-dest="' + currentDest + '"]');
+      if (chip) return chip.textContent.trim();
+      // A neighborhood deep-link has no chip; recover the display name from
+      // any matching row's "area, city" string.
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].dataset.area === currentDest) return rows[i].dataset.where.split(',')[0].trim();
+      }
+      return currentDest.replace(/-/g, ' ');
+    }
+
+    function typeLabel() {
+      if (!typeSelect || typeSelect.value === 'all') return null;
+      return typeSelect.options[typeSelect.selectedIndex].textContent.trim();
+    }
+
+    function guideTitle() {
+      var t = typeLabel();
+      var d = destLabel();
+      if (t && d) return 'Coop’s Guide to ' + t + ' in ' + d;
+      if (t) return 'Coop’s Guide to ' + t;
+      if (d) return 'Coop’s Guide to ' + d;
+      return 'Coop’s Favorite Places';
+    }
+
+    function promptEntry(row, i) {
+      var d = row.dataset;
+      var name = rowName(row);
+      var head = (i + 1) + '. ' + name;
+      var meta = [];
+      if (d.typename) meta.push(d.typename);
+      if (d.where) meta.push(d.where);
+      if (meta.length) head += ' — ' + meta.join(' · ');
+      var lines = [head];
+      var facts = [];
+      if (+d.rating > 0) facts.push('Coop’s rating: ' + d.rating + '/7');
+      if (+d.visits > 0) facts.push(d.visits + (+d.visits === 1 ? ' visit' : ' visits'));
+      if (facts.length) lines.push('   ' + facts.join(' · '));
+      if (d.desc) lines.push('   ' + d.desc);
+      if (d.lat) lines.push('   Coordinates: ' + (+d.lat).toFixed(5) + ', ' + (+d.lng).toFixed(5));
+      lines.push('   Google Maps: https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + (d.where ? ', ' + d.where : '')));
+      lines.push('   Coop’s notes: ' + location.origin + d.url);
+      return lines.join('\n');
+    }
+
+    function buildPrompt(title, list) {
+      var d = destLabel();
+      return [
+        title,
+        '',
+        'A hand-picked list from Cooper Smith’s site — live version: ' + location.href,
+        '',
+        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal.',
+        ''
+      ].join('\n') + '\n' + list.map(promptEntry).join('\n\n') + '\n';
+    }
+
+    function xmlEscape(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function buildKml(title, list) {
+      var marks = list.filter(function (r) { return r.dataset.lat; }).map(function (row) {
+        var d = row.dataset;
+        var bits = [];
+        if (d.typename) bits.push(d.typename + (d.where ? ' · ' + d.where : ''));
+        if (+d.rating > 0) bits.push('Coop’s rating: ' + d.rating + '/7');
+        if (+d.visits > 0) bits.push(d.visits + (+d.visits === 1 ? ' visit' : ' visits'));
+        if (d.desc) bits.push(d.desc);
+        bits.push(location.origin + d.url);
+        return '    <Placemark>\n' +
+          '      <name>' + xmlEscape(rowName(row)) + '</name>\n' +
+          '      <description>' + xmlEscape(bits.join('\n')) + '</description>\n' +
+          '      <Point><coordinates>' + d.lng + ',' + d.lat + '</coordinates></Point>\n' +
+          '    </Placemark>';
+      });
+      return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Document>\n' +
+        '    <name>' + xmlEscape(title) + '</name>\n' +
+        marks.join('\n') + '\n  </Document>\n</kml>\n';
+    }
+
+    function slugifyTitle(s) {
+      return s.toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    function refreshExport() {
+      if (!exportPanel || exportPanel.hidden) return;
+      var list = visibleRows();
+      var title = guideTitle();
+      var pinned = list.filter(function (r) { return r.dataset.lat; }).length;
+      exportTitle.textContent = title;
+      exportCount.textContent = list.length + (list.length === 1 ? ' place' : ' places') +
+        (pinned < list.length ? ' · ' + pinned + ' mappable' : '');
+      exportText.value = list.length ? buildPrompt(title, list) : 'Nothing matches these filters.';
+      if (exportCopy) exportCopy.disabled = !list.length;
+      if (exportKml) exportKml.disabled = !pinned;
+    }
+
+    if (exportBtn && exportPanel) {
+      exportBtn.addEventListener('click', function () {
+        exportPanel.hidden = !exportPanel.hidden;
+        exportBtn.classList.toggle('is-active', !exportPanel.hidden);
+        exportBtn.setAttribute('aria-expanded', String(!exportPanel.hidden));
+        refreshExport();
+      });
+      exportText.addEventListener('focus', function () { exportText.select(); });
+      exportCopy.addEventListener('click', function () {
+        var done = function () {
+          exportCopy.textContent = 'Copied ✓';
+          setTimeout(function () { exportCopy.textContent = 'Copy prompt'; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(exportText.value).then(done, function () { exportText.select(); });
+        } else {
+          exportText.select();
+          try { document.execCommand('copy'); done(); } catch (e) {}
+        }
+      });
+      exportKml.addEventListener('click', function () {
+        var title = guideTitle();
+        var blob = new Blob([buildKml(title, visibleRows())], { type: 'application/vnd.google-earth.kml+xml' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = slugifyTitle(title) + '.kml';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+      });
     }
 
     // A dest matches a row's city or its neighborhood, so both "Vienna" and
