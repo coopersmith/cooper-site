@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 80
+  date: '2026-07-26'
+  title: "Nested tags now group under one filter chip"
+  category: feature
+  summary: >-
+    Highlights tagged like mywork/lyft or mywork/twitter now also count toward a
+    combined mywork chip, so related tags can be browsed together without losing
+    their individual links. The mywork chip is also pinned so it always shows
+    up, even though its highlights are split across subtags.
+  url: https://github.com/coopersmith/cooper-site/pull/80
+
 - number: 78
   date: '2026-07-25'
   title: "Pin important tags on the highlights filter bar"
