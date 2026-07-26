@@ -30,6 +30,11 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
     {% for c in cities %}
     <button type="button" class="tag" data-dest="{{ c | slugify }}">{{ c }}</button>
     {% endfor %}
+    {%- comment -%}Chips list cities; a neighborhood filter (from a ?dest=
+    deep link or a "Where" jump) has no chip of its own, so it borrows this
+    one — labelled at runtime, and clicking it clears back to Everywhere. It
+    deliberately carries no data-dest so the chip wiring skips it.{%- endcomment -%}
+    <button type="button" class="tag places-dest-adhoc" id="places-dest-adhoc" title="Clear this filter" hidden></button>
     <select class="sort-select media-filter-select" aria-label="Filter by destination">
       <option value="all">Everywhere</option>
       {% for c in cities %}
@@ -60,21 +65,7 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
       <button type="button" class="media-view-btn is-active" data-view="list">List</button>
       <button type="button" class="media-view-btn" data-view="map">Map</button>
     </div>
-    <button type="button" class="tag places-export-btn" id="places-export-btn" aria-controls="places-export" aria-expanded="false">Export</button>
   </div>
-</div>
-
-<div id="places-export" class="places-export" role="region" aria-label="Export this view" hidden>
-  <div class="places-export-head">
-    <strong id="places-export-title">Coop&rsquo;s Guide</strong>
-    <span class="places-export-count" id="places-export-count"></span>
-  </div>
-  <textarea id="places-export-text" rows="12" readonly spellcheck="false" aria-label="Trip-planning prompt"></textarea>
-  <div class="places-export-actions">
-    <button type="button" class="tag" id="places-export-copy">Copy prompt</button>
-    <button type="button" class="tag" id="places-export-kml">Download .kml for Google My Maps</button>
-  </div>
-  <p class="muted places-export-hint">The prompt takes this view to ChatGPT, Claude, or wherever you plan trips. The .kml imports at <a href="https://mymaps.google.com">Google My Maps</a> (Create a map → Import) and opens in Google Earth &amp; friends.</p>
 </div>
 
 <div id="places-library" class="view-list">
@@ -96,7 +87,10 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
       <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}" title="{{ disp | escape }}">{{ disp }}</a></td>
         <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
-        <td class="index-meta muted" title="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | escape }}">{{ where }}</td>
+        {%- comment -%}The where name is a jump control: it filters to that
+        destination and swings the map to it (see jumpToDest). Falls back to
+        plain text with no JS.{%- endcomment -%}
+        <td class="index-meta muted" title="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | escape }}"><button type="button" class="place-jump" data-dest-jump="{{ where | slugify }}" aria-label="Show {{ where | escape }} on the map">{{ where }}</button></td>
         <td class="index-date muted places-visits">{% if v.visit_count %}{{ v.visit_count }}{% endif %}</td>
         <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
       </tr>
@@ -109,6 +103,25 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
     <p class="places-map-note muted" hidden></p>
   </div>
 
+</div>
+
+{%- comment -%}Export sits under the list/map: it's what you do *after*
+filtering to the trip you're planning, not another filter control.{%- endcomment -%}
+<div class="places-export-bar">
+  <button type="button" class="tag places-export-btn" id="places-export-btn" aria-controls="places-export" aria-expanded="false">Export this view</button>
+</div>
+
+<div id="places-export" class="places-export" role="region" aria-label="Export this view" hidden>
+  <div class="places-export-head">
+    <strong id="places-export-title">Coop&rsquo;s Guide</strong>
+    <span class="places-export-count" id="places-export-count"></span>
+  </div>
+  <textarea id="places-export-text" rows="12" readonly spellcheck="false" aria-label="Trip-planning prompt"></textarea>
+  <div class="places-export-actions">
+    <button type="button" class="tag" id="places-export-copy">Copy prompt</button>
+    <button type="button" class="tag" id="places-export-kml">Download .kml for Google My Maps</button>
+  </div>
+  <p class="muted places-export-hint">The prompt takes this view to ChatGPT, Claude, or wherever you plan trips. The .kml imports at <a href="https://mymaps.google.com">Google My Maps</a> (Create a map → Import) and opens in Google Earth &amp; friends.</p>
 </div>
 
 {%- comment -%}Leaflet 1.9.4 + Leaflet.markercluster 1.5.3, vendored
@@ -128,7 +141,9 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     if (!lib) return;
     var rows = Array.prototype.slice.call(lib.querySelectorAll('.places-list tbody tr'));
     var viewBtns = document.querySelectorAll('.media-view-btn');
-    var chips = document.querySelectorAll('.media-filters .tag');
+    // [data-dest] excludes the ad-hoc neighborhood chip, which has none.
+    var chips = document.querySelectorAll('.media-filters .tag[data-dest]');
+    var adhocChip = document.getElementById('places-dest-adhoc');
     var destSelect = document.querySelector('.media-filter-select');
     var typeSelect = document.getElementById('places-type');
     var sortSelect = document.getElementById('places-sort');
@@ -163,7 +178,11 @@ Default.css is deliberately not shipped).{%- endcomment -%}
         if (el) el.innerHTML = '<p class="muted places-map-fallback">The map couldn’t load — the list above has everything.</p>';
         return false;
       }
-      mapView = PlacesMap.create(document.getElementById('places-map'), rows, { locate: true });
+      mapView = PlacesMap.create(document.getElementById('places-map'), rows, {
+        locate: true,
+        // Popup place names become jump controls, same as the list's "Where".
+        destLinks: true
+      });
       return true;
     }
 
@@ -221,10 +240,12 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       if (currentDest === 'all') return null;
       var chip = document.querySelector('.media-filters .tag[data-dest="' + currentDest + '"]');
       if (chip) return chip.textContent.trim();
-      // A neighborhood deep-link has no chip; recover the display name from
-      // any matching row's "area, city" string.
+      // A neighborhood has no chip; take its display name off any row it
+      // matches (never off `where`, which a "Washington, D.C." would break).
       for (var i = 0; i < rows.length; i++) {
-        if (rows[i].dataset.area === currentDest) return rows[i].dataset.where.split(',')[0].trim();
+        var d = rows[i].dataset;
+        if (d.area === currentDest && d.areaname) return d.areaname;
+        if (d.dest === currentDest && d.cityname) return d.cityname;
       }
       return currentDest.replace(/-/g, ' ');
     }
@@ -374,18 +395,50 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       updateUrl();
     }
 
+    // A neighborhood filter has no chip of its own; label the ad-hoc one so
+    // the filtered state is always visible (and clearable).
+    function syncAdhocChip() {
+      if (!adhocChip) return;
+      var hasChip = false;
+      chips.forEach(function (c) { if (c.dataset.dest === currentDest) hasChip = true; });
+      var show = currentDest !== 'all' && !hasChip;
+      adhocChip.hidden = !show;
+      adhocChip.classList.toggle('is-active', show);
+      if (show) adhocChip.textContent = destLabel() + ' ×';
+    }
+
     function setDest(dest) {
       currentDest = dest;
       chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.dest === dest); });
-      // The chips only list cities; a neighborhood dest (from a ?dest= link)
-      // has no chip, so fall the select back to "all" rather than a bad value.
+      // The chips only list cities; a neighborhood dest (from a ?dest= link
+      // or a "Where" jump) has no chip, so fall the select back to "all"
+      // rather than a bad value — the ad-hoc chip carries the label instead.
       if (destSelect) destSelect.value = DESTS[dest] && destSelect.querySelector('option[value="' + dest + '"]') ? dest : 'all';
+      syncAdhocChip();
       applyVisibility();
       updateUrl();
     }
 
+    // Clicking a place name — in the list's "Where" column or in a map popup
+    // — filters to that destination and swings the map to it. The whole point
+    // is the map move, so it switches to Map view when you're in the list.
+    function jumpToDest(slug) {
+      if (!slug || !DESTS[slug]) return;
+      if (mapView) mapView.map.closePopup();
+      setDest(slug); // in map view this already refits to the new pin set
+      if (currentView !== 'map') setView('map');
+    }
+
+    lib.addEventListener('click', function (e) {
+      var el = e.target.closest && e.target.closest('[data-dest-jump]');
+      if (!el) return;
+      e.preventDefault();
+      jumpToDest(el.getAttribute('data-dest-jump'));
+    });
+
     viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
     chips.forEach(function (c) { c.addEventListener('click', function () { setDest(c.dataset.dest); }); });
+    if (adhocChip) adhocChip.addEventListener('click', function () { setDest('all'); });
     if (destSelect) destSelect.addEventListener('change', function () { setDest(destSelect.value); });
     if (typeSelect) typeSelect.addEventListener('change', function () { currentType = typeSelect.value; applyVisibility(); updateUrl(); });
     if (sortSelect) sortSelect.addEventListener('change', updateUrl);

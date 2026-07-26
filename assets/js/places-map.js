@@ -55,13 +55,34 @@
     return '◆'.repeat(n) + '◇'.repeat(7 - n);
   }
 
-  function popupHtml(row) {
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // The popup's "Cobble Hill, New York City" — each part its own jump control
+  // when the host page asked for them (opts.destLinks), plain text otherwise
+  // (destination mini-maps have nothing to filter).
+  function placeParts(d, destLinks) {
+    var parts = [];
+    if (d.areaname) parts.push([d.areaname, d.area]);
+    if (d.cityname) parts.push([d.cityname, d.dest]);
+    if (!parts.length) return d.where ? esc(d.where) : '';
+    return parts.map(function (p) {
+      if (!destLinks || !p[1]) return esc(p[0]);
+      return '<button type="button" class="pp-place" data-dest-jump="' + esc(p[1]) +
+        '" aria-label="Show ' + esc(p[0]) + ' on the map">' + esc(p[0]) + '</button>';
+    }).join(', ');
+  }
+
+  function popupHtml(row, opts) {
     var d = row.dataset;
     var name = row.querySelector('.index-title a');
-    var html = '<a class="pp-name internal-link" href="' + d.url + '">' + (name ? name.textContent : '') + '</a>';
+    var html = '<a class="pp-name internal-link" href="' + esc(d.url) + '">' + esc(name ? name.textContent : '') + '</a>';
     var sub = [];
-    if (d.typename) sub.push(d.typename);
-    if (d.where) sub.push(d.where);
+    if (d.typename) sub.push(esc(d.typename));
+    var place = placeParts(d, opts.destLinks);
+    if (place) sub.push(place);
     if (sub.length) html += '<span class="pp-sub">' + sub.join(' · ') + '</span>';
     var facts = [];
     if (parseInt(d.rating, 10) > 0) facts.push('<span class="pp-rating" title="' + d.rating + '/7">' + diamonds(d.rating) + '</span>');
@@ -69,7 +90,7 @@
     if (visits > 1) facts.push(visits + ' visits');
     else if (visits === 1) facts.push('1 visit');
     if (facts.length) html += '<span class="pp-facts">' + facts.join(' · ') + '</span>';
-    if (d.desc) html += '<span class="pp-desc">' + d.desc + '</span>';
+    if (d.desc) html += '<span class="pp-desc">' + esc(d.desc) + '</span>';
     return '<div class="places-popup">' + html + '</div>';
   }
 
@@ -111,7 +132,7 @@
       var lat = parseFloat(row.dataset.lat);
       var lng = parseFloat(row.dataset.lng);
       if (isNaN(lat) || isNaN(lng)) return;
-      row._marker = L.circleMarker([lat, lng], style).bindPopup(popupHtml(row));
+      row._marker = L.circleMarker([lat, lng], style).bindPopup(popupHtml(row, opts));
     });
 
     var you = null;
