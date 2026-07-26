@@ -1,0 +1,33 @@
+{%- comment -%}
+Data attributes for a Places venue row — the single source the map runtime
+(assets/js/places-map.js) and the /places/ filters read. Used by both
+_pages/places.md and the destination table in _layouts/place.html; pass the
+venue as `v`: <tr {% include place-row-attrs.html v=venue %}>. Rows must also
+contain an `.index-title a` (the popup's name link).
+
+`cityname`/`areaname` are the display names behind the `dest`/`area` slugs,
+kept as their own attributes so consumers never have to split `where` on a
+comma (which would mangle a "Washington, D.C.").
+
+Keep every attribute on its own line, and put NO Liquid tag between them —
+in particular none of the hyphenated whitespace-stripping kind, which eats
+the separating newline and glues two attributes into
+data-where="X"data-cityname="Y". That is invalid HTML, and kramdown then
+escapes the entire row tag into visible text.
+{%- endcomment -%}
+data-dest="{{ include.v.place_city | slugify }}"
+data-area="{{ include.v.place_area | slugify }}"
+data-type="{{ include.v.place_type | slugify }}"
+data-slug="{{ include.v.title | slugify }}"
+data-title="{{ include.v.title | titlecase | downcase | escape }}"
+data-rating="{{ include.v.rating | default: 0 }}"
+data-visits="{{ include.v.visit_count | default: 0 }}"
+data-date="{% if include.v.last_visit %}{{ include.v.last_visit | date: '%Y-%m-%d' }}{% endif %}"
+data-lat="{{ include.v.place_lat }}"
+data-lng="{{ include.v.place_lng }}"
+data-typename="{{ include.v.place_type | escape }}"
+data-where="{% if include.v.place_area %}{{ include.v.place_area | escape }}, {% endif %}{{ include.v.place_city | escape }}"
+data-cityname="{{ include.v.place_city | escape }}"
+data-areaname="{{ include.v.place_area | escape }}"
+data-desc="{{ include.v.description | default: '' | strip | escape }}"
+data-url="{{ site.baseurl }}{{ include.v.url }}"
