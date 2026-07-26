@@ -18,6 +18,16 @@
     up, even though its highlights are split across subtags.
   url: https://github.com/coopersmith/cooper-site/pull/80
 
+- number: 79
+  date: '2026-07-26'
+  title: "New Places page with maps and venue guides"
+  category: feature
+  summary: >-
+    Added a whole new Places section where you can browse recommended venues by
+    city or type, switch between a list and an interactive map, and export a
+    filtered guide as a shareable trip-planning prompt or map file.
+  url: https://github.com/coopersmith/cooper-site/pull/79
+
 - number: 78
   date: '2026-07-25'
   title: "Pin important tags on the highlights filter bar"
