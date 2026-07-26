@@ -57,13 +57,20 @@ module ReadwiseHighlightsPage
   # MIN_TAG_COUNT times (or ranked below the MAX_TAGS cutoff). Use this to
   # surface a tag that matters more than its raw count suggests — e.g. one
   # mostly applied at the document level in Readwise, so few *highlights* carry
-  # it directly. Matched with case/separators stripped (see `pinned?`), so
-  # "songlyrics", "song-lyrics", and "songLyrics" all pin the same tag. A pinned
-  # tag still needs at least one highlight tagged with it to have a baked stream;
+  # it directly, or a parent tag whose highlights are spread across its children.
+  #
+  # Nested tags aggregate at the parent automatically (see `tag_with_ancestors`),
+  # so "mywork" is already a real tag covering every "mywork/*" highlight — pinning
+  # it just guarantees the chip when that aggregate is still under MIN_TAG_COUNT.
+  # Matching ignores case and separators, so "songlyrics", "song-lyrics", and
+  # "songLyrics" all pin the same tag.
+  #
+  # A pin still needs at least one highlight beneath it to have a baked stream;
   # if none do, it's silently skipped. Pinned chips join the featured list in the
   # same count order as everything else, so a low-use pin lands at the bottom.
   PINNED_TAGS = %w[
     songlyrics
+    mywork
   ].freeze
 
   OUTPUT_SUBDIR = File.join("assets", "highlights")
@@ -143,12 +150,27 @@ module ReadwiseHighlightsPage
     rows
   end
 
-  # Downcased, de-duplicated tag names for one highlight.
+  # Downcased, de-duplicated tag names for one highlight. Nested tags are
+  # expanded to every ancestor level (see `tag_with_ancestors`), so a highlight
+  # tagged "mywork/lyft" counts toward both "mywork/lyft" and "mywork" — the
+  # parent aggregates its children while each child stays independently linkable.
   def self.tag_names(highlight)
     Array(highlight["tags"])
       .map { |t| t["name"].to_s.strip.downcase }
       .reject(&:empty?)
+      .flat_map { |name| tag_with_ancestors(name) }
       .uniq
+  end
+
+  # A nested tag plus every ancestor level: "a/b/c" -> ["a/b/c", "a/b", "a"].
+  # This is what exposes any tag hierarchy at the parent level — the parent tag
+  # accumulates all highlights filed beneath it. Flat tags return just
+  # themselves. Blank path segments (e.g. a stray "a//b") are dropped.
+  def self.tag_with_ancestors(name)
+    segments = name.split("/").map(&:strip).reject(&:empty?)
+    return [name] if segments.size <= 1
+
+    (1..segments.size).map { |i| segments.first(i).join("/") }
   end
 
   # Every linkable tag, ranked by count (ties broken alphabetically), each with
@@ -178,9 +200,15 @@ module ReadwiseHighlightsPage
 
   # True when a tag is pinned as an always-on chip, compared with case and
   # separators stripped so "songLyrics"/"song-lyrics"/"songlyrics" all match.
+  # Ancestor expansion means a nested pin like "mywork" already exists as a real
+  # aggregated tag by the time this runs, so an exact (normalized) match is enough.
   def self.pinned?(name)
-    key = name.gsub(/[^a-z0-9]+/, "")
-    PINNED_TAGS.map { |t| t.gsub(/[^a-z0-9]+/, "") }.include?(key)
+    key = normalize(name)
+    PINNED_TAGS.any? { |pin| normalize(pin) == key }
+  end
+
+  def self.normalize(str)
+    str.to_s.downcase.gsub(/[^a-z0-9]+/, "")
   end
 
   def self.slugify(name)
