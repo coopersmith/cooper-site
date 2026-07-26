@@ -7,10 +7,10 @@ season: 3
 genre: []
 cast: []
 rating:
-cover: "https://image.tmdb.org/t/p/w500/wSvDQN6tZR4VzDDZD3MUPIghVjC.jpg"
+cover: https://image.tmdb.org/t/p/w500/wSvDQN6tZR4VzDDZD3MUPIghVjC.jpg
 year: 2026
-aired: "2026-06-21 to 2026-08-09"
-last: 2026-07-21
+aired: 2026-06-21 to 2026-08-09
+last: 2026-07-25
 shelf: watching
 tags:
   - shows

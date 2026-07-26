@@ -22,8 +22,9 @@ language: English
 created: 2026-07-06
 tags:
   - books
-  - to-read
-start:
+  - reading
+start: 2026-07-25
 end:
 description:
+via: "[[The Case for a Maintenance Mindset]]"
 ---
