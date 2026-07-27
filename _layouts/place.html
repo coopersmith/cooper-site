@@ -1,0 +1,121 @@
+---
+layout: default
+---
+
+{%- assign heading = page.title | titlecase -%}
+{%- comment -%}The dest param matches a row's city OR neighborhood slug on
+/places/, so a neighborhood-level destination (Cobble Hill) deep-links to its
+venues just like a city does.{%- endcomment -%}
+{%- assign dest_slug = page.place_city | default: page.title | slugify -%}
+
+{%- if page.place_kind == 'destination' -%}
+{%- comment -%}The destination's venues (matched by the places.rb plugin —
+city match for a city page, area match for a neighborhood page). They feed
+both the mini-map (rows are the marker source, same as /places/) and the
+index table under the prose.{%- endcomment -%}
+{%- assign dest_venues = page.place_venues -%}
+{%- assign pinned = dest_venues | where_exp: "v", "v.place_lat" -%}
+<article class="place-note">
+  <span class="tag place-note-type">Destination</span>
+  <h1>{{ heading }}</h1>
+
+  {%- if pinned.size > 0 -%}
+  <div id="place-map" aria-label="Map of my places in {{ heading }}"></div>
+  {%- endif -%}
+
+  <div id="notes-entry-container" class="place-note-body">
+    <content>
+      {{ content }}
+    </content>
+  </div>
+
+  {%- if dest_venues.size > 0 -%}
+  <h2 class="place-mini-title">My places here</h2>
+  <table class="index-table places-mini">
+    <thead>
+      <tr>
+        <th class="index-title">Name</th>
+        <th class="index-meta">Type</th>
+        <th class="index-date" title="Out of 7">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for v in dest_venues -%}
+      <tr {% include place-row-attrs.html v=v %}>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}">{{ v.title | titlecase }}</a></td>
+        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
+      </tr>
+    {%- endfor -%}
+    </tbody>
+  </table>
+  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">Filter &amp; map all my places in {{ heading }} →</a></p>
+  {%- endif -%}
+
+  <p class="place-note-back"><a class="internal-link" href="{{ site.baseurl }}/places/">← Places</a></p>
+</article>
+
+{%- if pinned.size > 0 -%}
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/MarkerCluster.css" />
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.js"></script>
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.markercluster.js"></script>
+<script src="{{ site.baseurl }}/assets/js/places-map.js"></script>
+<script>
+  (function () {
+    var el = document.getElementById('place-map');
+    if (!el || !window.PlacesMap) return;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.places-mini tbody tr'));
+    PlacesMap.create(el, rows, {}).sync();
+  })();
+</script>
+{%- endif -%}
+
+{%- else -%}
+<article class="place-note">
+  <div class="place-note-head">
+    <span class="tag place-note-type">{{ page.place_type | default: 'Place' }}</span>
+    <h1>{{ heading }}</h1>
+    <dl class="place-facts">
+      {%- if page.place_city -%}
+      <dt>Where</dt>
+      <dd>{% if page.place_area %}{{ page.place_area }}, {% endif %}<a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">{{ page.place_city }}</a></dd>
+      {%- endif -%}
+      {%- if page.rating -%}
+      <dt>Rating</dt>
+      <dd>{%- assign filled = page.rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.rating }}/7" aria-label="{{ page.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span></dd>
+      {%- endif -%}
+      {%- comment -%}Visit stats: one visit reads as a date, a history reads
+      as a count with its span.{%- endcomment -%}
+      {%- assign visits = page.visit_count | plus: 0 -%}
+      {%- if visits > 1 -%}
+      <dt>Visits</dt>
+      <dd>{{ visits }}{% if page.first_visit and page.last_visit %} <span class="muted">({{ page.first_visit | date: "%b %Y" }} – {{ page.last_visit | date: "%b %Y" }})</span>{% endif %}</dd>
+      {%- elsif visits == 1 and page.last_visit -%}
+      <dt>Visited</dt>
+      <dd>{{ page.last_visit | date: "%B %Y" }}</dd>
+      {%- endif -%}
+      {%- if page.scoreGoogle -%}
+      <dt>Google</dt>
+      <dd>{% if page.place_gmaps %}<a href="{{ page.place_gmaps }}">{{ page.scoreGoogle }} ★</a>{% else %}{{ page.scoreGoogle }} ★{% endif %}</dd>
+      {%- endif -%}
+      {%- if page.place_lat -%}
+      <dt>Map</dt>
+      <dd><a class="internal-link" href="{{ site.baseurl }}/places/?view=map&dest={{ dest_slug }}&focus={{ page.title | slugify }}">See it on my map</a></dd>
+      {%- endif -%}
+    </dl>
+  </div>
+
+  {%- if page.description and page.description != '' -%}
+  <p class="place-note-desc muted">{{ page.description }}</p>
+  {%- endif -%}
+
+  <div id="notes-entry-container" class="place-note-body">
+    <content>
+      {{ content }}
+    </content>
+  </div>
+
+  <p class="place-note-back"><a class="internal-link" href="{{ site.baseurl }}/places/">← Places</a></p>
+</article>
+{%- endif -%}

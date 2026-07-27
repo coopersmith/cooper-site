@@ -28,9 +28,4 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Sinners (2025)**  
-Directed by **Ryan Coogler**, this film follows twin brothers who return to their troubled hometown in hopes of starting anew. As they attempt to leave their past behind, they are confronted by an even greater evil lurking in the shadows, leading to a suspenseful and thrilling narrative.  
-
-
 [[2025-06-21]]
-

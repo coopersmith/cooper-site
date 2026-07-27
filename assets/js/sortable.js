@@ -27,6 +27,10 @@
       if (key === 'rating') {
         return (parseFloat(b.getAttribute('data-rating')) || 0) - (parseFloat(a.getAttribute('data-rating')) || 0);
       }
+      if (key === 'visits') {
+        // Most-visited first (used by /places/)
+        return (parseFloat(b.getAttribute('data-visits')) || 0) - (parseFloat(a.getAttribute('data-visits')) || 0);
+      }
       // 'date' — newest first
       return (b.getAttribute('data-date') || '').localeCompare(a.getAttribute('data-date') || '');
     };

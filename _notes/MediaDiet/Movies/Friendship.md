@@ -26,12 +26,6 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Friendship (2024)** is a comedy directed by **Andrew DeYoung**. The story follows a suburban dad who falls hard for his charismatic new neighbor, exploring themes of friendship and the complexities of male relationships. The primary cast includes **Tim Robinson**, **Paul Rudd**, **Kate Mara**, **Jack Dylan Grazer**, and **Rick Worthy**.
-
 ## My Review
 
 I love Paul Rudd. I really like Tim Robinson. This should have worked, but for whatever reason, I just didn't connect with it. Maybe its my bad, but I think I expected a departure from the humor that works in a 3-5 minute sketch of I Think You Should Leave, but it just felt like more of the same. All of that is to say, there's plenty of jokes that got strong LOLs, more than I can say about most movies these days.
-
-
-
-

@@ -26,6 +26,3 @@ shelf: watched
 tags:
   - movies
 ---
-**GoodFellas (1990)** is a gripping crime drama directed by Martin Scorsese that chronicles the true story of Henry Hill, a half-Irish, half-Sicilian kid from Brooklyn who becomes an integral part of the Mafia. The film explores themes of loyalty, betrayal, and the allure of organized crime, making it a compelling watch for those interested in the darker aspects of human nature and the complexities of mob life. 
-
-You should watch this movie if you’re in the mood for an intense, gritty experience that combines real-life events with stylish storytelling. Ideal for viewers who appreciate masterful filmmaking, engaging character development, and a thrilling ride through the highs and lows of the criminal underworld. Perfect for a reflective evening when you're ready to dive deep into a cinematic classic.

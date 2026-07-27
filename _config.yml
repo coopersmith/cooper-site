@@ -78,3 +78,9 @@ defaults:
       path: "_notes/FoodDrink/Cabinet/**/*.md"
     values:
       layout: "cabinet"
+  # Places notes (venues + destinations) likewise get a frontmatter-driven
+  # layout (rating, visits, map link).
+  - scope:
+      path: "_notes/Places/**/*.md"
+    values:
+      layout: "place"

@@ -1,0 +1,29 @@
+---
+categories:
+  - "[[Movies]]"
+genre:
+  - "[[Crime]]"
+  - "[[Drama]]"
+  - "[[Thriller]]"
+director:
+  - "[[Nick Cassavetes]]"
+cast:
+  - "[[Emile Hirsch]]"
+  - "[[Bruce Willis]]"
+  - "[[Amanda Seyfried]]"
+  - "[[Justin Timberlake]]"
+  - "[[Shawn Hatosy]]"
+rating: 6
+scoreLB:
+ranking:
+cover: "https://image.tmdb.org/t/p/w500/t9pirEsDxe102mSQGoDZWBbdcCD.jpg"
+plot: "Johnny Truelove likes to see himself as tough. He's the son of an underworld figure and a drug dealer. Johnny also likes to get tough when things don't go his way. When Jake Mazursky fails to pay up for Johnny, things get worse for the Mazursky family, as Johnny and his 'gang' kidnap Jake's 15 year old brother and hold him hostage."
+year: 2006
+runtime:
+imdbId:
+via:
+last:
+shelf: watched
+tags:
+  - movies
+---

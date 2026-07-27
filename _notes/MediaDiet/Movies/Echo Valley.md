@@ -27,8 +27,3 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**Echo Valley (2025)** follows Kate, a mother leading a secluded life, whose world turns upside down when her troubled daughter arrives home, terrified and covered in someone else's blood. As Kate delves deeper into the shocking truth, she discovers the lengths a mother will go to protect her child.  
-
-
-**Genres:** Drama, Thriller  
-**Premiere Date:** June 4, 2025

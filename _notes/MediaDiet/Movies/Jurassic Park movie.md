@@ -28,17 +28,4 @@ tags:
   - MediaDiet/2025
 rewatch: True
 ---
-
 [[2025-06-15]]
-
-**Jurassic Park (1993)**, directed by **Steven Spielberg**, follows a wealthy entrepreneur who creates a theme park featuring living dinosaurs cloned from prehistoric DNA. Before the park opens, he invites a team of experts and his two grandchildren to test it and reassure anxious investors. However, things go awry when security systems fail, leading to the escape of the dinosaurs.  
-**Primary Cast:**  
-- **Sam Neill**  
-- **Laura Dern**  
-- **Jeff Goldblum**  
-- **Richard Attenborough**  
-- **Bob Peck**  
-- **BD Wong**  
-- **Joseph Mazzello**  
-- **Ariana Richards**  
-- **Samuel L. Jackson**.

@@ -27,11 +27,9 @@ tags:
   - movies
   - MediaDiet/2025
 ---
-**The Phoenician Scheme (2025)** is a captivating adventure-comedy directed by Wes Anderson. The film follows wealthy businessman Zsa-zsa Korda, who unexpectedly names his only daughter, a nun, as the sole heir to his vast estate. As they dive into a new venture, they become entangled with cunning tycoons, terrorists, and assassins. This film is perfect for you if you're in the mood for quirky humor, whimsical storytelling, and a visual feast that only Anderson can provide. It's a delightful mix of comedy and adventure that will keep you engaged and entertained. Ideal for a lighthearted movie night with friends or when you need a laugh!
-
 ## My Review
 
-I will forever maintain that a ranking of Wes Anderson movies will always be oldest to newest, and this fits cleanly into that theory.* 
+I will forever maintain that a ranking of Wes Anderson movies will always be oldest to newest, and this fits cleanly into that theory.*
 
 That said, despite this being my least favorite Wes Anderson movie, it's still enjoyable and will undoubtedly get a second viewing in the near future. The characters are more hyperbolic than ever, but each one is perfectly cast (and I love watching new actors enter the Wes Anderson universe, knowing we'll see them in future films - I'm looking at you Michael Cera). The art direction builds on Asteroid City but also brings in a ton of elements from previous films, its so fun to watch - that overhad shot of the hospital bath to begin the film was fantastic.
 
@@ -41,7 +39,4 @@ Two things that I found myself thinking at several points of the movie:
 
 Give me Rushmore and Royal Tenenbaums, but I'm so glad Wes Anderson continues to make films, each more Wes Andersonified than the previous.
 
-
-
-
-*(if you exempt Bottle Rocket, which is excellent, but doesn't fit cleanly into the rankings as a student film). 
+*(if you exempt Bottle Rocket, which is excellent, but doesn't fit cleanly into the rankings as a student film).

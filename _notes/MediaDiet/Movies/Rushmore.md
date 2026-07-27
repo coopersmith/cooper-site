@@ -26,4 +26,3 @@ shelf: watched
 tags:
   - movies
 ---
-**Rushmore (1998)** tells the story of Max Fischer, an ambitious yet eccentric teenager at a private school who falls for a beautiful first-grade teacher. When his friend becomes romantically interested in her too, it sparks a rivalry that leads to comedic chaos. You should watch this film if you're in the mood for a quirky, offbeat comedy that combines elements of romance and drama, all wrapped in Wes Anderson's signature style. It's perfect for when you're feeling nostalgic for adolescence or looking for a film that balances humor with heartfelt moments.

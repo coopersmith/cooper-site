@@ -7,6 +7,59 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 80
+  date: '2026-07-26'
+  title: "Nested tags now group under one filter chip"
+  category: feature
+  summary: >-
+    Highlights tagged like mywork/lyft or mywork/twitter now also count toward a
+    combined mywork chip, so related tags can be browsed together without losing
+    their individual links. The mywork chip is also pinned so it always shows
+    up, even though its highlights are split across subtags.
+  url: https://github.com/coopersmith/cooper-site/pull/80
+
+- number: 79
+  date: '2026-07-26'
+  title: "New Places page with maps and venue guides"
+  category: feature
+  summary: >-
+    Added a whole new Places section where you can browse recommended venues by
+    city or type, switch between a list and an interactive map, and export a
+    filtered guide as a shareable trip-planning prompt or map file.
+  url: https://github.com/coopersmith/cooper-site/pull/79
+
+- number: 78
+  date: '2026-07-25'
+  title: "Pin important tags on the highlights filter bar"
+  category: feature
+  summary: >-
+    Some tags matter even if they're rarely used, so certain tags can now be
+    pinned to always show up as filter chips on the highlights page, no matter
+    how few highlights they have.
+  url: https://github.com/coopersmith/cooper-site/pull/78
+
+- number: 77
+  date: '2026-07-18'
+  title: "Radio listens now show up as \"currently playing\""
+  category: fix
+  summary: >-
+    The homepage's "Lately" section now recognizes music from radio streams like
+    Radio FIP, not just tracks with live now-playing signals. It treats anything
+    scrobbled in the last 10 minutes as current, so continuous listening no
+    longer falls through the cracks.
+  url: https://github.com/coopersmith/cooper-site/pull/77
+
+- number: 74
+  date: '2026-07-16'
+  title: "Media titles now display correctly capitalized"
+  category: fix
+  summary: >-
+    Movie, show, and album entries in the Media Diet were showing up in odd
+    lowercase-ish casing while books looked fine. Now titles render in proper
+    title case, with acronyms, roman numerals, and hyphenated names like X-Men
+    kept intact.
+  url: https://github.com/coopersmith/cooper-site/pull/74
+
 - number: 75
   date: '2026-07-14'
   title: "Media diet dates now sort more sensibly"

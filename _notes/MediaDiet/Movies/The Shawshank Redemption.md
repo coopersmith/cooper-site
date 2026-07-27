@@ -26,4 +26,3 @@ shelf: watched
 tags:
   - movies
 ---
-*The Shawshank Redemption* (1994) is a powerful drama about hope and friendship, centered on Andy Dufresne, a banker wrongfully imprisoned for murder. This film masterfully explores themes of resilience and the human spirit, showcasing Andy's journey as he navigates life in Shawshank prison, forming an unlikely bond with fellow inmate Red. You should watch this movie if you're in the mood for an uplifting story that highlights the importance of hope and perseverance, especially when facing life's darkest moments. It's perfect for a reflective evening when you're open to deep emotional experiences.

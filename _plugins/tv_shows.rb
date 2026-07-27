@@ -15,7 +15,7 @@ require "set"
 #   * Standalone — a season with no parent (a miniseries, or a show tracked as
 #                  a single unit). Same shape as a season, minus the `show`.
 #
-# You didn't watch "Hacks", you watched "Hacks — Season 3" and gave it a 6, so
+# You didn't watch "Hacks", you watched "Hacks Season 3" and gave it a 6, so
 # the season/standalone is what shows up in the library; the series is only
 # ever a container.
 #
@@ -24,7 +24,7 @@ require "set"
 # two things the vault deliberately never stores: the average of its seasons'
 # ratings and the ordered list of seasons its page tables. It also:
 #
-#   * gives a season a display title ("Hacks — Season 3") in place of its raw
+#   * gives a season a display title ("Hacks Season 3") in place of its raw
 #     filename title ("Hacks s03"),
 #   * falls a season's missing poster back to its series' poster,
 #   * lends the series' creator/cast to its seasons for the library's "By"
@@ -161,11 +161,16 @@ class TvShowsGenerator < Jekyll::Generator
     !blank?(Array(doc.data["show"]).first)
   end
 
-  # The parent series' name from a season's `show: [[Title]]` link.
+  # The parent series' name from a season's `show: [[Title]]` link. Obsidian
+  # links can carry a folder path and/or a display alias — `[[A/B/The Bear]]` or
+  # `[[The Bear|Bear]]` — so prefer the alias, else the target's basename, so a
+  # vault-relative path never leaks into the rendered season title.
   def parent_title(doc)
     raw = Array(doc.data["show"]).first
     return nil if blank?(raw)
-    raw.to_s.gsub(/\[\[|\]\]/, "").split("|").first.strip
+    inner = raw.to_s.gsub(/\[\[|\]\]/, "").strip
+    target, display = inner.split("|", 2)
+    (blank?(display) ? target.to_s.split("/").last : display).to_s.strip
   end
 
   def parent_key(doc)
@@ -185,7 +190,7 @@ class TvShowsGenerator < Jekyll::Generator
     num = doc.data["season"]
     return clean_title(doc) if blank?(series)
     return series.to_s if blank?(num)
-    "#{series} — Season #{num}"
+    "#{series} Season #{num}"
   end
 
   def clean_title(doc)
