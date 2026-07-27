@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+{%- comment -%}Cocktail note. Header pivots to the cabinet (each ingredient
+links to its bottle, and shows whether it's stocked); the body carries the
+recipe. `display_name`, `family_*` and `ingredient_links` are set by the
+cocktail_cabinet plugin.{%- endcomment -%}
+
+<article class="cocktail-note">
+  <div class="cocktail-note-head">
+    <span class="tag cocktail-note-kind">Cocktail</span>
+    <h1>{{ page.display_name | default: page.title }}</h1>
+
+    <dl class="cocktail-facts">
+      {%- if page.family_display -%}
+      <dt>Family</dt>
+      <dd>
+        {%- if page.family_url -%}<a class="internal-link" href="{{ site.baseurl }}{{ page.family_url }}">{{ page.family_display }}</a>
+        {%- else -%}{{ page.family_display }}{%- endif -%}
+      </dd>
+      {%- endif -%}
+
+      {%- if page.rating -%}
+      <dt>Rating</dt>
+      <dd>{%- assign filled = page.rating | plus: 0 -%}{%- if filled > 7 -%}{%- assign filled = 7 -%}{%- endif -%}{%- assign unfilled = 7 | minus: filled -%}<span class="rating-marks" title="{{ page.rating }}/7" aria-label="{{ page.rating }} out of 7">{%- if filled > 0 -%}{%- for i in (1..filled) -%}◆{%- endfor -%}{%- endif -%}{%- if unfilled > 0 -%}{%- for i in (1..unfilled) -%}◇{%- endfor -%}{%- endif -%}</span></dd>
+      {%- endif -%}
+
+      {%- if page.url and page.url != '' -%}
+      <dt>Source</dt>
+      <dd><a href="{{ page.url }}" rel="noopener">{{ page.url | replace: 'https://', '' | replace: 'http://', '' | split: '/' | first }}</a></dd>
+      {%- endif -%}
+    </dl>
+
+    {%- if page.ingredient_links and page.ingredient_links != empty -%}
+    <ul class="cocktail-ingredients" aria-label="Ingredients">
+      {%- for ing in page.ingredient_links -%}
+      <li class="cocktail-ingredient{% if ing.stocked %} is-stocked{% endif %}">
+        {%- if ing.url -%}<a class="internal-link" href="{{ site.baseurl }}{{ ing.url }}">{{ ing.name }}</a>
+        {%- else -%}<span>{{ ing.name }}</span>{%- endif -%}
+        {%- if ing.stocked %}<span class="stock-dot" title="In your cabinet" aria-label="In your cabinet"></span>{% endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+    {%- endif -%}
+  </div>
+
+  <div id="notes-entry-container" class="cocktail-note-body">
+    <content>
+      {{ content }}
+    </content>
+  </div>
+
+  <p class="cocktail-note-back"><a class="internal-link" href="{{ site.baseurl }}/cocktails/">← All cocktails</a> · <a class="internal-link" href="{{ site.baseurl }}/cabinet/">Cabinet →</a></p>
+</article>

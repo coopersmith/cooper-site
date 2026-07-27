@@ -1,0 +1,52 @@
+---
+layout: page
+title: Cocktails
+description: A growing database of cocktails I make, riff on, and come back to — each one linked to the bottles it needs.
+permalink: /cocktails/
+---
+
+<h1>Cocktails</h1>
+<p class="subtitle">A growing database of drinks I make, riff on, and come back to. Every cocktail links to the bottles it needs; every bottle links back to its drinks — pivot between the two with the <a class="internal-link" href="{{ site.baseurl }}/cabinet/">cabinet</a>.</p>
+
+{% assign cocktails = site.notes | where_exp: "n", "n.tags contains 'cocktails'" | sort: "display_name" %}
+
+<div class="index-toolbar">
+  <span class="index-count muted">{{ cocktails | size }} cocktails</span>
+  <span class="sort-control">
+    <label for="cocktails-sort">Sort</label>
+    <select id="cocktails-sort" class="sort-select" data-sort-scope=".cocktails-table tbody" data-sort-item="tr">
+      <option value="az">A→Z</option>
+      <option value="rating">Rating</option>
+      <option value="date">Recent</option>
+    </select>
+  </span>
+</div>
+
+<table class="index-table cocktails-table">
+  <thead>
+    <tr>
+      <th class="index-title">Cocktail</th>
+      <th class="index-meta">Family</th>
+      <th class="index-meta">Ingredients</th>
+      <th class="index-date">Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for c in cocktails %}
+    {% assign sortdate = '' %}{% if c.last %}{% assign sortdate = c.last | date: '%Y-%m-%d' %}{% endif %}
+    <tr data-title="{{ c.display_name | downcase | escape }}" data-date="{{ sortdate }}" data-rating="{{ c.rating | default: 0 }}">
+      <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ c.display_name }}</a></td>
+      <td class="index-meta muted">{% if c.family_display %}{{ c.family_display }}{% else %}—{% endif %}</td>
+      <td class="index-meta muted cocktails-ingredients">
+        {%- for ing in c.ingredient_links -%}
+          {%- if ing.url -%}<a class="internal-link{% if ing.stocked %} is-stocked{% endif %}" href="{{ site.baseurl }}{{ ing.url }}">{{ ing.name }}</a>
+          {%- else -%}<span>{{ ing.name }}</span>{%- endif -%}{%- unless forloop.last -%}, {% endunless -%}
+        {%- endfor -%}
+      </td>
+      <td class="index-date muted cocktails-rating">{%- if c.rating -%}<span class="rating-num" aria-label="{{ c.rating }} out of 7">{{ c.rating }}</span>{%- else -%}—{%- endif -%}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<script src="{{ site.baseurl }}/assets/js/sortable.js"></script>

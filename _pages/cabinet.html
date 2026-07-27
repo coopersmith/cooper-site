@@ -1,0 +1,44 @@
+---
+layout: page
+title: The Cabinet
+description: The bottles I keep — spirits, vermouths, amari, liqueurs and bitters — each linked to the cocktails it goes into.
+permalink: /cabinet/
+---
+
+<h1>The Cabinet</h1>
+<p class="subtitle">The bottles on my shelf — spirits, vermouths, liqueurs and bitters. Each links to the <a class="internal-link" href="{{ site.baseurl }}/cocktails/">cocktails</a> it goes into. A filled dot marks what's currently stocked.</p>
+
+{% assign bottles = site.notes | where_exp: "n", "n.tags contains 'cabinet'" %}
+{% assign groups = bottles | group_by: "category" | sort: "name" %}
+
+<div class="index-toolbar">
+  <span class="index-count muted">{{ bottles | size }} bottles</span>
+</div>
+
+<div class="cabinet-groups">
+{% for group in groups %}
+  <section class="cabinet-group">
+    <h2 class="cabinet-group-title">{{ group.name }}</h2>
+    <ul class="cabinet-list">
+      {% assign sorted = group.items | sort: "display_name" %}
+      {% for b in sorted %}
+      <li class="cabinet-item{% if b.stocked %} is-stocked{% endif %}">
+        <div class="cabinet-item-head">
+          <a class="internal-link cabinet-item-name" href="{{ site.baseurl }}{{ b.url }}">{{ b.display_name }}</a>
+          {% if b.stocked %}<span class="stock-dot" title="In your cabinet" aria-label="In your cabinet"></span>{% endif %}
+        </div>
+        {% if b.cocktails and b.cocktails != empty %}
+        <div class="cabinet-item-cocktails muted">
+          {%- for c in b.cocktails -%}
+            <a class="internal-link" href="{{ site.baseurl }}{{ c.url }}">{{ c.display_name }}</a>{%- unless forloop.last -%}, {% endunless -%}
+          {%- endfor -%}
+        </div>
+        {% else %}
+        <div class="cabinet-item-cocktails muted cabinet-item-empty">No cocktails yet</div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}
+</div>

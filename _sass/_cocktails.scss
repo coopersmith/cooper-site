@@ -1,0 +1,143 @@
+// Cocktails (_pages/cocktails.html) + Cabinet (_pages/cabinet.html) and their
+// note layouts (_layouts/cocktail.html, _layouts/cabinet.html).
+//
+// Design tokens and shared primitives (.index-table, .tag, .rating-marks,
+// .rating-num, .subtitle, .muted) come from _style.scss; this partial only adds
+// what's specific to the cocktail database. The cocktail<->cabinet pivot lists
+// baked in by the cocktail_cabinet plugin render as `.cocktail-pivot`.
+
+/* ---------- Index toolbar count ---------- */
+.index-toolbar { justify-content: space-between; }
+.index-count { font-size: 0.85em; }
+
+/* ---------- /cocktails table ---------- */
+.cocktails-table { table-layout: fixed; }
+.cocktails-table th,
+.cocktails-table td { padding-left: 0.9em; }
+.cocktails-table .index-title { width: auto; padding-left: 0; }
+.cocktails-table th:nth-child(2),
+.cocktails-table td:nth-child(2) { width: 7em; }          /* family */
+.cocktails-table th:nth-child(4),
+.cocktails-table td:nth-child(4) { width: 3.4em; }        /* rating */
+
+.cocktails-ingredients {
+  a, span { color: var(--color-text-tertiary); }
+  a:hover { color: var(--color-text-primary); }
+}
+.cocktails-rating .rating-num { font-variant-numeric: tabular-nums; }
+
+/* The ingredients column carries the most text; let it wrap and hide the
+   family column before the ingredients on narrow screens. */
+@media (max-width: 600px) {
+  .cocktails-table th:nth-child(2),
+  .cocktails-table td:nth-child(2) { display: none; }
+}
+
+/* ---------- Stocked marker ---------- */
+/* A small filled dot: what's currently on the shelf. Hollow (border only)
+   would read as "empty"; we simply omit it when not stocked. */
+.stock-dot {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-left: 0.45em;
+  border-radius: 50%;
+  background: var(--color-accent);
+  vertical-align: middle;
+}
+.is-stocked > .cabinet-item-name { font-weight: var(--weight-medium); }
+
+/* ---------- /cabinet grouped list ---------- */
+.cabinet-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.6em 2em;
+  margin: 1.5em 0;
+}
+.cabinet-group-title {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.6em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--color-border);
+}
+.cabinet-list { list-style: none; margin: 0; padding: 0; }
+.cabinet-item { margin: 0 0 0.9em; }
+.cabinet-item-head { display: flex; align-items: center; }
+.cabinet-item-name { font-size: 1em; }
+.cabinet-item-cocktails {
+  font-size: 0.85em;
+  line-height: var(--leading-prose);
+  margin-top: 0.1em;
+}
+.cabinet-item-empty { font-style: italic; color: var(--color-text-subtle); }
+
+/* ---------- Cocktail / cabinet note headers ---------- */
+.cocktail-note-head,
+.cabinet-note-head { margin: 0 0 1.6em; }
+
+.cocktail-note-kind,
+.cabinet-note-kind { display: inline-block; margin: 0 0 0.6em; }
+
+.cocktail-facts,
+.cabinet-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35em 1.1em;
+  margin: 0.8em 0 0;
+  font-size: var(--text-ui);
+
+  dt { color: var(--color-text-tertiary); font-weight: var(--weight-medium); white-space: nowrap; }
+  dd { margin: 0; color: var(--color-text-secondary); }
+}
+
+/* Ingredient pills under the header — the quick pivot to the cabinet. */
+.cocktail-ingredients {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 1em 0 0;
+  padding: 0;
+}
+.cocktail-ingredient {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 1em;
+  padding: 0.12em 0.7em 0.18em;
+  font-size: 0.82em;
+
+  a, span { color: var(--color-text-secondary); text-decoration: none; }
+  a:hover { color: var(--color-text-primary); }
+  .stock-dot { margin-left: 0.4em; width: 0.42em; height: 0.42em; }
+}
+.cocktail-ingredient.is-stocked { border-color: var(--color-text-tertiary); }
+
+.cabinet-stock { display: flex; flex-wrap: wrap; gap: 0.4em; }
+.stock-badge {
+  display: inline-block;
+  border: 1px solid var(--color-border);
+  border-radius: 1em;
+  padding: 0.1em 0.6em 0.15em;
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
+}
+
+.cocktail-note-back,
+.cabinet-note-back { margin-top: 2.5em; font-size: var(--text-ui); }
+
+/* ---------- Baked pivot lists (plugin output) ---------- */
+/* `![[Cocktails.base#...]]` embeds become a `.cocktail-pivot` list: the
+   cocktails a bottle appears in, or a cocktail's variants. */
+.cocktail-pivot {
+  list-style: none;
+  margin: 0.6em 0 0;
+  padding: 0;
+  columns: 2 12em;
+
+  li { margin: 0 0 0.3em; break-inside: avoid; }
+}
