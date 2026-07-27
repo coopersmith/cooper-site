@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 76
+  date: '2026-07-27'
+  title: "Cocktails and bar cabinet now link to each other"
+  category: feature
+  summary: >-
+    Cocktail recipes and the home bar's bottle list are now cross-linked on the
+    site, so you can jump from a drink to the bottles it needs and see which
+    drinks a bottle makes—something that used to only work inside the
+    note-taking app.
+  url: https://github.com/coopersmith/cooper-site/pull/76
+
 - number: 80
   date: '2026-07-26'
   title: "Nested tags now group under one filter chip"
