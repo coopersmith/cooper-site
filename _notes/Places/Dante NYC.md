@@ -1,6 +1,6 @@
 ---
-visit_count: 1
-last_visit: 2024-02-24
+visit_count: 2
+last_visit: 2026-06-15
 first_visit: 2024-02-24
 categories:
   - "[[Places]]"
@@ -14,7 +14,7 @@ location:
   - "-74.0016444"
 rating: 6
 created: 2024-02-25
-last: 2024-02-24
+last: 2026-06-15
 tags:
   - places
   - negronis

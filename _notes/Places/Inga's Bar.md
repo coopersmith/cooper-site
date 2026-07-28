@@ -12,14 +12,14 @@ location:
   - "-73.99364588566934"
 rating: 6
 created:
-last: 2025-12-20
+last: 2026-05-28
 tags:
   - places
   - restaurants
   - bars
-visit_count: 9
+visit_count: 11
 first_visit: 2023-03-06
-last_visit: 2025-12-20
+last_visit: 2026-05-28
 foursquare:
   - https://app.foursquare.com/v/6225507cfa0ba360471587a8
 ---

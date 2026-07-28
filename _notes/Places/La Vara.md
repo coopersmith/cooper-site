@@ -1,6 +1,6 @@
 ---
-visit_count: 14
-last_visit: 2025-05-02
+visit_count: 16
+last_visit: 2026-05-02
 first_visit: 2019-10-10
 categories:
   - "[[Places]]"
@@ -14,7 +14,7 @@ location:
   - "-73.9954049"
 rating: 6
 created: 2019-10-10
-last: 2025-05-02
+last: 2026-05-02
 tags:
   - places
   - tofix

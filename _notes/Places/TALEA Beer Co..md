@@ -1,6 +1,6 @@
 ---
-visit_count: 15
-last_visit: 2025-06-21
+visit_count: 16
+last_visit: 2026-05-25
 first_visit: 2022-08-24
 categories:
   - "[[Places]]"
@@ -16,7 +16,7 @@ location:
   -  -73.99094104592211
 rating: 6
 created: 2022-05-26
-last: 2025-06-21
+last: 2026-05-25
 tags:
   - places
   - brewery
