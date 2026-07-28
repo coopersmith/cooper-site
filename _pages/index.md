@@ -22,10 +22,8 @@ I'm currently traveling<span id="travel-place"></span> — follow the adventures
 When I'm in NYC, I'm a Director of Product Design at Asana, where I lead design across our Mobile and Coordinate teams for our Agentic Work Management. I have over a decade of experience building products and teams at [[Lyft]], [[Twitter]], [[Foursquare]] and [[Asana]].
 {: #intro-nyc}
 
-When I'm in Rhode Island, I look after our [[White Homestead|1754 farmhouse]] and work remotely for Asana. I roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
+When I'm in Rhode Island, I look after our [[White Homestead|ca. 1754 farmhouse]] and work remotely for Asana. I roast coffee in my barn and run a small micro-roastery called [Farm Coast Coffee](https://farmcoastcoffee.square.site) as a fun side project.
 {: #intro-ri}
-
-I'm rarely without a camera, and share my adventures on [Instagram](https://www.instagram.com/coopersmith) and [Glass](https://glass.photo/coop). 
 
 {% comment %}
 Recent notes — temporarily hidden, bring back later.

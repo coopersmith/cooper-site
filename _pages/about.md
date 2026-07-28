@@ -21,7 +21,7 @@ Glass:
 ## Now
 
 - Director of Product Design at [Asana](https://asana.com/features)
-- Splitting time between Brooklyn and our [1754 home](https://www.instagram.com/p/CSHlpbrHvX0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA) on the [Rhode Island Farm Coast](https://www.nytimes.com)
+- Splitting time between Brooklyn and our [ca. 1754 home](https://www.instagram.com/p/CSHlpbrHvX0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA) on the [Rhode Island Farm Coast](https://www.nytimes.com)
 - Finishing up some time off and preparing for my next adventure in [product design leadership](https://read.cv)
 - Micro-roasting coffee from my barn and prototyping a small business at [Farm Coast Coffee](https://www.farmcoastcoffee.com)
 - Rarely without my camera, capturing [urban geometry](https://glass.photo/coop/series/23JMDL7SdFbichhEXDLYLC-urban-geometry), life with our new [chocolate lab Henry](https://glass.photo/coop/series/DwvX0G2qYfvLJESKQxL0b-life-with-henry), and [other adventures](https://glass.photo/coop)
