@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 81
+  date: '2026-07-28'
+  title: "Updated home page intro and details"
+  category: content
+  summary: >-
+    Refreshed the intro on the home and about pages: an updated job description,
+    a link to the farmhouse's history, a more honest "circa 1754" date since the
+    exact year isn't confirmed, and removal of the photography blurb and a
+    temporarily unused section.
+  url: https://github.com/coopersmith/cooper-site/pull/81
+
 - number: 76
   date: '2026-07-27'
   title: "Cocktails and bar cabinet now link to each other"
