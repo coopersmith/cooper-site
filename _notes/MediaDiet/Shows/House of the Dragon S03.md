@@ -10,7 +10,7 @@ rating:
 cover: https://image.tmdb.org/t/p/w500/wSvDQN6tZR4VzDDZD3MUPIghVjC.jpg
 year: 2026
 aired: 2026-06-21 to 2026-08-09
-last: 2026-07-25
+last: 2026-08-03
 shelf: watching
 tags:
   - shows
