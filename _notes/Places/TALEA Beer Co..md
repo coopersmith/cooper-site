@@ -1,5 +1,6 @@
 ---
 visit_count: 16
+tips: 1
 last_visit: 2026-05-25
 first_visit: 2022-08-24
 categories:
@@ -12,8 +13,6 @@ loc:
 location:
   - "40.6871184"
   - "-73.9908801"
-  - "40.687033036125946"
-  -  -73.99094104592211
 rating: 6
 created: 2022-05-26
 last: 2026-05-25
@@ -29,6 +28,10 @@ aliases:
   - Talea
 ---
 
+
+## Tips
+
+> Opens June 2022 — *2022-05-07*
 
 ## Check-ins
 

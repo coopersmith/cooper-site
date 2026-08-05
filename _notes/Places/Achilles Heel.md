@@ -1,5 +1,6 @@
 ---
 visit_count: 14
+tips: 2
 last_visit: 2016-09-30
 first_visit: 2013-05-24
 categories:
@@ -23,6 +24,12 @@ foursquare:
   - https://app.foursquare.com/v/5106b507067d28e49859ec95
 ---
 
+
+## Tips
+
+> When it comes to hangovers, Achilles Heel giveth (with amazing whiskey sours and other cocktails at night) and taketh away (serving strong cold brew and pour over coffee the next morning) — *2013-06-23*
+
+> Great spot to grab a cold brew, or any other coffee, on your way to the East River Ferry — *2013-06-10*
 
 ## Check-ins
 
