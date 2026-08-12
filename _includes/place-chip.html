@@ -1,0 +1,21 @@
+{%- comment -%}
+One node of the /places/ destination tree, as a filter chip. Pass a node from
+site.data.places_tree (built by _plugins/places.rb): {% include place-chip.html n=node %}
+
+Chips are tri-state toggles rather than radio-style buttons — "on" (this whole
+branch), "mixed" (some of it, because the visitor narrowed to children), or
+off. Tier 2 and 3 chips live in rows that start `hidden`; the page script
+reveals a row when its parent branch is on or mixed, which is what makes this a
+drill-down rather than one flat list of every destination.
+
+data-name is the label without the count badge, so the export title reads
+"Coop's Guide to Bars + Cocktails in Florence & Milan" and not "…Florence 3".
+{%- endcomment -%}
+<button type="button"
+  class="tag places-node"
+  data-node="{{ include.n.slug }}"
+  data-tier="{{ include.n.tier }}"
+  data-parent="{{ include.n.parent }}"
+  data-name="{{ include.n.name | escape }}"
+  aria-pressed="false"
+  >{{ include.n.name }}<span class="places-node-n" aria-hidden="true">{{ include.n.count }}</span></button>

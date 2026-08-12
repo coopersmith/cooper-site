@@ -1,0 +1,82 @@
+# Geography for the /places/ destination tree (Country → City → Neighborhood).
+#
+# The vault is the preferred source: a destination note whose `loc` names a
+# country (Vienna → [[Austria]]) tells _plugins/places.rb everything it needs,
+# and publishing one from Obsidian upgrades every venue in that city with no
+# change here. This file is the stopgap for destinations that have no note —
+# most venues are filed straight under a bare city ([[Kyoto]], [[Paris]]) with
+# no ancestry at all, so without it they'd have nowhere to hang.
+#
+# A city missing from `countries` still lists and still pins; it just groups
+# under "Elsewhere", and the build logs a warning naming it. Adding the line
+# here (or publishing its destination note) is the fix.
+#
+# Keys are matched case-insensitively, and the spelling used here is the
+# canonical one — that's how the vault's "FiDi" and "Fidi" collapse into one
+# chip instead of two.
+
+# City → country. The country tier of the filter.
+countries:
+  New York City: United States
+  Providence: United States
+  Newport: United States
+  New Orleans: United States
+  San Francisco: United States
+  Sonoma: United States
+  Upstate: United States
+  Farm Coast: United States
+  Vienna: Austria
+  Salzburg: Austria
+  Warsaw: Poland
+  Paris: France
+  London: United Kingdom
+  Amsterdam: Netherlands
+  Humlebæk: Denmark
+  Røros: Norway
+  Marrakech: Morocco
+  Kruger National Park: South Africa
+  Newfoundland: Canada
+  Kyoto: Japan
+  Naoshima: Japan
+
+# Neighborhood → city. Only needed for neighborhoods with no destination note;
+# a note's own `loc` (Cobble Hill → [[New York City]]) takes precedence.
+# This is also what stops a neighborhood from being mistaken for a city when a
+# venue's `loc` chain is written outside-in ([[New York City]], [[Greenpoint]]).
+# Deliberately no borough-level entries (Brooklyn, Queens): a chain like
+# [[Brooklyn]], [[Cobble Hill]] names both, and the first known neighborhood
+# wins — so listing Brooklyn would file Cobble Hill venues under the borough.
+# A venue filed under a bare borough gets an "Elsewhere" warning at build time,
+# which is the right moment to decide what that borough should be.
+neighborhoods:
+  Cobble Hill: New York City
+  Brooklyn Heights: New York City
+  Greenpoint: New York City
+  Williamsburg: New York City
+  West Village: New York City
+  FiDi: New York City
+  Inverness: San Francisco
+
+# Country → continent. Not rendered today — the country row is 12 chips and a
+# continent tier above it would be noise. Kept because the tree in places.rb is
+# generic, so adding the tier later is a template change, not a data migration.
+continents:
+  United States: North America
+  Canada: North America
+  Mexico: North America
+  Austria: Europe
+  Poland: Europe
+  France: Europe
+  United Kingdom: Europe
+  Netherlands: Europe
+  Denmark: Europe
+  Norway: Europe
+  Japan: Asia
+  Morocco: Africa
+  South Africa: Africa
+
+# Variant → canonical, for destinations the vault names two different ways.
+# Casing alone doesn't need an entry (lookups are case-insensitive); this is
+# for genuinely different spellings.
+aliases:
+  RI Farm Coast: Farm Coast
