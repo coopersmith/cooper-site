@@ -9,14 +9,21 @@ contain an `.index-title a` (the popup's name link).
 kept as their own attributes so consumers never have to split `where` on a
 comma (which would mangle a "Washington, D.C.").
 
+`data-path` is the venue's ancestry as slugs, coarsest first
+("united-states new-york-city cobble-hill"). The destination filter matches a
+selected node against it, which is what makes selecting a country, a city or a
+neighborhood the same operation — and what makes them multi-selectable, since
+matching any one selected slug is enough.
+
 Keep every attribute on its own line, and put NO Liquid tag between them —
 in particular none of the hyphenated whitespace-stripping kind, which eats
 the separating newline and glues two attributes into
 data-where="X"data-cityname="Y". That is invalid HTML, and kramdown then
 escapes the entire row tag into visible text.
 {%- endcomment -%}
-data-dest="{{ include.v.place_city | slugify }}"
-data-area="{{ include.v.place_area | slugify }}"
+data-dest="{{ include.v.place_city_slug }}"
+data-area="{{ include.v.place_area_slug }}"
+data-path="{{ include.v.place_path | join: ' ' }}"
 data-type="{{ include.v.place_type | slugify }}"
 data-slug="{{ include.v.title | slugify }}"
 data-title="{{ include.v.title | titlecase | downcase | escape }}"
@@ -26,7 +33,7 @@ data-date="{% if include.v.last_visit %}{{ include.v.last_visit | date: '%Y-%m-%
 data-lat="{{ include.v.place_lat }}"
 data-lng="{{ include.v.place_lng }}"
 data-typename="{{ include.v.place_type | escape }}"
-data-where="{% if include.v.place_area %}{{ include.v.place_area | escape }}, {% endif %}{{ include.v.place_city | escape }}"
+data-where="{% if include.v.place_city %}{% if include.v.place_area %}{{ include.v.place_area | escape }}, {% endif %}{{ include.v.place_city | escape }}{% else %}{{ include.v.place_country | escape }}{% endif %}"
 data-cityname="{{ include.v.place_city | escape }}"
 data-areaname="{{ include.v.place_area | escape }}"
 data-desc="{{ include.v.description | default: '' | strip | escape }}"
