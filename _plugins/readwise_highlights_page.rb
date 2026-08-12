@@ -2,6 +2,7 @@
 
 require "json"
 require "fileutils"
+require "time"
 
 # Bakes the /highlights ("Commonplace") page's data at BUILD time.
 #
@@ -141,13 +142,189 @@ module ReadwiseHighlightsPage
           "url" => link,
           "_tags" => tag_names(h),
           "_sort" => h["highlighted_at"].to_s,
+          # When a highlight is corrected by hand, this is the only trace the
+          # API gives (Readwise's own UI doesn't surface it). Bulk syncs bump it
+          # too, so it's a hint, not proof — see `dedupe`. Field name differs
+          # between Readwise endpoints, so accept either.
+          "_updated" => (h["updated"] || h["updated_at"]).to_s,
         }
       end
     end
 
     rows = rows.sort_by { |r| r["_sort"] }.reverse
-    rows.each { |r| r.delete("_sort") }
+    rows = dedupe(rows)
+    rows.each { |r| r.delete("_sort"); r.delete("_updated") }
     rows
+  end
+
+  # Collapse highlights that would read as the same passage twice.
+  #
+  # The Readwise library carries real duplicates. They're invisible in
+  # Readwise's own UI but obvious on a single flat page, and they come in two
+  # shapes, each needing its own pass:
+  #
+  #   1. The same document saved twice — two book records, so two copies of
+  #      every highlight. Usually an old save plus a later re-save under a
+  #      slightly different title, or a Kindle import alongside a Reader copy.
+  #      The copies are textually identical but carry different timestamps, so
+  #      they sort to unrelated places and the repeat surfaces pages away from
+  #      its twin. `exact_dedupe` handles these.
+  #
+  #   2. One highlight gesture recorded twice — the copies land milliseconds
+  #      apart, and the second often captures a slightly *longer* selection
+  #      (the shorter text is a substring of the longer). These render as two
+  #      near-identical blockquotes back to back. `near_dedupe` handles these.
+  #
+  # Both passes keep one row and merge the tags of the copies they drop: a tag
+  # applied to only one copy would otherwise take the passage out of that tag's
+  # stream entirely.
+  def self.dedupe(rows)
+    kept = near_dedupe(exact_dedupe(rows))
+
+    dropped = rows.size - kept.size
+    Jekyll.logger.info "Readwise:", "dropped #{dropped} duplicate highlight(s)" if dropped.positive?
+
+    kept
+  end
+
+  # Pass 1: collapse textually identical highlights, wherever they sit. Rows
+  # arrive newest-first, so the first copy seen wins.
+  #
+  # One wrinkle: a highlight corrected by hand. If the correction is small
+  # enough that the copies still key alike — a stray character, a missing
+  # closing quote, spacing — the copies reach here with *different* wording,
+  # and picking by position could keep the uncorrected one. So the winner keeps
+  # its place in the stream but adopts the wording of whichever copy was edited
+  # last. (A correction that changes actual words makes the copies stop
+  # matching altogether; see the note in `dedupe`.)
+  def self.exact_dedupe(rows)
+    kept = {}
+
+    rows.each do |row|
+      key = exact_key(row["text"])
+      winner = kept[key]
+
+      if winner.nil?
+        kept[key] = row
+        next
+      end
+
+      winner["_tags"] = (winner["_tags"] + row["_tags"]).uniq
+      next unless winner["text"] != row["text"] && edited_later?(row, winner)
+
+      winner["text"] = row["text"]
+      winner["_updated"] = row["_updated"] # so a third copy compares against the wording we now hold
+    end
+
+    kept.values # Hash preserves insertion order, so this is still newest-first
+  end
+
+  # True when `row` carries a later edit timestamp than `other`. Both must have
+  # one; an unknown timestamp never wins.
+  def self.edited_later?(row, other)
+    a = parse_time(row["_updated"])
+    b = parse_time(other["_updated"])
+    return false unless a && b
+
+    a > b
+  end
+
+  # Normalized comparison key: whitespace, case and enclosing punctuation are
+  # noise here. The punctuation strip is what makes `"It's not a failure."` and
+  # `It's not a failure."` — the same sentence re-highlighted with the opening
+  # quote included — collapse into one. Falls back to the unstripped key for
+  # text that is *all* punctuation, so those don't all collide on "".
+  def self.exact_key(text)
+    key = text.gsub(/\s+/, " ").strip.downcase
+    stripped = key.gsub(/\A[^a-z0-9]+|[^a-z0-9]+\z/, "")
+    stripped.empty? ? key : stripped
+  end
+
+  # A highlight shorter than this is too small to safely call a duplicate of a
+  # longer one just because it appears inside it.
+  MIN_CONTAINMENT_LENGTH = 20
+
+  # How far apart two overlapping highlights can be and still count as one
+  # gesture. The observed gap in the library is unambiguous: overlapping pairs
+  # land either within ~96 seconds of each other (the double-fire artifact) or
+  # 30+ days apart (a genuine re-read, sometimes years later — those are two
+  # real highlights and must both survive). 15 minutes sits inside that gap
+  # with room on both sides.
+  NEAR_DUPLICATE_WINDOW = 900 # seconds
+
+  # Pass 2: within one source, collapse a highlight that is wholly contained in
+  # another made moments later — the same gesture, recorded twice with a
+  # slightly different selection. The longer text wins (it's the fuller
+  # passage) and keeps its own position in the stream.
+  #
+  # Deliberately narrow: same source, inside NEAR_DUPLICATE_WINDOW, and long
+  # enough that containment means something. A short quote legitimately
+  # re-highlighted on a later read is a different highlight and stays.
+  def self.near_dedupe(rows)
+    dropped = {}
+
+    rows.group_by { |r| r["attribution"] }.each_value do |group|
+      next if group.size < 2
+
+      # Derive each row's comparison key and timestamp once. This pass is
+      # pairwise within a source, so recomputing them per comparison turns a
+      # few milliseconds into ten seconds of build time on a full library.
+      entries = group.map do |row|
+        key = exact_key(row["text"])
+        { row: row, key: key, length: key.length, time: parse_time(row["_sort"]),
+          updated: parse_time(row["_updated"]), dropped: false }
+      end
+
+      entries.each_with_index do |entry, i|
+        entries[(i + 1)..].each do |other|
+          break if entry[:dropped] # absorbed by an earlier row; nothing left to compare
+          next if other[:dropped] || !near_duplicate?(entry, other)
+
+          survivor, absorbed = rank(entry, other)
+          survivor[:row]["_tags"] = (survivor[:row]["_tags"] + absorbed[:row]["_tags"]).uniq
+          absorbed[:dropped] = true
+          dropped[absorbed[:row].object_id] = true
+        end
+      end
+    end
+
+    rows.reject { |r| dropped[r.object_id] } # reject over the original keeps newest-first order
+  end
+
+  # A copy has to be edited this much later than its twin before the edit is
+  # read as a deliberate correction rather than a sync touching one of them.
+  # Bulk syncs rewrite hundreds of highlights in the same second, so anything
+  # inside a day is noise.
+  EDIT_GRACE = 86_400 # seconds
+
+  # Which of two overlapping entries to keep. Normally the longer one — it's
+  # the fuller passage, and the shorter is wholly inside it. The exception is a
+  # highlight trimmed by hand: if the shorter copy was edited a day or more
+  # after the longer, that shortening was the point, so it wins instead.
+  def self.rank(a, b)
+    shorter, longer = [a, b].sort_by { |e| e[:length] }
+    trimmed = shorter[:updated] && longer[:updated] &&
+              (shorter[:updated] - longer[:updated]) > EDIT_GRACE
+
+    trimmed ? [shorter, longer] : [longer, shorter]
+  end
+
+  # True when one entry's text sits inside the other's and the two were
+  # captured close enough together to be one gesture. Checks run cheapest
+  # first; the substring test is the expensive one. Undated rows never match,
+  # so they're always left alone.
+  def self.near_duplicate?(a, b)
+    return false if [a[:length], b[:length]].min < MIN_CONTAINMENT_LENGTH
+    return false unless a[:time] && b[:time]
+    return false if (a[:time] - b[:time]).abs > NEAR_DUPLICATE_WINDOW
+
+    a[:key].include?(b[:key]) || b[:key].include?(a[:key])
+  end
+
+  def self.parse_time(value)
+    Time.iso8601(value.to_s)
+  rescue ArgumentError
+    nil
   end
 
   # Downcased, de-duplicated tag names for one highlight. Nested tags are
