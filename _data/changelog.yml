@@ -28,6 +28,17 @@
     shareable links, so browsing your places by location actually scales.
   url: https://github.com/coopersmith/cooper-site/pull/84
 
+- number: 83
+  date: '2026-08-12'
+  title: "Filter places by how recently you visited them"
+  category: feature
+  summary: >-
+    The places page now has a "Visited" dropdown so you can show only spots seen
+    in the past year, few years, or ever, keeping recommendations feeling fresh
+    instead of stale. It also shows a friendly note when a filter turns up
+    nothing, and remembers your choice in the page link.
+  url: https://github.com/coopersmith/cooper-site/pull/83
+
 - number: 82
   date: '2026-08-12'
   title: "Fix incorrect \"remote for Asana\" claim on home page"
