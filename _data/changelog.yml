@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 82
+  date: '2026-08-12'
+  title: "Fix incorrect \"remote for Asana\" claim on home page"
+  category: fix
+  summary: >-
+    The homepage used to say I was working remotely for Asana no matter where I
+    actually was. Now that line only shows up when the location check-in
+    genuinely places me in Rhode Island.
+  url: https://github.com/coopersmith/cooper-site/pull/82
+
 - number: 81
   date: '2026-07-28'
   title: "Updated home page intro and details"
