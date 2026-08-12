@@ -147,7 +147,40 @@ module ReadwiseHighlightsPage
 
     rows = rows.sort_by { |r| r["_sort"] }.reverse
     rows.each { |r| r.delete("_sort") }
-    rows
+    dedupe(rows)
+  end
+
+  # Collapse highlights that would render identically.
+  #
+  # The Readwise library carries real duplicates, and they're invisible in
+  # Readwise's own UI but obvious here. Two sources: the same document saved
+  # twice (two book records, so two copies of every highlight — often an old
+  # save plus a later re-save under a slightly different title, or a Kindle
+  # import alongside a Reader copy), and the occasional double-fired highlight
+  # gesture (two records for one passage, milliseconds apart). Because the
+  # copies carry different timestamps they sort to unrelated places in the
+  # stream, so the repeat shows up pages away from its twin rather than next
+  # to it.
+  #
+  # Rows arrive newest-first, so the first copy seen wins. The losers still
+  # donate their tags: a tag applied to only one copy would otherwise drop the
+  # passage out of that tag's stream entirely.
+  def self.dedupe(rows)
+    kept = {}
+
+    rows.each do |row|
+      key = row["text"].gsub(/\s+/, " ").strip.downcase
+      if (winner = kept[key])
+        winner["_tags"] = (winner["_tags"] + row["_tags"]).uniq
+      else
+        kept[key] = row
+      end
+    end
+
+    dropped = rows.size - kept.size
+    Jekyll.logger.info "Readwise:", "dropped #{dropped} duplicate highlight(s)" if dropped.positive?
+
+    kept.values # Hash preserves insertion order, so this is still newest-first
   end
 
   # Downcased, de-duplicated tag names for one highlight. Nested tags are
