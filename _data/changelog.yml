@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 85
+  date: '2026-08-12'
+  title: "Removed duplicate quotes from the highlights page"
+  category: fix
+  summary: >-
+    Some passages on the highlights page were showing up twice, thanks to
+    duplicate saves and double-tapped highlights in the source library. The page
+    now spots and merges those repeats so each quote appears once.
+  url: https://github.com/coopersmith/cooper-site/pull/85
+
 - number: 84
   date: '2026-08-12'
   title: "Places filter grows into a country → city → neighborhood tree"
@@ -17,6 +27,17 @@
     drill-down tree you can multi-select at any level, with live counts and
     shareable links, so browsing your places by location actually scales.
   url: https://github.com/coopersmith/cooper-site/pull/84
+
+- number: 83
+  date: '2026-08-12'
+  title: "Filter places by how recently you visited them"
+  category: feature
+  summary: >-
+    The places page now has a "Visited" dropdown so you can show only spots seen
+    in the past year, few years, or ever, keeping recommendations feeling fresh
+    instead of stale. It also shows a friendly note when a filter turns up
+    nothing, and remembers your choice in the page link.
+  url: https://github.com/coopersmith/cooper-site/pull/83
 
 - number: 82
   date: '2026-08-12'

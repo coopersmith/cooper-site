@@ -10,16 +10,25 @@ one `indexOf`, whether the visitor picked a country, a city or a neighborhood.
 A destination with no places of my own has no chip to be picked, but its
 country tier does, so the trip still filters with its part of the world.
 
-Same authoring rule as place-row-attrs.html: every attribute on its own line,
-no Liquid tag between them (a whitespace-stripping one eats the separating
-newline and glues two attributes together, which kramdown then escapes into
-visible text).
+`data-date` is when the trip ended, in the same YYYY-MM-DD shape a venue's
+last_visit takes, so the page's "Visited" recency scope compares a trip
+against the same cutoff with the same lexicographic test — a 2017 trip left
+pinned next to the 2017 venues it just hid would be the map contradicting
+itself. It falls back to the end of the trip's year when there's no date
+range: coarse, but it keeps an undated trip in the window a reader expects.
+
+Same authoring rule as place-row-attrs.html, and it bites here too: every
+attribute on its own line, no Liquid tag between them. A whitespace-stripping
+comment eats the separating newline and glues two attributes into
+data-where="X"data-date="Y" — invalid HTML, which kramdown then escapes into
+a visible `<tr …>` in the page. Explanations go up here, not inline.
 {%- endcomment -%}
 data-path="{{ include.t.trip_path | join: ' ' }}"
 data-slug="{{ include.t.title | slugify }}"
 data-lat="{{ include.t.trip_lat }}"
 data-lng="{{ include.t.trip_lng }}"
 data-where="{{ include.t.trip_where | escape }}"
+data-date="{% if include.t.end %}{{ include.t.end | date: '%Y-%m-%d' }}{% elsif include.t.start %}{{ include.t.start | date: '%Y-%m-%d' }}{% elsif include.t.year %}{{ include.t.year }}-12-31{% endif %}"
 data-dates="{% if include.t.start and include.t.end %}{{ include.t.start | date: '%b %-d' }} – {{ include.t.end | date: '%b %-d, %Y' }}{% elsif include.t.start %}{{ include.t.start | date: '%B %Y' }}{% else %}{{ include.t.year }}{% endif %}"
 data-places="{{ include.t.trip_venues_total | default: 0 }}"
 data-url="{{ site.baseurl }}{{ include.t.url }}"

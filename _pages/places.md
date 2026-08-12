@@ -64,6 +64,20 @@ construct at runtime.{%- endcomment -%}
         {% endfor %}
       </select>
     </span>
+    {%- comment -%}Recency scope: some recommendations are a decade stale, so
+    this narrows the list to places I've actually been lately. Values are a
+    number of years back (or "all"); the cutoff is computed at runtime, not
+    baked, so a scoped view never goes stale itself.{%- endcomment -%}
+    <span class="sort-control">
+      <label for="places-visited">Visited</label>
+      <select id="places-visited" class="sort-select">
+        <option value="all">Any time</option>
+        <option value="1">Past year</option>
+        <option value="2">Past 2 years</option>
+        <option value="5">Past 5 years</option>
+        <option value="10">Past 10 years</option>
+      </select>
+    </span>
     <span class="sort-control">
       <label for="places-sort">Sort</label>
       <select id="places-sort" class="sort-select" data-sort-scope="#places-library .places-list" data-sort-item="tbody tr">
@@ -107,12 +121,17 @@ construct at runtime.{%- endcomment -%}
         destination and swings the map to it (see jumpToDest). Falls back to
         plain text with no JS.{%- endcomment -%}
         <td class="index-meta muted" title="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | default: v.place_country | escape }}"><button type="button" class="place-jump" data-dest-jump="{{ where_slug }}" aria-label="Show {{ where | escape }} on the map">{{ where }}</button></td>
-        <td class="index-date muted places-visits">{% if v.visit_count %}{{ v.visit_count }}{% endif %}</td>
+        <td class="index-date muted places-visits"{% if v.last_visit %} title="Last visit {{ v.last_visit | date: '%B %Y' }}"{% endif %}>{% if v.visit_count %}{{ v.visit_count }}{% endif %}</td>
         <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
+
+  {%- comment -%}Filters could always come up empty, but the recency scope
+  makes it likely (a city you last saw in 2016, scoped to the past year), so
+  say so rather than showing a bare empty table.{%- endcomment -%}
+  <p class="places-empty muted" hidden></p>
 
   {%- comment -%}Trip rows: not shown, but carrying the same kind of data
   attributes the venue rows do, so the map runtime builds trip pins from the
@@ -188,8 +207,10 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     var tierRows = Array.prototype.slice.call(destWrap.querySelectorAll('.places-tier'));
     var clearBtn = document.getElementById('places-clear');
     var typeSelect = document.getElementById('places-type');
+    var visitedSelect = document.getElementById('places-visited');
     var sortSelect = document.getElementById('places-sort');
     var mapNote = document.querySelector('.places-map-note');
+    var emptyNote = document.querySelector('.places-empty');
 
     // ---- The destination tree, read off the chips ----
     // The markup is the index: each chip knows its slug, tier and parent, so
@@ -211,6 +232,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
 
     var TYPES = { all: 1 };
     if (typeSelect) Array.prototype.forEach.call(typeSelect.options, function (o) { TYPES[o.value] = 1; });
+    var VISITED = { all: 1 };
+    if (visitedSelect) Array.prototype.forEach.call(visitedSelect.options, function (o) { VISITED[o.value] = 1; });
     var VIEWS = { list: 1, map: 1 };
     var SORTS = { rating: 1, visits: 1, date: 1, az: 1 };
 
@@ -218,9 +241,30 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     // title reads back in that order). Empty means Everywhere.
     var selection = [];
     var currentType = 'all';
+    var currentVisited = 'all';
     var currentView = 'list';
     var ready = false;
 
+    // ---- Recency ----
+    // Rows carry data-date = last_visit (YYYY-MM-DD), so the cutoff is just
+    // another YYYY-MM-DD string and the compare stays a lexicographic one —
+    // no Date parsing, no timezone drift. A venue with no recorded visit
+    // can't be shown to be recent, so it drops out of any scoped view.
+    function visitedCutoff() {
+      if (currentVisited === 'all') return null;
+      var years = parseInt(currentVisited, 10);
+      if (!years) return null;
+      var d = new Date();
+      d.setFullYear(d.getFullYear() - years);
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+
+    function withinScope(row, cutoff) {
+      return !cutoff || (row.dataset.date && row.dataset.date >= cutoff);
+    }
+
+    // ---- Destination tree ----
     function isSelected(slug) { return selection.indexOf(slug) !== -1; }
 
     function ancestors(slug) {
@@ -353,13 +397,16 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       });
     }
 
-    // Counts are live against the *other* filter (type), so "Poland 4" drops
-    // to "Poland 0" under Hotels rather than promising places that aren't
+    // Counts are live against the *other* filters (type and visited), so
+    // "Poland 4" drops to "Poland 0" under Hotels — or under a visit window
+    // Poland falls outside of — rather than promising places that aren't
     // there. A zero branch dims but stays clickable.
     function renderCounts() {
       var tally = {};
+      var cutoff = visitedCutoff();
       rows.forEach(function (row) {
         if (currentType !== 'all' && row.dataset.type !== currentType) return;
+        if (!withinScope(row, cutoff)) return;
         (row.dataset.path || '').split(' ').forEach(function (s) {
           if (s) tally[s] = (tally[s] || 0) + 1;
         });
@@ -385,6 +432,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       var params = new URLSearchParams();
       if (selection.length) params.set('dest', selection.join(','));
       if (currentType !== 'all') params.set('type', currentType);
+      if (currentVisited !== 'all') params.set('visited', currentVisited);
       if (currentView !== 'list') params.set('view', currentView);
       var sort = sortSelect ? sortSelect.value : 'rating';
       if (sort !== 'rating') params.set('sort', sort);
@@ -434,6 +482,20 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       return typeSelect.options[typeSelect.selectedIndex].textContent.trim();
     }
 
+    function visitedLabel() {
+      if (!visitedSelect || currentVisited === 'all') return null;
+      return visitedSelect.options[visitedSelect.selectedIndex].textContent.trim().toLowerCase();
+    }
+
+    // "2025-09-13" → "September 2025". Kept off Date parsing (a bare
+    // YYYY-MM-DD is UTC, which slides a day back in western timezones).
+    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+    function prettyDate(iso) {
+      var m = /^(\d{4})-(\d{2})/.exec(iso || '');
+      return m ? MONTHS[+m[2] - 1] + ' ' + m[1] : null;
+    }
+
     function guideTitle() {
       var t = typeLabel();
       var d = destLabel();
@@ -455,6 +517,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       var facts = [];
       if (+d.rating > 0) facts.push('Coop’s rating: ' + d.rating + '/7');
       if (+d.visits > 0) facts.push(d.visits + (+d.visits === 1 ? ' visit' : ' visits'));
+      var last = prettyDate(d.date);
+      if (last) facts.push('last visit ' + last);
       if (facts.length) lines.push('   ' + facts.join(' · '));
       if (d.desc) lines.push('   ' + d.desc);
       if (d.lat) lines.push('   Coordinates: ' + (+d.lat).toFixed(5) + ', ' + (+d.lng).toFixed(5));
@@ -465,12 +529,13 @@ Default.css is deliberately not shipped).{%- endcomment -%}
 
     function buildPrompt(title, list) {
       var d = destLabel();
+      var v = visitedLabel();
       return [
         title,
         '',
         'A hand-picked list from Cooper Smith’s site — live version: ' + location.href,
         '',
-        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal.',
+        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + (v ? ', each one he’s visited in the ' + v : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal, and the last-visit date tells you how current the recommendation is.',
         ''
       ].join('\n') + '\n' + list.map(promptEntry).join('\n\n') + '\n';
     }
@@ -486,6 +551,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
         if (d.typename) bits.push(d.typename + (d.where ? ' · ' + d.where : ''));
         if (+d.rating > 0) bits.push('Coop’s rating: ' + d.rating + '/7');
         if (+d.visits > 0) bits.push(d.visits + (+d.visits === 1 ? ' visit' : ' visits'));
+        var last = prettyDate(d.date);
+        if (last) bits.push('Last visit: ' + last);
         if (d.desc) bits.push(d.desc);
         bits.push(location.origin + d.url);
         return '    <Placemark>\n' +
@@ -561,17 +628,35 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     }
 
     function applyVisibility(focusSlug) {
+      var cutoff = visitedCutoff();
+      var shown = 0;
       rows.forEach(function (row) {
         var hide = !matchesDest(row);
         if (!hide && currentType !== 'all' && row.dataset.type !== currentType) hide = true;
+        if (!hide && !withinScope(row, cutoff)) hide = true;
         row.classList.toggle('is-hidden', hide);
+        if (!hide) shown++;
       });
       // Trips follow the destination filter — their data-path is built from
       // the same tree — but drop out under a Type, which scopes the view to
-      // one kind of place. A trip isn't a kind of place.
+      // one kind of place, and a trip isn't a kind of place. They *do* honour
+      // the visit window: a trip carries its own end date as data-date, so
+      // "past 2 years" hiding a 2017 venue while leaving a 2017 trip pinned
+      // beside it would be the map contradicting itself.
       tripRows.forEach(function (row) {
-        row.classList.toggle('is-hidden', currentType !== 'all' || !matchesDest(row));
+        row.classList.toggle('is-hidden',
+          currentType !== 'all' || !matchesDest(row) || !withinScope(row, cutoff));
       });
+
+      {%- comment -%}Counted on venues alone: the message is about the list,
+      and the list is places.{%- endcomment -%}
+      if (emptyNote) {
+        emptyNote.hidden = shown > 0;
+        var v = visitedLabel();
+        emptyNote.textContent = v
+          ? 'Nothing here I’ve been to in the ' + v + ' — try a wider visit window.'
+          : 'Nothing matches these filters.';
+      }
       syncMarkers(focusSlug);
     }
 
@@ -620,12 +705,19 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       applyVisibility();
       updateUrl();
     });
+    if (visitedSelect) visitedSelect.addEventListener('change', function () {
+      currentVisited = visitedSelect.value;
+      renderCounts();
+      applyVisibility();
+      updateUrl();
+    });
     if (sortSelect) sortSelect.addEventListener('change', updateUrl);
 
     // ---- Initial state: URL params take precedence, then saved view ----
     var params = new URLSearchParams(location.search);
     var urlDest = params.get('dest');
     var urlType = params.get('type');
+    var urlVisited = params.get('visited');
     var urlView = params.get('view');
     var urlSort = params.get('sort');
     var urlFocus = params.get('focus');
@@ -643,6 +735,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
         });
     }
     if (urlType && TYPES[urlType] && typeSelect) { typeSelect.value = urlType; currentType = urlType; }
+    if (urlVisited && VISITED[urlVisited] && visitedSelect) { visitedSelect.value = urlVisited; currentVisited = urlVisited; }
 
     // Set the sort value before sortable.js runs its load-time sort.
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
