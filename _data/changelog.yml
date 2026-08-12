@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 84
+  date: '2026-08-12'
+  title: "Places filter grows into a country → city → neighborhood tree"
+  category: feature
+  summary: >-
+    The old destination filter was a flat wall of city chips that couldn't fit
+    neighborhoods and only got worse as more places were added. It's now a
+    drill-down tree you can multi-select at any level, with live counts and
+    shareable links, so browsing your places by location actually scales.
+  url: https://github.com/coopersmith/cooper-site/pull/84
+
 - number: 82
   date: '2026-08-12'
   title: "Fix incorrect \"remote for Asana\" claim on home page"
