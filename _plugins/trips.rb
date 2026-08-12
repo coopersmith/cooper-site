@@ -78,11 +78,13 @@ class TripsGenerator < Jekyll::Generator
     @model = PlacesGenerator.model
     @coords = coord_table(site)
     @unpinned = {}
+    @undated = []
 
     venues = docs.select { |d| d.data["place_kind"] == "venue" }
     trips.each { |doc| resolve(doc, venues) }
 
     warn_unpinned
+    warn_undated
   end
 
   private
@@ -124,10 +126,13 @@ class TripsGenerator < Jekyll::Generator
     doc.data["trip_dest_where"] = to_prose(linkable.map { |d| d["names"].last })
 
     here = venues_at(venues, dests)
-    on_trip = during(here, doc)
-    doc.data["trip_venues"] = by_rating(on_trip.empty? ? here : on_trip)
-    doc.data["trip_venues_dated"] = !on_trip.empty?
+    doc.data["trip_venues"] = by_rating(during(here, doc))
+    # Everything I have at the destination, trip or not — not a list the entry
+    # renders, just the size of the "and here's the rest" pointer under it.
     doc.data["trip_venues_total"] = here.size
+    # A dateless trip can never list a place, so say so once rather than let
+    # the section silently not render.
+    @undated << doc.data["title"].to_s if to_date(doc.data["start"]).nil?
 
     lat, lng = pin(doc, here, dests)
     doc.data["trip_lat"] = lat
@@ -158,13 +163,20 @@ class TripsGenerator < Jekyll::Generator
     venues.select { |v| (Array(v.data["place_path"]) & slugs).any? }
   end
 
-  # Narrow to the places whose visit history overlaps the trip's dates. The
-  # vault records a venue's first and last visit, not every one, so this is an
-  # overlap test rather than an exact match: a place visited across several
-  # trips shows up on each of them, which is the right answer for a "where did
-  # I go" list. A venue with no visit dates can't be placed in time and drops
-  # out — resolve() falls back to the whole destination when *nothing* is
-  # datable, which is the case for older trips.
+  # Narrow to the places I actually went to on this trip: the ones with a
+  # recorded visit inside the trip's dates.
+  #
+  # The vault records a venue's first and last visit, not every one, so the
+  # test is that one of those two endpoints falls in the window — not that the
+  # first..last span merely overlaps it. The looser overlap test quietly swept
+  # in places I've never been to on the trip in question: a venue first visited
+  # in 2019 and last in 2024 straddles every trip in between, and would have
+  # been listed under all of them on no evidence at all. An endpoint inside the
+  # window *is* evidence. The cost is a venue whose only visit on this trip was
+  # a middle one, which the vault doesn't record and so can't be claimed.
+  #
+  # A venue with no visit dates, or a trip with no `start`, can't be placed in
+  # time and drops out — the entry then shows no list rather than a wrong one.
   def during(venues, doc)
     from = to_date(doc.data["start"])
     to = to_date(doc.data["end"]) || from
@@ -172,7 +184,7 @@ class TripsGenerator < Jekyll::Generator
     venues.select do |v|
       last = to_date(v.data["last_visit"])
       first = to_date(v.data["first_visit"]) || last
-      first && last && first <= to && last >= from
+      [first, last].compact.any? { |d| d >= from && d <= to }
     end
   end
 
@@ -200,6 +212,12 @@ class TripsGenerator < Jekyll::Generator
     label = doc.data["trip_where"]
     @unpinned[label] = true unless label.to_s.strip.empty?
     [nil, nil]
+  end
+
+  def warn_undated
+    return if @undated.empty?
+    Jekyll.logger.warn "Trips:", "no `start` date on #{@undated.sort.join(', ')} — " \
+      "those entries can't list the places they went to; add `start`/`end` in the vault"
   end
 
   def warn_unpinned
