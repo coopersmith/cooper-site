@@ -1,10 +1,11 @@
 // Shared Leaflet runtime for the Places maps: the full map view on /places/
-// and the mini-map on destination notes (place layout). Both render pins
+// and the mini-map on destination and trip notes. All of them render pins
 // from table rows — the row *is* the data: coordinates, popup facts, and
 // (on /places/) filter visibility all come off its data attributes.
 //
 //   PlacesMap.create(container, rows, opts) -> handle
 //     opts.locate    add a "places near me" geolocation control
+//     opts.trips     rows for trip pins (see "Trips" below)
 //     handle.map     the Leaflet map
 //     handle.sync(focusSlug)
 //       re-syncs markers with row visibility (.is-hidden), fits the view,
@@ -14,8 +15,24 @@
 // Tiles are CARTO's Positron / Dark Matter following prefers-color-scheme;
 // overlapping pins cluster into count badges (falling back to plain markers
 // if Leaflet.markercluster didn't load).
+//
+// == Trips
+//
+// A trip (a /travels/ writeup) is a coarser thing than a place: one pin for a
+// whole visit, sitting on top of however many places it produced. So trip pins
+// share the places' cluster — zoomed out, a city is one badge covering both,
+// which is the honest reading of "20 things here" — but they leave it sooner.
+// Below TRIP_BREAKOUT_ZOOM a trip clusters with everything else; at or above
+// it, trip markers move onto the map in their own right while the places
+// underneath stay rolled up until their own clustering distance breaks them
+// apart. The effect is that panning out to a country shows you the trips, and
+// zooming in past them dissolves into the individual recommendations.
 (function () {
   if (typeof L === 'undefined') return;
+
+  // Country/region zoom: far enough out that individual places are still
+  // usefully clustered, close enough in that a trip is worth naming.
+  var TRIP_BREAKOUT_ZOOM = 5;
 
   var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -75,6 +92,40 @@
     }).join(', ');
   }
 
+  // Trip pin: a hollow diamond head on a needle (drawn in _places.scss),
+  // against the places' flat dots. The tall anchor is deliberate — a trip
+  // usually sits at the centroid of its own places, which is exactly where
+  // their cluster badge is, so the head is lifted clear of a 30px badge while
+  // the needle keeps the tip honest about the coordinate. A divIcon rather
+  // than a circleMarker so the shape is CSS, which also re-skins it on a theme
+  // flip for free.
+  function tripIcon() {
+    return L.divIcon({
+      html: '<span></span>',
+      className: 'places-trip-pin',
+      iconSize: L.point(26, 42),
+      iconAnchor: L.point(13, 42),
+      popupAnchor: L.point(0, -40)
+    });
+  }
+
+  function tripPopupHtml(row) {
+    var d = row.dataset;
+    var name = row.querySelector('.index-title a');
+    var html = '<span class="pp-kind">Trip</span>' +
+      '<a class="pp-name internal-link" href="' + esc(d.url) + '">' + esc(name ? name.textContent : '') + '</a>';
+    var sub = [];
+    if (d.dates) sub.push(esc(d.dates));
+    // A trip is usually named for where it went ("New Orleans 2019"), so only
+    // spell the destination out when the title doesn't already.
+    var label = name ? name.textContent.toLowerCase() : '';
+    if (d.where && label.indexOf(d.where.toLowerCase()) === -1) sub.push(esc(d.where));
+    if (sub.length) html += '<span class="pp-sub">' + sub.join(' · ') + '</span>';
+    var n = parseInt(d.places, 10) || 0;
+    if (n) html += '<span class="pp-facts">' + n + (n === 1 ? ' place' : ' places') + ' of mine here</span>';
+    return '<div class="places-popup places-popup-trip">' + html + '</div>';
+  }
+
   function popupHtml(row, opts) {
     var d = row.dataset;
     var name = row.querySelector('.index-title a');
@@ -127,13 +178,50 @@
       map.addLayer(pins);
     }
 
-    var style = markerStyle();
-    rows.forEach(function (row) {
+    function latLng(row) {
       var lat = parseFloat(row.dataset.lat);
       var lng = parseFloat(row.dataset.lng);
-      if (isNaN(lat) || isNaN(lng)) return;
-      row._marker = L.circleMarker([lat, lng], style).bindPopup(popupHtml(row, opts));
+      return (isNaN(lat) || isNaN(lng)) ? null : [lat, lng];
+    }
+
+    var style = markerStyle();
+    rows.forEach(function (row) {
+      var at = latLng(row);
+      if (!at) return;
+      row._marker = L.circleMarker(at, style).bindPopup(popupHtml(row, opts));
     });
+
+    var trips = opts.trips ? Array.prototype.slice.call(opts.trips) : [];
+    trips.forEach(function (row) {
+      var at = latLng(row);
+      if (!at) return;
+      // Above the places, so a trip pin is never buried under the dots of the
+      // recommendations it produced.
+      row._marker = L.marker(at, { icon: tripIcon(), zIndexOffset: 1000 })
+        .bindPopup(tripPopupHtml(row));
+    });
+
+    // A trip rides in the cluster only while zoomed out past the breakout —
+    // see "Trips" at the top. With no markercluster plugin there's nothing to
+    // break out of and every pin is already standalone.
+    function tripHost() {
+      return (pins === map || map.getZoom() >= TRIP_BREAKOUT_ZOOM) ? map : pins;
+    }
+
+    function placeTrips() {
+      var host = tripHost();
+      var other = host === map ? pins : map;
+      trips.forEach(function (row) {
+        var m = row._marker;
+        if (!m) return;
+        if (other !== host && other.hasLayer(m)) other.removeLayer(m);
+        var visible = !row.classList.contains('is-hidden');
+        if (visible && !host.hasLayer(m)) host.addLayer(m);
+        else if (!visible && host.hasLayer(m)) host.removeLayer(m);
+      });
+    }
+
+    if (trips.length) map.on('zoomend', placeTrips);
 
     var you = null;
 
@@ -196,7 +284,8 @@
     map.setView([20, 0], 2); // placeholder; sync() fits to the pins
 
     function sync(focusSlug) {
-      var shown = [];
+      var bounds = [];
+      var shown = 0;
       var unpinned = 0;
       rows.forEach(function (row) {
         var visible = !row.classList.contains('is-hidden');
@@ -206,10 +295,19 @@
         }
         if (visible) {
           pins.addLayer(row._marker);
-          shown.push(row._marker.getLatLng());
+          bounds.push(row._marker.getLatLng());
+          shown++;
         } else {
           pins.removeLayer(row._marker);
         }
+      });
+
+      // Trips join the fit, so filtering to a destination I've written up but
+      // have no places in yet still frames something. They stay out of the
+      // shown/unpinned counts, which are the caller's messaging about places.
+      placeTrips();
+      trips.forEach(function (row) {
+        if (row._marker && !row.classList.contains('is-hidden')) bounds.push(row._marker.getLatLng());
       });
 
       var focused = null;
@@ -231,10 +329,10 @@
           map.setView(focused.getLatLng(), 16);
           focused.openPopup();
         }
-      } else if (shown.length) {
-        map.fitBounds(L.latLngBounds(shown), { padding: [40, 40], maxZoom: 15 });
+      } else if (bounds.length) {
+        map.fitBounds(L.latLngBounds(bounds), { padding: [40, 40], maxZoom: 15 });
       }
-      return { shown: shown.length, unpinned: unpinned };
+      return { shown: shown, unpinned: unpinned };
     }
 
     return { map: map, sync: sync };

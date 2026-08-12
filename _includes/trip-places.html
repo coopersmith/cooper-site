@@ -1,0 +1,88 @@
+{%- comment -%}
+The places a trip produced, appended to the writeup. Rendered from
+_layouts/note.html for any note _plugins/trips.rb identified as a trip; a trip
+with no places of mine at its destinations renders nothing at all.
+
+Two lists wear the same clothes here, and the heading says which one you're
+looking at:
+
+  * trip_venues_dated — the places whose visit history overlaps the trip's
+    dates. This is the real answer to "what did I do on this trip".
+  * otherwise — everything I have at the destination. Trips predating the
+    check-in history have no datable places, and a writeup about New Orleans
+    is still better off ending with my New Orleans list than with nothing.
+
+Ordering is by rating (best first), settled in the plugin so the markup can't
+drift from it. Rows carry the full place-row-attrs set because the mini-map
+below reads its pins straight off them — same arrangement as a destination
+note in _layouts/place.html.
+{%- endcomment -%}
+{%- assign trip_venues = page.trip_venues -%}
+{%- if trip_venues.size > 0 -%}
+{%- assign trip_pinned = trip_venues | where_exp: "v", "v.place_lat" -%}
+
+<section class="trip-places">
+  <h2 class="trip-places-title">
+    {%- if page.trip_venues_dated -%}
+      Places I went on this trip
+    {%- elsif page.trip_where -%}
+      My places in {{ page.trip_where }}
+    {%- else -%}
+      My places here
+    {%- endif -%}
+  </h2>
+  <p class="trip-places-sub muted">
+    {%- if page.trip_venues_dated -%}
+      Best first. {% if page.trip_venues_total > trip_venues.size %}{{ page.trip_venues_total }} places of mine are in {{ page.trip_where }} altogether — these are the ones the dates put on this trip.{% else %}Everything I&rsquo;d recommend from it.{% endif %}
+    {%- else -%}
+      Best first — my full list for {{ page.trip_where | default: 'this destination' }}, not only what I got to on this trip.
+    {%- endif -%}
+  </p>
+
+  <table class="index-table places-mini">
+    <thead>
+      <tr>
+        <th class="index-title">Name</th>
+        <th class="index-meta">Type</th>
+        <th class="index-date" title="Out of 7">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for v in trip_venues -%}
+      <tr {% include place-row-attrs.html v=v %}>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}">{{ v.title | titlecase }}</a></td>
+        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
+      </tr>
+    {%- endfor -%}
+    </tbody>
+  </table>
+
+  {%- if trip_pinned.size > 0 -%}
+  <div id="place-map" aria-label="Map of the places on this trip"></div>
+  {%- endif -%}
+
+  {%- comment -%}trip_dest names only the destinations the filter has a chip
+  for, and trip_dest_where names exactly those — so the link never promises a
+  view of somewhere it can't show.{%- endcomment -%}
+  {%- if page.trip_dest and page.trip_dest != '' -%}
+  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ page.trip_dest }}">Filter &amp; map all my places in {{ page.trip_dest_where }} &rarr;</a></p>
+  {%- endif -%}
+</section>
+
+{%- if trip_pinned.size > 0 -%}
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/MarkerCluster.css" />
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.js"></script>
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.markercluster.js"></script>
+<script src="{{ site.baseurl }}/assets/js/places-map.js"></script>
+<script>
+  (function () {
+    var el = document.getElementById('place-map');
+    if (!el || !window.PlacesMap) return;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.places-mini tbody tr'));
+    PlacesMap.create(el, rows, {}).sync();
+  })();
+</script>
+{%- endif -%}
+{%- endif -%}

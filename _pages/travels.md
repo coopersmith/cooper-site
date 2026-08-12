@@ -9,6 +9,14 @@ permalink: /travels/
 
 {% assign travel_notes = site.notes | where_exp: "item", "item.tags contains '#travel'" | sort: "year" | reverse %}
 
+{%- comment -%}The other half of this list lives on the Places map, where each
+trip is a pin alongside the recommendations it produced (see _plugins/trips.rb).
+Only worth pointing at once something is actually pinned.{%- endcomment -%}
+{% assign pinned_trips = travel_notes | where_exp: "t", "t.trip_lat" %}
+{% if pinned_trips.size > 0 %}
+<p class="travels-map-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?view=map">See these on the map, with my places from each &rarr;</a></p>
+{% endif %}
+
 <div class="index-toolbar">
   <span class="sort-control">
     <label for="travels-sort">Sort</label>

@@ -1,0 +1,25 @@
+{%- comment -%}
+Data attributes for a trip row — a /travels/ writeup as map data, the trip
+counterpart to place-row-attrs.html. Pass the trip note as `t`:
+<tr {% include trip-row-attrs.html t=trip %}>. Rows must also contain an
+`.index-title a` (the popup's name link).
+
+`data-path` is the union of the trip's destinations as tree slugs, so the
+/places/ destination filter matches a trip exactly as it matches a venue —
+one `indexOf`, whether the visitor picked a country, a city or a neighborhood.
+A destination with no places of my own has no chip to be picked, but its
+country tier does, so the trip still filters with its part of the world.
+
+Same authoring rule as place-row-attrs.html: every attribute on its own line,
+no Liquid tag between them (a whitespace-stripping one eats the separating
+newline and glues two attributes together, which kramdown then escapes into
+visible text).
+{%- endcomment -%}
+data-path="{{ include.t.trip_path | join: ' ' }}"
+data-slug="{{ include.t.title | slugify }}"
+data-lat="{{ include.t.trip_lat }}"
+data-lng="{{ include.t.trip_lng }}"
+data-where="{{ include.t.trip_where | escape }}"
+data-dates="{% if include.t.start and include.t.end %}{{ include.t.start | date: '%b %-d' }} – {{ include.t.end | date: '%b %-d, %Y' }}{% elsif include.t.start %}{{ include.t.start | date: '%B %Y' }}{% else %}{{ include.t.year }}{% endif %}"
+data-places="{{ include.t.trip_venues_total | default: 0 }}"
+data-url="{{ site.baseurl }}{{ include.t.url }}"
