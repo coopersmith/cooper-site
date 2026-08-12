@@ -142,13 +142,18 @@ module ReadwiseHighlightsPage
           "url" => link,
           "_tags" => tag_names(h),
           "_sort" => h["highlighted_at"].to_s,
+          # When a highlight is corrected by hand, this is the only trace the
+          # API gives (Readwise's own UI doesn't surface it). Bulk syncs bump it
+          # too, so it's a hint, not proof — see `dedupe`. Field name differs
+          # between Readwise endpoints, so accept either.
+          "_updated" => (h["updated"] || h["updated_at"]).to_s,
         }
       end
     end
 
     rows = rows.sort_by { |r| r["_sort"] }.reverse
     rows = dedupe(rows)
-    rows.each { |r| r.delete("_sort") }
+    rows.each { |r| r.delete("_sort"); r.delete("_updated") }
     rows
   end
 
@@ -184,19 +189,44 @@ module ReadwiseHighlightsPage
 
   # Pass 1: collapse textually identical highlights, wherever they sit. Rows
   # arrive newest-first, so the first copy seen wins.
+  #
+  # One wrinkle: a highlight corrected by hand. If the correction is small
+  # enough that the copies still key alike — a stray character, a missing
+  # closing quote, spacing — the copies reach here with *different* wording,
+  # and picking by position could keep the uncorrected one. So the winner keeps
+  # its place in the stream but adopts the wording of whichever copy was edited
+  # last. (A correction that changes actual words makes the copies stop
+  # matching altogether; see the note in `dedupe`.)
   def self.exact_dedupe(rows)
     kept = {}
 
     rows.each do |row|
       key = exact_key(row["text"])
-      if (winner = kept[key])
-        winner["_tags"] = (winner["_tags"] + row["_tags"]).uniq
-      else
+      winner = kept[key]
+
+      if winner.nil?
         kept[key] = row
+        next
       end
+
+      winner["_tags"] = (winner["_tags"] + row["_tags"]).uniq
+      next unless winner["text"] != row["text"] && edited_later?(row, winner)
+
+      winner["text"] = row["text"]
+      winner["_updated"] = row["_updated"] # so a third copy compares against the wording we now hold
     end
 
     kept.values # Hash preserves insertion order, so this is still newest-first
+  end
+
+  # True when `row` carries a later edit timestamp than `other`. Both must have
+  # one; an unknown timestamp never wins.
+  def self.edited_later?(row, other)
+    a = parse_time(row["_updated"])
+    b = parse_time(other["_updated"])
+    return false unless a && b
+
+    a > b
   end
 
   # Normalized comparison key: whitespace, case and enclosing punctuation are
@@ -241,7 +271,8 @@ module ReadwiseHighlightsPage
       # few milliseconds into ten seconds of build time on a full library.
       entries = group.map do |row|
         key = exact_key(row["text"])
-        { row: row, key: key, length: key.length, time: parse_time(row["_sort"]), dropped: false }
+        { row: row, key: key, length: key.length, time: parse_time(row["_sort"]),
+          updated: parse_time(row["_updated"]), dropped: false }
       end
 
       entries.each_with_index do |entry, i|
@@ -249,15 +280,33 @@ module ReadwiseHighlightsPage
           break if entry[:dropped] # absorbed by an earlier row; nothing left to compare
           next if other[:dropped] || !near_duplicate?(entry, other)
 
-          shorter, longer = [entry, other].sort_by { |e| e[:length] }
-          longer[:row]["_tags"] = (longer[:row]["_tags"] + shorter[:row]["_tags"]).uniq
-          shorter[:dropped] = true
-          dropped[shorter[:row].object_id] = true
+          survivor, absorbed = rank(entry, other)
+          survivor[:row]["_tags"] = (survivor[:row]["_tags"] + absorbed[:row]["_tags"]).uniq
+          absorbed[:dropped] = true
+          dropped[absorbed[:row].object_id] = true
         end
       end
     end
 
     rows.reject { |r| dropped[r.object_id] } # reject over the original keeps newest-first order
+  end
+
+  # A copy has to be edited this much later than its twin before the edit is
+  # read as a deliberate correction rather than a sync touching one of them.
+  # Bulk syncs rewrite hundreds of highlights in the same second, so anything
+  # inside a day is noise.
+  EDIT_GRACE = 86_400 # seconds
+
+  # Which of two overlapping entries to keep. Normally the longer one — it's
+  # the fuller passage, and the shorter is wholly inside it. The exception is a
+  # highlight trimmed by hand: if the shorter copy was edited a day or more
+  # after the longer, that shortening was the point, so it wins instead.
+  def self.rank(a, b)
+    shorter, longer = [a, b].sort_by { |e| e[:length] }
+    trimmed = shorter[:updated] && longer[:updated] &&
+              (shorter[:updated] - longer[:updated]) > EDIT_GRACE
+
+    trimmed ? [shorter, longer] : [longer, shorter]
   end
 
   # True when one entry's text sits inside the other's and the two were
