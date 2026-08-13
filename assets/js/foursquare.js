@@ -172,6 +172,12 @@ function applyIntroLocation(result) {
     leadNeutral.classList.add('loc-alt');
     leadActive.classList.remove('loc-alt');
   }
+
+  // "…and work remotely for Asana" only earns its place when I'm actually in
+  // Rhode Island; read from Brooklyn it claims I'm remote from the office I'm
+  // sitting in. Hidden by default, so travel and the neutral state drop it too.
+  const remote = document.getElementById('intro-ri-remote');
+  if (remote) remote.classList.toggle('loc-alt', bucket !== 'ri');
 }
 
 // Reflect my most recent check-in in the intro.

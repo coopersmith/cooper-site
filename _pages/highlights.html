@@ -31,6 +31,7 @@ let allUrl = '/assets/highlights/all/page-1.json';
 let currentSlug = null; // null = "All"
 let nextPageUrl = null;
 let isLoading = false;
+let streamId = 0;       // bumped by startStream(); in-flight pages from an older stream are dropped
 
 // --- Markdown (safe subset) ------------------------------------------------
 // Readwise highlight text arrives as Markdown. Escape everything first, then
@@ -130,6 +131,10 @@ function selectTag(slug) {
 
 // --- Streaming (load + infinite scroll) ------------------------------------
 function startStream() {
+  // Invalidate any page still in flight for the previous filter: it would
+  // otherwise append into the freshly cleared container (and clobber
+  // nextPageUrl), mixing two streams together.
+  streamId += 1;
   container.innerHTML = '';
   nextPageUrl = firstPageUrlFor(currentSlug);
   isLoading = false;
@@ -140,6 +145,7 @@ function startStream() {
 async function loadNext() {
   if (isLoading || !nextPageUrl) return;
   const url = nextPageUrl;
+  const stream = streamId;
   isLoading = true;
   setStatus('Loading…');
 
@@ -147,15 +153,19 @@ async function loadNext() {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+    if (stream !== streamId) return; // filter changed mid-fetch — this page is stale
     nextPageUrl = data.nextPageUrl || null;
     (data.highlights || []).forEach(appendHighlight);
     setStatus(container.children.length === 0 ? 'No highlights found.' : '');
   } catch (err) {
+    if (stream !== streamId) return;
     console.error('Failed to load highlights:', err);
     nextPageUrl = null;
     if (container.children.length === 0) setStatus('Failed to load highlights.');
   } finally {
-    isLoading = false;
+    // Only the current stream owns the flag — a stale page must not release
+    // the lock the new stream is already holding.
+    if (stream === streamId) isLoading = false;
   }
 
   // Keep filling while the sentinel is still within reach (short pages / tall

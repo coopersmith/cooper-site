@@ -3,10 +3,13 @@ layout: default
 ---
 
 {%- assign heading = page.title | titlecase -%}
-{%- comment -%}The dest param matches a row's city OR neighborhood slug on
-/places/, so a neighborhood-level destination (Cobble Hill) deep-links to its
-venues just like a city does.{%- endcomment -%}
-{%- assign dest_slug = page.place_city | default: page.title | slugify -%}
+{%- comment -%}The dest param names a node of the /places/ destination tree —
+country, city or neighborhood — so a neighborhood-level destination (Cobble
+Hill) deep-links to its venues just like a city does. Venue notes use the
+plugin's resolved slugs; a destination note has no place_path of its own, so it
+falls back to slugifying its title (which is how the tree named it too).
+{%- endcomment -%}
+{%- assign dest_slug = page.place_city_slug | default: page.place_country | default: page.place_city | default: page.title | slugify -%}
 
 {%- if page.place_kind == 'destination' -%}
 {%- comment -%}The destination's venues (matched by the places.rb plugin —
@@ -77,9 +80,12 @@ index table under the prose.{%- endcomment -%}
     <span class="tag place-note-type">{{ page.place_type | default: 'Place' }}</span>
     <h1>{{ heading }}</h1>
     <dl class="place-facts">
-      {%- if page.place_city -%}
+      {%- comment -%}A venue filed straight under a country (no city in its
+      `loc`) still has somewhere to point — its country node.{%- endcomment -%}
+      {%- assign where_name = page.place_city | default: page.place_country -%}
+      {%- if where_name -%}
       <dt>Where</dt>
-      <dd>{% if page.place_area %}{{ page.place_area }}, {% endif %}<a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">{{ page.place_city }}</a></dd>
+      <dd>{% if page.place_area %}{{ page.place_area }}, {% endif %}<a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">{{ where_name }}</a></dd>
       {%- endif -%}
       {%- if page.rating -%}
       <dt>Rating</dt>

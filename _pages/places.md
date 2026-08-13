@@ -14,33 +14,39 @@ pages, not rows. place_* fields are distilled from the vault frontmatter by
 _plugins/places.rb. The destination and type filters below are built from the
 data, so they grow on their own as more places sync from Obsidian.{%- endcomment -%}
 {% assign venues = site.notes | where: "place_kind", "venue" | sort: "title" %}
+{% assign tree = site.data.places_tree %}
 
-{% assign cities = "" | split: "" %}
 {% assign types = "" | split: "" %}
 {% for v in venues %}
-  {% if v.place_city and v.place_city != '' %}{% unless cities contains v.place_city %}{% assign cities = cities | push: v.place_city %}{% endunless %}{% endif %}
   {% if v.place_type and v.place_type != '' %}{% unless types contains v.place_type %}{% assign types = types | push: v.place_type %}{% endunless %}{% endif %}
 {% endfor %}
-{% assign cities = cities | sort %}
 {% assign types = types | sort %}
 
+{%- comment -%}Destination filter: a drill-down over the country → city →
+neighborhood tree, one row per tier. A flat chip per city didn't scale — the
+number of chips grew with the number of places (47 venues had produced 26 city
+chips, 17 of them filtering to a single venue), and neighborhoods had no chip
+at all. The country row, by contrast, is bounded by how much of the world
+you've been to, and the rows below it only appear for branches you've opened.
+
+Every tier is multi-select and they compose: Italy, or Florence + Milan, or
+Florence + Tokyo. Selecting a child of a selected parent narrows (Italy →
+Florence) rather than un-checking it, which is the gesture people actually
+want from a drill-down; the parent then renders "mixed". All three rows are
+baked into the DOM and shown/hidden by the script, so there's nothing to
+construct at runtime.{%- endcomment -%}
 <div class="media-toolbar places-toolbar">
-  <div class="media-filters" role="group" aria-label="Filter by destination">
-    <button type="button" class="tag is-active" data-dest="all">Everywhere</button>
-    {% for c in cities %}
-    <button type="button" class="tag" data-dest="{{ c | slugify }}">{{ c }}</button>
-    {% endfor %}
-    {%- comment -%}Chips list cities; a neighborhood filter (from a ?dest=
-    deep link or a "Where" jump) has no chip of its own, so it borrows this
-    one — labelled at runtime, and clicking it clears back to Everywhere. It
-    deliberately carries no data-dest so the chip wiring skips it.{%- endcomment -%}
-    <button type="button" class="tag places-dest-adhoc" id="places-dest-adhoc" title="Clear this filter" hidden></button>
-    <select class="sort-select media-filter-select" aria-label="Filter by destination">
-      <option value="all">Everywhere</option>
-      {% for c in cities %}
-      <option value="{{ c | slugify }}">{{ c }}</option>
-      {% endfor %}
-    </select>
+  <div class="places-dest" role="group" aria-label="Filter by destination">
+    <div class="places-tier" data-tier="1">
+      <button type="button" class="tag places-clear is-active" id="places-clear" aria-pressed="true">Everywhere</button>
+      {% for c in tree %}{% include place-chip.html n=c %}{% endfor %}
+    </div>
+    <div class="places-tier" data-tier="2" hidden>
+      {% for c in tree %}{% for city in c.children %}{% include place-chip.html n=city %}{% endfor %}{% endfor %}
+    </div>
+    <div class="places-tier" data-tier="3" hidden>
+      {% for c in tree %}{% for city in c.children %}{% for a in city.children %}{% include place-chip.html n=a %}{% endfor %}{% endfor %}{% endfor %}
+    </div>
   </div>
   <div class="media-toolbar-controls">
     <span class="sort-control">
@@ -50,6 +56,20 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
         {% for t in types %}
         <option value="{{ t | slugify }}">{{ t }}</option>
         {% endfor %}
+      </select>
+    </span>
+    {%- comment -%}Recency scope: some recommendations are a decade stale, so
+    this narrows the list to places I've actually been lately. Values are a
+    number of years back (or "all"); the cutoff is computed at runtime, not
+    baked, so a scoped view never goes stale itself.{%- endcomment -%}
+    <span class="sort-control">
+      <label for="places-visited">Visited</label>
+      <select id="places-visited" class="sort-select">
+        <option value="all">Any time</option>
+        <option value="1">Past year</option>
+        <option value="2">Past 2 years</option>
+        <option value="5">Past 5 years</option>
+        <option value="10">Past 10 years</option>
       </select>
     </span>
     <span class="sort-control">
@@ -83,20 +103,29 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
     <tbody>
     {% for v in venues %}
       {% assign disp = v.title | titlecase %}
-      {% assign where = v.place_area | default: v.place_city %}
+      {% assign where = v.place_area | default: v.place_city | default: v.place_country %}
+      {%- comment -%}The jump targets the most specific node the venue has, so
+      a country-only venue still lands somewhere real.{%- endcomment -%}
+      {% assign root_slug = v.place_path | first %}
+      {% assign where_slug = v.place_area_slug | default: v.place_city_slug | default: root_slug %}
       <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}" title="{{ disp | escape }}">{{ disp }}</a></td>
         <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
         {%- comment -%}The where name is a jump control: it filters to that
         destination and swings the map to it (see jumpToDest). Falls back to
         plain text with no JS.{%- endcomment -%}
-        <td class="index-meta muted" title="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | escape }}"><button type="button" class="place-jump" data-dest-jump="{{ where | slugify }}" aria-label="Show {{ where | escape }} on the map">{{ where }}</button></td>
-        <td class="index-date muted places-visits">{% if v.visit_count %}{{ v.visit_count }}{% endif %}</td>
+        <td class="index-meta muted" title="{% if v.place_area %}{{ v.place_area | escape }}, {% endif %}{{ v.place_city | default: v.place_country | escape }}"><button type="button" class="place-jump" data-dest-jump="{{ where_slug }}" aria-label="Show {{ where | escape }} on the map">{{ where }}</button></td>
+        <td class="index-date muted places-visits"{% if v.last_visit %} title="Last visit {{ v.last_visit | date: '%B %Y' }}"{% endif %}>{% if v.visit_count %}{{ v.visit_count }}{% endif %}</td>
         <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
+
+  {%- comment -%}Filters could always come up empty, but the recency scope
+  makes it likely (a city you last saw in 2016, scoped to the past year), so
+  say so rather than showing a bare empty table.{%- endcomment -%}
+  <p class="places-empty muted" hidden></p>
 
   <div class="places-map-outer">
     <div id="places-map" aria-label="Map of recommended places"></div>
@@ -141,27 +170,94 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     if (!lib) return;
     var rows = Array.prototype.slice.call(lib.querySelectorAll('.places-list tbody tr'));
     var viewBtns = document.querySelectorAll('.media-view-btn');
-    // [data-dest] excludes the ad-hoc neighborhood chip, which has none.
-    var chips = document.querySelectorAll('.media-filters .tag[data-dest]');
-    var adhocChip = document.getElementById('places-dest-adhoc');
-    var destSelect = document.querySelector('.media-filter-select');
+    var destWrap = document.querySelector('.places-dest');
+    var nodeBtns = Array.prototype.slice.call(destWrap.querySelectorAll('.places-node'));
+    var tierRows = Array.prototype.slice.call(destWrap.querySelectorAll('.places-tier'));
+    var clearBtn = document.getElementById('places-clear');
     var typeSelect = document.getElementById('places-type');
+    var visitedSelect = document.getElementById('places-visited');
     var sortSelect = document.getElementById('places-sort');
     var mapNote = document.querySelector('.places-map-note');
+    var emptyNote = document.querySelector('.places-empty');
 
-    // Valid param values, read off the DOM so they track the baked filters.
-    var DESTS = { all: 1 };
-    chips.forEach(function (c) { DESTS[c.dataset.dest] = 1; });
-    rows.forEach(function (r) { if (r.dataset.area) DESTS[r.dataset.area] = 1; });
+    // ---- The destination tree, read off the chips ----
+    // The markup is the index: each chip knows its slug, tier and parent, so
+    // the script never needs a duplicate copy of site.data.places_tree.
+    var NODES = {};
+    nodeBtns.forEach(function (b) {
+      NODES[b.dataset.node] = {
+        slug: b.dataset.node,
+        name: b.dataset.name,
+        parent: b.dataset.parent || null,
+        el: b,
+        kids: []
+      };
+    });
+    Object.keys(NODES).forEach(function (slug) {
+      var p = NODES[slug].parent;
+      if (p && NODES[p]) NODES[p].kids.push(NODES[slug]);
+    });
+
     var TYPES = { all: 1 };
     if (typeSelect) Array.prototype.forEach.call(typeSelect.options, function (o) { TYPES[o.value] = 1; });
+    var VISITED = { all: 1 };
+    if (visitedSelect) Array.prototype.forEach.call(visitedSelect.options, function (o) { VISITED[o.value] = 1; });
     var VIEWS = { list: 1, map: 1 };
     var SORTS = { rating: 1, visits: 1, date: 1, az: 1 };
 
-    var currentDest = 'all';
+    // Selected destination nodes, in the order they were picked (the export
+    // title reads back in that order). Empty means Everywhere.
+    var selection = [];
     var currentType = 'all';
+    var currentVisited = 'all';
     var currentView = 'list';
     var ready = false;
+
+    // ---- Recency ----
+    // Rows carry data-date = last_visit (YYYY-MM-DD), so the cutoff is just
+    // another YYYY-MM-DD string and the compare stays a lexicographic one —
+    // no Date parsing, no timezone drift. A venue with no recorded visit
+    // can't be shown to be recent, so it drops out of any scoped view.
+    function visitedCutoff() {
+      if (currentVisited === 'all') return null;
+      var years = parseInt(currentVisited, 10);
+      if (!years) return null;
+      var d = new Date();
+      d.setFullYear(d.getFullYear() - years);
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+
+    function withinScope(row, cutoff) {
+      return !cutoff || (row.dataset.date && row.dataset.date >= cutoff);
+    }
+
+    // ---- Destination tree ----
+    function isSelected(slug) { return selection.indexOf(slug) !== -1; }
+
+    function ancestors(slug) {
+      var out = [];
+      var n = NODES[slug];
+      while (n && n.parent) { out.push(n.parent); n = NODES[n.parent]; }
+      return out;
+    }
+
+    function descendants(slug) {
+      var out = [];
+      var stack = NODES[slug] ? NODES[slug].kids.slice() : [];
+      while (stack.length) {
+        var n = stack.pop();
+        out.push(n.slug);
+        stack.push.apply(stack, n.kids);
+      }
+      return out;
+    }
+
+    // on = this whole branch; mixed = the visitor narrowed to some of it.
+    function nodeState(slug) {
+      if (isSelected(slug)) return 'on';
+      return descendants(slug).some(isSelected) ? 'mixed' : 'off';
+    }
 
     // ---- Map ----
     // Built lazily on the first switch to Map view so the list stays as light
@@ -197,12 +293,111 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       }
     }
 
+    // ---- Destination selection ----
+    // Clicking a chip toggles its branch. Two rules make multi-select and
+    // drill-down coexist:
+    //
+    //   * Picking a node inside one you'd already selected *narrows* — "all of
+    //     Italy" becomes "just Florence" — instead of un-checking Florence out
+    //     of Italy, which is never what you meant. Italy then shows as mixed,
+    //     and clicking it again re-selects the whole country.
+    //   * Picking a node that contains selected ones subsumes them, so the
+    //     selection never holds a node and its own descendant.
+    //
+    // Everything else is a plain toggle, so Florence + Milan + Tokyo compose.
+    function toggleNode(slug) {
+      if (!NODES[slug]) return;
+      if (isSelected(slug)) {
+        selection = selection.filter(function (s) { return s !== slug; });
+      } else {
+        var anc = ancestors(slug).filter(isSelected);
+        var desc = descendants(slug);
+        selection = selection.filter(function (s) {
+          return anc.indexOf(s) === -1 && desc.indexOf(s) === -1;
+        });
+        selection.push(slug);
+      }
+      applyDest();
+    }
+
+    function renderChips() {
+      nodeBtns.forEach(function (b) {
+        var state = nodeState(b.dataset.node);
+        b.classList.toggle('is-active', state === 'on');
+        b.classList.toggle('is-mixed', state === 'mixed');
+        b.setAttribute('aria-pressed', state === 'on' ? 'true' : state === 'mixed' ? 'mixed' : 'false');
+        // A tier only opens under a branch that's on or narrowed into.
+        var parent = b.dataset.parent;
+        var parentState = parent ? nodeState(parent) : 'on';
+        b.hidden = parentState === 'off';
+      });
+      tierRows.forEach(function (row) {
+        if (row.dataset.tier === '1') return;
+        row.hidden = !Array.prototype.some.call(
+          row.querySelectorAll('.places-node'), function (b) { return !b.hidden; });
+      });
+      clearBtn.classList.toggle('is-active', selection.length === 0);
+      clearBtn.setAttribute('aria-pressed', String(selection.length === 0));
+      revealSelected();
+    }
+
+    // On a narrow screen each tier is a horizontal rail (see _places.scss), so
+    // the branch you just opened can sit off to the right, out of sight. Nudge
+    // each rail to its first on/mixed chip. Measured off bounding rects rather
+    // than offsetLeft, which is relative to the offset parent and not the rail;
+    // no-ops on desktop, where the rows wrap instead of scrolling.
+    function revealSelected() {
+      tierRows.forEach(function (row) {
+        if (row.hidden || row.scrollWidth <= row.clientWidth) return;
+        var chip = null;
+        Array.prototype.some.call(row.querySelectorAll('.places-node'), function (b) {
+          if (b.hidden || !(b.classList.contains('is-active') || b.classList.contains('is-mixed'))) return false;
+          chip = b;
+          return true;
+        });
+        if (!chip) return;
+        var c = chip.getBoundingClientRect();
+        var r = row.getBoundingClientRect();
+        if (c.left < r.left || c.right > r.right) row.scrollLeft += c.left - r.left - 12;
+      });
+    }
+
+    // Counts are live against the *other* filters (type and visited), so
+    // "Poland 4" drops to "Poland 0" under Hotels — or under a visit window
+    // Poland falls outside of — rather than promising places that aren't
+    // there. A zero branch dims but stays clickable.
+    function renderCounts() {
+      var tally = {};
+      var cutoff = visitedCutoff();
+      rows.forEach(function (row) {
+        if (currentType !== 'all' && row.dataset.type !== currentType) return;
+        if (!withinScope(row, cutoff)) return;
+        (row.dataset.path || '').split(' ').forEach(function (s) {
+          if (s) tally[s] = (tally[s] || 0) + 1;
+        });
+      });
+      nodeBtns.forEach(function (b) {
+        var n = tally[b.dataset.node] || 0;
+        var badge = b.querySelector('.places-node-n');
+        if (badge) badge.textContent = n;
+        b.classList.toggle('is-empty', n === 0);
+      });
+    }
+
+    function applyDest(focusSlug) {
+      renderChips();
+      renderCounts();
+      applyVisibility(focusSlug);
+      updateUrl();
+    }
+
     // ---- Filters / views (same pattern as /media/) ----
     function updateUrl() {
       if (!ready) return;
       var params = new URLSearchParams();
-      if (currentDest !== 'all') params.set('dest', currentDest);
+      if (selection.length) params.set('dest', selection.join(','));
       if (currentType !== 'all') params.set('type', currentType);
+      if (currentVisited !== 'all') params.set('visited', currentVisited);
       if (currentView !== 'list') params.set('view', currentView);
       var sort = sortSelect ? sortSelect.value : 'rating';
       if (sort !== 'rating') params.set('sort', sort);
@@ -236,23 +431,34 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       return a ? a.textContent.trim() : '';
     }
 
+    // "Florence", "Florence & Milan", "Florence, Milan & Tokyo" — every
+    // selected node has a chip, so the names come straight off them.
     function destLabel() {
-      if (currentDest === 'all') return null;
-      var chip = document.querySelector('.media-filters .tag[data-dest="' + currentDest + '"]');
-      if (chip) return chip.textContent.trim();
-      // A neighborhood has no chip; take its display name off any row it
-      // matches (never off `where`, which a "Washington, D.C." would break).
-      for (var i = 0; i < rows.length; i++) {
-        var d = rows[i].dataset;
-        if (d.area === currentDest && d.areaname) return d.areaname;
-        if (d.dest === currentDest && d.cityname) return d.cityname;
-      }
-      return currentDest.replace(/-/g, ' ');
+      var names = selection.map(function (s) {
+        return NODES[s] ? NODES[s].name : s.replace(/-/g, ' ');
+      });
+      if (!names.length) return null;
+      if (names.length === 1) return names[0];
+      return names.slice(0, -1).join(', ') + ' & ' + names[names.length - 1];
     }
 
     function typeLabel() {
       if (!typeSelect || typeSelect.value === 'all') return null;
       return typeSelect.options[typeSelect.selectedIndex].textContent.trim();
+    }
+
+    function visitedLabel() {
+      if (!visitedSelect || currentVisited === 'all') return null;
+      return visitedSelect.options[visitedSelect.selectedIndex].textContent.trim().toLowerCase();
+    }
+
+    // "2025-09-13" → "September 2025". Kept off Date parsing (a bare
+    // YYYY-MM-DD is UTC, which slides a day back in western timezones).
+    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+    function prettyDate(iso) {
+      var m = /^(\d{4})-(\d{2})/.exec(iso || '');
+      return m ? MONTHS[+m[2] - 1] + ' ' + m[1] : null;
     }
 
     function guideTitle() {
@@ -276,6 +482,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       var facts = [];
       if (+d.rating > 0) facts.push('Coop’s rating: ' + d.rating + '/7');
       if (+d.visits > 0) facts.push(d.visits + (+d.visits === 1 ? ' visit' : ' visits'));
+      var last = prettyDate(d.date);
+      if (last) facts.push('last visit ' + last);
       if (facts.length) lines.push('   ' + facts.join(' · '));
       if (d.desc) lines.push('   ' + d.desc);
       if (d.lat) lines.push('   Coordinates: ' + (+d.lat).toFixed(5) + ', ' + (+d.lng).toFixed(5));
@@ -286,12 +494,13 @@ Default.css is deliberately not shipped).{%- endcomment -%}
 
     function buildPrompt(title, list) {
       var d = destLabel();
+      var v = visitedLabel();
       return [
         title,
         '',
         'A hand-picked list from Cooper Smith’s site — live version: ' + location.href,
         '',
-        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal.',
+        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + (v ? ', each one he’s visited in the ' + v : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal, and the last-visit date tells you how current the recommendation is.',
         ''
       ].join('\n') + '\n' + list.map(promptEntry).join('\n\n') + '\n';
     }
@@ -307,6 +516,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
         if (d.typename) bits.push(d.typename + (d.where ? ' · ' + d.where : ''));
         if (+d.rating > 0) bits.push('Coop’s rating: ' + d.rating + '/7');
         if (+d.visits > 0) bits.push(d.visits + (+d.visits === 1 ? ' visit' : ' visits'));
+        var last = prettyDate(d.date);
+        if (last) bits.push('Last visit: ' + last);
         if (d.desc) bits.push(d.desc);
         bits.push(location.origin + d.url);
         return '    <Placemark>\n' +
@@ -371,14 +582,33 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       });
     }
 
-    // A dest matches a row's city or its neighborhood, so both "Vienna" and
-    // "Cobble Hill" work as destinations even though chips only list cities.
+    // A row carries its whole ancestry in data-path ("united-states
+    // new-york-city cobble-hill"), so one `indexOf` answers for every tier:
+    // "United States", "New York City" and "Cobble Hill" all match this row,
+    // and any one selected node matching is enough.
+    function matchesDest(row) {
+      if (!selection.length) return true;
+      var path = (row.dataset.path || '').split(' ');
+      return selection.some(function (s) { return path.indexOf(s) !== -1; });
+    }
+
     function applyVisibility(focusSlug) {
+      var cutoff = visitedCutoff();
+      var shown = 0;
       rows.forEach(function (row) {
-        var hide = currentDest !== 'all' && row.dataset.dest !== currentDest && row.dataset.area !== currentDest;
+        var hide = !matchesDest(row);
         if (!hide && currentType !== 'all' && row.dataset.type !== currentType) hide = true;
+        if (!hide && !withinScope(row, cutoff)) hide = true;
         row.classList.toggle('is-hidden', hide);
+        if (!hide) shown++;
       });
+      if (emptyNote) {
+        emptyNote.hidden = shown > 0;
+        var v = visitedLabel();
+        emptyNote.textContent = v
+          ? 'Nothing here I’ve been to in the ' + v + ' — try a wider visit window.'
+          : 'Nothing matches these filters.';
+      }
       syncMarkers(focusSlug);
     }
 
@@ -395,37 +625,16 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       updateUrl();
     }
 
-    // A neighborhood filter has no chip of its own; label the ad-hoc one so
-    // the filtered state is always visible (and clearable).
-    function syncAdhocChip() {
-      if (!adhocChip) return;
-      var hasChip = false;
-      chips.forEach(function (c) { if (c.dataset.dest === currentDest) hasChip = true; });
-      var show = currentDest !== 'all' && !hasChip;
-      adhocChip.hidden = !show;
-      adhocChip.classList.toggle('is-active', show);
-      if (show) adhocChip.textContent = destLabel() + ' ×';
-    }
-
-    function setDest(dest) {
-      currentDest = dest;
-      chips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.dest === dest); });
-      // The chips only list cities; a neighborhood dest (from a ?dest= link
-      // or a "Where" jump) has no chip, so fall the select back to "all"
-      // rather than a bad value — the ad-hoc chip carries the label instead.
-      if (destSelect) destSelect.value = DESTS[dest] && destSelect.querySelector('option[value="' + dest + '"]') ? dest : 'all';
-      syncAdhocChip();
-      applyVisibility();
-      updateUrl();
-    }
-
     // Clicking a place name — in the list's "Where" column or in a map popup
-    // — filters to that destination and swings the map to it. The whole point
-    // is the map move, so it switches to Map view when you're in the list.
+    // — filters to that destination and swings the map to it. It replaces the
+    // selection rather than adding to it: it's a "take me there" gesture, and
+    // the drill-down rows are how you build a set. The whole point is the map
+    // move, so it switches to Map view when you're in the list.
     function jumpToDest(slug) {
-      if (!slug || !DESTS[slug]) return;
+      if (!slug || !NODES[slug]) return;
       if (mapView) mapView.map.closePopup();
-      setDest(slug); // in map view this already refits to the new pin set
+      selection = [slug];
+      applyDest(); // in map view this already refits to the new pin set
       if (currentView !== 'map') setView('map');
     }
 
@@ -437,22 +646,48 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     });
 
     viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
-    chips.forEach(function (c) { c.addEventListener('click', function () { setDest(c.dataset.dest); }); });
-    if (adhocChip) adhocChip.addEventListener('click', function () { setDest('all'); });
-    if (destSelect) destSelect.addEventListener('change', function () { setDest(destSelect.value); });
-    if (typeSelect) typeSelect.addEventListener('change', function () { currentType = typeSelect.value; applyVisibility(); updateUrl(); });
+    destWrap.addEventListener('click', function (e) {
+      var chip = e.target.closest && e.target.closest('.places-node');
+      if (chip) toggleNode(chip.dataset.node);
+    });
+    clearBtn.addEventListener('click', function () { selection = []; applyDest(); });
+    if (typeSelect) typeSelect.addEventListener('change', function () {
+      currentType = typeSelect.value;
+      renderCounts();
+      applyVisibility();
+      updateUrl();
+    });
+    if (visitedSelect) visitedSelect.addEventListener('change', function () {
+      currentVisited = visitedSelect.value;
+      renderCounts();
+      applyVisibility();
+      updateUrl();
+    });
     if (sortSelect) sortSelect.addEventListener('change', updateUrl);
 
     // ---- Initial state: URL params take precedence, then saved view ----
     var params = new URLSearchParams(location.search);
     var urlDest = params.get('dest');
     var urlType = params.get('type');
+    var urlVisited = params.get('visited');
     var urlView = params.get('view');
     var urlSort = params.get('sort');
     var urlFocus = params.get('focus');
 
-    if (urlDest && DESTS[urlDest]) setDest(urlDest);
+    // ?dest= is a comma-separated list of node slugs; unknown ones are
+    // dropped rather than emptying the page. A single-value link from before
+    // the tree ("?dest=cobble-hill") still resolves — those slugs are nodes.
+    if (urlDest) {
+      var seenDest = {};
+      selection = urlDest.split(',').map(function (s) { return s.trim(); })
+        .filter(function (s) {
+          if (!NODES[s] || seenDest[s]) return false;
+          seenDest[s] = 1;
+          return true;
+        });
+    }
     if (urlType && TYPES[urlType] && typeSelect) { typeSelect.value = urlType; currentType = urlType; }
+    if (urlVisited && VISITED[urlVisited] && visitedSelect) { visitedSelect.value = urlVisited; currentVisited = urlVisited; }
 
     // Set the sort value before sortable.js runs its load-time sort.
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;
@@ -465,6 +700,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     } else {
       try { var saved = localStorage.getItem('placesView'); if (VIEWS[saved]) initView = saved; } catch (e) {}
     }
+    renderChips();
+    renderCounts();
     applyVisibility();
     setView(initView, urlView || urlFocus ? false : true, urlFocus);
 

@@ -3,6 +3,85 @@
 // The toolbar rides on the shared .media-toolbar / .tag / .sort-select /
 // .media-toggle styles (_media.scss, _style.scss); only what's new lives here.
 
+/* ---- Destination filter: country → city → neighborhood drill-down ---- */
+/* One row per tier, stacked. Tier 1 is always there; the rows below appear
+   only for branches the visitor has opened, so the toolbar's height tracks how
+   deep they've gone rather than how many places exist. Chips are the shared
+   `.tag` — only the tri-state and the count badge are new here. */
+.places-dest {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+  /* Sits opposite the controls in .media-toolbar's flex row, and takes the
+     leftover width so its rows wrap against the controls, not the page. */
+  flex: 1 1 22em;
+  min-width: 0;
+}
+
+.places-tier {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4em;
+  width: 100%;
+}
+.places-tier[hidden] { display: none; }
+
+/* The country row wraps to two lines on its own, so an indent alone wouldn't
+   separate the tiers — a wrapped line and a nested row would look identical.
+   A leading ↳ marks where each sub-row starts, and the indent stacks, so the
+   drill-down reads as a drill-down however much any one row wraps. */
+.places-tier[data-tier="2"]::before,
+.places-tier[data-tier="3"]::before {
+  content: "\21B3";
+  color: var(--color-text-tertiary);
+  opacity: 0.55;
+  font-size: 0.8em;
+  line-height: 1;
+  margin-right: 0.1em;
+}
+.places-tier[data-tier="2"] { padding-left: 0.9em; }
+.places-tier[data-tier="3"] { padding-left: 2.4em; }
+
+/* Each tier also reads a touch quieter than the one above. */
+.places-tier[data-tier="2"] .places-node,
+.places-tier[data-tier="3"] .places-node { font-size: 0.7em; }
+
+.places-node[hidden] { display: none; }
+
+/* The count badge: how much is down this branch, live against the Type
+   filter. Tabular so the chips don't jiggle as the numbers change. */
+.places-node-n {
+  margin-left: 0.45em;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9em;
+}
+button.tag.places-node.is-active .places-node-n { opacity: 0.7; }
+
+/* Mixed: this branch is partly selected because the visitor narrowed into
+   its children. Reads as "on, but not all of it" — filled outline, hollow
+   centre — so it's distinct from both the solid is-active and a plain chip. */
+button.tag.places-node.is-mixed {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  box-shadow: inset 0 0 0 1px var(--color-text-primary);
+}
+
+/* Nothing here under the current Type filter. Dimmed, not hidden or
+   disabled — the branch still exists, and clicking it is a fair way to find
+   that out. */
+button.tag.places-node.is-empty {
+  opacity: 0.4;
+}
+/* …unless it's the branch you're actually in. A selected chip that dims to
+   look disabled reads as broken, even when its count is honestly zero. */
+button.tag.places-node.is-empty.is-active,
+button.tag.places-node.is-empty.is-mixed {
+  opacity: 1;
+}
+
 /* ---- List view (shared .index-table, columns sized for places) ---- */
 .places-list.index-table { margin: 0; table-layout: fixed; }
 .places-list th,
@@ -81,6 +160,12 @@
 }
 .places-export-actions .tag:disabled { opacity: 0.5; cursor: default; }
 .places-export-hint { margin: 0.6em 0 0; font-size: 0.8em; }
+
+/* Shown when the destination / type / visited filters leave nothing. */
+.places-empty {
+  margin: 1.6em 0 0;
+  font-size: var(--text-ui);
+}
 
 /* ---- View switching (mirrors #media-library's list/covers) ---- */
 #places-library.view-list .places-map-outer { display: none; }
@@ -215,8 +300,6 @@
   border-bottom-color: var(--color-text-tertiary);
 }
 
-/* The borrowed chip standing in for a neighborhood filter. */
-.places-dest-adhoc[hidden] { display: none; }
 .places-popup .pp-rating { letter-spacing: 0.1em; white-space: nowrap; }
 .places-popup .pp-facts { color: var(--color-text-secondary); }
 .places-popup .pp-desc {
@@ -278,6 +361,27 @@
   /* Type + Sort + the List/Map toggle overflow a phone viewport on one
      line; let the controls row wrap instead of clipping the toggle. */
   .places-toolbar .media-toolbar-controls { flex-wrap: wrap; }
+
+  /* Destination tiers become horizontal rails rather than wrapping into a
+     wall of chips — /media/ swaps its chips for a <select> here, but that
+     would cost both the multi-select and the drill-down, which are the whole
+     point. Scrolling a row is the cheaper trade. Each row scrolls
+     independently, so opening a branch never pushes the list off-screen. */
+  .places-dest { flex-basis: 100%; }
+  .places-tier {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Room for the chips' focus ring; the rail stops at the body's padding
+       rather than bleeding to the viewport edge. Left padding is left to the
+       per-tier indent above. */
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .places-tier::-webkit-scrollbar { display: none; }
+  .places-tier .tag { flex: 0 0 auto; }
 
   /* The fixed 5-column table crushes on a phone (same fix as /media/):
      stack each row — name full-width, then where (left) and rating (right).
