@@ -96,15 +96,17 @@ both out of the library.{%- endcomment -%}
       books store it in `end`, movies/albums in `last` (concerts use the gig
       date, below). Anything not finished shows nothing here. The date sort is a
       single reverse-chronological stream keyed on the watch/consume date
-      (`end`/`last`); entries with no watch date fall back to the release `year`
-      (as `YYYY-00-00`) so they interleave under their release year. Entries with
-      neither ('') sink to the bottom. The release year is a fallback sort key
-      only — it's never shown as a completion date.{%- endcomment -%}
+      (`end`/`last`); something still in progress falls back to when I picked it
+      up (`start`), so a book started today lands at the top rather than at its
+      publication year. Failing both, the release `year` (as `YYYY-00-00`) puts
+      it under its release year. Entries with none of the three ('') sink to the
+      bottom. `start` and `year` are fallback sort keys only — neither is ever
+      shown as a completion date.{%- endcomment -%}
       {% assign finished = nil %}
       {% if e.end %}{% assign finished = e.end %}{% elsif e.last %}{% assign finished = e.last %}{% endif %}
       {% assign datedisp = '' %}{% if finished %}{% assign datedisp = finished | date: '%b %Y' %}{% endif %}
       {% assign sortdate = '' %}
-      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' %}{% elsif e.start %}{% assign sortdate = e.start | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
       {%- comment -%}shelf is a scalar for some collections (movies: "watched")
       and a YAML list for others (books: ["read"]/["queue"]); join reads both.
       Map to a status bucket; anything not explicitly in-progress or want-to
@@ -151,13 +153,13 @@ both out of the library.{%- endcomment -%}
       {% assign disp = e.display_title | default: clean_title | titlecase %}
       {% assign sorttitle = disp | downcase | strip %}
       {%- comment -%}Same sort key as the list view: watch/consume date
-      (`end`/`last`), falling back to the release `year` (as `YYYY-00-00`) when
-      there's no watch date, so both views share one reverse-chronological
-      order.{%- endcomment -%}
+      (`end`/`last`), then the pick-up date (`start`) for anything still in
+      progress, then the release `year` (as `YYYY-00-00`), so both views share
+      one reverse-chronological order.{%- endcomment -%}
       {% assign finished = nil %}
       {% if e.end %}{% assign finished = e.end %}{% elsif e.last %}{% assign finished = e.last %}{% endif %}
       {% assign sortdate = '' %}
-      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
+      {% if finished %}{% assign sortdate = finished | date: '%Y-%m-%d' %}{% elsif e.start %}{% assign sortdate = e.start | date: '%Y-%m-%d' %}{% elsif e.year %}{% assign sortdate = e.year | append: '-00-00' %}{% endif %}
       {% assign creator = '' %}
       {% if e.author %}{% assign creator = e.author | join: ', ' %}
       {% elsif e.director %}{% assign creator = e.director | join: ', ' %}
