@@ -36,11 +36,16 @@ pretending those places were part of this trip.{%- endcomment -%}
   <h2 class="trip-places-title">Places I went on this trip</h2>
   <p class="trip-places-sub muted">Best first, from my check-ins during {% if page.start %}{{ page.start | date: "%B %Y" }}{% else %}the trip{% endif %}.</p>
 
+  {%- comment -%}A trip's list is short, so a column no row can fill is a
+  third of its width spent on nothing — venues synced before they were
+  categorised have no `type`. Drop the column entirely unless someone here
+  has one; it comes back on its own when the vault fills them in.{%- endcomment -%}
+  {%- assign trip_typed = trip_venues | where_exp: "v", "v.place_type" -%}
   <table class="index-table places-mini">
     <thead>
       <tr>
         <th class="index-title">Name</th>
-        <th class="index-meta">Type</th>
+        {%- if trip_typed.size > 0 -%}<th class="index-meta">Type</th>{%- endif -%}
         <th class="index-date" title="Out of 7">Rating</th>
       </tr>
     </thead>
@@ -48,7 +53,7 @@ pretending those places were part of this trip.{%- endcomment -%}
     {%- for v in trip_venues -%}
       <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}">{{ v.title | titlecase }}</a></td>
-        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        {%- if trip_typed.size > 0 -%}<td class="index-meta">{% if v.place_type and v.place_type != '' %}<span class="tag">{{ v.place_type }}</span>{% endif %}</td>{%- endif -%}
         <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
       </tr>
     {%- endfor -%}

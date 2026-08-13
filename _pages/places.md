@@ -116,7 +116,11 @@ construct at runtime.{%- endcomment -%}
       {% assign where_slug = v.place_area_slug | default: v.place_city_slug | default: root_slug %}
       <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}" title="{{ disp | escape }}">{{ disp }}</a></td>
-        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        {%- comment -%}A venue synced before it was categorised has no type;
+        an empty `.tag` renders as a stray pill, so leave the cell blank.
+        Such venues also drop out of any Type selection, which is right —
+        they aren't a kind of place yet.{%- endcomment -%}
+        <td class="index-meta">{% if v.place_type and v.place_type != '' %}<span class="tag">{{ v.place_type }}</span>{% endif %}</td>
         {%- comment -%}The where name is a jump control: it filters to that
         destination and swings the map to it (see jumpToDest). Falls back to
         plain text with no JS.{%- endcomment -%}
