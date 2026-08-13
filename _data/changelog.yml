@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 87
+  date: '2026-08-13'
+  title: "In-progress media now sorts by start date"
+  category: fix
+  summary: >-
+    The media page listing what I'm currently reading, watching, or playing now
+    orders items by when I actually started them, instead of their official
+    release year, so the list makes more sense at a glance.
+  url: https://github.com/coopersmith/cooper-site/pull/87
+
 - number: 85
   date: '2026-08-12'
   title: "Removed duplicate quotes from the highlights page"
