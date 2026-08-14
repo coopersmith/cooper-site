@@ -82,6 +82,15 @@ button.tag.places-node.is-empty.is-mixed {
   opacity: 1;
 }
 
+/* ---- Controls row ---- */
+/* Four selects (Type, Rating, Visited, Sort) plus the List/Map toggle are
+   wider than the 720px body column on one line, so the row wraps instead of
+   pushing the toggle out past the text it sits above. */
+.places-toolbar .media-toolbar-controls {
+  flex-wrap: wrap;
+  gap: 0.5em 0.9em;
+}
+
 /* ---- List view (shared .index-table, columns sized for places) ---- */
 .places-list.index-table { margin: 0; table-layout: fixed; }
 .places-list th,
@@ -358,9 +367,7 @@ button.tag.places-node.is-empty.is-mixed {
 
 /* ---- Mobile ---- */
 @media (max-width: 600px) {
-  /* Type + Sort + the List/Map toggle overflow a phone viewport on one
-     line; let the controls row wrap instead of clipping the toggle. */
-  .places-toolbar .media-toolbar-controls { flex-wrap: wrap; }
+  /* (The controls row already wraps at every width — see above.) */
 
   /* Destination tiers become horizontal rails rather than wrapping into a
      wall of chips — /media/ swaps its chips for a <select> here, but that

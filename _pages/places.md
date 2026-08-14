@@ -58,6 +58,27 @@ construct at runtime.{%- endcomment -%}
         {% endfor %}
       </select>
     </span>
+    {%- comment -%}Rating floor. This page is a list of recommendations, so it
+    opens at the ones I'd actually send you to (5+ on the 7-point scale)
+    rather than at everything I've ever filed. Every rung 1–7 is selectable,
+    and "Any" additionally lets the unrated through: a venue with no rating
+    can't be shown to clear a bar, so like the visit scope it drops out of any
+    scoped view. It's the only filter here that doesn't start wide open, which
+    is why the script carries a DEFAULT_RATING rather than treating "all" as
+    the resting state the way the others do.{%- endcomment -%}
+    <span class="sort-control">
+      <label for="places-rating">Rating</label>
+      {%- comment -%}The label is hidden under 600px (global .sort-control
+      rule), where a bare "5+" is the least self-explanatory value in the row —
+      the title says what the scale is, matching the "Out of 7" tooltip on the
+      rating column elsewhere.{%- endcomment -%}
+      <select id="places-rating" class="sort-select" title="Minimum rating, out of 7">
+        <option value="all">Any</option>
+        {%- for r in (1..7) %}
+        <option value="{{ r }}"{% if r == 5 %} selected{% endif %}>{{ r }}{% unless r == 7 %}+{% endunless %}</option>
+        {%- endfor %}
+      </select>
+    </span>
     {%- comment -%}Recency scope: some recommendations are a decade stale, so
     this narrows the list to places I've actually been lately. Values are a
     number of years back (or "all"); the cutoff is computed at runtime, not
@@ -175,6 +196,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     var tierRows = Array.prototype.slice.call(destWrap.querySelectorAll('.places-tier'));
     var clearBtn = document.getElementById('places-clear');
     var typeSelect = document.getElementById('places-type');
+    var ratingSelect = document.getElementById('places-rating');
     var visitedSelect = document.getElementById('places-visited');
     var sortSelect = document.getElementById('places-sort');
     var mapNote = document.querySelector('.places-map-note');
@@ -200,6 +222,8 @@ Default.css is deliberately not shipped).{%- endcomment -%}
 
     var TYPES = { all: 1 };
     if (typeSelect) Array.prototype.forEach.call(typeSelect.options, function (o) { TYPES[o.value] = 1; });
+    var RATINGS = { all: 1 };
+    if (ratingSelect) Array.prototype.forEach.call(ratingSelect.options, function (o) { RATINGS[o.value] = 1; });
     var VISITED = { all: 1 };
     if (visitedSelect) Array.prototype.forEach.call(visitedSelect.options, function (o) { VISITED[o.value] = 1; });
     var VIEWS = { list: 1, map: 1 };
@@ -209,6 +233,9 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     // title reads back in that order). Empty means Everywhere.
     var selection = [];
     var currentType = 'all';
+    // The one filter that doesn't start wide open — see the toolbar comment.
+    var DEFAULT_RATING = '5';
+    var currentRating = ratingSelect ? ratingSelect.value : DEFAULT_RATING;
     var currentVisited = 'all';
     var currentView = 'list';
     var ready = false;
@@ -230,6 +257,15 @@ Default.css is deliberately not shipped).{%- endcomment -%}
 
     function withinScope(row, cutoff) {
       return !cutoff || (row.dataset.date && row.dataset.date >= cutoff);
+    }
+
+    // ---- Rating ----
+    // data-rating is 0 for an unrated venue, so the same comparison that
+    // enforces the floor also drops the unrated out of a scoped view — only
+    // "Any" brings them back.
+    function meetsRating(row) {
+      if (currentRating === 'all') return true;
+      return (+row.dataset.rating || 0) >= +currentRating;
     }
 
     // ---- Destination tree ----
@@ -362,15 +398,16 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       });
     }
 
-    // Counts are live against the *other* filters (type and visited), so
-    // "Poland 4" drops to "Poland 0" under Hotels — or under a visit window
-    // Poland falls outside of — rather than promising places that aren't
-    // there. A zero branch dims but stays clickable.
+    // Counts are live against the *other* filters (type, rating and visited),
+    // so "Poland 4" drops to "Poland 0" under Hotels — or under a visit window
+    // or a rating floor Poland falls outside of — rather than promising places
+    // that aren't there. A zero branch dims but stays clickable.
     function renderCounts() {
       var tally = {};
       var cutoff = visitedCutoff();
       rows.forEach(function (row) {
         if (currentType !== 'all' && row.dataset.type !== currentType) return;
+        if (!meetsRating(row)) return;
         if (!withinScope(row, cutoff)) return;
         (row.dataset.path || '').split(' ').forEach(function (s) {
           if (s) tally[s] = (tally[s] || 0) + 1;
@@ -397,6 +434,9 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       var params = new URLSearchParams();
       if (selection.length) params.set('dest', selection.join(','));
       if (currentType !== 'all') params.set('type', currentType);
+      // Written whenever it differs from the default floor, so ?rating=all is
+      // a real (and shareable) state rather than an absent param.
+      if (currentRating !== DEFAULT_RATING) params.set('rating', currentRating);
       if (currentVisited !== 'all') params.set('visited', currentVisited);
       if (currentView !== 'list') params.set('view', currentView);
       var sort = sortSelect ? sortSelect.value : 'rating';
@@ -452,6 +492,13 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       return visitedSelect.options[visitedSelect.selectedIndex].textContent.trim().toLowerCase();
     }
 
+    // "5+" / "7" — null when the floor is off. Read off the option so the
+    // label and the control can never disagree.
+    function ratingLabel() {
+      if (!ratingSelect || currentRating === 'all') return null;
+      return ratingSelect.options[ratingSelect.selectedIndex].textContent.trim();
+    }
+
     // "2025-09-13" → "September 2025". Kept off Date parsing (a bare
     // YYYY-MM-DD is UTC, which slides a day back in western timezones).
     var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -495,12 +542,21 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     function buildPrompt(title, list) {
       var d = destLabel();
       var v = visitedLabel();
+      // The filters are part of what the list *is*, so they travel with it:
+      // an LLM handed this should know the set is already pre-screened.
+      var quals = [];
+      if (v) quals.push('each one he’s visited in the ' + v);
+      if (currentRating !== 'all') {
+        quals.push(currentRating === '7'
+          ? 'all rated a perfect 7 out of 7'
+          : 'all rated ' + currentRating + ' out of 7 or better');
+      }
       return [
         title,
         '',
         'A hand-picked list from Cooper Smith’s site — live version: ' + location.href,
         '',
-        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + (v ? ', each one he’s visited in the ' + v : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal, and the last-visit date tells you how current the recommendation is.',
+        'You are my trip-planning assistant. Below are ' + list.length + ' places Coop recommends' + (d ? ' in ' + d : '') + (quals.length ? ', ' + quals.join(', ') : '') + '. Help me make the most of them: answer questions about them, build an itinerary, or help me save them to my maps app of choice. Ratings are Coop’s own, out of 7; the visit count is how many times he’s actually been, which is a strong signal, and the last-visit date tells you how current the recommendation is.',
         ''
       ].join('\n') + '\n' + list.map(promptEntry).join('\n\n') + '\n';
     }
@@ -592,22 +648,32 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       return selection.some(function (s) { return path.indexOf(s) !== -1; });
     }
 
+    // The rating floor is on by default, so it's the likeliest reason a view
+    // came up empty — name whichever scopes are active rather than leaving the
+    // visitor to guess which one to widen.
+    function emptyMessage() {
+      var v = visitedLabel();
+      var r = ratingLabel();
+      if (v && r) return 'Nothing here rated ' + r + ' that I’ve been to in the ' + v + ' — try widening either filter.';
+      if (r) return 'Nothing here rated ' + r + ' — try a lower rating.';
+      if (v) return 'Nothing here I’ve been to in the ' + v + ' — try a wider visit window.';
+      return 'Nothing matches these filters.';
+    }
+
     function applyVisibility(focusSlug) {
       var cutoff = visitedCutoff();
       var shown = 0;
       rows.forEach(function (row) {
         var hide = !matchesDest(row);
         if (!hide && currentType !== 'all' && row.dataset.type !== currentType) hide = true;
+        if (!hide && !meetsRating(row)) hide = true;
         if (!hide && !withinScope(row, cutoff)) hide = true;
         row.classList.toggle('is-hidden', hide);
         if (!hide) shown++;
       });
       if (emptyNote) {
         emptyNote.hidden = shown > 0;
-        var v = visitedLabel();
-        emptyNote.textContent = v
-          ? 'Nothing here I’ve been to in the ' + v + ' — try a wider visit window.'
-          : 'Nothing matches these filters.';
+        emptyNote.textContent = emptyMessage();
       }
       syncMarkers(focusSlug);
     }
@@ -657,6 +723,12 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       applyVisibility();
       updateUrl();
     });
+    if (ratingSelect) ratingSelect.addEventListener('change', function () {
+      currentRating = ratingSelect.value;
+      renderCounts();
+      applyVisibility();
+      updateUrl();
+    });
     if (visitedSelect) visitedSelect.addEventListener('change', function () {
       currentVisited = visitedSelect.value;
       renderCounts();
@@ -669,6 +741,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     var params = new URLSearchParams(location.search);
     var urlDest = params.get('dest');
     var urlType = params.get('type');
+    var urlRating = params.get('rating');
     var urlVisited = params.get('visited');
     var urlView = params.get('view');
     var urlSort = params.get('sort');
@@ -687,7 +760,17 @@ Default.css is deliberately not shipped).{%- endcomment -%}
         });
     }
     if (urlType && TYPES[urlType] && typeSelect) { typeSelect.value = urlType; currentType = urlType; }
+    if (urlRating && RATINGS[urlRating] && ratingSelect) { ratingSelect.value = urlRating; currentRating = urlRating; }
     if (urlVisited && VISITED[urlVisited] && visitedSelect) { visitedSelect.value = urlVisited; currentVisited = urlVisited; }
+
+    // A ?focus= link ("See it on my map", from a venue's own note) is a "show
+    // me *this* place" gesture, so the default floor must never be what hides
+    // it — a venue rated 4, or not rated at all, would otherwise land on a map
+    // with no pin. An explicit ?rating= in the link still wins.
+    if (urlFocus && ratingSelect && !(urlRating && RATINGS[urlRating])) {
+      var focused = rows.filter(function (r) { return r.dataset.slug === urlFocus; })[0];
+      if (focused && !meetsRating(focused)) { ratingSelect.value = 'all'; currentRating = 'all'; }
+    }
 
     // Set the sort value before sortable.js runs its load-time sort.
     if (sortSelect && urlSort && SORTS[urlSort]) sortSelect.value = urlSort;

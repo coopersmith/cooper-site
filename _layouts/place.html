@@ -52,7 +52,10 @@ index table under the prose.{%- endcomment -%}
     {%- endfor -%}
     </tbody>
   </table>
-  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}">Filter &amp; map all my places in {{ heading }} →</a></p>
+  {%- comment -%}rating=all because this link says "all": the table above it
+  lists every venue here, and /places/ otherwise opens at its 5+ floor, which
+  would quietly hand back a shorter list than the one just read.{%- endcomment -%}
+  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ dest_slug }}&amp;rating=all">Filter &amp; map all my places in {{ heading }} →</a></p>
   {%- endif -%}
 
   <p class="place-note-back"><a class="internal-link" href="{{ site.baseurl }}/places/">← Places</a></p>
