@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "set"
+require_relative "places_geocode"
 
 # Places model.
 #
@@ -187,6 +188,7 @@ class PlacesGenerator < Jekyll::Generator
       end.sort_by { |v| v.data["title"].to_s.downcase }
     end
 
+    @geocoder.flush!
     warn_unplaced(venues)
   end
 
@@ -199,7 +201,10 @@ class PlacesGenerator < Jekyll::Generator
   # single node instead of two chips for one neighborhood.
   def load_geo(site)
     geo = site.data["places_geo"] || {}
-    @city_country = downcase_keys(geo["countries"])
+    # Previously geocoded cities sit underneath the curated file, so a hand
+    # -written line always wins over a generated one.
+    @geocoder = PlacesGeocoder.new(site)
+    @city_country = @geocoder.cached.merge(downcase_keys(geo["countries"]))
     @hood_city = downcase_keys(geo["neighborhoods"])
     @aliases = downcase_keys(geo["aliases"])
     continents = geo["continents"] || {}
@@ -254,8 +259,11 @@ class PlacesGenerator < Jekyll::Generator
     doc.data["place_kind"] = "venue"
     doc.data["place_type"] = normalize_link(Array(doc.data["type"]).first)
 
+    # Coordinates first: they're the geocoder's input when nothing else can
+    # place the city.
+    lat, lng = coords(doc)
     city, area = resolve_city_area(doc)
-    country = resolve_country(doc, city)
+    country = resolve_country(doc, city, lat, lng)
 
     # A venue filed straight under a country ([[Mexico]]) resolves its country
     # as its "city"; collapse that rather than emit a Mexico → Mexico tier.
@@ -265,7 +273,6 @@ class PlacesGenerator < Jekyll::Generator
     doc.data["place_city"] = city
     doc.data["place_area"] = area
 
-    lat, lng = coords(doc)
     doc.data["place_lat"] = lat
     doc.data["place_lng"] = lng
 
@@ -316,21 +323,40 @@ class PlacesGenerator < Jekyll::Generator
     Array(doc.data["loc"]).map { |l| canonical(normalize_link(l)) }.find { |l| country?(l) }
   end
 
-  # City → country: _data/places_geo.yml and the destination notes first (both
-  # curated, and by now taught anything the venues' own chains knew), then this
-  # venue's chain, then the "city" that is itself a country (a venue filed
-  # straight under [[Mexico]]). Nil for a city we have no geography for at all —
-  # those group under "Elsewhere" and get named in a build warning.
-  def resolve_country(doc, city)
+  # City → country, cheapest and most trustworthy source first:
+  #
+  #   1. _data/places_geo.yml, the destination notes, and the geocode cache —
+  #      by now also taught anything the venues' own chains knew.
+  #   2. This venue's own chain.
+  #   3. The "city" that is itself a country (a venue filed straight under
+  #      [[Mexico]]).
+  #   4. The coordinates, via PlacesGeocoder — one network call per unknown
+  #      city, cached in _data/places_geo_cache.yml so it happens once ever.
+  #
+  # Whatever answers gets taught to the city, so the other venues in it resolve
+  # for free and never trigger a second lookup. Nil only when even the
+  # coordinates can't say (or there are none) — those group under "Elsewhere"
+  # and get named in a build warning.
+  def resolve_country(doc, city, lat, lng)
     known = @city_country[city.to_s.downcase] unless blank?(city)
     return canonical(known) unless blank?(known)
 
     from_chain = chain_country(doc)
-    return from_chain unless blank?(from_chain)
+    return teach(city, from_chain) unless blank?(from_chain)
 
     return canonical(city) if country?(city)
+
+    found = @geocoder.country_for(city, lat, lng) unless blank?(city)
+    return teach(city, found) unless blank?(found)
+
     @unplaced[city] = true unless blank?(city)
     nil
+  end
+
+  def teach(city, country)
+    c = canonical(country)
+    @city_country[city.to_s.downcase] = c unless blank?(city)
+    c
   end
 
   def non_region_locs(doc)
