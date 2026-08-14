@@ -6,10 +6,10 @@ genre:
 creator: []
 cast: []
 rating:
-cover: "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/2026_FIFA_World_Cup_emblem.svg/250px-2026_FIFA_World_Cup_emblem.svg.png"
+cover: https://upload.wikimedia.org/wikipedia/en/thumb/1/17/2026_FIFA_World_Cup_emblem.svg/250px-2026_FIFA_World_Cup_emblem.svg.png
 year: 2026
-aired: "2026-06-11 to 2026-07-19"
-last: 2026-07-11
+aired: 2026-06-11 to 2026-07-19
+last: 2026-07-19
 shelf: watching
 tags:
   - shows
