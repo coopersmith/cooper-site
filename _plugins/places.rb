@@ -171,6 +171,7 @@ class PlacesGenerator < Jekyll::Generator
       @city_country[key] ||= canonical(country) if country
     end
 
+    learn_countries(venues)
     venues.each { |doc| resolve_venue(doc) }
 
     # Names first, then the tree (which is where slugs are minted and any
@@ -254,7 +255,7 @@ class PlacesGenerator < Jekyll::Generator
     doc.data["place_type"] = normalize_link(Array(doc.data["type"]).first)
 
     city, area = resolve_city_area(doc)
-    country = resolve_country(city)
+    country = resolve_country(doc, city)
 
     # A venue filed straight under a country ([[Mexico]]) resolves its country
     # as its "city"; collapse that rather than emit a Mexico → Mexico tier.
@@ -292,16 +293,43 @@ class PlacesGenerator < Jekyll::Generator
     [city, area]
   end
 
-  # City → country: the city's own destination note first (its `loc` names the
-  # country), then _data/places_geo.yml, then the "city" that is itself a
-  # country. Nil for a city we have no geography for — those group under
-  # "Elsewhere" and get named in a build warning.
-  def resolve_country(city)
-    return nil if blank?(city)
-    known = @city_country[city.to_s.downcase]
+  # A venue whose own `loc` names its country teaches that country to its whole
+  # city, before anything is resolved: file one Florence venue as
+  # [[Florence]], [[Italy]] and every other Florence venue lands under Italy
+  # too, with nothing added to places_geo.yml.
+  #
+  # This has to be its own pass. non_region_locs drops countries from the chain
+  # — correct, since a country is never the city — but that left resolve_country
+  # with only the places_geo.yml lookup, so a chain that said [[Italy]] in as
+  # many words still fell through to "Elsewhere".
+  def learn_countries(venues)
+    venues.each do |doc|
+      country = chain_country(doc)
+      next if blank?(country)
+      city, = resolve_city_area(doc)
+      next if blank?(city) || city.casecmp?(country)
+      @city_country[city.downcase] ||= country
+    end
+  end
+
+  def chain_country(doc)
+    Array(doc.data["loc"]).map { |l| canonical(normalize_link(l)) }.find { |l| country?(l) }
+  end
+
+  # City → country: _data/places_geo.yml and the destination notes first (both
+  # curated, and by now taught anything the venues' own chains knew), then this
+  # venue's chain, then the "city" that is itself a country (a venue filed
+  # straight under [[Mexico]]). Nil for a city we have no geography for at all —
+  # those group under "Elsewhere" and get named in a build warning.
+  def resolve_country(doc, city)
+    known = @city_country[city.to_s.downcase] unless blank?(city)
     return canonical(known) unless blank?(known)
+
+    from_chain = chain_country(doc)
+    return from_chain unless blank?(from_chain)
+
     return canonical(city) if country?(city)
-    @unplaced[city] = true
+    @unplaced[city] = true unless blank?(city)
     nil
   end
 

@@ -25,8 +25,16 @@ countries:
   Sonoma: United States
   Upstate: United States
   Farm Coast: United States
+  San Diego: United States
+  Mexico City: Mexico
   Vienna: Austria
   Salzburg: Austria
+  Milan: Italy
+  Florence: Italy
+  Lake Como: Italy
+  # Region-level, but "we're going to Piedmont" is how you'd say it — same
+  # call as Farm Coast and Upstate above.
+  Piedmont: Italy
   Warsaw: Poland
   Paris: France
   London: United Kingdom
@@ -55,7 +63,15 @@ neighborhoods:
   Williamsburg: New York City
   West Village: New York City
   FiDi: New York City
+  Manhattan: New York City
   Inverness: San Francisco
+  La Jolla: San Diego
+  Polanco: Mexico City
+  # Tremezzo is a village on Lake Como; a venue's chain names Milan too
+  # ([[Milan]], [[Lake Como]], [[Tremezzo]]), which is the nearest big city
+  # rather than where it is. Naming Tremezzo a neighborhood of Lake Como makes
+  # the resolver pick the lake and drop Milan.
+  Tremezzo: Lake Como
 
 # Country → continent. Not rendered today — the country row is 12 chips and a
 # continent tier above it would be noise. Kept because the tree in places.rb is
@@ -65,6 +81,7 @@ continents:
   Canada: North America
   Mexico: North America
   Austria: Europe
+  Italy: Europe
   Poland: Europe
   France: Europe
   United Kingdom: Europe
