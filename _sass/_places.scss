@@ -83,12 +83,37 @@ button.tag.places-node.is-empty.is-mixed {
 }
 
 /* ---- Controls row ---- */
-/* Four selects (Type, Rating, Visited, Sort) plus the List/Map toggle are
-   wider than the 720px body column on one line, so the row wraps instead of
-   pushing the toggle out past the text it sits above. */
+/* Type + Rating + Visited + Sort + the List/Map toggle come to ~930px: wider
+   than the 720px body column, and wider than the three selects that preceded
+   them (~800px, which already pushed the toggle out past the column on the
+   live site). So the row wraps — but the two halves wrap differently. The
+   filters share a group and wrap among themselves; the toggle stays out of
+   that group, pinned to the right edge and centred against however many lines
+   the filters take. It switches how the same set is drawn rather than what's
+   in it, and left in the flow it wrapped down into the second line flush
+   against Sort, reading as a fifth filter. */
 .places-toolbar .media-toolbar-controls {
+  flex: 1 1 100%;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em 0.9em;
+}
+.places-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0.5em 0.9em;
+  /* Basis 0, not auto: on auto the group's max-content width claims the whole
+     row and pushes the toggle onto a line of its own. At 0 the two share one
+     flex line, the group grows into whatever the toggle leaves, and the
+     selects do their wrapping inside it. */
+  flex: 1 1 0;
+  min-width: 0;
+}
+/* Lands on the table's right edge, so the two line up down the page. */
+.places-toolbar .media-toggle {
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 /* ---- List view (shared .index-table, columns sized for places) ---- */
@@ -170,7 +195,7 @@ button.tag.places-node.is-empty.is-mixed {
 .places-export-actions .tag:disabled { opacity: 0.5; cursor: default; }
 .places-export-hint { margin: 0.6em 0 0; font-size: 0.8em; }
 
-/* Shown when the destination / type / visited filters leave nothing. */
+/* Shown when the destination / type / rating / visited filters leave nothing. */
 .places-empty {
   margin: 1.6em 0 0;
   font-size: var(--text-ui);
@@ -367,7 +392,11 @@ button.tag.places-node.is-empty.is-mixed {
 
 /* ---- Mobile ---- */
 @media (max-width: 600px) {
-  /* (The controls row already wraps at every width — see above.) */
+  /* Too narrow to seat the toggle beside the filters, so it takes its own
+     line — back at the left margin, since there's nothing left of it to line
+     up with. */
+  .places-filter-group { flex-basis: 100%; }
+  .places-toolbar .media-toggle { margin-left: 0; }
 
   /* Destination tiers become horizontal rails rather than wrapping into a
      wall of chips — /media/ swaps its chips for a <select> here, but that

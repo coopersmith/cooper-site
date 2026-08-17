@@ -49,59 +49,66 @@ construct at runtime.{%- endcomment -%}
     </div>
   </div>
   <div class="media-toolbar-controls">
-    <span class="sort-control">
-      <label for="places-type">Type</label>
-      <select id="places-type" class="sort-select">
-        <option value="all">All</option>
-        {% for t in types %}
-        <option value="{{ t | slugify }}">{{ t }}</option>
-        {% endfor %}
-      </select>
-    </span>
-    {%- comment -%}Rating floor. This page is a list of recommendations, so it
-    opens at the ones I'd actually send you to (5+ on the 7-point scale)
-    rather than at everything I've ever filed. Every rung 1–7 is selectable,
-    and "Any" additionally lets the unrated through: a venue with no rating
-    can't be shown to clear a bar, so like the visit scope it drops out of any
-    scoped view. It's the only filter here that doesn't start wide open, which
-    is why the script carries a DEFAULT_RATING rather than treating "all" as
-    the resting state the way the others do.{%- endcomment -%}
-    <span class="sort-control">
-      <label for="places-rating">Rating</label>
-      {%- comment -%}The label is hidden under 600px (global .sort-control
-      rule), where a bare "5+" is the least self-explanatory value in the row —
-      the title says what the scale is, matching the "Out of 7" tooltip on the
-      rating column elsewhere.{%- endcomment -%}
-      <select id="places-rating" class="sort-select" title="Minimum rating, out of 7">
-        <option value="all">Any</option>
-        {%- for r in (1..7) %}
-        <option value="{{ r }}"{% if r == 5 %} selected{% endif %}>{{ r }}{% unless r == 7 %}+{% endunless %}</option>
-        {%- endfor %}
-      </select>
-    </span>
-    {%- comment -%}Recency scope: some recommendations are a decade stale, so
-    this narrows the list to places I've actually been lately. Values are a
-    number of years back (or "all"); the cutoff is computed at runtime, not
-    baked, so a scoped view never goes stale itself.{%- endcomment -%}
-    <span class="sort-control">
-      <label for="places-visited">Visited</label>
-      <select id="places-visited" class="sort-select">
-        <option value="all">Any time</option>
-        <option value="1">Past year</option>
-        <option value="2">Past 2 years</option>
-        <option value="5">Past 5 years</option>
-        <option value="10">Past 10 years</option>
-      </select>
-    </span>
-    <span class="sort-control">
-      <label for="places-sort">Sort</label>
-      <select id="places-sort" class="sort-select" data-sort-scope="#places-library .places-list" data-sort-item="tbody tr">
-        <option value="rating">Rating</option>
-        <option value="visits">Most visited</option>
-        <option value="date">Recent</option>
-        <option value="az">A→Z</option>
-      </select>
-    </span>
+    {%- comment -%}The four filters are one group so they wrap among
+    themselves; the List/Map toggle sits outside it, pinned to the right edge
+    (see _places.scss). It changes how the same set is shown rather than what
+    is in it, and it was reading as a fifth filter stuck to the end of
+    Sort.{%- endcomment -%}
+    <div class="places-filter-group">
+      <span class="sort-control">
+        <label for="places-type">Type</label>
+        <select id="places-type" class="sort-select">
+          <option value="all">All</option>
+          {% for t in types %}
+          <option value="{{ t | slugify }}">{{ t }}</option>
+          {% endfor %}
+        </select>
+      </span>
+      {%- comment -%}Rating floor. This page is a list of recommendations, so it
+      opens at the ones I'd actually send you to (5+ on the 7-point scale)
+      rather than at everything I've ever filed. Every rung 1–7 is selectable,
+      and "Any" additionally lets the unrated through: a venue with no rating
+      can't be shown to clear a bar, so like the visit scope it drops out of any
+      scoped view. It's the only filter here that doesn't start wide open, which
+      is why the script carries a DEFAULT_RATING rather than treating "all" as
+      the resting state the way the others do.{%- endcomment -%}
+      <span class="sort-control">
+        <label for="places-rating">Rating</label>
+        {%- comment -%}The label is hidden under 600px (global .sort-control
+        rule), where a bare "5+" is the least self-explanatory value in the row —
+        the title says what the scale is, matching the "Out of 7" tooltip on the
+        rating column elsewhere.{%- endcomment -%}
+        <select id="places-rating" class="sort-select" title="Minimum rating, out of 7">
+          <option value="all">Any</option>
+          {%- for r in (1..7) %}
+          <option value="{{ r }}"{% if r == 5 %} selected{% endif %}>{{ r }}{% unless r == 7 %}+{% endunless %}</option>
+          {%- endfor %}
+        </select>
+      </span>
+      {%- comment -%}Recency scope: some recommendations are a decade stale, so
+      this narrows the list to places I've actually been lately. Values are a
+      number of years back (or "all"); the cutoff is computed at runtime, not
+      baked, so a scoped view never goes stale itself.{%- endcomment -%}
+      <span class="sort-control">
+        <label for="places-visited">Visited</label>
+        <select id="places-visited" class="sort-select">
+          <option value="all">Any time</option>
+          <option value="1">Past year</option>
+          <option value="2">Past 2 years</option>
+          <option value="5">Past 5 years</option>
+          <option value="10">Past 10 years</option>
+        </select>
+      </span>
+      <span class="sort-control">
+        <label for="places-sort">Sort</label>
+        <select id="places-sort" class="sort-select" data-sort-scope="#places-library .places-list" data-sort-item="tbody tr">
+          <option value="rating">Rating</option>
+          <option value="visits">Most visited</option>
+          <option value="date">Recent</option>
+          <option value="az">A→Z</option>
+        </select>
+      </span>
+    </div>
     <div class="media-toggle" role="group" aria-label="View mode">
       <button type="button" class="media-view-btn is-active" data-view="list">List</button>
       <button type="button" class="media-view-btn" data-view="map">Map</button>
