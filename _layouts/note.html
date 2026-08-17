@@ -44,6 +44,12 @@ layout: default
 
     -->
   </div>
+
+  {%- comment -%}A trip writeup ends with the places it produced, best-rated
+  first. Gated on the flag _plugins/trips.rb sets rather than on the folder, so
+  it follows the `#travel` tag wherever the vault files the note — the same
+  thing /travels/ lists on.{%- endcomment -%}
+  {%- if page.trip_kind == 'trip' -%}{% include trip-places.html %}{%- endif -%}
 </article>
 
 <hr><!--

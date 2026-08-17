@@ -1,0 +1,93 @@
+{%- comment -%}
+The places a trip produced, appended to the writeup. Rendered from
+_layouts/note.html for any note _plugins/trips.rb identified as a trip.
+
+The list is strictly the places the visit history puts inside the trip's dates
+— nothing else. There is deliberately no "here's my whole list for the city"
+fallback: a 2019 New Orleans entry listing places I first went to in 2024 is
+simply a false claim about the trip, and being a useful list doesn't redeem it.
+When the dates turn up nothing, the section degrades to a one-line pointer at
+the destination's own /places/ view, which promises only what it can keep.
+
+Ordering is by rating (best first), settled in the plugin so the markup can't
+drift from it. Rows carry the full place-row-attrs set because the mini-map
+below reads its pins straight off them — same arrangement as a destination
+note in _layouts/place.html.
+{%- endcomment -%}
+{%- assign trip_venues = page.trip_venues -%}
+{%- assign trip_has_dest = false -%}
+{%- if page.trip_dest and page.trip_dest != '' -%}{%- assign trip_has_dest = true -%}{%- endif -%}
+
+{%- comment -%}Nothing dated and nowhere to point: no section at all.{%- endcomment -%}
+{%- if trip_venues.size > 0 or trip_has_dest -%}
+
+{%- if trip_venues.size == 0 -%}
+{%- comment -%}The trip produced no datable places — an older entry, or one
+whose venues I haven't checked into. Point at the destination without
+pretending those places were part of this trip.{%- endcomment -%}
+<section class="trip-places trip-places-empty">
+  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ page.trip_dest }}">{% if page.trip_venues_total > 0 %}My {{ page.trip_venues_total }} recommended places in {{ page.trip_dest_where }}{% else %}Browse my places in {{ page.trip_dest_where }}{% endif %} &rarr;</a></p>
+</section>
+
+{%- else -%}
+{%- assign trip_pinned = trip_venues | where_exp: "v", "v.place_lat" -%}
+
+<section class="trip-places">
+  <h2 class="trip-places-title">Places I went on this trip</h2>
+  <p class="trip-places-sub muted">Best first, from my check-ins during {% if page.start %}{{ page.start | date: "%B %Y" }}{% else %}the trip{% endif %}.</p>
+
+  {%- comment -%}A trip's list is short, so a column no row can fill is a
+  third of its width spent on nothing — venues synced before they were
+  categorised have no `type`. Drop the column entirely unless someone here
+  has one; it comes back on its own when the vault fills them in.{%- endcomment -%}
+  {%- assign trip_typed = trip_venues | where_exp: "v", "v.place_type" -%}
+  <table class="index-table places-mini">
+    <thead>
+      <tr>
+        <th class="index-title">Name</th>
+        {%- if trip_typed.size > 0 -%}<th class="index-meta">Type</th>{%- endif -%}
+        <th class="index-date" title="Out of 7">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for v in trip_venues -%}
+      <tr {% include place-row-attrs.html v=v %}>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}">{{ v.title | titlecase }}</a></td>
+        {%- if trip_typed.size > 0 -%}<td class="index-meta">{% if v.place_type and v.place_type != '' %}<span class="tag">{{ v.place_type }}</span>{% endif %}</td>{%- endif -%}
+        <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
+      </tr>
+    {%- endfor -%}
+    </tbody>
+  </table>
+
+  {%- if trip_pinned.size > 0 -%}
+  <div id="place-map" aria-label="Map of the places on this trip"></div>
+  {%- endif -%}
+
+  {%- comment -%}trip_dest names only the destinations the filter has a chip
+  for, and trip_dest_where names exactly those — so the link never promises a
+  view of somewhere it can't show. The count only earns a mention when I have
+  more there than this trip turned up.{%- endcomment -%}
+  {%- if trip_has_dest -%}
+  <p class="place-dest-cta"><a class="internal-link" href="{{ site.baseurl }}/places/?dest={{ page.trip_dest }}">{% if page.trip_venues_total > trip_venues.size %}All {{ page.trip_venues_total }} of my places in {{ page.trip_dest_where }}{% else %}Filter &amp; map my places in {{ page.trip_dest_where }}{% endif %} &rarr;</a></p>
+  {%- endif -%}
+</section>
+
+{%- if trip_pinned.size > 0 -%}
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/vendor/leaflet/MarkerCluster.css" />
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.js"></script>
+<script src="{{ site.baseurl }}/assets/vendor/leaflet/leaflet.markercluster.js"></script>
+<script src="{{ site.baseurl }}/assets/js/places-map.js"></script>
+<script>
+  (function () {
+    var el = document.getElementById('place-map');
+    if (!el || !window.PlacesMap) return;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.places-mini tbody tr'));
+    PlacesMap.create(el, rows, {}).sync();
+  })();
+</script>
+{%- endif -%}
+
+{%- endif -%}
+{%- endif -%}
