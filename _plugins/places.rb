@@ -146,6 +146,10 @@ class PlacesGenerator < Jekyll::Generator
   ELSEWHERE = "Elsewhere"
 
   def generate(site)
+    # Dropped first so a `--watch` rebuild that finds no Places notes can't
+    # leave trips.rb resolving against the previous build's tree.
+    self.class.model = nil
+
     places = site.collections["notes"].docs.select { |d| d.relative_path.include?(PLACES_PATH) }
     return if places.empty?
 
@@ -164,7 +168,7 @@ class PlacesGenerator < Jekyll::Generator
       dest.data["place_kind"] = "destination"
       dest.data["place_city"] = title
 
-      parent = non_region_locs(dest).first
+      parent = non_region_locs(dest.data["loc"]).first
       @hood_city[key] ||= canonical(parent) if parent
       country = Array(dest.data["loc"]).map { |l| canonical(normalize_link(l)) }
                                        .find { |l| !blank?(l) && country?(l) }
@@ -187,6 +191,72 @@ class PlacesGenerator < Jekyll::Generator
     end
 
     warn_unplaced(venues)
+
+    # Hand the resolved model to the generators that run after us (trips.rb).
+    self.class.model = self
+  end
+
+  # ---- Cross-plugin API ----------------------------------------------------
+  #
+  # A trip note names where it went the same way a venue does — a `loc` chain
+  # of destination wikilinks — so _plugins/trips.rb resolves it through *this*
+  # geography rather than a second copy of it. That's what lets a trip pin sit
+  # in the same destination filter as the venues around it: it comes out of
+  # the same tree, carrying the same slugs.
+  #
+  # `model` is nil until generate() has run (and stays nil on a site with no
+  # Places notes at all) — callers treat that as "no geography", not an error.
+  class << self
+    attr_accessor :model
+  end
+
+  # Resolve a raw `loc` chain to its place in the tree:
+  #
+  #   { "country", "city", "area",   the resolved names (any may be nil)
+  #     "names",                     those three, coarsest first, blanks dropped
+  #     "path",                      "names" as tree slugs
+  #     "slug",                      the deepest slug — the node this chain *is*
+  #     "node" }                     the deepest slug that is a *real* tree node
+  #
+  # Slugs come from the tree where the node exists, and are slugified from the
+  # name where it doesn't (a destination with no venues has no node, and so no
+  # chip to match against either — the fallback only has to be stable). "node"
+  # is for callers that need a slug /places/ will actually accept in ?dest=,
+  # which drops slugs it has no chip for.
+  def locate(locs)
+    city, area = resolve_city_area(Array(locs))
+    country = resolve_country(city)
+    city = nil if city && country && city.casecmp?(country)
+    # Opens with a country, falling back to the same Elsewhere bucket a venue
+    # with no geography lands in, so the two hang off the tree identically.
+    names = [country || ELSEWHERE, city, area].reject { |n| blank?(n) }
+    path = path_for(names, true)
+    {
+      "country" => country, "city" => city, "area" => area,
+      "names" => names, "path" => path, "slug" => path.last,
+      "node" => path_for(names).last,
+    }
+  end
+
+  # A US state and friends, given as a raw `loc` entry. These show up in chains
+  # ([[Providence]], [[Rhode Island]]) but are never a destination in their own
+  # right, so callers resolving each entry separately can skip them.
+  def subregion?(raw)
+    name = canonical(normalize_link(raw))
+    !blank?(name) && SUBREGIONS.any? { |r| r.casecmp?(name) }
+  end
+
+  # `location` is a YAML list of strings — ["40.68…", "-73.99…"]. Anything that
+  # doesn't parse as a plausible lat/lng pair yields nils, so a note missing
+  # coordinates degrades to list-only instead of a pin at (0, 0). On the class
+  # so a trip note's own `location` is read with exactly the same tolerance.
+  def self.coords(raw)
+    raw = Array(raw)
+    return [nil, nil] unless raw.size == 2
+    lat, lng = raw.map { |v| Float(v.to_s.strip, exception: false) }
+    return [nil, nil] if lat.nil? || lng.nil?
+    return [nil, nil] unless lat.between?(-90, 90) && lng.between?(-180, 180)
+    [lat, lng]
   end
 
   private
@@ -253,7 +323,7 @@ class PlacesGenerator < Jekyll::Generator
     doc.data["place_kind"] = "venue"
     doc.data["place_type"] = normalize_link(Array(doc.data["type"]).first)
 
-    city, area = resolve_city_area(doc)
+    city, area = resolve_city_area(doc.data["loc"])
     country = resolve_country(city)
 
     # A venue filed straight under a country ([[Mexico]]) resolves its country
@@ -275,12 +345,12 @@ class PlacesGenerator < Jekyll::Generator
   # See the resolution rules in the class comment. Identity beats position:
   # the chain is searched for something recognisably a neighborhood, then for
   # something recognisably a city, and only then read inside-out.
-  def resolve_city_area(doc)
-    entries = non_region_locs(doc)
+  def resolve_city_area(locs)
+    entries = non_region_locs(locs)
     if entries.empty?
       # A chain of nothing but regions (or nothing at all): better a country-
       # level destination than none. resolve_venue collapses it to the country.
-      fallback = Array(doc.data["loc"]).map { |l| canonical(normalize_link(l)) }.reject { |l| blank?(l) }
+      fallback = Array(locs).map { |l| canonical(normalize_link(l)) }.reject { |l| blank?(l) }
       return [fallback.last, nil]
     end
 
@@ -305,8 +375,8 @@ class PlacesGenerator < Jekyll::Generator
     nil
   end
 
-  def non_region_locs(doc)
-    Array(doc.data["loc"])
+  def non_region_locs(locs)
+    Array(locs)
       .map { |l| canonical(normalize_link(l)) }
       .reject { |l| blank?(l) || region?(l) }
   end
@@ -346,10 +416,18 @@ class PlacesGenerator < Jekyll::Generator
   # "filter all my places here" link).
   def assign_path(doc)
     names = name_path(doc)
-    path = names.each_index.map { |i| @node_slug[names[0..i]] }.compact
-    doc.data["place_path"] = path
+    doc.data["place_path"] = path_for(names)
     doc.data["place_city_slug"] = @node_slug[names[0..1]] unless blank?(doc.data["place_city"])
     doc.data["place_area_slug"] = @node_slug[names] unless blank?(doc.data["place_area"])
+  end
+
+  # A name path as tree slugs. `fallback` slugifies names the tree has no node
+  # for — only useful to callers outside the venue set (a trip to a city with
+  # no places of my own), since a name with no node has no chip either.
+  def path_for(names, fallback = false)
+    names.each_index.map do |i|
+      @node_slug[names[0..i]] || (fallback ? slugify(names[i]) : nil)
+    end.compact
   end
 
   # Depth-first: sort, assign slugs (disambiguating collisions with the parent
@@ -404,16 +482,8 @@ class PlacesGenerator < Jekyll::Generator
     Array(doc.data["type"]).any? { |t| normalize_link(t).casecmp?("Cities") }
   end
 
-  # `location` is a YAML list of strings — ["40.68…", "-73.99…"]. Anything
-  # that doesn't parse as a plausible lat/lng pair yields nils, so a venue
-  # missing coordinates degrades to list-only instead of a pin at (0, 0).
   def coords(doc)
-    raw = Array(doc.data["location"])
-    return [nil, nil] unless raw.size == 2
-    lat, lng = raw.map { |v| Float(v.to_s.strip, exception: false) }
-    return [nil, nil] if lat.nil? || lng.nil?
-    return [nil, nil] unless lat.between?(-90, 90) && lng.between?(-180, 180)
-    [lat, lng]
+    self.class.coords(doc.data["location"])
   end
 
   # Obsidian links can carry a folder path and/or a display alias —

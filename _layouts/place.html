@@ -46,7 +46,7 @@ index table under the prose.{%- endcomment -%}
     {%- for v in dest_venues -%}
       <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}">{{ v.title | titlecase }}</a></td>
-        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        <td class="index-meta">{% if v.place_type and v.place_type != '' %}<span class="tag">{{ v.place_type }}</span>{% endif %}</td>
         <td class="index-date muted media-rating">{%- if v.rating -%}<span class="rating-num" aria-label="{{ v.rating }} out of 7">{{ v.rating }}</span>{%- endif -%}</td>
       </tr>
     {%- endfor -%}

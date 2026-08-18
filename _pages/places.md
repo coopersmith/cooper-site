@@ -16,6 +16,12 @@ data, so they grow on their own as more places sync from Obsidian.{%- endcomment
 {% assign venues = site.notes | where: "place_kind", "venue" | sort: "title" %}
 {% assign tree = site.data.places_tree %}
 
+{%- comment -%}Trips (/travels/ writeups) are map data only — the list is
+places, and a trip isn't one. Pinned trips only: a trip we couldn't place has
+nothing to contribute to a map (_plugins/trips.rb logs it at build
+time).{%- endcomment -%}
+{% assign trips = site.notes | where: "trip_kind", "trip" | where_exp: "t", "t.trip_lat" | sort: "year" | reverse %}
+
 {% assign types = "" | split: "" %}
 {% for v in venues %}
   {% if v.place_type and v.place_type != '' %}{% unless types contains v.place_type %}{% assign types = types | push: v.place_type %}{% endunless %}{% endif %}
@@ -138,7 +144,11 @@ construct at runtime.{%- endcomment -%}
       {% assign where_slug = v.place_area_slug | default: v.place_city_slug | default: root_slug %}
       <tr {% include place-row-attrs.html v=v %}>
         <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ v.url }}" title="{{ disp | escape }}">{{ disp }}</a></td>
-        <td class="index-meta"><span class="tag">{{ v.place_type }}</span></td>
+        {%- comment -%}A venue synced before it was categorised has no type;
+        an empty `.tag` renders as a stray pill, so leave the cell blank.
+        Such venues also drop out of any Type selection, which is right —
+        they aren't a kind of place yet.{%- endcomment -%}
+        <td class="index-meta">{% if v.place_type and v.place_type != '' %}<span class="tag">{{ v.place_type }}</span>{% endif %}</td>
         {%- comment -%}The where name is a jump control: it filters to that
         destination and swings the map to it (see jumpToDest). Falls back to
         plain text with no JS.{%- endcomment -%}
@@ -155,9 +165,34 @@ construct at runtime.{%- endcomment -%}
   say so rather than showing a bare empty table.{%- endcomment -%}
   <p class="places-empty muted" hidden></p>
 
+  {%- comment -%}Trip rows: not shown, but carrying the same kind of data
+  attributes the venue rows do, so the map runtime builds trip pins from the
+  DOM exactly as it builds place pins — one source of truth per pin, no
+  parallel JSON blob. Hidden from assistive tech too: every trip here is
+  already a row on /travels/.{%- endcomment -%}
+  {%- if trips.size > 0 -%}
+  <table class="places-trips" hidden aria-hidden="true">
+    <tbody>
+    {%- for t in trips -%}
+      <tr {% include trip-row-attrs.html t=t %}>
+        <td class="index-title"><a class="internal-link" href="{{ site.baseurl }}{{ t.url }}">{{ t.title }}{% if t.subtitle %} {{ t.subtitle }}{% elsif t.year %} {{ t.year }}{% endif %}</a></td>
+      </tr>
+    {%- endfor -%}
+    </tbody>
+  </table>
+  {%- endif -%}
+
   <div class="places-map-outer">
     <div id="places-map" aria-label="Map of recommended places"></div>
     <p class="places-map-note muted" hidden></p>
+    {%- comment -%}Two pin shapes need one line of explanation; without trips
+    to distinguish there's nothing to say.{%- endcomment -%}
+    {%- if trips.size > 0 -%}
+    <p class="places-map-legend muted">
+      <span class="legend-item"><span class="legend-key legend-place" aria-hidden="true"></span> Places</span>
+      <span class="legend-item"><span class="legend-key legend-trip" aria-hidden="true"></span> <a class="internal-link" href="{{ site.baseurl }}/travels/">Trips</a></span>
+    </p>
+    {%- endif -%}
   </div>
 
 </div>
@@ -197,6 +232,7 @@ Default.css is deliberately not shipped).{%- endcomment -%}
     var lib = document.getElementById('places-library');
     if (!lib) return;
     var rows = Array.prototype.slice.call(lib.querySelectorAll('.places-list tbody tr'));
+    var tripRows = Array.prototype.slice.call(lib.querySelectorAll('.places-trips tbody tr'));
     var viewBtns = document.querySelectorAll('.media-view-btn');
     var destWrap = document.querySelector('.places-dest');
     var nodeBtns = Array.prototype.slice.call(destWrap.querySelectorAll('.places-node'));
@@ -320,7 +356,10 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       mapView = PlacesMap.create(document.getElementById('places-map'), rows, {
         locate: true,
         // Popup place names become jump controls, same as the list's "Where".
-        destLinks: true
+        destLinks: true,
+        // Trips pin alongside the places and cluster with them, breaking out
+        // of the cluster at a lower zoom — see assets/js/places-map.js.
+        trips: tripRows
       });
       return true;
     }
@@ -678,6 +717,19 @@ Default.css is deliberately not shipped).{%- endcomment -%}
         row.classList.toggle('is-hidden', hide);
         if (!hide) shown++;
       });
+      // Trips follow the destination filter — their data-path is built from
+      // the same tree — but drop out under a Type, which scopes the view to
+      // one kind of place, and a trip isn't a kind of place. They *do* honour
+      // the visit window: a trip carries its own end date as data-date, so
+      // "past 2 years" hiding a 2017 venue while leaving a 2017 trip pinned
+      // beside it would be the map contradicting itself.
+      tripRows.forEach(function (row) {
+        row.classList.toggle('is-hidden',
+          currentType !== 'all' || !matchesDest(row) || !withinScope(row, cutoff));
+      });
+
+      {%- comment -%}Counted on venues alone: the message is about the list,
+      and the list is places.{%- endcomment -%}
       if (emptyNote) {
         emptyNote.hidden = shown > 0;
         emptyNote.textContent = emptyMessage();

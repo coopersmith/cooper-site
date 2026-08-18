@@ -16,11 +16,16 @@
 # chip instead of two.
 
 # City → country. The country tier of the filter.
+#
+# Trips (/travels/) resolve through this too, so a destination I've written up
+# but have no places in yet still belongs to a country — without the entry it
+# hangs under "Elsewhere" instead of filtering with the rest of that country.
 countries:
   New York City: United States
   Providence: United States
   Newport: United States
   New Orleans: United States
+  San Diego: United States
   San Francisco: United States
   Sonoma: United States
   Upstate: United States
@@ -50,6 +55,7 @@ countries:
   Newfoundland: Canada
   Kyoto: Japan
   Naoshima: Japan
+  Mexico City: Mexico
 
 # Neighborhood → city. Only needed for neighborhoods with no destination note;
 # a note's own `loc` (Cobble Hill → [[New York City]]) takes precedence.
@@ -93,6 +99,21 @@ continents:
   Japan: Asia
   Morocco: Africa
   South Africa: Africa
+
+# Destination → [lat, lng], for pinning trips (/travels/ entries) on the map.
+#
+# Only needed for destinations I have no places in: a trip's pin is normally
+# the centroid of my own places there, which needs no maintenance and lands on
+# the part of the city the trip was actually about. This is the stopgap for
+# the rest — same role the sections above play for destinations with no note.
+# A trip note can also carry its own `location`, which beats everything here.
+#
+# A destination missing from this list still gets its writeup and its places
+# table; it just doesn't pin, and the build logs a warning naming it. City-
+# centre precision is the point — these are trip pins, not addresses.
+coords:
+  Mexico City: ["19.4326", "-99.1332"]
+  San Diego: ["32.7157", "-117.1611"]
 
 # Variant → canonical, for destinations the vault names two different ways.
 # Casing alone doesn't need an entry (lookups are case-insensitive); this is

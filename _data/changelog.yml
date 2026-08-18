@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 86
+  date: '2026-08-17'
+  title: "Travel write-ups now show up on the places map"
+  category: feature
+  summary: >-
+    Trips you've written about now get their own pins on the Places map
+    alongside restaurants and spots, using the same location data so filtering
+    and zooming just work. Zoom out and see a whole trip as one marker; zoom in
+    and it splits back into the map's usual pins.
+  url: https://github.com/coopersmith/cooper-site/pull/86
+
 - number: 87
   date: '2026-08-13'
   title: "In-progress media now sorts by start date"
