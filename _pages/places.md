@@ -719,10 +719,13 @@ Default.css is deliberately not shipped).{%- endcomment -%}
       });
       // Trips follow the destination filter — their data-path is built from
       // the same tree — but drop out under a Type, which scopes the view to
-      // one kind of place, and a trip isn't a kind of place. They *do* honour
-      // the visit window: a trip carries its own end date as data-date, so
-      // "past 2 years" hiding a 2017 venue while leaving a 2017 trip pinned
-      // beside it would be the map contradicting itself.
+      // one kind of place, and a trip isn't a kind of place. The rating floor
+      // is out for the same reason and matters more: a trip has no rating, so
+      // applying it would hide every trip pin the moment the page loads —
+      // the floor starts at 5+, not at "all". They *do* honour the visit
+      // window: a trip carries its own end date as data-date, so "past 2
+      // years" hiding a 2017 venue while leaving a 2017 trip pinned beside it
+      // would be the map contradicting itself.
       tripRows.forEach(function (row) {
         row.classList.toggle('is-hidden',
           currentType !== 'all' || !matchesDest(row) || !withinScope(row, cutoff));

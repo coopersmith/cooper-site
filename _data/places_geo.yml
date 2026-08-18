@@ -30,7 +30,14 @@ countries:
   Sonoma: United States
   Upstate: United States
   Farm Coast: United States
-  San Diego: United States
+  Chicago: United States
+  Columbus: United States
+  Kansas City: United States
+  Milwaukee: United States
+  Nashville: United States
+  Philadelphia: United States
+  Savannah: United States
+  St. Simons Island: United States
   Vienna: Austria
   Salzburg: Austria
   Warsaw: Poland
@@ -39,6 +46,9 @@ countries:
   Amsterdam: Netherlands
   Humlebæk: Denmark
   Røros: Norway
+  # The archipelago, not the municipality — Lofoten is what you'd say you're
+  # going to; Moskenes is a neighborhood of it below.
+  Lofoten: Norway
   Milan: Italy
   # The lake is the destination you'd name; Tremezzo, the town the hotel is
   # in, is a neighborhood of it below.
@@ -46,7 +56,7 @@ countries:
   # A region rather than a city, but it's what you'd say you're going to for
   # a winery — same reason Farm Coast and Upstate are cities here.
   Piedmont: Italy
-  Mexico City: Mexico
+  Venice: Italy
   Marrakech: Morocco
   Kruger National Park: South Africa
   # The vault files the two winelands towns as one destination; keep its
@@ -56,6 +66,7 @@ countries:
   Kyoto: Japan
   Naoshima: Japan
   Mexico City: Mexico
+  Tulum: Mexico
 
 # Neighborhood → city. Only needed for neighborhoods with no destination note;
 # a note's own `loc` (Cobble Hill → [[New York City]]) takes precedence.
@@ -74,12 +85,17 @@ neighborhoods:
   Williamsburg: New York City
   West Village: New York City
   FiDi: New York City
+  Lower East Side: New York City
   Inverness: San Francisco
   # Also fixes a chain written outside-in ([[Milan]], [[Lake Como]],
   # [[Tremezzo]]): with Tremezzo known as a neighborhood, identity beats
   # position and the venue lands on Lake Como instead of taking Milan — the
   # city it was flown into — as a neighborhood of Tremezzo.
   Tremezzo: Lake Como
+  # Same shape as Tremezzo: the chain runs [[Lofoten]], [[Moskenes]], [[Norway]],
+  # so without this the municipality would become the destination and the
+  # archipelago a neighborhood of it.
+  Moskenes: Lofoten
 
 # Country → continent. Not rendered today — the country row is 13 chips and a
 # continent tier above it would be noise. Kept because the tree in places.rb is
