@@ -25,6 +25,7 @@ countries:
   Sonoma: United States
   Upstate: United States
   Farm Coast: United States
+  San Diego: United States
   Vienna: Austria
   Salzburg: Austria
   Warsaw: Poland
@@ -33,8 +34,19 @@ countries:
   Amsterdam: Netherlands
   Humlebæk: Denmark
   Røros: Norway
+  Milan: Italy
+  # The lake is the destination you'd name; Tremezzo, the town the hotel is
+  # in, is a neighborhood of it below.
+  Lake Como: Italy
+  # A region rather than a city, but it's what you'd say you're going to for
+  # a winery — same reason Farm Coast and Upstate are cities here.
+  Piedmont: Italy
+  Mexico City: Mexico
   Marrakech: Morocco
   Kruger National Park: South Africa
+  # The vault files the two winelands towns as one destination; keep its
+  # spelling rather than inventing a split it doesn't make.
+  Franschhoek + Stellenbosch: South Africa
   Newfoundland: Canada
   Kyoto: Japan
   Naoshima: Japan
@@ -51,13 +63,19 @@ countries:
 neighborhoods:
   Cobble Hill: New York City
   Brooklyn Heights: New York City
+  Fort Greene: New York City
   Greenpoint: New York City
   Williamsburg: New York City
   West Village: New York City
   FiDi: New York City
   Inverness: San Francisco
+  # Also fixes a chain written outside-in ([[Milan]], [[Lake Como]],
+  # [[Tremezzo]]): with Tremezzo known as a neighborhood, identity beats
+  # position and the venue lands on Lake Como instead of taking Milan — the
+  # city it was flown into — as a neighborhood of Tremezzo.
+  Tremezzo: Lake Como
 
-# Country → continent. Not rendered today — the country row is 12 chips and a
+# Country → continent. Not rendered today — the country row is 13 chips and a
 # continent tier above it would be noise. Kept because the tree in places.rb is
 # generic, so adding the tier later is a template change, not a data migration.
 continents:
@@ -65,6 +83,7 @@ continents:
   Canada: North America
   Mexico: North America
   Austria: Europe
+  Italy: Europe
   Poland: Europe
   France: Europe
   United Kingdom: Europe
