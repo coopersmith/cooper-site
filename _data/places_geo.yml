@@ -38,6 +38,11 @@ countries:
   Philadelphia: United States
   Savannah: United States
   St. Simons Island: United States
+  Boulder: United States
+  Green Bay: United States
+  # The island is the destination; its towns (West Tisbury, Edgartown) are
+  # neighborhoods of it below.
+  Martha's Vineyard: United States
   Vienna: Austria
   Salzburg: Austria
   Warsaw: Poland
@@ -49,6 +54,7 @@ countries:
   # The archipelago, not the municipality — Lofoten is what you'd say you're
   # going to; Moskenes is a neighborhood of it below.
   Lofoten: Norway
+  Stranda: Norway
   Milan: Italy
   # The lake is the destination you'd name; Tremezzo, the town the hotel is
   # in, is a neighborhood of it below.
@@ -58,6 +64,7 @@ countries:
   Piedmont: Italy
   Venice: Italy
   Marrakech: Morocco
+  Cape Town: South Africa
   Kruger National Park: South Africa
   # The vault files the two winelands towns as one destination; keep its
   # spelling rather than inventing a split it doesn't make.
@@ -96,6 +103,11 @@ neighborhoods:
   # so without this the municipality would become the destination and the
   # archipelago a neighborhood of it.
   Moskenes: Lofoten
+  # The vault files these chains inside-out ([[West Tisbury]], [[Martha's
+  # Vineyard]]), which resolves on identity alone — but naming the towns keeps
+  # an outside-in chain from promoting one of them to a city beside the island.
+  West Tisbury: Martha's Vineyard
+  Edgartown: Martha's Vineyard
 
 # Country → continent. Not rendered today — the country row is 13 chips and a
 # continent tier above it would be noise. Kept because the tree in places.rb is
