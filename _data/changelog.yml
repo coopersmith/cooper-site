@@ -7,6 +7,18 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 89
+  date: '2026-08-19'
+  title: "Filter places by minimum rating"
+  category: feature
+  summary: >-
+    The places page now lets you set a minimum rating to only see venues worth
+    visiting, defaulting to solid recommendations (5+) instead of everything.
+    It's smart enough to widen the filter automatically if you follow a link to
+    a lower-rated spot, and the shareable link and trip-planning export both
+    reflect your chosen rating floor.
+  url: https://github.com/coopersmith/cooper-site/pull/89
+
 - number: 86
   date: '2026-08-17'
   title: "Travel write-ups now show up on the places map"
