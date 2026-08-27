@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 91
+  date: '2026-08-27'
+  title: "Fixed watermarked map tiles across the site"
+  category: fix
+  summary: >-
+    Maps on the places page and trip/destination mini-maps had started showing
+    'API KEY REQUIRED' watermarks after the map provider tightened its rules.
+    Added a free API key so all the maps render cleanly again.
+  url: https://github.com/coopersmith/cooper-site/pull/91
+
 - number: 89
   date: '2026-08-19'
   title: "Filter places by minimum rating"
