@@ -12,6 +12,15 @@ font:
   weights: "400;500;600;700"
   specimen: https://fonts.google.com/specimen/Hanken+Grotesk
 
+# CARTO basemap tiles — the /places/ map and the destination/trip mini-maps
+# (assets/js/places-map.js). CARTO's raster endpoint stopped being anonymous
+# in 2026: requests without a key come back stamped "API KEY REQUIRED".
+# Free within their fair-use limit (5M tiles/month). Public by nature — it
+# travels in every tile URL the browser requests — so it lives here rather
+# than in the build environment. Leave blank and the maps still render,
+# just watermarked.
+carto_api_key: cb1_2eat_1_d96fa610782c1dc1795400fb
+
 include:             ['_pages']
 exclude:             ['_includes/notes_graph.json', '_dev']
 # You may need to change the base URL depending on your deploy configuration.

@@ -1,3 +1,10 @@
+---
+# Front matter so Jekyll renders this through Liquid — the CARTO key below
+# comes from _config.yml. Nothing else in this file is Liquid.
+# layout: null is load-bearing: _config.yml defaults every path to the
+# "default" layout, which would otherwise wrap this script in a full HTML page.
+layout: null
+---
 // Shared Leaflet runtime for the Places maps: the full map view on /places/
 // and the mini-map on destination and trip notes. All of them render pins
 // from table rows — the row *is* the data: coordinates, popup facts, and
@@ -36,9 +43,17 @@
 
   var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+  // CARTO stamps "API KEY REQUIRED" across tiles fetched without a key —
+  // their raster endpoint stopped being anonymous in 2026. The key is public
+  // by design (it rides along in every tile request the browser makes), so it
+  // sits in _config.yml, not the build environment. Blank key still renders,
+  // just watermarked: a degraded map beats no map.
+  var CARTO_KEY = {{ site.carto_api_key | default: '' | jsonify }};
+
   function tileUrl() {
     var flavor = darkQuery.matches ? 'dark_all' : 'light_all';
-    return 'https://{s}.basemaps.cartocdn.com/' + flavor + '/{z}/{x}/{y}{r}.png';
+    var url = 'https://{s}.basemaps.cartocdn.com/' + flavor + '/{z}/{x}/{y}{r}.png';
+    return CARTO_KEY ? url + '?key=' + encodeURIComponent(CARTO_KEY) : url;
   }
 
   function css(name, fallback) {
