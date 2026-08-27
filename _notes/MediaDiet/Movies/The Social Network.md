@@ -20,8 +20,9 @@ year: 2010
 runtime:
 imdbId:
 via:
-last: 2024-01-20
+last: 2026-08-26
 shelf: watched
 tags:
   - movies
+  - MediaDiet/2026
 ---
