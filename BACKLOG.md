@@ -8,18 +8,27 @@ priority order — just a place to park ideas with enough context to pick up col
 The library itself (one `_images/` record per image, `surfaces` routing,
 build-time EXIF — see CLAUDE.md) shipped as phase 1. The remaining phases:
 
-### Phase 2: adopt the strays
+### ~~Phase 2: adopt the strays~~ (mostly done)
 
-Move the per-trip folders (`assets/CDMX`, `assets/SanDiego2024`, `lisbon`,
-`paris2022`, …) under a library root so trip images get records too, and
-resolve an embed syntax (`![[img:<slug>]]`, wikilink-style, at `:high`
-priority like `cocktail_cabinet.rb`) so notes reference images by slug
-instead of hardcoded paths. Slugs mint from filenames, so rename before
-migrating, not after. Then the "best of" gallery is just a page querying a
-`best` surface. Concert notes also carry `_notes/**/attachments/*.jpeg`
-images (currently the source of a harmless `_site/:slug.jpeg` build-conflict
-warning) — candidates for the same treatment, but they live in the vault
-repo, so the sync has to be thought through first.
+Done: the per-trip folders are library roots (adopted in place — files never
+moved, old hardcoded paths still work — so trip images have records now),
+`image_embeds.rb` resolves `![[img:<slug>]]` in notes/pages, and `/best-of/`
+renders the `best` surface (empty until records are tagged). Remaining:
+
+- **Geocode the trip records.** 85 of the 98 trip images have GPS but their
+  records lack `location` — the sandbox this shipped from couldn't reach
+  Nominatim. Any `jekyll build` on a machine with network fills them
+  (fill-don't-clobber, one API call per image); commit the filled records,
+  or Netlify will re-geocode on every deploy (~85 rate-limited calls ≈ +90s
+  per build) without persisting.
+- **Convert the trip writeups to `![[img:…]]` embeds.** The notes are a
+  build-time mirror of `coops-site-publish`, so the conversion happens in
+  the vault, not here. Tradeoff to accept first: `![[img:…]]` is dead
+  markup *inside Obsidian* (the current hardcoded paths are equally dead
+  there, so nothing is lost — but nothing is gained vault-side either).
+- **Concert attachments** (`_notes/**/attachments/*.jpeg`, source of the
+  harmless `_site/:slug.jpeg` build-conflict warning) — same vault-repo
+  consideration.
 
 ### Phase 3: derived sizes via Netlify Image CDN
 

@@ -8,8 +8,17 @@ layout: default
 
 <div class="photos-stream">
   <div class="photos-grid">
-    {% assign diary_photos = site.images | where_exp: "img", "img.surfaces contains 'diary'" %}
-    {% assign sorted_photos = diary_photos | sort: 'date' | reverse %}
+    {%- comment -%}
+      The stream renders whatever library surface the page asks for
+      (page.surface), defaulting to the visual diary — so a new gallery is
+      just a new page with a different surface value.
+    {%- endcomment -%}
+    {% assign surface = page.surface | default: "diary" %}
+    {% assign surface_photos = site.images | where_exp: "img", "img.surfaces contains surface" %}
+    {% assign sorted_photos = surface_photos | sort: 'date' | reverse %}
+    {% if sorted_photos.size == 0 %}
+      <p class="photos-empty">Nothing here yet — tag an image's record with <code>{{ surface }}</code> in its <code>surfaces</code> list.</p>
+    {% endif %}
     {% for photo in sorted_photos %}
       <div class="photo-item"
          data-date="{% if photo.date %}{{ photo.date | date: "%Y-%m-%d" }}{% endif %}"

@@ -92,6 +92,20 @@ module Jekyll
       existing_data, body = read_record(md_path)
       return if existing_data.nil? # unparseable frontmatter — leave the record alone
 
+      # Slug collision guard: if this record already belongs to a different
+      # image that still exists, don't let this one steal it. (Two files whose
+      # names reduce to the same slug — the fix is renaming one of them.)
+      claimed_by = existing_data['image']
+      if claimed_by.is_a?(String)
+        claimed_path = File.join(site.source, claimed_by.sub(%r{^/}, ''))
+        if claimed_path != image_path && File.exist?(claimed_path)
+          Jekyll.logger.warn 'ImageLibrary:',
+                             "Slug collision: #{image_url} and #{claimed_by} both slug to '#{slug}'. " \
+                             'Keeping the existing record; rename one file to give it its own record.'
+          return
+        end
+      end
+
       machine = machine_facts(image_path, image_url, geocode: !existing_data.key?('location'))
 
       # Fill-don't-clobber merge: `image` is machine-owned, everything else
@@ -102,7 +116,9 @@ module Jekyll
         next if key == 'image'
         merged[key] = value unless merged.key?(key)
       end
-      merged['surfaces'] = Array(root['surfaces']).map(&:to_s) unless merged.key?('surfaces') || Array(root['surfaces']).empty?
+      # Always materialize `surfaces` (even as []) so the routing field is
+      # visibly there to edit on every record.
+      merged['surfaces'] = Array(root['surfaces']).map(&:to_s) unless merged.key?('surfaces')
 
       if merged != existing_data || !File.exist?(md_path)
         action = File.exist?(md_path) ? 'Updated' : 'Created'
