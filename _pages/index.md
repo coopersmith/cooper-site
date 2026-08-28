@@ -55,7 +55,7 @@ Recent notes — temporarily hidden, bring back later.
   <ul class="home-list">
     <li><a class="internal-link" href="{{ site.baseurl }}/travels/">Travels</a> <span class="desc">— adventures around the world.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/places/">Places</a> <span class="desc">— where to eat, drink, and wander in cities I love.</span></li>
-    <li><a class="internal-link" href="{{ site.baseurl }}/photos/">Visual Diary</a> <span class="desc">— my life through my lens.</span></li>
+    <li><a class="internal-link" href="{{ site.baseurl }}/photos/">Photographs</a> <span class="desc">— my life through my lens.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/media/">Media Diet</a> <span class="desc">— what I'm reading, watching, and listening to.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/cocktails/">Cocktails</a> <span class="desc">— a database of drinks and the cabinet behind them.</span></li>
     <li><a class="internal-link" href="{{ site.baseurl }}/highlights">Commonplace</a> <span class="desc">— passages I've marked while reading.</span></li>

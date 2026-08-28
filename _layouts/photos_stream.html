@@ -6,6 +6,8 @@ layout: default
   ←
 </a>
 
+{% include photo-view-toggle.html %}
+
 <div class="photos-stream">
   <div class="photos-grid">
     {% assign sorted_photos = site.photos | sort: 'date' | reverse %}

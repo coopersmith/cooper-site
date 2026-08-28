@@ -1,0 +1,13 @@
+{% comment %}
+  The two views of the photo section, as plain links rather than a client-side
+  filter: each is a real page with its own URL, so both are shareable and the
+  selects view never pays to render the whole archive.
+{% endcomment %}
+<nav class="photo-view-toggle" aria-label="Photo views">
+  {% assign selects_url = site.baseurl | append: '/photos/' %}
+  {% assign diary_url = site.baseurl | append: '/photos/all/' %}
+  <a class="photo-view-toggle__option{% if page.layout == 'photos_selects' %} is-active{% endif %}"
+     href="{{ selects_url }}"{% if page.layout == 'photos_selects' %} aria-current="page"{% endif %}>Selects</a>
+  <a class="photo-view-toggle__option{% if page.layout == 'photos_stream' %} is-active{% endif %}"
+     href="{{ diary_url }}"{% if page.layout == 'photos_stream' %} aria-current="page"{% endif %}>Visual Diary</a>
+</nav>

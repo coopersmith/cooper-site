@@ -1,6 +1,6 @@
 ---
-layout: photos_stream
-title: Photos
+layout: photos_selects
+title: Photographs
 permalink: /photos/
-description: A collection of photos with location and date
+description: A small edit of my favourite photographs.
 ---

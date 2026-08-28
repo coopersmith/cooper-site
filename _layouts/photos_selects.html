@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<a href="{{ site.baseurl }}/" class="photo-back-button">
+  ←
+</a>
+
+{% include photo-view-toggle.html %}
+
+<div class="photos-selects">
+  {% assign selects = site.data.photos_selects %}
+  {% if selects and selects.size > 0 %}
+    <ol class="photo-selects-list">
+      {% for select in selects %}
+        <li class="photo-select">
+          <figure class="photo-select__figure">
+            <div class="photo-placeholder">
+              <img
+                data-src="{{ site.baseurl }}{{ select.image }}"
+                alt="{{ select.alt | escape }}"
+                class="photo-thumbnail"
+                loading="lazy"
+              >
+            </div>
+            {% if select.title or select.place or select.year %}
+              <figcaption class="photo-select__caption">
+                <span class="photo-select__where">
+                  {% if select.title %}<span class="photo-select__title">{{ select.title }}</span>{% endif %}
+                  {% if select.place %}<span class="photo-select__place">{{ select.place }}</span>{% endif %}
+                </span>
+                {% if select.year %}<span class="photo-select__year">{{ select.year }}</span>{% endif %}
+              </figcaption>
+            {% endif %}
+          </figure>
+        </li>
+      {% endfor %}
+    </ol>
+
+    <p class="photo-selects-foot">
+      <a href="{{ site.baseurl }}/photos/all/">Every frame, in order →</a>
+    </p>
+  {% else %}
+    <p class="photo-selects-empty">
+      No selects yet — the edit lives in <code>_data/photos_best.yml</code>.
+    </p>
+  {% endif %}
+</div>
+
+<script src="{{ site.baseurl }}/assets/js/photo-stream.js"></script>
