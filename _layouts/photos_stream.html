@@ -8,12 +8,17 @@ layout: default
 
 <div class="photos-stream">
   <div class="photos-grid">
-    {% assign sorted_photos = site.photos | sort: 'date' | reverse %}
+    {% assign diary_photos = site.images | where_exp: "img", "img.surfaces contains 'diary'" %}
+    {% assign sorted_photos = diary_photos | sort: 'date' | reverse %}
     {% for photo in sorted_photos %}
       <div class="photo-item"
          data-date="{% if photo.date %}{{ photo.date | date: "%Y-%m-%d" }}{% endif %}"
          data-location="{% if photo.location %}{{ photo.location }}{% endif %}">
-        <div class="photo-placeholder">
+        {%- comment -%}
+          aspect-ratio from the library record reserves the photo's true
+          height before it loads, so lazy-loading can't reflow the stream.
+        {%- endcomment -%}
+        <div class="photo-placeholder"{% if photo.width and photo.height %} style="aspect-ratio: {{ photo.width }} / {{ photo.height }}"{% endif %}>
           <img
             data-src="{{ site.baseurl }}{{ photo.image }}"
             alt="{{ photo.title }}"

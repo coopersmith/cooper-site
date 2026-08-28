@@ -12,8 +12,19 @@ layout: default
   </div>
 
   <nav class="photo-navigation">
-    {% assign sorted_photos = site.photos | sort: 'date' | reverse %}
-    {% if sorted_photos.size > 0 %}
+    {%- comment -%}
+      Prev/next walk the diary stream; a library image that isn't in the
+      diary just gets the index link (the loop below never matches it).
+    {%- endcomment -%}
+    {% assign diary_photos = site.images | where_exp: "img", "img.surfaces contains 'diary'" %}
+    {% assign sorted_photos = diary_photos | sort: 'date' | reverse %}
+    {% assign in_stream = false %}
+    {% for photo in sorted_photos %}
+      {% if photo.url == page.url %}
+        {% assign in_stream = true %}
+      {% endif %}
+    {% endfor %}
+    {% if in_stream %}
       {% for photo in sorted_photos %}
         {% if photo.url == page.url %}
           {% assign photo_index = forloop.index0 %}
