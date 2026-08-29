@@ -8,14 +8,35 @@ layout: default
 
 <div class="photos-stream">
   <div class="photos-grid">
-    {% assign sorted_photos = site.photos | sort: 'date' | reverse %}
+    {%- comment -%}
+      The stream renders whatever library surface the page asks for
+      (page.surface), defaulting to the visual diary — so a new gallery is
+      just a new page with a different surface value.
+    {%- endcomment -%}
+    {% assign surface = page.surface | default: "diary" %}
+    {% assign surface_photos = site.images | where_exp: "img", "img.surfaces contains surface" %}
+    {% assign sorted_photos = surface_photos | sort: 'date' | reverse %}
+    {% if sorted_photos.size == 0 %}
+      <p class="photos-empty">Nothing here yet — tag an image's record with <code>{{ surface }}</code> in its <code>surfaces</code> list.</p>
+    {% endif %}
     {% for photo in sorted_photos %}
       <div class="photo-item"
          data-date="{% if photo.date %}{{ photo.date | date: "%Y-%m-%d" }}{% endif %}"
          data-location="{% if photo.location %}{{ photo.location }}{% endif %}">
-        <div class="photo-placeholder">
+        {%- comment -%}
+          aspect-ratio from the library record reserves the photo's true
+          height before it loads, so lazy-loading can't reflow the stream.
+        {%- endcomment -%}
+        <div class="photo-placeholder"{% if photo.width and photo.height %} style="aspect-ratio: {{ photo.width }} / {{ photo.height }}"{% endif %}>
+          {%- comment -%}
+            Derivatives via Netlify Image CDN (passthrough to the original
+            outside Netlify); photo-stream.js promotes data-src/srcset/sizes
+            when the item nears the viewport.
+          {%- endcomment -%}
+          {% assign stream_srcset = photo.image | cdn_srcset: photo.width, 2400 %}
           <img
-            data-src="{{ site.baseurl }}{{ photo.image }}"
+            data-src="{{ site.baseurl }}{{ photo.image | cdn_image: 1280 }}"
+            {% if stream_srcset != "" %}data-srcset="{{ stream_srcset }}" data-sizes="(max-width: 1200px) 100vw, 1200px"{% endif %}
             alt="{{ photo.title }}"
             class="photo-thumbnail"
             loading="lazy"

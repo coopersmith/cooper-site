@@ -40,7 +40,7 @@
   <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
 
   {% if page.image %}
-  <meta property="og:image" content="{{ site.url }}{{ page.image }}">
+  <meta property="og:image" content="{{ site.url }}{{ page.image | cdn_image: 1200 }}">
   {% endif %}
 
   <title>

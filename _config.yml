@@ -21,6 +21,28 @@ font:
 # just watermarked.
 carto_api_key: cb1_2eat_1_d96fa610782c1dc1795400fb
 
+# Image library (_plugins/image_library.rb). Every image under a root gets a
+# metadata record in _images/; `surfaces` is the default routing stamped onto
+# NEW records from that root (editable per-image afterwards — the generator
+# never overwrites a hand-edited field). Add roots here as more of assets/
+# moves into the library.
+image_library:
+  roots:
+    - path: assets/photos
+      surfaces: [diary]
+    # Trip-writeup folders, adopted in place (files never moved, so the
+    # hardcoded paths in older notes keep working). No default surfaces —
+    # these appear where a note embeds them, or wherever they're tagged.
+    - path: assets/CDMX
+    - path: assets/Cuixmala
+    - path: assets/NewOrleans
+    - path: assets/SanDiego2024
+    - path: assets/como2023
+    - path: assets/lisbon
+    - path: assets/marthasvineyard
+    - path: assets/paris2022
+    - path: assets/southafrica2024
+
 include:             ['_pages']
 exclude:             ['_includes/notes_graph.json', '_dev']
 # You may need to change the base URL depending on your deploy configuration.
@@ -53,7 +75,10 @@ collections:
   notes:
     output: true
     permalink: /:slug
-  photos:
+  # The image library (_images/, maintained by _plugins/image_library.rb).
+  # Successor to the old `photos` collection — the permalink keeps the
+  # original /photos/<slug>/ URLs live.
+  images:
     output: true
     permalink: /photos/:slug
 
@@ -67,7 +92,7 @@ defaults:
     values:
       layout: "note"
   - scope:
-      path: "_photos/**/*.md"
+      path: "_images/**/*.md"
     values:
       layout: "photo"
   # Media notes (Books / Movies / Albums) use a richer frontmatter-driven

@@ -3,35 +3,67 @@
 Things worth doing, captured so they don't get lost. Not a commitment or a
 priority order — just a place to park ideas with enough context to pick up cold.
 
-## Photos
+## Image library
 
-### Serve resized / optimized images on `/photos/`
+The library itself (one `_images/` record per image, `surfaces` routing,
+build-time EXIF — see CLAUDE.md) shipped as phase 1. The remaining phases:
 
-The stream ships the full-resolution originals: **~91 MB across 69 photos**,
-with individual files up to **3.5 MB**. Even with lazy-loading, scrolling
-kicks off multi-megabyte downloads and full-res decodes, which is the main
-source of the page feeling sluggish.
+### ~~Phase 2: adopt the strays~~ (mostly done)
 
-Approach: `_plugins/photo_exif_generator.rb` already walks every image at build
-time, so it's the natural place to also emit a downsized web version (e.g.
-~1600px on the long edge, ~200–400 KB) — and optionally a tiny blur/LQIP
-placeholder. Point the stream markup at the resized version and keep the
-original as the click-through / source of truth. Expect roughly a 10× drop in
-transferred bytes.
+Done: the per-trip folders are library roots (adopted in place — files never
+moved, old hardcoded paths still work — so trip images have records now),
+`image_embeds.rb` resolves `![[img:<slug>]]` in notes/pages, and `/best-of/`
+renders the `best` surface (empty until records are tagged). Remaining:
 
-### Reserve correct image space to kill the layout shift
+- **Geocode the trip records.** 85 of the 98 trip images have GPS but their
+  records lack `location` — the sandbox this shipped from couldn't reach
+  Nominatim. Any `jekyll build` on a machine with network fills them
+  (fill-don't-clobber, one API call per image); commit the filled records,
+  or Netlify will re-geocode on every deploy (~85 rate-limited calls ≈ +90s
+  per build) without persisting.
+- ~~Convert the trip writeups to `![[img:…]]` embeds.~~ Done — on
+  `coops-site-publish` branch `library-image-embeds` (plus mirrored into
+  `_notes/` on the site branch so it's self-consistent at merge). Merge
+  the site branch first, then the vault branch, then pull in Obsidian
+  before the next edit to those notes so the vault app doesn't republish
+  the old text over the conversion.
+- **Concert attachments** (`_notes/**/attachments/*.jpeg`, source of the
+  harmless `_site/:slug.jpeg` build-conflict warning) — same vault-repo
+  consideration.
 
-The "weird load" — placeholders snapping to full height and shoving the page
-down as you scroll — happens because each photo sits in a box with
-`min-height: 200px` and an image that has no dimensions until it loads. When the
-real image decodes, the box jumps from 200px to the photo's true height (often
-800px+) and everything below reflows.
+### ~~Phase 3: derived sizes via Netlify Image CDN~~ (done)
 
-Approach: bake each photo's real aspect ratio into the markup from its EXIF
-width/height and set `aspect-ratio` on the `.photo-placeholder`, so every box
-reserves the correct height before its image loads. Cheap to do alongside the
-resized-images work (both live in `photo_exif_generator.rb`), but it stands on
-its own — it fixes the *jank* even if the images stay full-res.
+Done: the stream, single-photo pages, `![[img:…]]` embeds, and `og:image`
+all serve `/.netlify/images?url=…&w=…` derivatives (`image_cdn.rb` —
+responsive srcset ladders capped at each original's width, format
+negotiation and EXIF stripping by the CDN, passthrough to raw paths outside
+Netlify so local `jekyll serve` still works; `image_cdn: force: true` in
+config previews the URLs locally). Two caveats: the originals stay deployed
+as the CDN's source, so a guessed `/assets/...` URL still returns the
+EXIF-laden file — nothing links there anymore, but it isn't access control;
+and the old trip writeups' hardcoded `<img>` tags keep shipping originals
+until they're converted to embeds (see phase 2 remainder).
+
+### Phase 4 (maybe): Sveltia CMS admin
+
+A static `/admin/` (Sveltia, the maintained Decap successor) editing
+`_images/` records + uploads through git, for phone-friendly tagging. Pure
+veneer over the records — only worth it if hand-editing ever chafes.
+
+### Someday: originals out of git
+
+The library lives in git and only grows; ~100 MB is fine, several GB will
+slow clones and Netlify builds. Escape hatch: originals in object storage,
+records stay in git. Not worth solving until it hurts. (Related someday:
+the scrapbook/ephemera idea — an Airtable-ish database of scanned stuff —
+could just be another library root with a `scrapbook` surface.)
+
+### ~~Reserve correct image space to kill the layout shift~~
+
+Done with library phase 1: records carry orientation-corrected `width`/
+`height` and `photos_stream.html` sets `aspect-ratio` on each
+`.photo-placeholder`, so boxes reserve their true height before the image
+loads.
 
 ### Paginate or windowize the `/photos/` stream
 

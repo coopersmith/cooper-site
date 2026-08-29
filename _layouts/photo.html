@@ -8,12 +8,31 @@ layout: default
 
 <article class="photo-page">
   <div class="photo-container">
-    <img src="{{ site.baseurl }}{{ page.image }}" alt="{{ page.title }}" class="photo-image">
+    {%- comment -%}
+      Full-viewport display, served as CDN derivatives (passthrough to the
+      original outside Netlify).
+    {%- endcomment -%}
+    {% assign photo_srcset = page.image | cdn_srcset: page.width, 3200 %}
+    <img src="{{ site.baseurl }}{{ page.image | cdn_image: 1600 }}"
+         {% if photo_srcset != "" %}srcset="{{ photo_srcset }}" sizes="100vw"{% endif %}
+         alt="{{ page.title }}" class="photo-image"
+         {% if page.width and page.height %}width="{{ page.width }}" height="{{ page.height }}"{% endif %}>
   </div>
 
   <nav class="photo-navigation">
-    {% assign sorted_photos = site.photos | sort: 'date' | reverse %}
-    {% if sorted_photos.size > 0 %}
+    {%- comment -%}
+      Prev/next walk the diary stream; a library image that isn't in the
+      diary just gets the index link (the loop below never matches it).
+    {%- endcomment -%}
+    {% assign diary_photos = site.images | where_exp: "img", "img.surfaces contains 'diary'" %}
+    {% assign sorted_photos = diary_photos | sort: 'date' | reverse %}
+    {% assign in_stream = false %}
+    {% for photo in sorted_photos %}
+      {% if photo.url == page.url %}
+        {% assign in_stream = true %}
+      {% endif %}
+    {% endfor %}
+    {% if in_stream %}
       {% for photo in sorted_photos %}
         {% if photo.url == page.url %}
           {% assign photo_index = forloop.index0 %}
