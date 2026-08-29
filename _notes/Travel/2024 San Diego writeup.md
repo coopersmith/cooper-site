@@ -11,7 +11,7 @@ end: 2024-03-24
 loc:
   - "[[San Diego]]"
 ---
-<img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-L1010536.jpeg"/>
+![[img:20240229-l1010536]]
 
 In the spring of 2024, I attended a team offsite in San Diego. While the first few days were spent locked in a hotel conference room, Thursday was a free day for team activities. For my team, I arranged a private tour of the Salk Institute just north of San Diego.
 
@@ -19,7 +19,7 @@ Jonas Salk pioneered the polio vaccine. After that, he was a bit of scientific h
 
 Today, people come to the Salk Institute to work on some of the most challenging problems facing our time, including cancer, climate change, and more.
 
-<img src="{{ site.baseurl }}/assets/SanDiego2024/20240229-IMG_8661.jpeg"/>
+![[img:20240229-img-8661]]
 
 A few things that stuck out to me:
 
