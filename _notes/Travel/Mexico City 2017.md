@@ -12,7 +12,7 @@ end: 2017-04-03
 loc:
   - "[[Mexico City]]"
 ---
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 1.jpeg)
+![[img:cdmx-1]]
 
 
 Its easy to write this with a bit of hindsight, but in 2017 I was in a bit of a funk. With my 32nd birthday approaching and recently single, I didn't want to sit around NYC feeling sorry for myself. After chatting with someone at a party on Sunday night about their recent trip to Mexico City, I got inspired, went home, and spontaneously booked a solo flight for that Thursday morning to explore the city for myself. With only a few days notice, I didn't have time to overthink or overplan, other than securing a dinner reservation at Pujol. Instead, I just hopped on a plane and explored an incredible city. And as it turned out, my friend Prachi was doing something similar, so we met up for a day of exploration as well. 
@@ -22,60 +22,60 @@ Traveling solo means I could spend an extra amount of time on photography, linge
 
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 2.jpeg)
+![[img:cdmx-2]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 3.jpeg)
+![[img:cdmx-3]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 4.jpeg)
+![[img:cdmx-4]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 6.jpeg)
+![[img:cdmx-6]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 7.jpeg)
+![[img:cdmx-7]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 8.jpeg)
+![[img:cdmx-8]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 9.jpeg)
+![[img:cdmx-9]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 10.jpeg)
+![[img:cdmx-10]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 11.jpeg)
+![[img:cdmx-11]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 12.jpeg)
+![[img:cdmx-12]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 13.jpeg)
+![[img:cdmx-13]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 14.jpeg)
+![[img:cdmx-14]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 15.jpeg)
+![[img:cdmx-15]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 16.jpeg)
+![[img:cdmx-16]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 17.jpeg)
+![[img:cdmx-17]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 18.jpeg)
+![[img:cdmx-18]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 19.jpeg)
+![[img:cdmx-19]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 21.jpeg)
+![[img:cdmx-21]]
 
 
-![CMDX 1]({{ site.baseurl }}/assets/CDMX/CDMX - 22.jpeg)
+![[img:cdmx-22]]
 
 <small> (Cameras: Leica Q) </small>
