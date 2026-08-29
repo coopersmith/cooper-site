@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 96
+  date: '2026-08-29'
+  title: "Fixed photo clicks that led to a dead end"
+  category: fix
+  summary: >-
+    Clicking a trip photo used to send you to a separate page with no easy way
+    back to the story. Now photos just sit quietly in the post, with an optional
+    slideshow-style viewer available for later if it's ever needed.
+  url: https://github.com/coopersmith/cooper-site/pull/96
+
 - number: 95
   date: '2026-08-29'
   title: "Fix squished portrait photos for real this time"
