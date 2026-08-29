@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 95
+  date: '2026-08-29'
+  title: "Fix squished portrait photos for real this time"
+  category: fix
+  summary: >-
+    Some tall photos were rendering stretched out of shape because of how their
+    sizing was calculated. This properly fixes the underlying cause so portrait
+    images now display at the correct proportions without any layout jump while
+    they load.
+  url: https://github.com/coopersmith/cooper-site/pull/95
+
 - number: 94
   date: '2026-08-29'
   title: "Photos page loads faster and smoother"
