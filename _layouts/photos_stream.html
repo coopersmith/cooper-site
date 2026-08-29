@@ -30,16 +30,22 @@ layout: default
         <div class="photo-placeholder"{% if photo.width and photo.height %} style="aspect-ratio: {{ photo.width }} / {{ photo.height }}"{% endif %}>
           {%- comment -%}
             Derivatives via Netlify Image CDN (passthrough to the original
-            outside Netlify); photo-stream.js promotes data-src/srcset/sizes
-            when the item nears the viewport.
+            outside Netlify). Native lazy-loading with a real src/srcset:
+            the browser starts fetching well ahead of the viewport and
+            paints each image progressively as bytes arrive — no JS in the
+            loading path (the old data-src loader hid every photo until it
+            had fully downloaded, so scrolling showed empty boxes). The
+            first two images load eagerly at high priority for a fast
+            first paint.
           {%- endcomment -%}
           {% assign stream_srcset = photo.image | cdn_srcset: photo.width, 2400 %}
           <img
-            data-src="{{ site.baseurl }}{{ photo.image | cdn_image: 1280 }}"
-            {% if stream_srcset != "" %}data-srcset="{{ stream_srcset }}" data-sizes="(max-width: 1200px) 100vw, 1200px"{% endif %}
+            src="{{ site.baseurl }}{{ photo.image | cdn_image: 1280 }}"
+            {% if stream_srcset != "" %}srcset="{{ stream_srcset }}" sizes="(max-width: 1200px) 100vw, 1200px"{% endif %}
             alt="{{ photo.title }}"
             class="photo-thumbnail"
-            loading="lazy"
+            {% if forloop.index > 2 %}loading="lazy"{% else %}fetchpriority="high"{% endif %}
+            decoding="async"
           >
         </div>
       </div>

@@ -1,52 +1,9 @@
-// /photos/ stream behavior: progressive image loading plus the floating
-// date/location pill that tracks whichever photo is in view.
+// /photos/ stream behavior: the floating date/location pill that tracks
+// whichever photo is in view. (Image loading is native — real src/srcset
+// with loading="lazy" in the markup — since the CDN derivatives are small
+// enough that the old JS data-src loader only added latency and hid each
+// photo until fully downloaded.)
 document.addEventListener('DOMContentLoaded', function() {
-  // Progressive image loading: swap data-src in as photos approach the
-  // viewport, fading each one in once it has actually decoded.
-  const images = document.querySelectorAll('.photo-thumbnail[data-src]');
-
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        const src = img.getAttribute('data-src');
-        const srcset = img.getAttribute('data-srcset');
-        const sizes = img.getAttribute('data-sizes');
-
-        if (src) {
-          const newImg = new Image();
-          newImg.onload = function() {
-            if (srcset) {
-              img.sizes = sizes || '';
-              img.srcset = srcset;
-            }
-            img.src = src;
-            img.removeAttribute('data-src');
-            img.removeAttribute('data-srcset');
-            img.removeAttribute('data-sizes');
-            img.classList.add('loaded');
-          };
-          newImg.onerror = function() {
-            img.classList.add('loaded'); // Still show placeholder on error
-          };
-          // Preload with the same srcset/sizes so the browser fetches (and
-          // the load event fires for) the exact candidate it will render.
-          if (srcset) {
-            newImg.sizes = sizes || '';
-            newImg.srcset = srcset;
-          }
-          newImg.src = src;
-        }
-
-        observer.unobserve(img);
-      }
-    });
-  }, {
-    rootMargin: '300px' // Start loading a couple of screens ahead
-  });
-
-  images.forEach(img => imageObserver.observe(img));
-
   // Date pill
   const photos = document.querySelectorAll('.photo-item');
   const datePill = document.getElementById('photo-date-pill');
