@@ -1,0 +1,98 @@
+// Lightbox overlay for library image embeds (assets/js/library-lightbox.js,
+// enabled via image_embeds.click: lightbox in _config.yml). Dark in both
+// color schemes — it's a photo viewer.
+
+.library-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.93);
+
+  &.is-open {
+    display: flex;
+  }
+
+  figure {
+    margin: 0;
+    max-width: 92vw;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-width: 92vw;
+      max-height: 82vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin: 0;
+      border-radius: 4px;
+      box-shadow: none;
+    }
+
+    figcaption {
+      margin-top: 0.75em;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.85em;
+      text-align: center;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  button {
+    position: absolute;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 2rem;
+    line-height: 1;
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+    }
+  }
+
+  .library-lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.4rem;
+  }
+
+  .library-lightbox-prev {
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .library-lightbox-next {
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .library-lightbox-counter {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8em;
+  }
+}
+
+// Lock page scroll while the lightbox is open.
+html.library-lightbox-open,
+html.library-lightbox-open body {
+  overflow: hidden;
+}

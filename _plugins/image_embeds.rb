@@ -52,6 +52,20 @@ module Jekyll
 
     private
 
+    # What clicking an embedded figure does — `image_embeds.click` in
+    # _config.yml: 'none' (not clickable), 'lightbox' (overlay scoped to the
+    # post's images, assets/js/library-lightbox.js), 'page' (the image's
+    # /photos/<slug>/ page).
+    CLICK_MODES = %w[none lightbox page].freeze
+
+    def click_mode(site)
+      mode = (site.config.dig('image_embeds', 'click') || 'none').to_s
+      return mode if CLICK_MODES.include?(mode)
+
+      Jekyll.logger.warn 'ImageEmbeds:', "Unknown image_embeds.click '#{mode}' — using 'none'"
+      'none'
+    end
+
     def render_figure(site, record, caption_override)
       data = record.data
       baseurl = site.config['baseurl'].to_s
@@ -68,11 +82,25 @@ module Jekyll
 
       size_attrs = width && height ? %( width="#{width}" height="#{height}") : ''
       caption_html = caption.to_s.empty? ? '' : "\n  <figcaption>#{CGI.escapeHTML(caption.to_s)}</figcaption>"
+      img = %(<img src="#{CGI.escapeHTML(src)}"#{srcset_attrs} alt="#{CGI.escapeHTML(alt.to_s)}" loading="lazy"#{size_attrs}>)
+
+      body = case click_mode(site)
+             when 'page'
+               %(<a href="#{baseurl}#{record.url}" class="internal-link">#{img}</a>)
+             when 'lightbox'
+               # href is a large derivative: the lightbox displays it, and
+               # no-JS visitors get the image directly. Capped at the
+               # original's width so the CDN never upscales.
+               large = "#{baseurl}#{ImageCDN.url(site, data['image'], [2048, width].compact.min)}"
+               %(<a href="#{CGI.escapeHTML(large)}" class="internal-link" data-lightbox>#{img}</a>)
+             else
+               img
+             end
 
       <<~HTML
 
         <figure class="library-image">
-          <a href="#{baseurl}#{record.url}" class="internal-link"><img src="#{CGI.escapeHTML(src)}"#{srcset_attrs} alt="#{CGI.escapeHTML(alt.to_s)}" loading="lazy"#{size_attrs}></a>#{caption_html}
+          #{body}#{caption_html}
         </figure>
 
       HTML
