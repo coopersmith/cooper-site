@@ -7,6 +7,16 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 93
+  date: '2026-08-29'
+  title: "Fix stretched portrait photos in library embeds"
+  category: fix
+  summary: >-
+    Portrait photos in library embeds were getting squished out of shape.
+    Adjusted the styling so images scale properly and keep their natural
+    proportions, whether they're tall or wide.
+  url: https://github.com/coopersmith/cooper-site/pull/93
+
 - number: 92
   date: '2026-08-29'
   title: "Photos get a real backstage system"
