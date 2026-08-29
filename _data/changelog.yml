@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 94
+  date: '2026-08-29'
+  title: "Photos page loads faster and smoother"
+  category: fix
+  summary: >-
+    The photo stream was showing empty boxes while scrolling because a custom
+    loader made images wait to fully download before appearing. It now uses the
+    browser's native image loading, so photos paint in progressively and the
+    first ones show up almost instantly.
+  url: https://github.com/coopersmith/cooper-site/pull/94
+
 - number: 93
   date: '2026-08-29'
   title: "Fix stretched portrait photos in library embeds"
