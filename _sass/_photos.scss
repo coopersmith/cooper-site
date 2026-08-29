@@ -80,9 +80,9 @@ body.photo-page-body {
   background: var(--color-bg-secondary);
 }
 
-// Images start transparent and fade in once photo-stream.js swaps the real
-// source in (progressive loading); global img styles supply the border
-// radius and shadow.
+// Natively lazy-loaded; the placeholder's aspect-ratio box reserves the
+// space and the image paints progressively into it. Global img styles
+// supply the border radius and shadow.
 .photo-thumbnail {
   display: block;
   width: 100%;
@@ -90,12 +90,6 @@ body.photo-page-body {
   max-height: none;
   margin: 0;
   object-fit: contain;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  &.loaded {
-    opacity: 1;
-  }
 }
 
 // Floating date/location pill; photo-stream.js updates it for the photo
