@@ -9,6 +9,7 @@ $font-name: "{{ site.font.name }}";
 @import "../_sass/code";
 @import "../_sass/style";
 @import "../_sass/photos";
+@import "../_sass/lightbox";
 
 // Page-specific partials (one per page, loaded after the globals so
 // same-specificity overrides keep working the way the old inline
