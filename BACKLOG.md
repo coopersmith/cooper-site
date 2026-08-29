@@ -21,11 +21,12 @@ renders the `best` surface (empty until records are tagged). Remaining:
   (fill-don't-clobber, one API call per image); commit the filled records,
   or Netlify will re-geocode on every deploy (~85 rate-limited calls ≈ +90s
   per build) without persisting.
-- **Convert the trip writeups to `![[img:…]]` embeds.** The notes are a
-  build-time mirror of `coops-site-publish`, so the conversion happens in
-  the vault, not here. Tradeoff to accept first: `![[img:…]]` is dead
-  markup *inside Obsidian* (the current hardcoded paths are equally dead
-  there, so nothing is lost — but nothing is gained vault-side either).
+- ~~Convert the trip writeups to `![[img:…]]` embeds.~~ Done — on
+  `coops-site-publish` branch `library-image-embeds` (plus mirrored into
+  `_notes/` on the site branch so it's self-consistent at merge). Merge
+  the site branch first, then the vault branch, then pull in Obsidian
+  before the next edit to those notes so the vault app doesn't republish
+  the old text over the conversion.
 - **Concert attachments** (`_notes/**/attachments/*.jpeg`, source of the
   harmless `_site/:slug.jpeg` build-conflict warning) — same vault-repo
   consideration.
