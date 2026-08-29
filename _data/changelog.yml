@@ -7,6 +7,17 @@
 # Fields: number, date (YYYY-MM-DD), title, category, summary, url
 # Categories: feature, fix, design, refactor, content, chore, polish
 ---
+- number: 92
+  date: '2026-08-29'
+  title: "Photos get a real backstage system"
+  category: feature
+  summary: >-
+    All the site's images now live in one organized library with details like
+    date, place, and camera filled in automatically, while letting hand edits
+    stick. This fixes a layout glitch when photos load and makes it easy to drop
+    pictures into notes and pages with a simple embed.
+  url: https://github.com/coopersmith/cooper-site/pull/92
+
 - number: 91
   date: '2026-08-27'
   title: "Fixed watermarked map tiles across the site"
