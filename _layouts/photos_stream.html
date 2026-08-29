@@ -28,8 +28,15 @@ layout: default
           height before it loads, so lazy-loading can't reflow the stream.
         {%- endcomment -%}
         <div class="photo-placeholder"{% if photo.width and photo.height %} style="aspect-ratio: {{ photo.width }} / {{ photo.height }}"{% endif %}>
+          {%- comment -%}
+            Derivatives via Netlify Image CDN (passthrough to the original
+            outside Netlify); photo-stream.js promotes data-src/srcset/sizes
+            when the item nears the viewport.
+          {%- endcomment -%}
+          {% assign stream_srcset = photo.image | cdn_srcset: photo.width, 2400 %}
           <img
-            data-src="{{ site.baseurl }}{{ photo.image }}"
+            data-src="{{ site.baseurl }}{{ photo.image | cdn_image: 1280 }}"
+            {% if stream_srcset != "" %}data-srcset="{{ stream_srcset }}" data-sizes="(max-width: 1200px) 100vw, 1200px"{% endif %}
             alt="{{ photo.title }}"
             class="photo-thumbnail"
             loading="lazy"

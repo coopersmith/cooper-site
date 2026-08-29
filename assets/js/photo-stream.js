@@ -10,17 +10,31 @@ document.addEventListener('DOMContentLoaded', function() {
       if (entry.isIntersecting) {
         const img = entry.target;
         const src = img.getAttribute('data-src');
+        const srcset = img.getAttribute('data-srcset');
+        const sizes = img.getAttribute('data-sizes');
 
         if (src) {
           const newImg = new Image();
           newImg.onload = function() {
+            if (srcset) {
+              img.sizes = sizes || '';
+              img.srcset = srcset;
+            }
             img.src = src;
             img.removeAttribute('data-src');
+            img.removeAttribute('data-srcset');
+            img.removeAttribute('data-sizes');
             img.classList.add('loaded');
           };
           newImg.onerror = function() {
             img.classList.add('loaded'); // Still show placeholder on error
           };
+          // Preload with the same srcset/sizes so the browser fetches (and
+          // the load event fires for) the exact candidate it will render.
+          if (srcset) {
+            newImg.sizes = sizes || '';
+            newImg.srcset = srcset;
+          }
           newImg.src = src;
         }
 

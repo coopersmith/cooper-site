@@ -55,11 +55,16 @@ module Jekyll
     def render_figure(site, record, caption_override)
       data = record.data
       baseurl = site.config['baseurl'].to_s
-      src = "#{baseurl}#{data['image']}"
       alt = data['alt'] || data['title'] || ''
       caption = caption_override.to_s.empty? ? data['caption'] : caption_override
       width = data['width']
       height = data['height']
+
+      # CDN derivatives sized for the 720px note column (passthrough to the
+      # original outside Netlify — see image_cdn.rb).
+      src = "#{baseurl}#{ImageCDN.url(site, data['image'], 960)}"
+      srcset = ImageCDN.srcset(site, data['image'], width, 1440)
+      srcset_attrs = srcset.empty? ? '' : %( srcset="#{CGI.escapeHTML(srcset)}" sizes="(max-width: 720px) 100vw, 720px")
 
       size_attrs = width && height ? %( width="#{width}" height="#{height}") : ''
       caption_html = caption.to_s.empty? ? '' : "\n  <figcaption>#{CGI.escapeHTML(caption.to_s)}</figcaption>"
@@ -67,7 +72,7 @@ module Jekyll
       <<~HTML
 
         <figure class="library-image">
-          <a href="#{baseurl}#{record.url}" class="internal-link"><img src="#{CGI.escapeHTML(src)}" alt="#{CGI.escapeHTML(alt.to_s)}" loading="lazy"#{size_attrs}></a>#{caption_html}
+          <a href="#{baseurl}#{record.url}" class="internal-link"><img src="#{CGI.escapeHTML(src)}"#{srcset_attrs} alt="#{CGI.escapeHTML(alt.to_s)}" loading="lazy"#{size_attrs}></a>#{caption_html}
         </figure>
 
       HTML

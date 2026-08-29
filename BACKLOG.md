@@ -30,14 +30,18 @@ renders the `best` surface (empty until records are tagged). Remaining:
   harmless `_site/:slug.jpeg` build-conflict warning) — same vault-repo
   consideration.
 
-### Phase 3: derived sizes via Netlify Image CDN
+### ~~Phase 3: derived sizes via Netlify Image CDN~~ (done)
 
-Serve `/photos/` (and later embeds) through `/.netlify/images?url=…&w=1600`
-instead of the full-res originals — **~91 MB across 69 photos** today, files
-up to 3.5 MB. On-the-fly resize/format negotiation, no build cost, no derived
-files in git; transformed variants also drop EXIF (GPS stays out of public
-files while the records keep the data). The single-photo page can keep the
-original as the click-through source of truth.
+Done: the stream, single-photo pages, `![[img:…]]` embeds, and `og:image`
+all serve `/.netlify/images?url=…&w=…` derivatives (`image_cdn.rb` —
+responsive srcset ladders capped at each original's width, format
+negotiation and EXIF stripping by the CDN, passthrough to raw paths outside
+Netlify so local `jekyll serve` still works; `image_cdn: force: true` in
+config previews the URLs locally). Two caveats: the originals stay deployed
+as the CDN's source, so a guessed `/assets/...` URL still returns the
+EXIF-laden file — nothing links there anymore, but it isn't access control;
+and the old trip writeups' hardcoded `<img>` tags keep shipping originals
+until they're converted to embeds (see phase 2 remainder).
 
 ### Phase 4 (maybe): Sveltia CMS admin
 

@@ -8,7 +8,15 @@ layout: default
 
 <article class="photo-page">
   <div class="photo-container">
-    <img src="{{ site.baseurl }}{{ page.image }}" alt="{{ page.title }}" class="photo-image">
+    {%- comment -%}
+      Full-viewport display, served as CDN derivatives (passthrough to the
+      original outside Netlify).
+    {%- endcomment -%}
+    {% assign photo_srcset = page.image | cdn_srcset: page.width, 3200 %}
+    <img src="{{ site.baseurl }}{{ page.image | cdn_image: 1600 }}"
+         {% if photo_srcset != "" %}srcset="{{ photo_srcset }}" sizes="100vw"{% endif %}
+         alt="{{ page.title }}" class="photo-image"
+         {% if page.width and page.height %}width="{{ page.width }}" height="{{ page.height }}"{% endif %}>
   </div>
 
   <nav class="photo-navigation">
