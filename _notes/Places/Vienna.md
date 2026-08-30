@@ -15,9 +15,16 @@ tags:
   - places
   - cities
 ---
+
 ## Trips
 
 ![[Trips.base#Related trips]]
+
+## Sources
+
+*Everything I've clipped, saved, or been sent about this place.*
+
+![[Inspiration.base#Place]]
 
 ## Map
 
@@ -26,3 +33,11 @@ tags:
 ## Places
 
 ![[Places.base#Location]]
+
+## Stay
+
+## Eat + Drink
+
+## Do
+
+## Notes

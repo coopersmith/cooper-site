@@ -21,7 +21,31 @@ foursquare:
   - https://app.foursquare.com/v/4bab7c30f964a5200bad3ae3
 ---
 
+## Trips
+
+![[Trips.base#Related trips]]
+
+## Sources
+
+*Everything I've clipped, saved, or been sent about this place.*
+
+![[Inspiration.base#Place]]
+
+## Map
+
+![[Places.base#LocationMap]]
+
+## Places
+
+![[Places.base#Location]]
+
+## Stay
+
+## Eat + Drink
+
+## Do
+
+## Notes
 
 ## Check-ins
-
 ![[Checkins.base#Venue]]

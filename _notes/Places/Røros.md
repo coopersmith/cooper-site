@@ -19,9 +19,16 @@ tags:
 foursquare:
   - https://app.foursquare.com/v/4ba4ac47f964a5205aab38e3
 ---
+
 ## Trips
 
 ![[Trips.base#Related trips]]
+
+## Sources
+
+*Everything I've clipped, saved, or been sent about this place.*
+
+![[Inspiration.base#Place]]
 
 ## Map
 
@@ -31,6 +38,13 @@ foursquare:
 
 ![[Places.base#Location]]
 
-## Check-ins
+## Stay
 
+## Eat + Drink
+
+## Do
+
+## Notes
+
+## Check-ins
 ![[Checkins.base#Venue]]
