@@ -1,6 +1,6 @@
 ---
-visit_count: 58
-last_visit: 2026-06-23
+visit_count: 59
+last_visit: 2026-07-26
 first_visit: 2012-05-26
 categories:
   - "[[Places]]"
@@ -14,7 +14,7 @@ location:
   - "-73.9962886"
 rating: 7
 created: 2012-05-26
-last: 2026-06-23
+last: 2026-07-26
 tags:
   - places
   - bars
