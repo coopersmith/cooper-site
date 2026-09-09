@@ -2,15 +2,15 @@
 categories:
   - "[[Shows]]"
 show:
-  - "[[Lioness]]"
-season: 3
+  - "[[The Pitt]]"
+season: 1
 genre: []
 cast: []
 rating:
-cover: https://image.tmdb.org/t/p/w500/aNeXjZkHrnG5XdoSsnqKTH2SK72.jpg
-year: 2026
-aired: 2026-08-02 to 2026-09-20
-last: 2026-09-07
+cover: "https://image.tmdb.org/t/p/w500/nBpyv3hovY8ObUzfcGhUDAXW7QZ.jpg"
+year: 2025
+aired: "2025-01-09 to 2025-04-10"
+last: 2026-09-09
 shelf: watching
 tags:
   - shows
