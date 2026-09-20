@@ -5,12 +5,12 @@ genre:
   - "[[Live Sports]]"
 creator: []
 cast: []
-rating:
-cover: https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Usopen-horizontal-logo.svg/330px-Usopen-horizontal-logo.svg.png
+rating: 6
+cover: https://pbs.twimg.com/media/HIXMpkfXAAEEq7H.jpg
 year: 2026
 aired: 2026-08-30 to 2026-09-13
-last: 2026-09-06
-shelf: watching
+last: 2026-09-13
+shelf: watched
 tags:
   - shows
   - MediaDiet/2026
