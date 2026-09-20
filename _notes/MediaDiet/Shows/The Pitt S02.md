@@ -2,15 +2,15 @@
 categories:
   - "[[Shows]]"
 show:
-  - "[[Ted Lasso]]"
-season: 4
+  - "[[The Pitt]]"
+season: 2
 genre: []
 cast: []
 rating:
-cover: "https://image.tmdb.org/t/p/w500/qtKZVeABuHogDZU70sft3R1i8gW.jpg"
+cover: "https://image.tmdb.org/t/p/w500/kvFSpESyBZMjaeOJDx7RS3P1jey.jpg"
 year: 2026
-aired: "2026-08-04 to 2026-10-06"
-last: 2026-09-20
+aired: "2026-01-08 to 2026-04-16"
+last: 2026-09-19
 shelf: watching
 tags:
   - shows
