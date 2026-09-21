@@ -6,12 +6,12 @@ show:
 season: 3
 genre: []
 cast: []
-rating:
+rating: 5
 cover: https://image.tmdb.org/t/p/w500/aNeXjZkHrnG5XdoSsnqKTH2SK72.jpg
 year: 2026
 aired: 2026-08-02 to 2026-09-20
-last: 2026-09-13
-shelf: watching
+last: 2026-09-21
+shelf: watched
 tags:
   - shows
   - season
