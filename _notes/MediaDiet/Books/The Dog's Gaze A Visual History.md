@@ -28,4 +28,7 @@ end:
 description:
 shelf:
   - queue
+Queue order: 11
+format:
+  - Physical
 ---

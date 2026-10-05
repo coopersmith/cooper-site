@@ -12,6 +12,7 @@ year: 2025
 aired: "2025-10-23"
 last: 2025-10-28
 shelf: watched
+with: withSteph
 tags:
   - shows
   - season

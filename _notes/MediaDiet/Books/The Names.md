@@ -27,6 +27,7 @@ start: 2026-01-17
 end:
 shelf:
   - reading
+Queue order: 14
 highlights: "[[The Names]]"
 ---
 ## Notes

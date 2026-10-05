@@ -21,6 +21,9 @@ start:
 end:
 shelf:
   - queue
+Queue order: 9
+format:
+  - Physical
 highlights: ""
 ---
 ## Notes

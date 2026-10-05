@@ -13,6 +13,7 @@ year: 2025
 aired: "2025-09-18 to 2025-09-18"
 last: 2025-09-27
 shelf: watched
+with: withSteph
 tags:
   - shows
   - MediaDiet/2025

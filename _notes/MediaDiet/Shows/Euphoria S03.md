@@ -11,7 +11,7 @@ cover: https://image.tmdb.org/t/p/w500/aJrG7OkoTMPWG5c8opz8a93AZPY.jpg
 year: 2026
 aired: "2026-04-12 to 2026-05-31"
 last: 2026-04-13
-shelf: watching
+shelf: watched
 tags:
   - shows
   - season

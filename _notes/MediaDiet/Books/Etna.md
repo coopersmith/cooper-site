@@ -21,6 +21,9 @@ start: 2026-08-06
 end:
 shelf:
   - reading
+Queue order: 1
+format:
+  - Kindle
 highlights: ""
 ---
 ## Notes

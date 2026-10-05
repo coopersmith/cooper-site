@@ -27,6 +27,9 @@ start:
 end:
 shelf:
   - queue
+Queue order: 10
+format:
+  - Physical
 highlights: "[[It Was All a Dream]]"
 ---
 ## Notes

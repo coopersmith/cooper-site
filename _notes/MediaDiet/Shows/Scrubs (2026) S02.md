@@ -2,15 +2,15 @@
 categories:
   - "[[Shows]]"
 show:
-  - "[[Ted Lasso]]"
-season: 4
+  - "[[Scrubs (2026)]]"
+season: 2
 genre: []
 cast: []
 rating:
-cover: "https://image.tmdb.org/t/p/w500/qtKZVeABuHogDZU70sft3R1i8gW.jpg"
+cover: "https://image.tmdb.org/t/p/w500/l1EzNg0WMaoAu7oPa2oMXLizc4W.jpg"
 year: 2026
-aired: "2026-08-04 to 2026-10-06"
-last: 2026-10-02
+aired: "2026-09-30 to 2026-11-25"
+last: 2026-10-03
 shelf: watching
 tags:
   - shows

@@ -12,6 +12,7 @@ year: 2016
 aired: "2016-02-15 to 2016-04-18"
 last: 2025-10-05
 shelf: watched
+with: soloWatch
 tags:
   - shows
   - season

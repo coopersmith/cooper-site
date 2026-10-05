@@ -26,5 +26,10 @@ tags:
 start: 2026-07-25
 end:
 description:
+shelf:
+  - reading
+Queue order: 6
+format:
+  - Physical
 via: "[[The Case for a Maintenance Mindset]]"
 ---

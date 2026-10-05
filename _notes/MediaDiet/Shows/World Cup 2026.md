@@ -10,7 +10,7 @@ cover: https://upload.wikimedia.org/wikipedia/en/thumb/1/17/2026_FIFA_World_Cup_
 year: 2026
 aired: 2026-06-11 to 2026-07-19
 last: 2026-07-19
-shelf: watching
+shelf: watched
 tags:
   - shows
   - MediaDiet/2026

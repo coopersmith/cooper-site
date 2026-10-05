@@ -11,12 +11,13 @@ cast:
   - "[[Meghann Fahy]]"
   - "[[Milly Alcock]]"
   - "[[Kevin Bacon]]"
-rating:
+rating: 3
 cover: "https://image.tmdb.org/t/p/w500/mezbwX9gFWTXl0XiicS5ZMcdXVx.jpg"
 year: 2025
 aired: "2025-05-22"
 last: 2025-06-01
 shelf: watched
+with: withSteph
 tags:
   - shows
   - MediaDiet/2025

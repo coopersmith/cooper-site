@@ -26,7 +26,7 @@ tags:
 start: 2025-04-23
 end:
 shelf:
-  - reading
+  - dnf
 highlights: "[[The Sheltering Sky]]"
 ---
 ## Notes

@@ -26,6 +26,7 @@ start: 2024-09-16
 end:
 shelf:
   - reading
+Queue order: 12
 highlights: "[[Filterworld]]"
 ---
 ## Notes

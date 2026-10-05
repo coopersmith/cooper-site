@@ -26,6 +26,7 @@ start:
 end:
 shelf:
   - reading
+Queue order: 13
 highlights: "[[The Creative Act]]"
 ---
 ## Notes

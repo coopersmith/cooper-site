@@ -28,6 +28,9 @@ start: 2026-04-08
 end:
 shelf:
   - reading
+Queue order: 4
+format:
+  - Physical
 highlights:
 ---
 ## Notes
