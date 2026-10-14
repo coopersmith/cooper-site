@@ -7,7 +7,6 @@ tags:
 title: White Homestead
 ---
 
-> [!NOTE]
 > This is a work in progress attempt to construct the history of our Rhode Island house. Starting with a plaque on the side of the house that read "White Homestead, 1791" I have been slowly piecing together the history of the house and its inhabitants through various records and recorded histories. I'm currently leaning heavily on AI, including the complete narrative below. Its my hope that as I get further in this project, I'm able to fill in more details and ultimately write out the narrative itself.
 
 The **White Homestead** is an eighteenth-century, Federal-period farmhouse at 4398 Main Road in Tiverton, Rhode Island. A dwelling is documented on the site's 105-acre parent parcel by November 1791, when the heirs of Godfrey Cook sold the farm — "a Dwelling House and the Other Buildings thereon" — to Christopher White of Little Compton.[^deed1791] The house's exact build date and builder are undocumented: it was raised at some point during the Cook family's eighteenth-century tenure, most plausibly between about 1720 and 1790, and the "ca. 1790" date given by later architectural surveys is a stylistic estimate rather than a recorded year.[^plaque2016][^builddate]
